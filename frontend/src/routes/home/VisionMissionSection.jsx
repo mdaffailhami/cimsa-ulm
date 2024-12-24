@@ -3,12 +3,7 @@ import { css } from '@emotion/react';
 
 export default function VisionMissionSection() {
   return (
-    <Container
-      className='d-flex flex-wrap justify-content-center'
-      css={css`
-        margin-top: 36px;
-      `}
-    >
+    <Container className='d-flex flex-wrap justify-content-center'>
       <Row xs={1} sm={2}>
         <Col className='d-flex justify-content-center'>
           <ImageCard image='https://picsum.photos/200/300' />

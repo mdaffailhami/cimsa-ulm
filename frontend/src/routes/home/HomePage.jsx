@@ -1,12 +1,18 @@
 import Banner from './Banner';
+import NumberOfThingsSection from './NumberOfThingsSection';
 import VisionMissionSection from './VisionMissionSection';
 
 export default function HomePage() {
   return (
     <>
       <Banner />
+      <br />
       <VisionMissionSection />
-      <h1>Home</h1>
+      <br />
+      <hr />
+      <NumberOfThingsSection />
+      <hr />
+      <br />
     </>
   );
 }

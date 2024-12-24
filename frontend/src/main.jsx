@@ -16,14 +16,17 @@ import Logo from './assets/Logo';
 createRoot(document.getElementById('root')).render(<App />);
 
 function App() {
-  // Initialize AOS
-  Aos.init();
+  // Set web title
+  document.title = 'CIMSA ULM';
 
   // Change the favicon
   document.head.insertAdjacentHTML(
     'beforeend',
     `<link rel="icon" href="${Logo}">`
   );
+
+  // Initialize AOS
+  Aos.init();
 
   return (
     <StrictMode>
