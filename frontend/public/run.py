@@ -1,3 +1,12 @@
+"""
+This script sets up a simple HTTP server using Python's built-in http.server module.
+It defines a custom request handler, CustomHandler, which overrides the default error handling to serve
+a custom index.html page when a 404 error occurs. The server is configured to run on host '0.0.0.0' and port 8000
+by default. The server serves files from the directory where the script is located.
+To start the server, execute this script, and it will serve files indefinitely until stopped.
+"""
+
+import os
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 
@@ -16,6 +25,10 @@ class CustomHandler(SimpleHTTPRequestHandler):
 
 
 def run(server_class=HTTPServer, handler_class=CustomHandler, host='0.0.0.0', port=8000):
+    # Set the working directory to the directory of this script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_dir)
+
     server_address = (host, port)
     httpd = server_class(server_address, handler_class)
     print(f"Serving on http://{host}:{port}")
