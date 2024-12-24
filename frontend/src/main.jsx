@@ -22,7 +22,7 @@ function App() {
   // Change the favicon
   document.head.insertAdjacentHTML(
     'beforeend',
-    `<link rel="icon" type="image/svg+xml" href="${Logo}">`
+    `<link rel="icon" href="${Logo}">`
   );
 
   return (

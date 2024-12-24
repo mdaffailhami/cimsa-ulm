@@ -35,3 +35,7 @@ img {
   height: auto;
 }
 /* /CSS Reset */
+
+::selection {
+  background-color: red;
+}
