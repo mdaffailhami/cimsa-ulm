@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import './index.css';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import NotFoundPage from './routes/NotFoundPage.jsx';
@@ -8,7 +9,7 @@ import AboutUsPage from './routes/about-us/AboutUsPage.jsx';
 import HomePage from './routes/home/HomePage.jsx';
 import Footer from './routes/Footer.jsx';
 import Navbar from './routes/Navbar.jsx';
-import Logo from './assets/react.svg';
+import Logo from './assets/logo.png';
 
 createRoot(document.getElementById('root')).render(<App />);
 

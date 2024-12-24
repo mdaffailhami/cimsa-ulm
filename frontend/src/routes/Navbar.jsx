@@ -1,6 +1,6 @@
 import Container from 'react-bootstrap/Container';
 import { Nav, Navbar as BootstrapNavbar, NavDropdown } from 'react-bootstrap';
-import Logo from '../assets/react.svg';
+import Logo from '../assets/logo.png';
 import { jsx, css, Global } from '@emotion/react';
 
 export default function Navbar() {
@@ -23,7 +23,7 @@ export default function Navbar() {
             <img
               src={Logo}
               alt='Logo'
-              style={{ width: '30px', height: '30px' }}
+              style={{ width: 'auto', height: '40px' }}
             />
           </BootstrapNavbar.Brand>
           <BootstrapNavbar.Toggle aria-controls='basic-navbar-nav' />
