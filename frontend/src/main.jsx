@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import './index.css';
 import Aos from 'aos';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -12,6 +11,7 @@ import HomePage from './routes/home/HomePage.jsx';
 import Footer from './routes/Footer.jsx';
 import Navbar from './routes/Navbar.jsx';
 import Logo from './assets/Logo';
+import { Global, css } from '@emotion/react';
 
 createRoot(document.getElementById('root')).render(<App />);
 
@@ -30,6 +30,7 @@ function App() {
 
   return (
     <StrictMode>
+      <GlobalStyle />
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -40,5 +41,61 @@ function App() {
         <Footer />
       </BrowserRouter>
     </StrictMode>
+  );
+}
+
+function GlobalStyle() {
+  return (
+    <Global
+      styles={css`
+        /* CSS Reset */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        html,
+        body {
+          height: 100%;
+          font-size: 100%;
+          line-height: 1.5;
+        }
+
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #fff;
+          color: #000;
+        }
+
+        a {
+          text-decoration: none;
+          color: inherit;
+        }
+
+        ul,
+        ol {
+          list-style: none;
+        }
+
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+        /* /CSS Reset */
+
+        ::selection {
+          background-color: red;
+        }
+
+        #root {
+          /* Padding for fixed top navbar */
+          padding-top: 74px;
+
+          /* Fix right overflow */
+          overflow: hidden;
+        }
+      `}
+    />
   );
 }
