@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import { Nav, Navbar as BootstrapNavbar, NavDropdown } from 'react-bootstrap';
 import Logo from '../assets/Logo';
-import { jsx, css, Global } from '@emotion/react';
+import { css, Global } from '@emotion/react';
 
 export default function Navbar() {
   return (
@@ -34,8 +34,8 @@ export default function Navbar() {
                 active={window.location.pathname.includes('/about')}
               >
                 <NavDropdown.Item
-                  href='/about-cimsa'
-                  active={window.location.pathname == '/about-cimsa'}
+                  href='/about-us'
+                  active={window.location.pathname == '/about-us'}
                 >
                   About CIMSA
                 </NavDropdown.Item>

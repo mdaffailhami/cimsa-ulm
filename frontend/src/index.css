@@ -10,8 +10,6 @@ body {
   height: 100%;
   font-size: 100%;
   line-height: 1.5;
-  /* Padding for fixed top navbar */
-  padding-top: 36px;
 }
 
 body {
@@ -38,4 +36,12 @@ img {
 
 ::selection {
   background-color: red;
+}
+
+#root {
+  /* Padding for fixed top navbar */
+  padding-top: 74px;
+
+  /* Fix right overflow */
+  overflow: hidden;
 }
