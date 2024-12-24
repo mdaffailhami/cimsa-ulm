@@ -1,5 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import Logo from '../assets/logo.png';
+import Logo from '../assets/Logo';
 import { Global, css } from '@emotion/react';
 
 function SocmedLink({ title, iconClass, url }) {

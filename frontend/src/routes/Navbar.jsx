@@ -1,6 +1,6 @@
 import Container from 'react-bootstrap/Container';
 import { Nav, Navbar as BootstrapNavbar, NavDropdown } from 'react-bootstrap';
-import Logo from '../assets/logo.png';
+import Logo from '../assets/Logo';
 import { jsx, css, Global } from '@emotion/react';
 
 export default function Navbar() {

@@ -1,7 +1,10 @@
+import Banner from './Banner';
+
 export default function HomePage() {
-    return (
-        <div>
-            <h1>Home</h1>
-        </div>
-    );
+  return (
+    <>
+      <Banner />
+      <h1>Home</h1>
+    </>
+  );
 }
