@@ -34,7 +34,7 @@ export default function QuoteSection() {
                     height: 360px;
                   }
                 `}
-                data-aos='flip-left'
+                data-aos='flip-right'
                 data-aos-duration='1200'
                 data-aos-once='true'
               />
