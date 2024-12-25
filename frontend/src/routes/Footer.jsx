@@ -37,20 +37,25 @@ export default function Footer() {
       <footer id='web-footer'>
         <Container>
           <Row
-            data-aos='fade-right'
+            data-aos='fade-left'
             data-aos-duration='1200'
             data-aos-once='true'
           >
             <Col md={5}>
-              <img
-                src={Logo}
-                alt='Logo'
-                style={{
-                  // width: '40px',
-                  height: '50px',
-                  marginBottom: '10px',
-                }}
-              />
+              <a href='/'>
+                <img
+                  src={Logo}
+                  alt='Logo'
+                  style={{
+                    // width: '40px',
+                    height: '50px',
+                    marginBottom: '10px',
+                  }}
+                  data-aos='zoom-in-right'
+                  data-aos-once='true'
+                  data-aos-duration='1200'
+                />
+              </a>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
                 nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed

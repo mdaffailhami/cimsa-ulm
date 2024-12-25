@@ -6,6 +6,7 @@ import {
   ParallaxProvider,
 } from 'react-scroll-parallax';
 import { useEffect, useReducer } from 'react';
+import PrimaryButton from '../PrimaryButton';
 
 export default function AboutUsSection() {
   const [update, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -78,9 +79,28 @@ export default function AboutUsSection() {
         data-aos-once='true'
         data-aos-duration='1200'
       >
-        <h1 style={{ color: 'red', fontWeight: 'bold' }}>About Us</h1>
+        <h1
+          css={css`
+            color: red;
+            font-weight: bold;
+            font-size: 32px;
 
-        <p>
+            @media (min-width: 992px) {
+              font-size: 44px;
+            }
+          `}
+          data-aos='zoom-in'
+          data-aos-once='true'
+          data-aos-duration='1200'
+        >
+          About Us
+        </h1>
+
+        <p
+          data-aos='zoom-in-down'
+          data-aos-once='true'
+          data-aos-duration='1200'
+        >
           CIMSA (Center for Indonesian Medical Students’ Activities) is an
           independent, non-profit and non-governmental organization, that
           centers on the Sustainable Development Goals. Through its vision,
@@ -92,16 +112,7 @@ export default function AboutUsSection() {
         </p>
         <br />
         <a href='/about-us'>
-          <Button
-            size='lg'
-            style={{
-              backgroundColor: 'red',
-              borderColor: 'red',
-              color: 'white',
-            }}
-          >
-            Learn More
-          </Button>
+          <PrimaryButton aos=''>Learn More</PrimaryButton>
         </a>
       </Container>
     </div>

@@ -24,7 +24,7 @@ class CustomHandler(SimpleHTTPRequestHandler):
         print(f"{self.client_address[0]} - - {format % args}")
 
 
-def run(server_class=HTTPServer, handler_class=CustomHandler, host='0.0.0.0', port=8000):
+def run(host, port, server_class=HTTPServer, handler_class=CustomHandler):
     # Set the working directory to the directory of this script
     script_dir = os.path.dirname(os.path.abspath(__file__))
     os.chdir(script_dir)
@@ -36,4 +36,4 @@ def run(server_class=HTTPServer, handler_class=CustomHandler, host='0.0.0.0', po
 
 
 if __name__ == "__main__":
-    run()
+    run(host='0.0.0.0', port=8000)

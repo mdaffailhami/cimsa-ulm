@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import CountUp from 'react-countup';
 
@@ -5,11 +6,11 @@ export default function NumberOfThingsSection() {
   return (
     <Container
       className='d-flex flex-wrap justify-content-center'
-      data-aos='fade-left'
+      data-aos='zoom-in'
       data-aos-duration='1200'
       data-aos-once='true'
     >
-      <Row xs={2} sm={2} md={4} lg={4} className='g-4'>
+      <Row xs={2} sm={2} md={4} lg={4} className='g-5'>
         <Col>
           <NumberOfThing prefix='' number={2001} title='Established Year' />
         </Col>
@@ -44,7 +45,20 @@ function NumberOfThing({ prefix, number, title }) {
             suffix=''
             prefix={prefix}
           >
-            {({ countUpRef }) => <span ref={countUpRef} />}
+            {({ countUpRef }) => (
+              <span
+                ref={countUpRef}
+                css={css`
+                  font-weight: 600;
+                  color: #2d2d2d;
+                  font-size: 36px;
+
+                  @media (min-width: 992px) {
+                    font-size: 50px;
+                  }
+                `}
+              />
+            )}
           </CountUp>
         </Card.Title>
         <Card.Subtitle className='text-center'>{title}</Card.Subtitle>

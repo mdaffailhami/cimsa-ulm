@@ -6,16 +6,7 @@ export default function Banner() {
     <div
       css={css`
         position: relative;
-        /* width: 100%; */
         height: 800px;
-
-        @media (min-width: 576px) {
-          height: 500px;
-        }
-
-        @media (min-width: 992px) {
-          height: 800px;
-        }
       `}
     >
       <div
@@ -69,7 +60,7 @@ export default function Banner() {
         <p
           className='lead'
           data-aos='fade-up'
-          data-aos-duration='1000'
+          data-aos-duration='1200'
           css={css`
             font-size: 16px;
 

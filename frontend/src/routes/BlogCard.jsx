@@ -9,18 +9,17 @@ export default function BlogCard({ thumbnail, title, description }) {
       md={6}
       lg={4}
       style={{ marginBottom: '24px' }}
-      data-aos='flip-right'
+      data-aos='fade'
       data-aos-duration='1200'
       data-aos-once='true'
     >
       <Card
         as='a'
         href={`/blog/${title.toLowerCase().replace(/ /g, '-')}`}
-        style={{
-          height: '419px',
-          textDecoration: 'none',
-        }}
         css={css`
+          height: 419px;
+          text-decoration: none;
+
           &:hover {
             transition: all 0.3s ease-in-out;
             transform: scale(1.05);

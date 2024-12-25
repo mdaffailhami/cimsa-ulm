@@ -1,6 +1,7 @@
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import BlogCard from '../BlogCard';
 import { css } from '@emotion/react';
+import PrimaryButton from '../PrimaryButton';
 
 function BlogSection() {
   return (
@@ -45,13 +46,7 @@ function BlogSection() {
         })()}
       </Row>
       <center>
-        <Button
-          href='/blog'
-          size='lg'
-          style={{ backgroundColor: 'red', borderColor: 'red', color: 'white' }}
-        >
-          See All Posts
-        </Button>
+        <PrimaryButton>See All Posts</PrimaryButton>
       </center>
     </Container>
   );

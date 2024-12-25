@@ -17,7 +17,7 @@ export default function Navbar() {
           }
         `}
       />
-      <BootstrapNavbar bg='light' expand='lg' fixed='top' className='pb-3'>
+      <BootstrapNavbar bg='light' expand='lg' fixed='top'>
         <Container>
           <BootstrapNavbar.Brand href='/'>
             <img
@@ -28,7 +28,29 @@ export default function Navbar() {
           </BootstrapNavbar.Brand>
           <BootstrapNavbar.Toggle aria-controls='basic-navbar-nav' />
           <BootstrapNavbar.Collapse id='basic-navbar-nav'>
-            <Nav className='ms-auto' style={{ fontWeight: 500 }}>
+            <Nav
+              className='ms-auto'
+              css={css`
+                font-weight: bold;
+                gap: 4px;
+
+                @media (min-width: 768px) {
+                  gap: 6px;
+                }
+
+                @media (min-width: 1200px) {
+                  gap: 10px;
+                }
+              `}
+            >
+              <div
+                css={css`
+                  height: 12px;
+                  @media (min-width: 992px) {
+                    display: none;
+                  }
+                `}
+              />
               <Nav.Link
                 href='/blog'
                 active={window.location.pathname.startsWith('/blog')}

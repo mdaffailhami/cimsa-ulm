@@ -76,6 +76,8 @@ function TextCard({ title, body, aos }) {
           css={css`
             color: red;
             font-weight: bold;
+            font-size: 23px;
+
             @media (min-width: 992px) {
               font-size: 26px;
             }

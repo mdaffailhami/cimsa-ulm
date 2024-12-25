@@ -90,7 +90,7 @@ function GlobalStyle() {
 
         #root {
           /* Padding for fixed top navbar */
-          padding-top: 74px;
+          padding-top: 56px;
 
           /* Fix right overflow */
           overflow: hidden;
