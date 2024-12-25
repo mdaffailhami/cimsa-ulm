@@ -19,7 +19,7 @@ export default function Footer() {
     <>
       <Global
         styles={css`
-          footer {
+          footer#web-footer {
             background-color: #2d2d2d;
             color: white;
             padding: 20px 0;
@@ -34,7 +34,7 @@ export default function Footer() {
           }
         `}
       />
-      <footer>
+      <footer id='web-footer'>
         <Container>
           <Row>
             <Col md={5}>

@@ -2,6 +2,7 @@ import AboutUsSection from './AboutUsSection';
 import Banner from './Banner';
 import BlogSection from './BlogSection';
 import NumberOfThingsSection from './NumberOfThingsSection';
+import QuoteSection from './QuoteSection';
 import VisionMissionSection from './VisionMissionSection';
 
 export default function HomePage() {
@@ -21,7 +22,9 @@ export default function HomePage() {
       <br />
       <BlogSection />
       <br />
+      <hr />
       <br />
+      <QuoteSection />
     </>
   );
 }

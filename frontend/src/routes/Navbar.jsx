@@ -29,6 +29,12 @@ export default function Navbar() {
           <BootstrapNavbar.Toggle aria-controls='basic-navbar-nav' />
           <BootstrapNavbar.Collapse id='basic-navbar-nav'>
             <Nav className='ms-auto' style={{ fontWeight: 500 }}>
+              <Nav.Link
+                href='/blog'
+                active={window.location.pathname.startsWith('/blog')}
+              >
+                Blog
+              </Nav.Link>
               <NavDropdown
                 title='About Us'
                 active={window.location.pathname.includes('/about')}
@@ -106,7 +112,7 @@ export default function Navbar() {
               </NavDropdown>
               <NavDropdown
                 title='The Officials'
-                active={window.location.pathname.includes('/officials')}
+                active={window.location.pathname.startsWith('/officials')}
               >
                 <NavDropdown.Item
                   href='/officials'
