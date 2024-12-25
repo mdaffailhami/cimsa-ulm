@@ -19,7 +19,19 @@ export default function Navbar() {
       />
       <BootstrapNavbar bg='light' expand='lg' fixed='top'>
         <Container>
-          <BootstrapNavbar.Brand href='/'>
+          <BootstrapNavbar.Brand
+            href='/'
+            css={css`
+              &:hover {
+                transition: all 0.3s ease-in-out;
+                transform: scale(1.12);
+              }
+              &:not(:hover) {
+                transition: transform 0.3s ease-in-out;
+                transform: scale(1);
+              }
+            `}
+          >
             <img
               src={Logo}
               alt='Logo'

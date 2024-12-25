@@ -46,14 +46,23 @@ export default function Footer() {
                 <img
                   src={Logo}
                   alt='Logo'
-                  style={{
-                    // width: '40px',
-                    height: '50px',
-                    marginBottom: '10px',
-                  }}
                   data-aos='zoom-in-right'
                   data-aos-once='true'
                   data-aos-duration='1200'
+                  style={{
+                    height: '50px',
+                    marginBottom: '10px',
+                  }}
+                  css={css`
+                    &:hover {
+                      transition: all 0.3s ease-in-out !important;
+                      transform: scale(1.1) !important;
+                    }
+                    &:not(:hover) {
+                      transition: transform 0.3s ease-in-out !important;
+                      transform: scale(1) !important;
+                    }
+                  `}
                 />
               </a>
               <p>
