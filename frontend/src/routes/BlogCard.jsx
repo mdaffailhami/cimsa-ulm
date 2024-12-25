@@ -3,7 +3,16 @@ import { Button, Card, Col } from 'react-bootstrap';
 
 export default function BlogCard({ thumbnail, title, description }) {
   return (
-    <Col xs={12} sm={12} md={6} lg={4} style={{ marginBottom: '24px' }}>
+    <Col
+      xs={12}
+      sm={12}
+      md={6}
+      lg={4}
+      style={{ marginBottom: '24px' }}
+      data-aos='flip-right'
+      data-aos-duration='1200'
+      data-aos-once='true'
+    >
       <Card
         as='a'
         href={`/blog/${title.toLowerCase().replace(/ /g, '-')}`}

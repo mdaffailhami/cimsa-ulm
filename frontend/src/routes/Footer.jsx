@@ -36,7 +36,11 @@ export default function Footer() {
       />
       <footer id='web-footer'>
         <Container>
-          <Row>
+          <Row
+            data-aos='fade-right'
+            data-aos-duration='1200'
+            data-aos-once='true'
+          >
             <Col md={5}>
               <img
                 src={Logo}

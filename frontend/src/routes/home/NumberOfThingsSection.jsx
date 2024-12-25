@@ -3,7 +3,12 @@ import CountUp from 'react-countup';
 
 export default function NumberOfThingsSection() {
   return (
-    <Container className='d-flex flex-wrap justify-content-center'>
+    <Container
+      className='d-flex flex-wrap justify-content-center'
+      data-aos='fade-left'
+      data-aos-duration='1200'
+      data-aos-once='true'
+    >
       <Row xs={2} sm={2} md={4} lg={4} className='g-4'>
         <Col>
           <NumberOfThing prefix='' number={2001} title='Established Year' />

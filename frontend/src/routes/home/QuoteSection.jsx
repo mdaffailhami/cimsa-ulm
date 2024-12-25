@@ -36,6 +36,7 @@ export default function QuoteSection() {
                 `}
                 data-aos='flip-left'
                 data-aos-duration='1200'
+                data-aos-once='true'
               />
             </center>
           </Col>
@@ -56,6 +57,7 @@ export default function QuoteSection() {
                 `}
                 data-aos='fade-left'
                 data-aos-duration='1200'
+                data-aos-once='true'
               >
                 ❝ He is Allah: the Creator, the Inventor, the Shaper. He ˹alone˺
                 has the Most Beautiful Names. Whatever is in the heavens and the
