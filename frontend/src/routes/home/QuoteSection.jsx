@@ -75,7 +75,7 @@ export default function QuoteSection() {
                   }
                 `}
               >
-                John Doe
+                Al-Hashr:24
               </footer>
             </blockquote>
           </Col>
