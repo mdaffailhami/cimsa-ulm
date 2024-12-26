@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { Button } from 'react-bootstrap';
+import OnHoverAnimationCss from './OnHoverAnimationCss';
 
 export default function PrimaryButton({ aos = 'zoom-in', children }) {
   return (
@@ -15,18 +16,13 @@ export default function PrimaryButton({ aos = 'zoom-in', children }) {
         color: 'white',
         display: 'inline-block',
       }}
-      css={css`
-        &:hover {
-          transition: all 0.3s ease-in-out !important;
-          transform: scale(1.08) !important;
+      css={OnHoverAnimationCss(
+        1.08,
+        css`
           background: white !important;
           color: red !important;
-        }
-
-        &:not(:hover) {
-          transition: transform 0.3s ease-in-out !important;
-        }
-      `}
+        `
+      )}
     >
       {children}
     </Button>

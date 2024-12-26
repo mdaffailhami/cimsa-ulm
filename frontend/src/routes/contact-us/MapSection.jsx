@@ -1,11 +1,13 @@
 import { css } from '@emotion/react';
 import { Container } from 'react-bootstrap';
 
-export default function LocationSection() {
+export default function MapSection() {
   return (
     <Container id='map'>
       <h1
-        data-aos='fade-down'
+        data-aos='fade-right'
+        data-aos-duration='1200'
+        data-aos-once='true'
         css={css`
           text-align: center;
 
@@ -31,6 +33,9 @@ export default function LocationSection() {
             allowFullScreen=''
             loading='lazy'
             referrerPolicy='no-referrer-when-downgrade'
+            data-aos='fade-left'
+            data-aos-duration='1200'
+            data-aos-once='true'
             onError={(e) => {
               const errorMessage = document.createElement('p');
               errorMessage.style.color = 'red';

@@ -13,7 +13,9 @@ export default function PageHeader({ title, description }) {
       `}
     >
       <h1
-        // data-aos='fade-down'
+        data-aos='fade-down'
+        data-aos-duration='1200'
+        data-aos-once='true'
         css={css`
           text-align: center;
           color: red;
@@ -29,6 +31,9 @@ export default function PageHeader({ title, description }) {
         {title}
       </h1>
       <hr
+        data-aos='zoom-in'
+        data-aos-duration='1200'
+        data-aos-once='true'
         css={css`
           margin: 10px auto 20px auto;
           border-width: 2px;
@@ -44,6 +49,9 @@ export default function PageHeader({ title, description }) {
         `}
       />
       <p
+        data-aos='zoom-in'
+        data-aos-duration='1200'
+        data-aos-once='true'
         css={css`
           text-align: center;
           font-size: 17px;

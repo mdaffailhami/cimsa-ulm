@@ -6,6 +6,8 @@ import QuoteSection from './QuoteSection';
 import VisionMissionSection from './VisionMissionSection';
 
 export default function HomePage() {
+  document.title = 'CIMSA ULM';
+
   return (
     <>
       <Banner />

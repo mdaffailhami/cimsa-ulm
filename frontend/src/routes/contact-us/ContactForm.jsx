@@ -1,12 +1,14 @@
 import { css } from '@emotion/react';
 import { Button, Form } from 'react-bootstrap';
+import OnHoverAnimationCss from '../OnHoverAnimationCss';
 
 export default function ContactForm() {
   return (
     <Form
+      data-aos='fade-down'
+      data-aos-duration='1200'
+      data-aos-once='true'
       css={css`
-        /* padding-top: 22px;
-        padding-bottom: 20px; */
         padding-left: 10px;
         padding-right: 10px;
 
@@ -29,6 +31,9 @@ export default function ContactForm() {
         <Form.Control as='textarea' rows={3} placeholder='Enter your message' />
       </Form.Group>
       <Button
+        data-aos='zoom-out'
+        data-aos-duration='1200'
+        data-aos-once='true'
         variant='warning'
         style={{
           width: '100%',
@@ -39,7 +44,13 @@ export default function ContactForm() {
         }}
         type='submit'
         className='mt-4'
-        data-aos='fade-up'
+        css={OnHoverAnimationCss(
+          1.015,
+          css`
+            background: white !important;
+            color: red !important;
+          `
+        )}
       >
         Send
       </Button>

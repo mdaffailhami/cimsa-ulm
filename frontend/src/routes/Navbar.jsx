@@ -3,6 +3,7 @@ import { Nav, Navbar as BootstrapNavbar, NavDropdown } from 'react-bootstrap';
 import Logo from '../assets/Logo';
 import { css, Global } from '@emotion/react';
 import { Link, useLocation } from 'react-router';
+import OnHoverAnimationCss from './OnHoverAnimationCss';
 
 export default function Navbar() {
   const location = useLocation();
@@ -26,16 +27,7 @@ export default function Navbar() {
             as={Link}
             to='/'
             onClick={() => window.scrollTo(0, 0)}
-            css={css`
-              &:hover {
-                transition: all 0.3s ease-in-out;
-                transform: scale(1.12);
-              }
-              &:not(:hover) {
-                transition: transform 0.3s ease-in-out;
-                transform: scale(1);
-              }
-            `}
+            css={OnHoverAnimationCss(1.12)}
           >
             <img
               src={Logo}

@@ -1,13 +1,22 @@
 import { css } from '@emotion/react';
 import { Col, Container, Row } from 'react-bootstrap';
+import OnHoverAnimationCss from '../OnHoverAnimationCss';
 
 function SocmedButton({ iconClass, url }) {
   return (
     <Col xs={1} style={{ width: 'fit-content' }}>
       <a
+        data-aos='zoom-in'
+        data-aos-duration='1200'
+        data-aos-once='true'
         href={url}
         target='_blank'
-        style={{ display: 'block', marginBottom: '8px' }}
+        css={css`
+          display: block;
+          margin-bottom: 8px;
+
+          ${OnHoverAnimationCss(1.175)}
+        `}
       >
         <span
           style={{
@@ -36,7 +45,9 @@ export default function SocmedsSection() {
   return (
     <>
       <h1
-        data-aos='fade-down'
+        data-aos='fade-right'
+        data-aos-duration='1200'
+        data-aos-once='true'
         css={css`
           padding-bottom: 10px;
           text-align: center;

@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Card, Col, Row } from 'react-bootstrap';
+import OnHoverAnimationCss from './OnHoverAnimationCss';
 
 export default function OfficialCardSection({
   period,
@@ -12,12 +13,21 @@ export default function OfficialCardSection({
   return (
     <div style={{ background: '#2d2d2d' }}>
       <div
+        data-aos='flip-down'
+        data-aos-duration='1200'
+        data-aos-once='true'
         style={{
           display: 'flex',
           justifyContent: 'center',
           paddingTop: '18px',
           paddingBottom: '18px',
         }}
+        css={css`
+          ${OnHoverAnimationCss(1.04)}
+          @media (min-width: 768px) {
+            ${OnHoverAnimationCss(1.06)}
+          }
+        `}
       >
         <Card
           css={css`

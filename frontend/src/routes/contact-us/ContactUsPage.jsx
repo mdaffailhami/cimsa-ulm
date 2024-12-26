@@ -1,7 +1,5 @@
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import Navbar from '../Navbar';
-import Footer from '../Footer';
-import LocationSection from './LocationSection';
+import { Container } from 'react-bootstrap';
+import MapSection from './MapSection';
 import ContactForm from './ContactForm';
 import PageHeader from '../PageHeader';
 import { useLocation } from 'react-router';
@@ -10,6 +8,7 @@ import SocmedsSection from './SocmedsSection';
 import OfficialCardSection from '../OfficialCardSection';
 
 export default function ContactUsPage() {
+  document.title = 'Contact Us - CIMSA ULM';
   const location = useLocation();
 
   useEffect(() => {
@@ -39,7 +38,7 @@ export default function ContactUsPage() {
         <hr />
         <br />
       </Container>
-      <LocationSection />
+      <MapSection />
       <br />
       <br />
       <SocmedsSection />

@@ -2,6 +2,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Logo from '../assets/Logo';
 import { Global, css } from '@emotion/react';
 import { Link } from 'react-router';
+import OnHoverAnimationCss from './OnHoverAnimationCss';
 
 function SocmedLink({ title, iconClass, url }) {
   return (
@@ -64,16 +65,7 @@ export default function Footer() {
                     height: '50px',
                     marginBottom: '10px',
                   }}
-                  css={css`
-                    &:hover {
-                      transition: all 0.3s ease-in-out !important;
-                      transform: scale(1.1) !important;
-                    }
-                    &:not(:hover) {
-                      transition: transform 0.3s ease-in-out !important;
-                      transform: scale(1) !important;
-                    }
-                  `}
+                  css={OnHoverAnimationCss(1.1)}
                 />
               </Link>
               <p>

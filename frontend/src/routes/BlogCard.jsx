@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { Button, Card, Col } from 'react-bootstrap';
+import OnHoverAnimationCss from './OnHoverAnimationCss';
 
 export default function BlogCard({ thumbnail, title, description }) {
   return (
@@ -20,14 +21,7 @@ export default function BlogCard({ thumbnail, title, description }) {
           height: 419px;
           text-decoration: none;
 
-          &:hover {
-            transition: all 0.3s ease-in-out;
-            transform: scale(1.05);
-          }
-          &:not(:hover) {
-            transition: transform 0.3s ease-in-out;
-            transform: scale(1);
-          }
+          ${OnHoverAnimationCss(1.05)}
         `}
       >
         <Card.Header
