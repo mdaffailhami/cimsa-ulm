@@ -57,7 +57,6 @@ export default function OfficialCardSection({
             >
               <img
                 src={picture}
-                alt={name}
                 css={css`
                   width: 100%;
                   height: 100%;
@@ -86,10 +85,11 @@ export default function OfficialCardSection({
               <div
                 css={css`
                   color: #989898;
-                  margin-bottom: 12px;
+                  margin-bottom: 8px;
                   font-size: 16px;
 
                   @media (min-width: 768px) {
+                    margin-bottom: 12px;
                     font-size: 20px;
                   }
                 `}
@@ -99,10 +99,11 @@ export default function OfficialCardSection({
               <div
                 css={css`
                   color: black;
-                  margin-bottom: 18px;
+                  margin-bottom: 2px;
                   font-size: 20px;
 
                   @media (min-width: 768px) {
+                    margin-bottom: 4px;
                     font-size: 23px;
                   }
                 `}
