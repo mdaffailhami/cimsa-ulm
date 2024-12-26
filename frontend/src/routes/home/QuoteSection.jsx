@@ -13,7 +13,7 @@ export default function QuoteSection() {
     >
       <Container
         css={css`
-          @media (max-width: 575px) {
+          @media (max-width: 575.99px) {
             padding-left: 19px;
             padding-right: 19px;
           }
