@@ -76,15 +76,17 @@ export default function Footer() {
             <Col md={3}>
               <h5 style={{ color: 'red' }}>Contact Info</h5>
               <p>
-                <i className='fa-solid fa-location-dot' /> 123 Main Street,
-                Anytown, USA 12345
+                <i className='fa-solid fa-location-dot' />
+                <a href='/contact-us#location-section'>
+                  123 Main Street, Anytown, USA 12345
+                </a>
               </p>
               <p>
                 <i className='fa-solid fa-phone' /> (123) 456-7890
               </p>
               <p>
                 <i className='fa-solid fa-envelope' />{' '}
-                <a href='mailto:info@example.com'>info@example.com</a>
+                <a href='/contact-us'>info@example.com</a>
               </p>
             </Col>
             <Col md={2}>

@@ -12,6 +12,7 @@ import Footer from './routes/Footer.jsx';
 import Navbar from './routes/Navbar.jsx';
 import Logo from './assets/Logo';
 import { Global, css } from '@emotion/react';
+import ContactUsPage from './routes/contact-us/ContactUsPage.jsx';
 
 createRoot(document.getElementById('root')).render(<App />);
 
@@ -36,6 +37,7 @@ function App() {
         <Routes>
           <Route index element={<HomePage />} />
           <Route path='about-us' element={<AboutUsPage />} />
+          <Route path='contact-us' element={<ContactUsPage />} />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
         <Footer />
