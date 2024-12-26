@@ -4,7 +4,7 @@ import OnHoverAnimationCss from '../OnHoverAnimationCss';
 
 function SocmedButton({ iconClass, url }) {
   return (
-    <Col xs={1} style={{ width: 'fit-content' }}>
+    <Col xs={1} style={{ width: '78px' }}>
       <a
         data-aos='zoom-in'
         data-aos-duration='1200'
@@ -22,7 +22,7 @@ function SocmedButton({ iconClass, url }) {
           style={{
             background: 'red',
             borderRadius: '24%',
-            padding: '10px 10px 8px 10px',
+            padding: '10px 0 8px 0',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
