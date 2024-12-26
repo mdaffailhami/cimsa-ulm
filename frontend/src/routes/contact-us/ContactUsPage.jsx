@@ -6,6 +6,7 @@ import ContactForm from './ContactForm';
 import PageHeader from '../PageHeader';
 import { useLocation } from 'react-router';
 import { useEffect } from 'react';
+import SocmedsSection from './SocmedsSection';
 
 export default function ContactUsPage() {
   const location = useLocation();
@@ -38,6 +39,10 @@ export default function ContactUsPage() {
         <br />
       </Container>
       <LocationSection />
+      <br />
+      <br />
+      <SocmedsSection />
+      <br />
       <br />
     </>
   );
