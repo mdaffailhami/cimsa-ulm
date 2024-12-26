@@ -10,12 +10,13 @@ export default function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
+    // Scroll to top instantly when location changes
+    window.scrollTo({ top: 0, behavior: 'instant' });
+
+    // Close navbar toggler when location changes if it's open
     const navbarToggler = document.getElementById('navbar-toggler');
-
     if (!navbarToggler) return;
-
     if (navbarToggler.classList.contains('collapsed')) return;
-
     navbarToggler.click();
   }, [location]);
 
@@ -37,7 +38,6 @@ export default function Navbar() {
           <BootstrapNavbar.Brand
             as={Link}
             to='/'
-            onClick={() => window.scrollTo(0, 0)}
             css={OnHoverAnimationCss(1.12)}
           >
             <img
@@ -77,7 +77,6 @@ export default function Navbar() {
               <Nav.Link
                 as={Link}
                 to='/blog'
-                onClick={() => window.scrollTo(0, 0)}
                 active={location.pathname.startsWith('/blog')}
               >
                 Blog
@@ -89,7 +88,6 @@ export default function Navbar() {
                 <NavDropdown.Item
                   as={Link}
                   to='/about-us'
-                  onClick={() => window.scrollTo(0, 0)}
                   active={location.pathname === '/about-us'}
                 >
                   About CIMSA
@@ -98,7 +96,6 @@ export default function Navbar() {
                 <NavDropdown.Item
                   as={Link}
                   to='/about-ifmsa'
-                  onClick={() => window.scrollTo(0, 0)}
                   active={location.pathname === '/about-ifmsa'}
                 >
                   About IFMSA
@@ -111,7 +108,6 @@ export default function Navbar() {
                 <NavDropdown.Item
                   as={Link}
                   to='/scos'
-                  onClick={() => window.scrollTo(0, 0)}
                   active={location.pathname === '/scos'}
                 >
                   All SCOs
@@ -120,7 +116,6 @@ export default function Navbar() {
                 <NavDropdown.Item
                   as={Link}
                   to='/scos/scome'
-                  onClick={() => window.scrollTo(0, 0)}
                   active={location.pathname === '/scos/scome'}
                 >
                   SCOME
@@ -128,7 +123,6 @@ export default function Navbar() {
                 <NavDropdown.Item
                   as={Link}
                   to='/scos/scora'
-                  onClick={() => window.scrollTo(0, 0)}
                   active={location.pathname === '/scos/scora'}
                 >
                   SCORA
@@ -136,7 +130,6 @@ export default function Navbar() {
                 <NavDropdown.Item
                   as={Link}
                   to='/scos/scorp'
-                  onClick={() => window.scrollTo(0, 0)}
                   active={location.pathname === '/scos/scorp'}
                 >
                   SCORP
@@ -144,7 +137,6 @@ export default function Navbar() {
                 <NavDropdown.Item
                   as={Link}
                   to='/scos/scoph'
-                  onClick={() => window.scrollTo(0, 0)}
                   active={location.pathname === '/scos/scoph'}
                 >
                   SCOPH
@@ -160,7 +152,6 @@ export default function Navbar() {
                 <NavDropdown.Item
                   as={Link}
                   to='/activities'
-                  onClick={() => window.scrollTo(0, 0)}
                   active={location.pathname === '/activities'}
                 >
                   Activities
@@ -169,7 +160,6 @@ export default function Navbar() {
                 <NavDropdown.Item
                   as={Link}
                   to='/programs'
-                  onClick={() => window.scrollTo(0, 0)}
                   active={location.pathname === '/programs'}
                 >
                   Programs
@@ -182,7 +172,6 @@ export default function Navbar() {
                 <NavDropdown.Item
                   as={Link}
                   to='/officials'
-                  onClick={() => window.scrollTo(0, 0)}
                   active={location.pathname === '/officials'}
                 >
                   Current Officials
@@ -191,7 +180,6 @@ export default function Navbar() {
                 <NavDropdown.Item
                   as={Link}
                   to='/officials/past'
-                  onClick={() => window.scrollTo(0, 0)}
                   active={location.pathname === '/officials/past'}
                 >
                   Past Officials
@@ -200,7 +188,6 @@ export default function Navbar() {
               <Nav.Link
                 as={Link}
                 to='/alumni-senior'
-                onClick={() => window.scrollTo(0, 0)}
                 active={location.pathname === '/alumni-senior'}
               >
                 Alumni & Senior
@@ -208,7 +195,7 @@ export default function Navbar() {
               <Nav.Link
                 as={Link}
                 to='/contact-us'
-                onClick={() => window.scrollTo(0, 0)}
+                //
                 active={location.pathname === '/contact-us'}
               >
                 Contact Us

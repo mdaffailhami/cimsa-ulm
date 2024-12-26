@@ -19,9 +19,7 @@ function SocmedLink({ title, iconClass, url }) {
 function QuickLink({ title, url }) {
   return (
     <li>
-      <Link to={url} onClick={() => window.scrollTo(0, 0)}>
-        {title}
-      </Link>
+      <Link to={url}>{title}</Link>
     </li>
   );
 }
@@ -54,7 +52,7 @@ export default function Footer() {
             data-aos-once='true'
           >
             <Col md={5}>
-              <Link to='/' onClick={() => window.scrollTo(0, 0)}>
+              <Link to='/'>
                 <img
                   src={Logo}
                   alt='Logo'
@@ -88,7 +86,7 @@ export default function Footer() {
                 <i className='fa-solid fa-phone' /> (123) 456-7890
               </p>
               <p>
-                <Link to='/contact-us' onClick={() => window.scrollTo(0, 0)}>
+                <Link to='/contact-us'>
                   <i className='fa-solid fa-envelope' /> info@example.com
                 </Link>
               </p>
