@@ -3,9 +3,8 @@ import { Container } from 'react-bootstrap';
 
 export default function LocationSection() {
   return (
-    <Container>
+    <Container id='map'>
       <h1
-        id='location-section'
         data-aos='fade-down'
         css={css`
           text-align: center;

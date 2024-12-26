@@ -4,7 +4,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import Aos from 'aos';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router';
 import NotFoundPage from './routes/NotFoundPage.jsx';
 import AboutUsPage from './routes/about-us/AboutUsPage.jsx';
 import HomePage from './routes/home/HomePage.jsx';

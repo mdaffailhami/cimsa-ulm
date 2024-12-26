@@ -1,6 +1,7 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import Logo from '../assets/Logo';
 import { Global, css } from '@emotion/react';
+import { Link } from 'react-router';
 
 function SocmedLink({ title, iconClass, url }) {
   return (
@@ -11,6 +12,16 @@ function SocmedLink({ title, iconClass, url }) {
     >
       <i className={iconClass} /> {title}
     </a>
+  );
+}
+
+function QuickLink({ title, url }) {
+  return (
+    <li>
+      <Link to={url} onClick={() => window.scrollTo(0, 0)}>
+        {title}
+      </Link>
+    </li>
   );
 }
 
@@ -42,7 +53,7 @@ export default function Footer() {
             data-aos-once='true'
           >
             <Col md={5}>
-              <a href='/'>
+              <Link to='/' onClick={() => window.scrollTo(0, 0)}>
                 <img
                   src={Logo}
                   alt='Logo'
@@ -64,7 +75,7 @@ export default function Footer() {
                     }
                   `}
                 />
-              </a>
+              </Link>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
                 nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed
@@ -76,17 +87,18 @@ export default function Footer() {
             <Col md={3}>
               <h5 style={{ color: 'red' }}>Contact Info</h5>
               <p>
-                <i className='fa-solid fa-location-dot' />
-                <a href='/contact-us#location-section'>
-                  123 Main Street, Anytown, USA 12345
-                </a>
+                <Link to='/contact-us#map'>
+                  <i className='fa-solid fa-location-dot' /> 123 Main Street,
+                  Anytown, USA 12345
+                </Link>
               </p>
               <p>
                 <i className='fa-solid fa-phone' /> (123) 456-7890
               </p>
               <p>
-                <i className='fa-solid fa-envelope' />{' '}
-                <a href='/contact-us'>info@example.com</a>
+                <Link to='/contact-us' onClick={() => window.scrollTo(0, 0)}>
+                  <i className='fa-solid fa-envelope' /> info@example.com
+                </Link>
               </p>
             </Col>
             <Col md={2}>
@@ -115,21 +127,11 @@ export default function Footer() {
             <Col md={2}>
               <h5 style={{ color: 'red' }}>Quick Links</h5>
               <ul style={{ paddingLeft: 0 }}>
-                <li>
-                  <a href='/about-cimsa'>About CIMSA</a>
-                </li>
-                <li>
-                  <a href='/scos'>The SCOs</a>
-                </li>
-                <li>
-                  <a href='/activities'>Activities</a>
-                </li>
-                <li>
-                  <a>Programs</a>
-                </li>
-                <li>
-                  <a href='/contact-us'>Contact Us</a>
-                </li>
+                <QuickLink title='Home' url='/' />
+                <QuickLink title='Blog' url='/blog' />
+                <QuickLink title='About Us' url='/about-us' />
+                <QuickLink title='The SCOs' url='/scos' />
+                <QuickLink title='The Officials' url='/officials' />
               </ul>
             </Col>
           </Row>

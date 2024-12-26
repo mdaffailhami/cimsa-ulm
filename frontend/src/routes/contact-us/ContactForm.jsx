@@ -1,21 +1,7 @@
 import { css } from '@emotion/react';
-import { useEffect } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useLocation } from 'react-router';
 
 export default function ContactForm() {
-  const location = useLocation();
-
-  // Detect hash in URL, if there is a hash then scroll to that section
-  useEffect(() => {
-    if (location.hash) {
-      const section = document.querySelector(location.hash);
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  }, [location]);
-
   return (
     <Form
       css={css`

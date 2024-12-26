@@ -2,8 +2,11 @@ import Container from 'react-bootstrap/Container';
 import { Nav, Navbar as BootstrapNavbar, NavDropdown } from 'react-bootstrap';
 import Logo from '../assets/Logo';
 import { css, Global } from '@emotion/react';
+import { Link, useLocation } from 'react-router';
 
 export default function Navbar() {
+  const location = useLocation();
+
   return (
     <>
       <Global
@@ -20,7 +23,9 @@ export default function Navbar() {
       <BootstrapNavbar bg='light' expand='lg' fixed='top'>
         <Container>
           <BootstrapNavbar.Brand
-            href='/'
+            as={Link}
+            to='/'
+            onClick={() => window.scrollTo(0, 0)}
             css={css`
               &:hover {
                 transition: all 0.3s ease-in-out;
@@ -64,61 +69,77 @@ export default function Navbar() {
                 `}
               />
               <Nav.Link
-                href='/blog'
-                active={window.location.pathname.startsWith('/blog')}
+                as={Link}
+                to='/blog'
+                onClick={() => window.scrollTo(0, 0)}
+                active={location.pathname.startsWith('/blog')}
               >
                 Blog
               </Nav.Link>
               <NavDropdown
                 title='About Us'
-                active={window.location.pathname.includes('/about')}
+                active={location.pathname.startsWith('/about')}
               >
                 <NavDropdown.Item
-                  href='/about-us'
-                  active={window.location.pathname == '/about-us'}
+                  as={Link}
+                  to='/about-us'
+                  onClick={() => window.scrollTo(0, 0)}
+                  active={location.pathname === '/about-us'}
                 >
                   About CIMSA
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item
-                  href='/about-ifmsa'
-                  active={window.location.pathname == '/about-ifmsa'}
+                  as={Link}
+                  to='/about-ifmsa'
+                  onClick={() => window.scrollTo(0, 0)}
+                  active={location.pathname === '/about-ifmsa'}
                 >
                   About IFMSA
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown
                 title='The SCOs'
-                active={window.location.pathname.includes('/scos')}
+                active={location.pathname.startsWith('/scos')}
               >
                 <NavDropdown.Item
-                  href='/scos'
-                  active={window.location.pathname == '/scos'}
+                  as={Link}
+                  to='/scos'
+                  onClick={() => window.scrollTo(0, 0)}
+                  active={location.pathname === '/scos'}
                 >
                   All SCOs
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item
-                  href='/scos/scome'
-                  active={window.location.pathname == '/scos/scome'}
+                  as={Link}
+                  to='/scos/scome'
+                  onClick={() => window.scrollTo(0, 0)}
+                  active={location.pathname === '/scos/scome'}
                 >
                   SCOME
                 </NavDropdown.Item>
                 <NavDropdown.Item
-                  href='/scos/scora'
-                  active={window.location.pathname == '/scos/scora'}
+                  as={Link}
+                  to='/scos/scora'
+                  onClick={() => window.scrollTo(0, 0)}
+                  active={location.pathname === '/scos/scora'}
                 >
                   SCORA
                 </NavDropdown.Item>
                 <NavDropdown.Item
-                  href='/scos/scorp'
-                  active={window.location.pathname == '/scos/scorp'}
+                  as={Link}
+                  to='/scos/scorp'
+                  onClick={() => window.scrollTo(0, 0)}
+                  active={location.pathname === '/scos/scorp'}
                 >
                   SCORP
                 </NavDropdown.Item>
                 <NavDropdown.Item
-                  href='/scos/scoph'
-                  active={window.location.pathname == '/scos/scoph'}
+                  as={Link}
+                  to='/scos/scoph'
+                  onClick={() => window.scrollTo(0, 0)}
+                  active={location.pathname === '/scos/scoph'}
                 >
                   SCOPH
                 </NavDropdown.Item>
@@ -126,51 +147,63 @@ export default function Navbar() {
               <NavDropdown
                 title='What We Do'
                 active={
-                  window.location.pathname == '/activities' ||
-                  window.location.pathname == '/programs'
+                  location.pathname === '/activities' ||
+                  location.pathname === '/programs'
                 }
               >
                 <NavDropdown.Item
-                  href='/activities'
-                  active={window.location.pathname == '/activities'}
+                  as={Link}
+                  to='/activities'
+                  onClick={() => window.scrollTo(0, 0)}
+                  active={location.pathname === '/activities'}
                 >
                   Activities
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item
-                  href='/programs'
-                  active={window.location.pathname == '/programs'}
+                  as={Link}
+                  to='/programs'
+                  onClick={() => window.scrollTo(0, 0)}
+                  active={location.pathname === '/programs'}
                 >
                   Programs
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown
                 title='The Officials'
-                active={window.location.pathname.startsWith('/officials')}
+                active={location.pathname.startsWith('/officials')}
               >
                 <NavDropdown.Item
-                  href='/officials'
-                  active={window.location.pathname == '/officials'}
+                  as={Link}
+                  to='/officials'
+                  onClick={() => window.scrollTo(0, 0)}
+                  active={location.pathname === '/officials'}
                 >
                   Current Officials
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item
-                  href='/officials/past'
-                  active={window.location.pathname == '/officials/past'}
+                  as={Link}
+                  to='/officials/past'
+                  onClick={() => window.scrollTo(0, 0)}
+                  active={location.pathname === '/officials/past'}
                 >
                   Past Officials
                 </NavDropdown.Item>
               </NavDropdown>
               <Nav.Link
-                href='/alumni-senior'
-                active={window.location.pathname == '/alumni-senior'}
+                as={Link}
+                to='/alumni-senior'
+                onClick={() => window.scrollTo(0, 0)}
+                active={location.pathname === '/alumni-senior'}
               >
                 Alumni & Senior
               </Nav.Link>
               <Nav.Link
-                href='/contact-us'
-                active={window.location.pathname == '/contact-us'}
+                as={Link}
+                to='/contact-us'
+                onClick={() => window.scrollTo(0, 0)}
+                active={location.pathname === '/contact-us'}
               >
                 Contact Us
               </Nav.Link>

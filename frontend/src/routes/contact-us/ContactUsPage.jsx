@@ -4,8 +4,23 @@ import Footer from '../Footer';
 import LocationSection from './LocationSection';
 import ContactForm from './ContactForm';
 import PageHeader from '../PageHeader';
+import { useLocation } from 'react-router';
+import { useEffect } from 'react';
 
 export default function ContactUsPage() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Detect hash in URL, if there is a hash then scroll to that section
+    if (location.hash) {
+      const element = document.querySelector(location.hash);
+
+      if (element) {
+        window.scrollTo(0, element.offsetTop - 80);
+      }
+    }
+  }, [location]);
+
   return (
     <>
       <Container style={{ paddingTop: '100px' }}>
