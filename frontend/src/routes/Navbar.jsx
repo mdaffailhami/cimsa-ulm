@@ -4,9 +4,20 @@ import Logo from '../assets/Logo';
 import { css, Global } from '@emotion/react';
 import { Link, useLocation } from 'react-router';
 import OnHoverAnimationCss from './OnHoverAnimationCss';
+import { useEffect } from 'react';
 
 export default function Navbar() {
   const location = useLocation();
+
+  useEffect(() => {
+    const navbarToggler = document.getElementById('navbar-toggler');
+
+    if (!navbarToggler) return;
+
+    if (navbarToggler.classList.contains('collapsed')) return;
+
+    navbarToggler.click();
+  }, [location]);
 
   return (
     <>
@@ -35,7 +46,10 @@ export default function Navbar() {
               style={{ width: 'auto', height: '40px' }}
             />
           </BootstrapNavbar.Brand>
-          <BootstrapNavbar.Toggle aria-controls='basic-navbar-nav' />
+          <BootstrapNavbar.Toggle
+            id='navbar-toggler'
+            aria-controls='basic-navbar-nav'
+          />
           <BootstrapNavbar.Collapse id='basic-navbar-nav'>
             <Nav
               className='ms-auto'
