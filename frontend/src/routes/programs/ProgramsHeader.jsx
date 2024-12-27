@@ -27,7 +27,9 @@ export default function ProgramsHeader() {
           <h3>
             <b>Thoroughly planned, clearly defined, and accountable efforts.</b>
           </h3>
-          <h4>We channel our endeavors through four core programs:</h4>
+          <h4 style={{ fontWeight: 'normal' }}>
+            We channel our endeavors through four core programs:
+          </h4>
           <br />
         </div>
         <Row xs={2} sm={2} md={2} lg={4}>

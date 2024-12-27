@@ -40,7 +40,9 @@ export default function AlumniSeniorPage() {
             `}
           >
             <h3>Are You a CIMSA ULM Alumni or Senior?</h3>
-            <h4>Contact us! We'd love to hear from you.</h4>
+            <h4 style={{ fontWeight: 'normal' }}>
+              Contact us! We'd love to hear from you.
+            </h4>
           </div>
         }
         period={'2024-2025'}
