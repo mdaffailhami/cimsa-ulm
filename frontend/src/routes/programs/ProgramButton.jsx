@@ -13,9 +13,9 @@ export default function ProgramButton({ icon, title, subtitle }) {
           ${OnHoverAnimationCss(
             1.1,
             css`
-              background-color: white;
-              border: white;
-              color: red;
+              background-color: white !important;
+              border: white !important;
+              color: red !important;
             `
           )}
 
