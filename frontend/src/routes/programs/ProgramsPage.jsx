@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import PageHeader from '../PageHeader';
 import ProgramsHeader from './ProgramsHeader';
+import ProgramSection from './ProgramSection';
 
 export default function ProgramsPage() {
   document.title = 'Programs - CIMSA ULM';
@@ -20,6 +21,17 @@ export default function ProgramsPage() {
       />
       <ProgramsHeader />
       <br />
+      <ProgramSection
+        id='advocacy'
+        title='ADVOCACY'
+        subtitle='We understand that reaching our goals would require a multifaceted effort. We identify our stakeholders and we advocate.'
+        body={
+          <p>
+            With a basis of our policy documents, we approach stake-holders and
+            advocate for issues relevant to our missions.
+          </p>
+        }
+      />
     </>
   );
 }
