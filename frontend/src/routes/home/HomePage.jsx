@@ -1,6 +1,6 @@
 import AboutUsSection from './AboutUsSection';
 import Banner from './Banner';
-import BlogSection from './BlogSection';
+import BlogSection from '../BlogSection';
 import NumberOfThingsSection from './NumberOfThingsSection';
 import QuoteSection from './QuoteSection';
 import VisionMissionSection from './VisionMissionSection';
@@ -22,7 +22,7 @@ export default function HomePage() {
       <br />
       <hr />
       <br />
-      <BlogSection />
+      <BlogSection totalPosts={6} />
       <br />
       <hr />
       <br />

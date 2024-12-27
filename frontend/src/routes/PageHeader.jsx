@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { Container } from 'react-bootstrap';
 
-export default function PageHeader({ title, description }) {
+export default function PageHeader({ title, description, myCss = '' }) {
   return (
     <div
       css={css`
@@ -10,6 +10,8 @@ export default function PageHeader({ title, description }) {
         @media (min-width: 992px) {
           padding: 0 24%;
         }
+
+        ${myCss}
       `}
     >
       <h1

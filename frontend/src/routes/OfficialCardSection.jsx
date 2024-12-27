@@ -9,9 +9,13 @@ export default function OfficialCardSection({
   name,
   email,
   phone,
+  header = null,
 }) {
   return (
     <div style={{ background: '#2d2d2d' }}>
+      {(() => {
+        if (header) return header;
+      })()}
       <div
         data-aos='flip-down'
         data-aos-duration='1200'

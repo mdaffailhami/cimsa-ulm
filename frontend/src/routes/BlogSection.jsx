@@ -1,9 +1,9 @@
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
-import BlogCard from '../BlogCard';
+import BlogCard from './BlogCard';
 import { css } from '@emotion/react';
-import PrimaryButton from '../PrimaryButton';
+import PrimaryButton from './PrimaryButton';
 
-function BlogSection() {
+function BlogSection({ totalPosts }) {
   return (
     <Container
       data-aos='fade-right'
@@ -26,7 +26,7 @@ function BlogSection() {
         {(() => {
           const cards = [];
 
-          for (let i = 1; i <= 6; i++) {
+          for (let i = 1; i <= totalPosts; i++) {
             cards.push(
               <BlogCard
                 key={i}
