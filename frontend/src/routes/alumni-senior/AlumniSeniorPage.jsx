@@ -5,6 +5,8 @@ import OfficialCardSection from '../OfficialCardSection';
 import AlumniDistributionSection from './AlumniDistributionSection';
 
 export default function AlumniSeniorPage() {
+  document.title = 'Alumni & Senior - CIMSA ULM';
+
   return (
     <>
       <PageHeader
