@@ -23,10 +23,10 @@ export default function PageHeader({ title, description, myCss = '' }) {
           color: red;
           font-weight: bold;
 
-          font-size: 40px;
+          font-size: 44px;
 
           @media (min-width: 768px) {
-            font-size: 50px;
+            font-size: 54px;
           }
         `}
       >
