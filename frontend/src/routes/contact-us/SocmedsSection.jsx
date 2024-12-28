@@ -5,39 +5,38 @@ import OnHoverAnimationCss from '../OnHoverAnimationCss';
 function SocmedButton({ iconClass, url }) {
   return (
     <Col xs={1} style={{ width: '78px' }}>
-      <a
-        data-aos='zoom-in'
-        data-aos-duration='1200'
-        data-aos-once='true'
-        href={url}
-        target='_blank'
-        css={css`
-          display: block;
-          margin-bottom: 8px;
+      <div data-aos='zoom-in' data-aos-duration='1200' data-aos-once='true'>
+        <a
+          href={url}
+          target='_blank'
+          css={css`
+            display: block;
+            margin-bottom: 8px;
 
-          ${OnHoverAnimationCss(1.175)}
-        `}
-      >
-        <span
-          style={{
-            background: 'red',
-            borderRadius: '24%',
-            padding: '10px 0 8px 0',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+            ${OnHoverAnimationCss(1.175)}
+          `}
         >
-          <i
-            className={iconClass}
+          <span
             style={{
-              color: 'white',
-              fontWeight: 'bold',
-              fontSize: '36px',
+              background: 'red',
+              borderRadius: '24%',
+              padding: '10px 0 8px 0',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
-          />
-        </span>
-      </a>
+          >
+            <i
+              className={iconClass}
+              style={{
+                color: 'white',
+                fontWeight: 'bold',
+                fontSize: '36px',
+              }}
+            />
+          </span>
+        </a>
+      </div>
     </Col>
   );
 }

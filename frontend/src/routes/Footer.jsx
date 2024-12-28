@@ -53,18 +53,21 @@ export default function Footer() {
           >
             <Col md={5}>
               <Link to='/'>
-                <img
-                  src={Logo}
-                  alt='Logo'
+                <div
                   data-aos='zoom-in-right'
                   data-aos-once='true'
                   data-aos-duration='1200'
-                  style={{
-                    height: '50px',
-                    marginBottom: '10px',
-                  }}
-                  css={OnHoverAnimationCss(1.1)}
-                />
+                >
+                  <img
+                    src={Logo}
+                    alt='Logo'
+                    style={{
+                      height: '50px',
+                      marginBottom: '10px',
+                    }}
+                    css={OnHoverAnimationCss(1.1)}
+                  />
+                </div>
               </Link>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer

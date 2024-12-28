@@ -12,6 +12,10 @@ export default function ProgramsHeader() {
       <Container
         css={css`
           padding-top: 24px;
+
+          @media (min-width: 1100px) {
+            width: 1100px;
+          }
         `}
       >
         <div

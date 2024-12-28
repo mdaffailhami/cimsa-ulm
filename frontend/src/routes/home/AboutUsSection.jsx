@@ -111,9 +111,7 @@ export default function AboutUsSection() {
           the medical field.
         </p>
         <br />
-        <a href='/about-us'>
-          <PrimaryButton aos=''>Learn More</PrimaryButton>
-        </a>
+        <PrimaryButton to='/about-us'>Learn More</PrimaryButton>
       </Container>
     </div>
   );

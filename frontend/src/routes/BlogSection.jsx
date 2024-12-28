@@ -54,7 +54,7 @@ function BlogSection({ totalPosts, header = null, includeEndDivider = false }) {
         })()}
       </Row>
       <center>
-        <PrimaryButton>See All Posts</PrimaryButton>
+        <PrimaryButton to='/blog'>See All Posts</PrimaryButton>
       </center>
       {includeEndDivider && <hr />}
     </Container>

@@ -24,11 +24,26 @@ export default function ProgramSection({
         }
       `}
     >
-      <h2 style={{ color: 'red' }}>
+      <h2
+        data-aos='zoom-in'
+        data-aos-once='true'
+        data-aos-duration='1200'
+        style={{ color: 'red' }}
+      >
         <b>{title}</b>
       </h2>
-      <p style={{ marginBottom: '14px' }}>{subtitle}</p>
+      <p
+        data-aos='zoom-in-down'
+        data-aos-once='true'
+        data-aos-duration='1200'
+        style={{ marginBottom: '14px' }}
+      >
+        {subtitle}
+      </p>
       <Carousel
+        data-aos='fade-up'
+        data-aos-once='true'
+        data-aos-duration='1200'
         css={css`
           overflow: hidden;
           border-radius: 20px;

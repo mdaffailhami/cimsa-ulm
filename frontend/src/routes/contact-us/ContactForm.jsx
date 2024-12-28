@@ -30,30 +30,29 @@ export default function ContactForm() {
         <Form.Label>Message</Form.Label>
         <Form.Control as='textarea' rows={3} placeholder='Enter your message' />
       </Form.Group>
-      <Button
-        data-aos='zoom-out'
-        data-aos-duration='1200'
-        data-aos-once='true'
-        variant='warning'
-        style={{
-          width: '100%',
-          backgroundColor: 'red',
-          borderColor: 'red',
-          color: 'white',
-          fontWeight: 'bold',
-        }}
-        type='submit'
-        className='mt-4'
-        css={OnHoverAnimationCss(
-          1.015,
-          css`
-            background: white !important;
-            color: red !important;
-          `
-        )}
-      >
-        Send
-      </Button>
+      <div data-aos='zoom-out' data-aos-duration='1200' data-aos-once='true'>
+        <Button
+          variant='warning'
+          style={{
+            width: '100%',
+            backgroundColor: 'red',
+            borderColor: 'red',
+            color: 'white',
+            fontWeight: 'bold',
+          }}
+          type='submit'
+          className='mt-4'
+          css={OnHoverAnimationCss(
+            1.015,
+            css`
+              background: white !important;
+              color: red !important;
+            `
+          )}
+        >
+          Send
+        </Button>
+      </div>
     </Form>
   );
 }

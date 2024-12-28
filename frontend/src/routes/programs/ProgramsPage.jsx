@@ -90,7 +90,7 @@ export default function ProgramsPage() {
               With a basis of our policy documents, we approach stake-holders
               and advocate for issues relevant to our missions.
             </p>
-            <PrimaryButton href>
+            <PrimaryButton to='/trainings'>
               <i className='fa-solid fa-arrow-right' /> Our Trainers
             </PrimaryButton>
           </>

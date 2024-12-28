@@ -5,6 +5,9 @@ import OnHoverAnimationCss from '../OnHoverAnimationCss';
 export default function ProgramButton({ icon, title, subtitle, href }) {
   return (
     <Col
+      data-aos='flip-right'
+      data-aos-duration='1200'
+      data-aos-once='true'
       className='d-flex justify-content-center align-items-center'
       style={{ marginBottom: '24px' }}
     >
