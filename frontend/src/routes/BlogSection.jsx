@@ -3,7 +3,7 @@ import BlogCard from './BlogCard';
 import { css } from '@emotion/react';
 import PrimaryButton from './PrimaryButton';
 
-function BlogSection({ totalPosts }) {
+function BlogSection({ totalPosts, header = null, includeEndDivider = false }) {
   return (
     <Container
       data-aos='fade-right'
@@ -19,9 +19,17 @@ function BlogSection({ totalPosts }) {
         }
       `}
     >
-      <h1 className='text-center' style={{ marginBottom: '18px' }}>
-        CHECK OUT OUR LATEST UPDATES!
-      </h1>
+      {(() => {
+        if (header) {
+          return header;
+        } else {
+          return (
+            <h1 className='text-center' style={{ marginBottom: '18px' }}>
+              CHECK OUT OUR LATEST UPDATES!
+            </h1>
+          );
+        }
+      })()}
       <Row className='d-flex justify-content-center'>
         {(() => {
           const cards = [];
@@ -48,6 +56,7 @@ function BlogSection({ totalPosts }) {
       <center>
         <PrimaryButton>See All Posts</PrimaryButton>
       </center>
+      {includeEndDivider && <hr />}
     </Container>
   );
 }

@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { Button, Col } from 'react-bootstrap';
 import OnHoverAnimationCss from '../OnHoverAnimationCss';
 
-export default function ProgramButton({ icon, title, subtitle }) {
+export default function ProgramButton({ icon, title, subtitle, href }) {
   return (
     <Col
       className='d-flex justify-content-center align-items-center'
@@ -30,7 +30,7 @@ export default function ProgramButton({ icon, title, subtitle }) {
           width: 190px;
           height: 190px;
         `}
-        href='#programs'
+        href={href}
       >
         <i
           className={icon}

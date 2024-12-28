@@ -1,11 +1,19 @@
 import { css } from '@emotion/react';
 import { Carousel, Container } from 'react-bootstrap';
 
-export default function ProgramSection({ id, title, subtitle, body }) {
+export default function ProgramSection({
+  id,
+  title,
+  subtitle,
+  body,
+  endSection = true,
+}) {
   return (
     <Container
       id={id}
       css={css`
+        /* margin-bottom: ${!endSection ? '45px' : '0'}; */
+        margin-bottom: 45px;
         text-align: center;
 
         @media (max-width: 1199.98px) {
@@ -30,32 +38,35 @@ export default function ProgramSection({ id, title, subtitle, body }) {
           }
         `}
       >
-        <Carousel.Item>
+        {/* <Carousel.Item>
           <img
             css={css`
               width: 100%;
               object-fit: cover;
-              height: 50vw;
+              height: 60vw;
               border-radius: 20px;
 
               @media (min-width: 992px) {
-                height: 500px;
+                height: 520px;
                 border-radius: 24px;
               }
             `}
+            // picture={
+        //   'https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2024/07/LOME_Daniella-Enjelika-Sinaga-e1721380348578-300x300.png'
+        // }
             src='https://avatars.githubusercontent.com/u/74972129?v=4'
           />
-        </Carousel.Item>
+        </Carousel.Item> */}
         <Carousel.Item>
           <img
             css={css`
               width: 100%;
               object-fit: cover;
-              height: 50vw;
+              height: 60vw;
               border-radius: 20px;
 
               @media (min-width: 992px) {
-                height: 500px;
+                height: 520px;
                 border-radius: 24px;
               }
             `}
@@ -67,11 +78,11 @@ export default function ProgramSection({ id, title, subtitle, body }) {
             css={css`
               width: 100%;
               object-fit: cover;
-              height: 50vw;
+              height: 60vw;
               border-radius: 20px;
 
               @media (min-width: 992px) {
-                height: 500px;
+                height: 520px;
                 border-radius: 24px;
               }
             `}
@@ -81,6 +92,7 @@ export default function ProgramSection({ id, title, subtitle, body }) {
       </Carousel>
       <br />
       {body}
+      {endSection && <hr />}
     </Container>
   );
 }

@@ -6,21 +6,13 @@ import { useLocation } from 'react-router';
 import { useEffect } from 'react';
 import SocmedsSection from './SocmedsSection';
 import OfficialCardSection from '../OfficialCardSection';
+import { scrollById } from '../../utils';
 
 export default function ContactUsPage() {
   document.title = 'Contact Us - CIMSA ULM';
   const location = useLocation();
 
-  useEffect(() => {
-    // Detect hash in URL, if there is a hash then scroll to that section
-    if (location.hash) {
-      const element = document.querySelector(location.hash);
-
-      if (element) {
-        window.scrollTo(0, element.offsetTop - 80);
-      }
-    }
-  }, [location]);
+  useEffect(() => scrollById(location.hash), [location]);
 
   return (
     <>

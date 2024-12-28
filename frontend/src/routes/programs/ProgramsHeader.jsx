@@ -34,21 +34,25 @@ export default function ProgramsHeader() {
         </div>
         <Row xs={2} sm={2} md={2} lg={4}>
           <ProgramButton
+            href='#activities'
             icon='fa-solid fa-tasks'
             title={'ACTIVITIES'}
             subtitle={'Real impacts'}
           />
           <ProgramButton
+            href='#advocacy'
             icon='fa-solid fa-bullhorn'
             title={'ADVOCACY'}
             subtitle={'Multisectoral approach'}
           />
           <ProgramButton
+            href='#research'
             icon='fa-solid fa-chart-column'
             title={'RESEARCH'}
             subtitle={'Data-driven'}
           />
           <ProgramButton
+            href='#capacity-building'
             icon='fa-regular fa-circle-up'
             title={'CAPACITY BUILDING'}
             subtitle={'Member empowerment'}

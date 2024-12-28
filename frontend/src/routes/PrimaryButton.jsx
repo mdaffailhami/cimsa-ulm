@@ -2,10 +2,10 @@ import { css } from '@emotion/react';
 import { Button } from 'react-bootstrap';
 import OnHoverAnimationCss from './OnHoverAnimationCss';
 
-export default function PrimaryButton({ aos = 'zoom-in', children }) {
+export default function PrimaryButton({ href, aos = 'zoom-in', children }) {
   return (
     <Button
-      href='/blog'
+      href={href}
       size='lg'
       data-aos-duration='1200'
       data-aos={aos}
