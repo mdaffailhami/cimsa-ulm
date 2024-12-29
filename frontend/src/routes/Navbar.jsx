@@ -165,26 +165,13 @@ export default function Navbar() {
                   Programs
                 </NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown
-                title='The Officials'
-                active={location.pathname.startsWith('/officials')}
+              <Nav.Link
+                as={Link}
+                to='/officials'
+                active={location.pathname === '/officials'}
               >
-                <NavDropdown.Item
-                  as={Link}
-                  to='/officials'
-                  active={location.pathname === '/officials'}
-                >
-                  Current Officials
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item
-                  as={Link}
-                  to='/officials/past'
-                  active={location.pathname === '/officials/past'}
-                >
-                  Past Officials
-                </NavDropdown.Item>
-              </NavDropdown>
+                The Officials
+              </Nav.Link>
               <Nav.Link
                 as={Link}
                 to='/alumni-senior'
