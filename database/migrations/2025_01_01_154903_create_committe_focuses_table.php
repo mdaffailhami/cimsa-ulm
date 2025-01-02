@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('committe_areas', function (Blueprint $table) {
+        Schema::create('committe_focuses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('committe_id')->constrained('committes', 'id')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('name');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('committe_areas');
+        Schema::dropIfExists('committe_focuses');
     }
 };
