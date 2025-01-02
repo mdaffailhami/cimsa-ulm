@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('committe_focuses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('committe_id')->constrained('committes', 'id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignUuid('committe_id')->constrained('committes', 'uuid')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('description');
             $table->timestamps();
         });

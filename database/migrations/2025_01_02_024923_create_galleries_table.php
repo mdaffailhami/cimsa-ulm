@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('galleries', function (Blueprint $table) {
-            $table->uuid();
-            $table->foreignUuid('program_id')->constrained('programs', 'uuid')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->uuid()->primary();
+            $table->foreignUuid('program_id')->constrained('programs', 'uuid')->nullable()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('url');
             $table->integer('order');
             $table->timestamps();

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('officials', function (Blueprint $table) {
-            $table->id();
+            $table->uuid()->primary();
             $table->string('poster');
             $table->year('start_year');
             $table->year('end_year');

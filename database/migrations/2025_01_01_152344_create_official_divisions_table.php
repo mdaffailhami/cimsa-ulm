@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('official_divisions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('official_id')->constrained('officials', 'id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignUuid('official_id')->constrained('officials', 'uuid')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('division_name');
             $table->timestamps();
             $table->softDeletes();
