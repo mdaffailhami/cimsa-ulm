@@ -18,13 +18,13 @@ class Page extends Model
         "uri",
     ];
 
-    public function content()
+    public function contents()
     {
-        return $this->hasOne(PageContent::class);
+        return $this->hasMany(PageContent::class, 'page_id');
     }
 
     public function contact()
     {
-        return $this->hasOne(PageContact::class);
+        return $this->hasOne(PageContact::class, 'page_id');
     }
 }
