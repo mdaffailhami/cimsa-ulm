@@ -57,7 +57,8 @@ export default function VisionMissionSection() {
           <h2 style={{ color: 'red' }}>
             <b>MISSION</b>
           </h2>
-          <Row md={2} sm={1} className='justify-content-center'>
+          <br />
+          <Row xs={1} sm={1} md={2} className='justify-content-center g-3'>
             <Col>
               <h4>
                 <b>Title 1</b>
