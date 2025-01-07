@@ -1,5 +1,10 @@
 <?php
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 if (! function_exists('generatePassword')) {
     function generatePassword()
     {
@@ -34,5 +39,47 @@ if (! function_exists('generatePassword')) {
 
         // Convert the array into a string
         return implode('', $password);
+    }
+}
+
+if (! function_exists('generateImage')) {
+    function generateImage($category, $path_name)
+    {
+        $images = [
+            "dummy1.jpg",
+            "dummy2.jpg",
+            "dummy3.jpg",
+            "dummy4.png",
+            "dummy5.jpg"
+        ];
+
+        $avatars = [
+            "A1.png",
+            "A2.png",
+            "A3.png",
+            "A4.png",
+            "A5.png"
+        ];
+
+        if ($category === 'image') {
+            $dummy_file = $images[rand(0, count($images) - 1)];
+        } else {
+            $dummy_file = $avatars[rand(0, count($avatars) - 1)];
+        }
+
+        $dummy_source = public_path("/dummies/{$category}/{$dummy_file}");
+        $storage_path = storage_path("/app/public/{$path_name}/");
+
+        $file_name = Carbon::now()->timestamp . "-" . Str::slug(pathinfo($dummy_source, PATHINFO_FILENAME)) . "." . pathinfo($dummy_source, PATHINFO_EXTENSION);
+
+        // Check if path exists
+        if (!File::exists($storage_path)) {
+            // if path dont exist create new directory
+            File::makeDirectory($storage_path, 0777, true, true);
+        }
+
+        File::copy($dummy_source, "{$storage_path}/{$file_name}");
+
+        return $file_name;
     }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignUuid('page_id')->constrained('pages', 'uuid')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('column');
             $table->enum('type', ['text', 'image']);
-            $table->string('group')->nullable();
+            $table->string('section')->nullable();
             $table->string('image_content')->nullable();
             $table->text('text_content')->nullable();
             $table->timestamps();

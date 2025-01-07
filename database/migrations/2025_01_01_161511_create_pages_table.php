@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid()->primary();
             $table->string('name');
             $table->string('uri');
+            $table->string('section')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
