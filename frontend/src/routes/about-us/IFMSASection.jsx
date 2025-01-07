@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import { Col, Container, Image, Row } from 'react-bootstrap';
 import PrimaryButton from '../PrimaryButton';
+import OnHoverAnimationCss from '../OnHoverAnimationCss';
 
 export default function IFMSASection() {
   return (
@@ -15,25 +16,37 @@ export default function IFMSASection() {
     >
       <br />
       <br />
-      <h2>
+      <h2 data-aos='fade-right' data-aos-duration='1200' data-aos-once='true'>
         <b>We are internationally affiliated.</b>
       </h2>
-      <p style={{ fontSize: '20px' }}>
+      <p
+        data-aos='fade-left'
+        data-aos-duration='1200'
+        data-aos-once='true'
+        style={{ fontSize: '20px' }}
+      >
         CIMSA is Indonesia's national member organization (NMO) for the IFMSA,
         the international representative organization of medical students,
         recognized by the WHO.
       </p>
       <br />
-      <Container>
+      <Container
+        data-aos='flip-left'
+        data-aos-duration='1200'
+        data-aos-once='true'
+      >
         <Row
           xs={1}
           sm={1}
           md={2}
+          className='g-3'
           css={css`
             align-items: center;
             padding: 12px 0;
             border-radius: 30px;
             box-shadow: 1px 1px 8px 4px rgba(0, 0, 0, 0.4);
+
+            ${OnHoverAnimationCss(1.03)}
           `}
         >
           <Col>
@@ -47,13 +60,26 @@ export default function IFMSASection() {
             />
           </Col>
           <Col
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'start',
-            }}
+            css={css`
+              display: flex;
+              flex-direction: column;
+              align-items: start;
+
+              @media (max-width: 767.98px) {
+                align-items: center;
+              }
+            `}
           >
-            <p style={{ textAlign: 'left', color: 'black' }}>
+            <p
+              css={css`
+                color: black;
+                text-align: left;
+
+                @media (max-width: 767.98px) {
+                  text-align: center;
+                }
+              `}
+            >
               IFMSA is a <b>non-profit</b>, <b>non-governmental</b>, and{' '}
               <b>non-partisan</b> <b>federation</b> representing{' '}
               <b>association of medical students internationally</b>. Since
@@ -66,7 +92,11 @@ export default function IFMSASection() {
               <b>sole representative since September 11th, 2019</b>.
             </p>
             <PrimaryButton to='/about-us/ifmsa' color='#1f3868' isLarge={false}>
-              <i className='fa-solid fa-arrow-right' /> More on the IFMSA
+              <i
+                className='fa-solid fa-arrow-right'
+                style={{ marginRight: '6.95px' }}
+              />{' '}
+              More on the IFMSA
             </PrimaryButton>
           </Col>
         </Row>

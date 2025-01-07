@@ -23,16 +23,27 @@ export default function SDGsSection() {
             }
           `}
         >
-          <h2>
+          <h2
+            data-aos='fade-right'
+            data-aos-duration='1200'
+            data-aos-once='true'
+          >
             <b>We advance the Sustainable Development Goals.</b>
           </h2>
-          <p style={{ fontSize: '20px' }}>
+          <p
+            data-aos='fade-left'
+            data-aos-duration='1200'
+            data-aos-once='true'
+            style={{ fontSize: '20px' }}
+          >
             We believe in the Sustainable Development Goals (SDGs) and are
             especially aiding the completion of SDG 3 (Good Health), 4 (Quality
             Education), 5 (Gender Equality), and 13 (Climate Action).
           </p>
           <br />
-          <h3>SDGS WE SUPPORT:</h3>
+          <h3 data-aos='zoom-in' data-aos-duration='1200' data-aos-once='true'>
+            SDGs WE SUPPORT:
+          </h3>
         </Container>
         <br />
         <center>
@@ -48,7 +59,12 @@ export default function SDGsSection() {
             `}
           >
             {sdgs.map((sdg, i) => (
-              <Col key={i + 1}>
+              <Col
+                key={i + 1}
+                data-aos='flip-right'
+                data-aos-duration='1200'
+                data-aos-once='true'
+              >
                 <Image
                   src={sdg}
                   alt={`SDG-${i + 1}`}

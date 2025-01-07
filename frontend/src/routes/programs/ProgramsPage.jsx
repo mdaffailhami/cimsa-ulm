@@ -91,7 +91,11 @@ export default function ProgramsPage() {
               and advocate for issues relevant to our missions.
             </p>
             <PrimaryButton to='/trainings'>
-              <i className='fa-solid fa-arrow-right' /> Our Trainers
+              <i
+                className='fa-solid fa-arrow-right'
+                style={{ marginRight: '6.95px' }}
+              />{' '}
+              Our Trainers
             </PrimaryButton>
           </>
         }
