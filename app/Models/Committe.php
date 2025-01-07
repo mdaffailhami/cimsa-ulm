@@ -11,7 +11,7 @@ class Committe extends Model
     use HasUuids, SoftDeletes;
 
     protected $primaryKey = 'uuid';
-    protected $incrementing = false;
+    public $incrementing = false;
 
     protected $fillable = [
         "logo",

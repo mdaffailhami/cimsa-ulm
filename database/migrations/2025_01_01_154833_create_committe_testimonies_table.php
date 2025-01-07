@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('committe_testimonies', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('committe_id')->constrained('committes', 'uuid')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignUuid('committe_uuid')->constrained('committes', 'uuid')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('image');
             $table->string('name');
             $table->string('position');
