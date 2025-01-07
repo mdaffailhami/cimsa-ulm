@@ -1,9 +1,8 @@
 import { css } from '@emotion/react';
 import PageHeader from '../PageHeader';
-import { Col, Container, Image, Row } from 'react-bootstrap';
-import OnHoverAnimationCss from '../OnHoverAnimationCss';
 import SDGsSection from './SDGsSection';
 import IFMSASection from './IFMSASection';
+import VisionMissionSection from './VisionMissionSection';
 
 export default function AboutUsPage() {
   document.title = 'About Us - CIMSA ULM';
@@ -23,6 +22,8 @@ export default function AboutUsPage() {
       />
       <SDGsSection />
       <IFMSASection />
+      <VisionMissionSection />
+      <hr />
     </>
   );
 }
