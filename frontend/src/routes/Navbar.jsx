@@ -83,7 +83,7 @@ export default function Navbar() {
               </Nav.Link>
               <NavDropdown
                 title='About Us'
-                active={location.pathname.startsWith('/about')}
+                active={location.pathname.startsWith('/about-us')}
               >
                 <NavDropdown.Item
                   as={Link}
@@ -95,8 +95,8 @@ export default function Navbar() {
                 <NavDropdown.Divider />
                 <NavDropdown.Item
                   as={Link}
-                  to='/about-ifmsa'
-                  active={location.pathname === '/about-ifmsa'}
+                  to='/about-us/ifmsa'
+                  active={location.pathname === '/about-us/ifmsa'}
                 >
                   About IFMSA
                 </NavDropdown.Item>

@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 
 export default function PrimaryButton({
   to,
+  target = undefined,
   aos = 'zoom-in',
   color = 'red',
   isLarge = true,
@@ -15,6 +16,7 @@ export default function PrimaryButton({
       <Button
         as={Link}
         to={to}
+        target={target}
         size={isLarge ? 'lg' : 'md'}
         style={{
           backgroundColor: color,

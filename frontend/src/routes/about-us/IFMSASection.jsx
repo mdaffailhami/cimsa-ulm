@@ -42,7 +42,7 @@ export default function IFMSASection() {
           className='g-3'
           css={css`
             align-items: center;
-            padding: 12px 0;
+            padding: 0 0 15.5px 0;
             border-radius: 30px;
             box-shadow: 1px 1px 8px 4px rgba(0, 0, 0, 0.4);
 
