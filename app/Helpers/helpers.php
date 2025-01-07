@@ -61,11 +61,29 @@ if (! function_exists('generateImage')) {
             "A5.png"
         ];
 
+        $officials = [
+            "2024.png",
+            "2023.png",
+            "2022.png",
+        ];
+
+        $committes = [
+            "scome.png",
+            "scora.png",
+        ];
+
+
         if ($category === 'image') {
             $dummy_file = $images[rand(0, count($images) - 1)];
-        } else {
+        } else if ($category === 'avatar') {
             $dummy_file = $avatars[rand(0, count($avatars) - 1)];
+        } else if ($category === 'official') {
+            $dummy_file = $officials[rand(0, count($officials) - 1)];
+        } else if ($category === 'committe') {
+            $dummy_file = $committes[rand(0, count($committes) - 1)];
         }
+
+
 
         $dummy_source = public_path("/dummies/{$category}/{$dummy_file}");
         $storage_path = storage_path("/app/public/{$path_name}/");

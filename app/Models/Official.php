@@ -11,7 +11,7 @@ class Official extends Model
     use HasUuids;
 
     protected $primaryKey = 'uuid';
-    protected $incrementing = false;
+    public $incrementing = false;
 
     protected $fillable = [
         'poster',
@@ -21,6 +21,6 @@ class Official extends Model
 
     public function divisions()
     {
-        return $this->hasMany(OfficialDivision::class, 'division_id');
+        return $this->hasMany(OfficialDivision::class, 'official_id');
     }
 }
