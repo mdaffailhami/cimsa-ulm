@@ -146,7 +146,8 @@ export default function Navbar() {
                 title='What We Do'
                 active={
                   location.pathname === '/activities' ||
-                  location.pathname === '/programs'
+                  location.pathname === '/programs' ||
+                  location.pathname === '/trainings'
                 }
               >
                 <NavDropdown.Item
@@ -163,6 +164,14 @@ export default function Navbar() {
                   active={location.pathname === '/programs'}
                 >
                   Programs
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item
+                  as={Link}
+                  to='/trainings'
+                  active={location.pathname === '/trainings'}
+                >
+                  Trainings
                 </NavDropdown.Item>
               </NavDropdown>
               <Nav.Link

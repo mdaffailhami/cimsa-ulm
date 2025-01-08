@@ -19,10 +19,6 @@ export default function AboutIFMSAPage() {
         title='About IFMSA'
         description='International Federation of Medical Students’ Association (IFMSA) adalah organisasi non-profit, non-pemerintah dan non-partisipan yang mewakili asosiasi mahasiswa kedokteran internasional. IFMSA didirikan pada tahun 1951 dan merupakan salah satu organisasi pelajar dan organisasi pelajar kedokteran tertua di dunia. IFMSA terbagi menjadi lima region: Asia-Pacific tempat kita berada, America, Eastern-Mediterranean, Africa, dan Europe. Menghubungkan mahasiswa kedokteran dari 141 organisasi di 130 negara di seluruh dunia, IFMSA memiliki tujuan yang terbagi dalam enam area: kesehatan masyarakat, kesehatan reproduksi seksual, pendidikan kedokteran, hak asasi manusia dan perdamaian, pertukaran pelajar profesional, dan pertukaran pelajar penelitian.'
         titleColor='#1f3868'
-        myCss={css`
-          margin-top: 100px;
-          margin-bottom: 50px;
-        `}
       />
       <Container fluid style={{ background: '#1f3868', padding: '26.5px 0' }}>
         <Container

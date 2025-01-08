@@ -17,6 +17,7 @@ import AlumniSeniorPage from './routes/alumni-senior/AlumniSeniorPage.jsx';
 import ProgramsPage from './routes/programs/ProgramsPage.jsx';
 import OfficialsPage from './routes/officials/OfficialsPage.jsx';
 import AboutIFMSAPage from './routes/about-us/ifmsa/AboutIFMSAPage.jsx';
+import TrainingsPage from './routes/trainings/TrainingsPage.jsx';
 
 createRoot(document.getElementById('root')).render(<App />);
 
@@ -42,6 +43,7 @@ function App() {
           <Route path='about-us' element={<AboutUsPage />} />
           <Route path='about-us/ifmsa' element={<AboutIFMSAPage />} />
           <Route path='programs' element={<ProgramsPage />} />
+          <Route path='trainings' element={<TrainingsPage />} />
           <Route path='officials' element={<OfficialsPage />} />
           <Route path='alumni-senior' element={<AlumniSeniorPage />} />
           <Route path='contact-us' element={<ContactUsPage />} />

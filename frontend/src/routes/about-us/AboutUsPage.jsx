@@ -15,10 +15,6 @@ export default function AboutUsPage() {
         fugit repudiandae consequuntur? Quidem eligendi aspernatur nisi debitis
         autem? Praesentium, dolorem voluptatibus cupiditate esse ratione
         repudiandae aut doloremque delectus.'
-        myCss={css`
-          margin-top: 100px;
-          margin-bottom: 50px;
-        `}
       />
       <SDGsSection />
       <IFMSASection />
