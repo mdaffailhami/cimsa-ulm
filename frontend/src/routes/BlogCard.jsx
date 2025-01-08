@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { Button, Card, Col } from 'react-bootstrap';
+import { Card, Col, Image } from 'react-bootstrap';
 import OnHoverAnimationCss from './OnHoverAnimationCss';
 
 export default function BlogCard({ thumbnail, title, description }) {
@@ -26,13 +26,31 @@ export default function BlogCard({ thumbnail, title, description }) {
       >
         <Card.Header
           style={{
+            position: 'relative',
             padding: '0',
-            backgroundImage: `url(${thumbnail})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
             height: '250px',
           }}
-        />
+        >
+          <Image
+            src={thumbnail}
+            alt={title}
+            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+          />
+          <div
+            css={css`
+              position: absolute;
+              bottom: 5px;
+              right: 5px;
+              padding: 4px;
+              background-color: rgba(0, 0, 0, 0.57);
+              border-radius: 8px;
+              color: white;
+              font-size: 13px;
+            `}
+          >
+            Januari 12, 2025
+          </div>
+        </Card.Header>
         <Card.Body>
           <Card.Title
             style={{
