@@ -1,7 +1,12 @@
 import { css } from '@emotion/react';
 import { Container } from 'react-bootstrap';
 
-export default function PageHeader({ title, description, myCss = '' }) {
+export default function PageHeader({
+  title,
+  description,
+  titleColor = 'red',
+  myCss = '',
+}) {
   return (
     <div
       css={css`
@@ -20,7 +25,7 @@ export default function PageHeader({ title, description, myCss = '' }) {
         data-aos-once='true'
         css={css`
           text-align: center;
-          color: red;
+          color: ${titleColor};
           font-weight: bold;
 
           font-size: 44px;

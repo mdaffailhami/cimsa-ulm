@@ -3,16 +3,24 @@ import { Button } from 'react-bootstrap';
 import OnHoverAnimationCss from './OnHoverAnimationCss';
 import { Link } from 'react-router';
 
-export default function PrimaryButton({ to, aos = 'zoom-in', children }) {
+export default function PrimaryButton({
+  to,
+  target = undefined,
+  aos = 'zoom-in',
+  color = 'red',
+  isLarge = true,
+  children,
+}) {
   return (
     <div data-aos-duration='1200' data-aos={aos} data-aos-once='true'>
       <Button
         as={Link}
         to={to}
-        size='lg'
+        target={target}
+        size={isLarge ? 'lg' : 'md'}
         style={{
-          backgroundColor: 'red',
-          borderColor: 'red',
+          backgroundColor: color,
+          borderColor: color,
           color: 'white',
           display: 'inline-block',
         }}
@@ -20,7 +28,7 @@ export default function PrimaryButton({ to, aos = 'zoom-in', children }) {
           1.08,
           css`
             background: white !important;
-            color: red !important;
+            color: ${color} !important;
           `
         )}
       >

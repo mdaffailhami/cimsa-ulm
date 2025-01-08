@@ -15,6 +15,8 @@ import { Global, css } from '@emotion/react';
 import ContactUsPage from './routes/contact-us/ContactUsPage.jsx';
 import AlumniSeniorPage from './routes/alumni-senior/AlumniSeniorPage.jsx';
 import ProgramsPage from './routes/programs/ProgramsPage.jsx';
+import OfficialsPage from './routes/officials/OfficialsPage.jsx';
+import AboutIFMSAPage from './routes/about-us/ifmsa/AboutIFMSAPage.jsx';
 
 createRoot(document.getElementById('root')).render(<App />);
 
@@ -38,7 +40,9 @@ function App() {
         <Routes>
           <Route index element={<HomePage />} />
           <Route path='about-us' element={<AboutUsPage />} />
+          <Route path='about-us/ifmsa' element={<AboutIFMSAPage />} />
           <Route path='programs' element={<ProgramsPage />} />
+          <Route path='officials' element={<OfficialsPage />} />
           <Route path='alumni-senior' element={<AlumniSeniorPage />} />
           <Route path='contact-us' element={<ContactUsPage />} />
           <Route path='*' element={<NotFoundPage />} />
@@ -90,6 +94,7 @@ function GlobalStyle() {
         /* /CSS Reset */
 
         ::selection {
+          color: white;
           background-color: red;
         }
 
