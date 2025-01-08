@@ -22,9 +22,8 @@ class CommitteSeeder extends Seeder
 
         $committees = [
             [
-                "logo" => "",
                 "name" => "SCOME",
-                "color" => "0E0E0E",
+                "color" => "#0E0E0E",
                 "description" => "SCOME is a forum for medical students who have special interest in the improvement of medical education.",
                 "long_description" => "Standing Committee on Medical Education (SCOME) focuses on improvement of medical education system and helping its member to contribute more on medical education system or curriculum evaluation through discussion or academic forum. SCOME member is aimed to be critical and skilled on countering medical education issues or even medical issues in general as an effort on preparing them to be the agents of change. Through SCOME, medical students collaborate to develop medical education in Indonesia by doing projects and activities at local, national, and international activities.",
                 "mission_statement" => "We aim to achieve excellence in medical education throughout the world",
@@ -40,9 +39,8 @@ class CommitteSeeder extends Seeder
                 ]
             ],
             [
-                "logo" => "",
                 "name" => "SCORA",
-                "color" => "BD222A",
+                "color" => "#BD222A",
                 "description" => "SCORA aims at raising the awareness on reproductive health including sex education, gender equality, etc..",
                 "long_description" => "Standing Committee on Sexual & Reproductive Health and Rights Including HIV & AIDS (SCORA) focuses on issues related to reproductive health, HIV/AIDS, sexually transmitted infections (STIs), gender equality, maternal health, and gender-based violence. SCORA remains courageous and believes that the best way to prevent problems from arising in the community is through education including those topics which could be considered taboo. It is not only a disease that SCORA is trying to defeat, but also the stigma that is circulating in society with education-based activities.",
                 "mission_statement" => "To provide necessary tools to advocate for sexual and reproductive health rights within respective communities in a culturally respective fashion.",

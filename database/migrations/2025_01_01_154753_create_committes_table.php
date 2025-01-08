@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid()->primary();
             $table->string('logo')->nullable();
             $table->string('name')->unique();
-            $table->char('color', 6);
+            $table->char('color', 7);
             $table->string('description');
             $table->text('long_description');
             $table->string('mission_statement');
