@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('galleries', function (Blueprint $table) {
             $table->uuid()->primary();
-            $table->foreignUuid('program_id')->constrained('programs', 'uuid')->nullable()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->uuid('entity_id')->nullable()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('url');
             $table->integer('order');
             $table->timestamps();

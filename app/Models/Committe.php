@@ -36,4 +36,9 @@ class Committe extends Model
     {
         return $this->hasMany(CommitteFocus::class);
     }
+
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class, 'entity_id');
+    }
 }

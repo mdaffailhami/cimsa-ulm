@@ -100,8 +100,14 @@ class CommitteSeeder extends Seeder
                 ]);
             }
 
-            for ($i = 0; $i < 2; $i++) {
+            // Looping Testimonies
+            for ($i = 1; $i <= 2; $i++) {
                 $this->createTestimonies($committe_model);
+            }
+
+            // Looping Galeries
+            for ($i = 1; $i <= 2; $i++) {
+                $this->createGaleries($committe_model, $i);
             }
         }
     }
@@ -118,6 +124,17 @@ class CommitteSeeder extends Seeder
             "name" => $faker->name,
             "position" => $faker->jobTitle,
             "description" => $faker->paragraph,
+        ]);
+    }
+
+    public function createGaleries($committe_model, $order)
+    {
+        $path_name = "gallery/committe";
+        $image_name = generateImage('image', $path_name);
+
+        $committe_model->galleries()->create([
+            "url" => config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name,
+            "order" => $order
         ]);
     }
 }
