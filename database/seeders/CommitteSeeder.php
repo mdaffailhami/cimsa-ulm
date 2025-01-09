@@ -68,47 +68,57 @@ class CommitteSeeder extends Seeder
             ]
         ];
 
-        foreach ($committees as $committe) {
-            $path_name = "committe";
-            $image_name = generateImage('committe', $path_name);
+        DB::beginTransaction();
 
-            $committe_model = new Committe();
+        try {
+            foreach ($committees as $committe) {
+                $path_name = "committe";
+                $image_name = generateImage('committe', $path_name);
 
-            $committe_model->logo = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
-            $committe_model->name = $committe["name"];
-            $committe_model->color = $committe["color"];
-            $committe_model->description = $committe["description"];
-            $committe_model->long_description = $committe["long_description"];
-            $committe_model->mission_statement = $committe["mission_statement"];
+                $committe_model = new Committe();
 
-            $committe_model->save();
+                $committe_model->logo = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
+                $committe_model->name = $committe["name"];
+                $committe_model->color = $committe["color"];
+                $committe_model->description = $committe["description"];
+                $committe_model->long_description = $committe["long_description"];
+                $committe_model->mission_statement = $committe["mission_statement"];
 
-            foreach ($committe["activities"] as $activity) {
-                $activity_model = $committe_model->activities();
+                $committe_model->save();
 
-                $activity_model->create([
-                    "name" => $activity['name'],
-                    "description" => $activity['description']
-                ]);
+                foreach ($committe["activities"] as $activity) {
+                    $activity_model = $committe_model->activities();
+
+                    $activity_model->create([
+                        "name" => $activity['name'],
+                        "description" => $activity['description']
+                    ]);
+                }
+
+                foreach ($committe["focuses"] as $focus) {
+                    $focus_model = $committe_model->focuses();
+
+                    $focus_model->create([
+                        "description" => $focus,
+                    ]);
+                }
+
+                // Looping Testimonies
+                for ($i = 1; $i <= 2; $i++) {
+                    $this->createTestimonies($committe_model);
+                }
+
+                // Looping Galeries
+                for ($i = 1; $i <= 2; $i++) {
+                    $this->createGaleries($committe_model, $i);
+                }
             }
 
-            foreach ($committe["focuses"] as $focus) {
-                $focus_model = $committe_model->focuses();
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
 
-                $focus_model->create([
-                    "description" => $focus,
-                ]);
-            }
-
-            // Looping Testimonies
-            for ($i = 1; $i <= 2; $i++) {
-                $this->createTestimonies($committe_model);
-            }
-
-            // Looping Galeries
-            for ($i = 1; $i <= 2; $i++) {
-                $this->createGaleries($committe_model, $i);
-            }
+            echo $th->getMessage();
         }
     }
 
@@ -134,7 +144,8 @@ class CommitteSeeder extends Seeder
 
         $committe_model->galleries()->create([
             "url" => config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name,
-            "order" => $order
+            "order" => $order,
+            "type" => 'committe'
         ]);
     }
 }

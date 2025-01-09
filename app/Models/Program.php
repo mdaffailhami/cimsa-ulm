@@ -11,15 +11,15 @@ class Program extends Model
     use HasUuids;
 
     protected $primaryKey = 'uuid';
-    protected $incrementing = false;
+    public $incrementing = false;
 
     protected $fillable = [
         "name",
         "description"
     ];
 
-    public function galeries()
+    public function galleries()
     {
-        return $this->hasMany(Gallery::class, 'program_id');
+        return $this->hasMany(Gallery::class, 'entity_id');
     }
 }
