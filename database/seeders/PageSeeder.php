@@ -138,8 +138,6 @@ class PageSeeder extends Seeder
                 if (isset($page['contact'])) {
                     $this->createPageContact($page_model, $page["contact"]);
                 }
-
-                echo  $page['name'] . " Page created\n";
             }
 
             DB::commit();

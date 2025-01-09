@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Official;
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +29,7 @@ class DatabaseSeeder extends Seeder
             ProgramSeeder::class,
             TrainingSeeder::class,
             PageSeeder::class,
+            SocialMediaSeeder::class
         ]);
 
         Schema::enableForeignKeyConstraints();
