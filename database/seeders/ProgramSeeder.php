@@ -14,8 +14,7 @@ class ProgramSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('committe_activities')->truncate();
-        DB::table('committe_focuses')->truncate();
+        DB::table('programs')->truncate();
 
         $programs = [
             [

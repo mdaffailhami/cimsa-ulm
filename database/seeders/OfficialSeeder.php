@@ -56,27 +56,37 @@ class OfficialSeeder extends Seeder
             "Position 3"
         ];
 
-        foreach ($officials as $official) {
-            $official_model = new Official();
+        Db::beginTransaction();
 
-            $path_name = "official";
-            $image_name = generateImage('official', $path_name);
+        try {
+            foreach ($officials as $official) {
+                $official_model = new Official();
 
-            $official_model->poster = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
-            $official_model->start_year = $official['start_year'];
-            $official_model->end_year = $official['end_year'];
+                $path_name = "official";
+                $image_name = generateImage('official', $path_name);
 
-            $official_model->save();
+                $official_model->poster = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
+                $official_model->start_year = $official['start_year'];
+                $official_model->end_year = $official['end_year'];
 
-            foreach ($official['divisions'] as $division) {
-                $division_model = $official_model->divisions()->create([
-                    'name' => $division
-                ]);
+                $official_model->save();
 
-                foreach ($positions as $position) {
-                    $this->createMember($division_model, $position);
+                foreach ($official['divisions'] as $division) {
+                    $division_model = $official_model->divisions()->create([
+                        'name' => $division
+                    ]);
+
+                    foreach ($positions as $position) {
+                        $this->createMember($division_model, $position);
+                    }
                 }
             }
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            echo $th->getMessage();
         }
     }
 
