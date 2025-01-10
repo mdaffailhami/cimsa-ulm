@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CimsaProfileController;
+use App\Http\Controllers\CommitteController;
 use App\Http\Controllers\OfficialController;
 use App\Http\Controllers\PageController;
 use Illuminate\Http\Request;
@@ -23,3 +24,5 @@ Route::get('/image/{path}', function ($path) {
 Route::get('/cimsa-profile', [CimsaProfileController::class, 'api']);
 Route::get('/page/{uri}', [PageController::class, 'api']);
 Route::get('/official', [OfficialController::class, 'api']);
+Route::get('/committe', [CommitteController::class, 'api']);
+Route::get('/committe/{name}', [CommitteController::class, 'api_detail']);
