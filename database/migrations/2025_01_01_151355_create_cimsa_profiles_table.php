@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('cimsa_profiles', function (Blueprint $table) {
             $table->id();
             $table->string('column');
+            $table->string('label');
             $table->enum('type', ['text', 'image']);
             $table->string('image_content')->nullable();
             $table->text('text_content')->nullable();

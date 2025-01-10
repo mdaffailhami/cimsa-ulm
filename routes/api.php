@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CimsaProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +16,6 @@ Route::get('/image/{path}', function ($path) {
         abort(404); // Return a 404 response if the file doesn't exist
     }
 })->where('path', '.*');
+
+
+Route::get('/cimsa-profile', [CimsaProfileController::class, 'api']);
