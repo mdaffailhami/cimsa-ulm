@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CimsaProfileController;
+use App\Http\Controllers\PageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,4 @@ Route::get('/image/{path}', function ($path) {
 
 
 Route::get('/cimsa-profile', [CimsaProfileController::class, 'api']);
+Route::get('/page/{uri}', [PageController::class, 'api']);
