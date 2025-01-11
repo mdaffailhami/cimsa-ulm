@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('post_categories', function (Blueprint $table) {
             $table->foreignUuid('post_id')->constrained('posts', 'uuid')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('category_id')->constrained('categories', 'id')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->timestamps();
         });
     }
 
