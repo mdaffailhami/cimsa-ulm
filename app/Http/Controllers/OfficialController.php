@@ -16,6 +16,4 @@ class OfficialController extends Controller
             'data' => OfficialResource::collection($officials)
         ]);
     }
-
-    public function api_detail() {}
 }
