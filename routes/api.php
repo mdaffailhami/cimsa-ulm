@@ -4,6 +4,7 @@ use App\Http\Controllers\CimsaProfileController;
 use App\Http\Controllers\CommitteController;
 use App\Http\Controllers\OfficialController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProgramController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +27,4 @@ Route::get('/page/{uri}', [PageController::class, 'api']);
 Route::get('/official', [OfficialController::class, 'api']);
 Route::get('/committe', [CommitteController::class, 'api']);
 Route::get('/committe/{name}', [CommitteController::class, 'api_detail']);
+Route::get('/program', [ProgramController::class, 'api']);
