@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('cover')->nullable();
             $table->string('title');
             $table->string('slug');
+            $table->string('highlight');
             $table->text('content');
             $table->timestamps();
             $table->softDeletes();

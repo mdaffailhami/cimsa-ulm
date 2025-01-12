@@ -37,6 +37,7 @@ class PostFactory extends Factory
             "cover" => $image_url,
             "title" => $title,
             "slug" => $slug,
+            "highlight" => fake()->paragraph(1),
             "content" => '<p>' . implode('</p><p>', fake()->paragraphs(3)) . '</p>',
         ];
     }

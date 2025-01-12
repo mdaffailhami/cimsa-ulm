@@ -19,6 +19,7 @@ class Post extends Model
         'cover',
         'title',
         'slug',
+        'highlight',
         'content'
     ];
 

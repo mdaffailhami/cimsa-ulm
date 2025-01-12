@@ -18,7 +18,7 @@ class CommitteController extends Controller
         ]);
     }
 
-    public function api_detail($name)
+    public function apiDetail($name)
     {
         $committe = Committe::where('name', $name)->first();
 

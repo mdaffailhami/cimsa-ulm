@@ -43,9 +43,11 @@ class PostSeeder extends Seeder
                 }
             }
 
-            $categories = Category::all()->random(rand(1, 3))->pluck('id')->toArray();
+            for ($i = 1; $i <= 25; $i++) {
+                $categories = Category::all()->random(rand(1, 3))->pluck('id')->toArray();
 
-            $posts = Post::factory()->count(25)->categories($categories)->create();
+                $posts = Post::factory()->count(1)->categories($categories)->create();
+            }
 
             DB::commit();
         } catch (\Throwable $th) {
