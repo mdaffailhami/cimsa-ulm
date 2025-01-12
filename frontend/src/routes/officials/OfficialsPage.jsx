@@ -9,10 +9,6 @@ export default function OfficialsPage() {
       <PageHeader
         title='The Officials'
         description='Endless gratitude for all of your contributions to CIMSA UGM.'
-        myCss={css`
-          margin-top: 100px;
-          margin-bottom: 50px;
-        `}
       />
       <OrganizationStructure />
     </>

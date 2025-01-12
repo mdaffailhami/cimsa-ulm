@@ -1,14 +1,11 @@
 import { css } from '@emotion/react';
-import { Card, Col, Image } from 'react-bootstrap';
-import OnHoverAnimationCss from './OnHoverAnimationCss';
+import { Card, Col, Container, Image, Row } from 'react-bootstrap';
+import PrimaryButton from '../PrimaryButton';
+import OnHoverAnimationCss from '../OnHoverAnimationCss';
 
-export default function BlogCard({ thumbnail, title, description }) {
+export default function TrainerCard({ thumbnail, title, description }) {
   return (
     <Col
-      xs={12}
-      sm={12}
-      md={6}
-      lg={4}
       style={{ marginBottom: '24px' }}
       data-aos='fade'
       data-aos-duration='1200'
@@ -18,8 +15,10 @@ export default function BlogCard({ thumbnail, title, description }) {
         as='a'
         href={`/blog/${title.toLowerCase().replace(/ /g, '-')}`}
         css={css`
-          height: 419px;
+          height: 500px;
           text-decoration: none;
+          border-radius: 20px;
+          overflow: hidden;
 
           ${OnHoverAnimationCss(1.05)}
         `}
@@ -36,22 +35,8 @@ export default function BlogCard({ thumbnail, title, description }) {
             alt={title}
             style={{ objectFit: 'cover', width: '100%', height: '100%' }}
           />
-          <div
-            css={css`
-              position: absolute;
-              bottom: 5px;
-              right: 5px;
-              padding: 4px;
-              background-color: rgba(0, 0, 0, 0.57);
-              border-radius: 8px;
-              color: white;
-              font-size: 13px;
-            `}
-          >
-            Januari 12, 2025
-          </div>
         </Card.Header>
-        <Card.Body>
+        <Card.Body style={{ textAlign: 'center' }}>
           <Card.Title
             style={{
               fontSize: '23px',
@@ -60,6 +45,7 @@ export default function BlogCard({ thumbnail, title, description }) {
               display: '-webkit-box',
               WebkitLineClamp: 2,
               WebkitBoxOrient: 'vertical',
+              fontWeight: 'bold',
             }}
           >
             {title}
@@ -69,7 +55,7 @@ export default function BlogCard({ thumbnail, title, description }) {
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               display: '-webkit-box',
-              WebkitLineClamp: 3,
+              WebkitLineClamp: 7,
               WebkitBoxOrient: 'vertical',
             }}
           >

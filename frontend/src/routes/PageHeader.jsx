@@ -10,6 +10,8 @@ export default function PageHeader({
   return (
     <div
       css={css`
+        margin-top: 100px;
+        margin-bottom: 50px;
         padding: 0 20px;
 
         @media (min-width: 992px) {
