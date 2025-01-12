@@ -27,4 +27,11 @@ class Page extends Model
     {
         return $this->hasOne(PageContact::class, 'page_id');
     }
+
+    // Model Method
+
+    public static function whereUri($uri)
+    {
+        return self::where('uri', $uri)->first();
+    }
 }

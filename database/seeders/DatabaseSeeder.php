@@ -29,7 +29,8 @@ class DatabaseSeeder extends Seeder
             ProgramSeeder::class,
             TrainingSeeder::class,
             PageSeeder::class,
-            SocialMediaSeeder::class
+            SocialMediaSeeder::class,
+            PostSeeder::class,
         ]);
 
         Schema::enableForeignKeyConstraints();
