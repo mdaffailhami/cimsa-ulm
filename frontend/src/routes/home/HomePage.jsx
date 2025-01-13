@@ -4,14 +4,17 @@ import BlogSection from '../BlogSection';
 import NumberOfThingsSection from './NumberOfThingsSection';
 import QuoteSection from './QuoteSection';
 import VisionMissionSection from './VisionMissionSection';
-import { useEffect } from 'react';
+import { setPageMeta } from '../../utils';
 
-export default function HomePage({ profile }) {
-  document.title = 'CIMSA ULM';
+export default function HomePage() {
+  setPageMeta(
+    'CIMSA ULM',
+    "Center for Indonesian Medical Students' Activities - Universitas Lambung Mangkurat"
+  );
 
   return (
     <>
-      <Banner profile={profile} />
+      <Banner />
       <br />
       <VisionMissionSection />
       <br />

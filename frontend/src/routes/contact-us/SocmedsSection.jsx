@@ -1,6 +1,9 @@
 import { css } from '@emotion/react';
 import { Col, Container, Row } from 'react-bootstrap';
 import OnHoverAnimationCss from '../OnHoverAnimationCss';
+import { useContext } from 'react';
+import { CimsaContext } from '../../main';
+import LoadingIndicator from '../LoadingIndicator';
 
 function SocmedButton({ iconClass, url }) {
   return (
@@ -40,7 +43,9 @@ function SocmedButton({ iconClass, url }) {
     </Col>
   );
 }
-export default function SocmedsSection({ socmeds }) {
+export default function SocmedsSection() {
+  const { socmeds } = useContext(CimsaContext);
+
   return (
     <>
       <h1
@@ -71,24 +76,32 @@ export default function SocmedsSection({ socmeds }) {
           }
         `}
       >
-        <Row className='justify-content-center' style={{ gap: '5px' }}>
-          <SocmedButton
-            iconClass='fa-brands fa-instagram'
-            url={socmeds.find((item) => item.platform == 'instagram').url}
-          />
-          <SocmedButton
-            iconClass='fa-brands fa-youtube'
-            url={socmeds.find((item) => item.platform == 'youtube').url}
-          />
-          <SocmedButton
-            iconClass='fa-brands fa-facebook'
-            url={socmeds.find((item) => item.platform == 'facebook').url}
-          />
-          <SocmedButton
-            iconClass='fa-brands fa-x-twitter'
-            url={socmeds.find((item) => item.platform == 'twitter').url}
-          />
-        </Row>
+        {(() => {
+          if (!socmeds) {
+            return <LoadingIndicator animation='border' height='100px' />;
+          } else {
+            return (
+              <Row className='justify-content-center' style={{ gap: '5px' }}>
+                <SocmedButton
+                  iconClass='fa-brands fa-instagram'
+                  url={socmeds.find((item) => item.platform == 'instagram').url}
+                />
+                <SocmedButton
+                  iconClass='fa-brands fa-youtube'
+                  url={socmeds.find((item) => item.platform == 'youtube').url}
+                />
+                <SocmedButton
+                  iconClass='fa-brands fa-facebook'
+                  url={socmeds.find((item) => item.platform == 'facebook').url}
+                />
+                <SocmedButton
+                  iconClass='fa-brands fa-x-twitter'
+                  url={socmeds.find((item) => item.platform == 'twitter').url}
+                />
+              </Row>
+            );
+          }
+        })()}
       </Container>
     </>
   );

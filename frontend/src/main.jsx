@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Aos from 'aos';
-import { StrictMode, useEffect, useState } from 'react';
+import { createContext, StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router';
 import NotFoundPage from './routes/NotFoundPage.jsx';
@@ -24,32 +24,54 @@ import { endpoint } from './configs.js';
 createRoot(document.getElementById('root')).render(<App />);
 
 function App() {
+  document.title = 'CIMSA ULM';
+
   // Change web favicon
   document.head.insertAdjacentHTML(
     'beforeend',
     `<link rel="icon" href="${Logo}">`
   );
 
-  setPageMeta(
-    'CIMSA ULM',
-    "Center for Indonesian Medical Students' Activities - Universitas Lambung Mangkurat"
-  );
-
   // Initialize AOS
   Aos.init();
 
-  const [profile, setProfile] = useState(null);
-  const [socmeds, setSocmeds] = useState(null);
+  return (
+    <StrictMode>
+      <GlobalStyle />
+      <CimsaProvider>
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route index element={<HomePage />} />
+            <Route path='about-us' element={<AboutUsPage />} />
+            <Route path='about-us/ifmsa' element={<AboutIFMSAPage />} />
+            <Route path='programs' element={<ProgramsPage />} />
+            <Route path='trainings' element={<TrainingsPage />} />
+            <Route path='officials' element={<OfficialsPage />} />
+            <Route path='alumni-senior' element={<AlumniSeniorPage />} />
+            <Route path='contact-us' element={<ContactUsPage />} />
+            <Route path='*' element={<NotFoundPage />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </CimsaProvider>
+    </StrictMode>
+  );
+}
+
+export const CimsaContext = createContext();
+
+function CimsaProvider({ children }) {
+  const [cimsa, setCimsa] = useState(undefined);
 
   useEffect(() => {
     (async () => {
-      // await new Promise((resolve) => setTimeout(resolve, 2000));
+      // await new Promise((resolve) => setTimeout(resolve, 4000));
       try {
         const res = await fetch(`${endpoint}/api/cimsa-profile`);
         const data = await res.json();
 
-        setProfile(data.profile);
-        setSocmeds(data.social_media);
+        setCimsa(data);
       } catch (err) {
         console.error(err);
       }
@@ -57,27 +79,14 @@ function App() {
   }, []);
 
   return (
-    <StrictMode>
-      <GlobalStyle />
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route index element={<HomePage profile={profile} />} />
-          <Route path='about-us' element={<AboutUsPage />} />
-          <Route path='about-us/ifmsa' element={<AboutIFMSAPage />} />
-          <Route path='programs' element={<ProgramsPage />} />
-          <Route path='trainings' element={<TrainingsPage />} />
-          <Route path='officials' element={<OfficialsPage />} />
-          <Route path='alumni-senior' element={<AlumniSeniorPage />} />
-          <Route
-            path='contact-us'
-            element={<ContactUsPage socmeds={socmeds} />}
-          />
-          <Route path='*' element={<NotFoundPage />} />
-        </Routes>
-        <Footer profile={profile} socmeds={socmeds} />
-      </BrowserRouter>
-    </StrictMode>
+    <CimsaContext.Provider
+      value={{
+        profile: !cimsa ? undefined : cimsa.profile,
+        socmeds: !cimsa ? undefined : cimsa.social_media,
+      }}
+    >
+      {children}
+    </CimsaContext.Provider>
   );
 }
 

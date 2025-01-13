@@ -1,15 +1,24 @@
 import { Spinner } from 'react-bootstrap';
 
-function MySpinner({ color }) {
+function MySpinner({ animation = 'grow', color }) {
   return (
     <Spinner
-      animation='grow'
-      style={{ color: color, width: '90px', height: '40px' }}
+      animation={animation}
+      style={{
+        color: color,
+        width: animation == 'grow' ? '90px' : '40px',
+        height: '40px',
+      }}
     />
   );
 }
 
-export default function LoadingIndicator({ center = true, color = 'red' }) {
+export default function LoadingIndicator({
+  animation = 'grow',
+  center = true,
+  color = 'red',
+  height = '95vh',
+}) {
   if (center) {
     return (
       <div
@@ -17,10 +26,10 @@ export default function LoadingIndicator({ center = true, color = 'red' }) {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '95vh',
+          height: height,
         }}
       >
-        <MySpinner color={color} />
+        <MySpinner animation={animation} color={color} />
       </div>
     );
   } else {

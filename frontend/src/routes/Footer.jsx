@@ -3,9 +3,10 @@ import Logo from '../assets/Logo';
 import { Global, css } from '@emotion/react';
 import { Link } from 'react-router';
 import OnHoverAnimationCss from './OnHoverAnimationCss';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import LoadingIndicator from './LoadingIndicator';
 import { endpoint } from '../configs';
+import { CimsaContext } from '../main';
 
 function SocmedLink({ title, iconClass, url }) {
   return (
@@ -27,7 +28,11 @@ function QuickLink({ title, url }) {
   );
 }
 
-export default function Footer({ profile, socmeds }) {
+export default function Footer() {
+  const { profile, socmeds } = useContext(CimsaContext);
+
+  console.log('RENDER');
+
   if (!profile) {
     const FooterContainer = ({ height }) => (
       <div

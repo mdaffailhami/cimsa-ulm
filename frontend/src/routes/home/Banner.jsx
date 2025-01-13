@@ -1,7 +1,11 @@
 import { Container } from 'react-bootstrap';
 import { css } from '@emotion/react';
+import { CimsaContext } from '../../main';
+import { useContext } from 'react';
 
-export default function Banner({ profile }) {
+export default function Banner() {
+  const { profile } = useContext(CimsaContext);
+
   return (
     <div
       css={css`

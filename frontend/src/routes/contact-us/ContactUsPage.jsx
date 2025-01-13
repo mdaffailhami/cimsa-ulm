@@ -10,7 +10,7 @@ import { scrollById, setPageMeta } from '../../utils';
 import { endpoint } from '../../configs';
 import LoadingIndicator from '../LoadingIndicator';
 
-export default function ContactUsPage({ socmeds }) {
+export default function ContactUsPage() {
   setPageMeta(
     'Contact Us - CIMSA ULM',
     "Contact us through our contact form or social media. We'll be happy to hear from you."
@@ -54,7 +54,7 @@ export default function ContactUsPage({ socmeds }) {
       <MapSection />
       <br />
       <br />
-      <SocmedsSection socmeds={socmeds} />
+      <SocmedsSection />
       <br />
       <br />
       <OfficialCardSection
