@@ -1,7 +1,7 @@
 import { Container } from 'react-bootstrap';
 import { css } from '@emotion/react';
 
-export default function Banner() {
+export default function Banner({ profile }) {
   return (
     <div
       css={css`
@@ -57,20 +57,36 @@ export default function Banner() {
           CENTER FOR INDONESIAN MEDICAL STUDENTS' ACTIVITIES
         </h1>
         <br />
-        <p
-          className='lead'
-          data-aos='fade-up'
-          data-aos-duration='1200'
-          css={css`
-            font-size: 16px;
+        {(() => {
+          const University = ({ children }) => (
+            <p
+              className='lead'
+              data-aos='fade-up'
+              data-aos-duration='1200'
+              css={css`
+                font-size: 16px;
 
-            @media (min-width: 992px) {
-              font-size: 26px;
-            }
-          `}
-        >
-          UNIVERSITAS LAMBUNG MANGKURAT
-        </p>
+                @media (min-width: 992px) {
+                  font-size: 26px;
+                }
+              `}
+            >
+              {children}
+            </p>
+          );
+
+          if (!profile) {
+            return <University>&nbsp;</University>;
+          } else {
+            return (
+              <University>
+                {profile
+                  .find((item) => item.column == 'universitas')
+                  .text_content.toUpperCase()}
+              </University>
+            );
+          }
+        })()}
         <hr
           style={{ border: '2px solid red', width: '200px' }}
           data-aos='zoom-in'

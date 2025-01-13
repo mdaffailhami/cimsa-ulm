@@ -6,12 +6,12 @@ import QuoteSection from './QuoteSection';
 import VisionMissionSection from './VisionMissionSection';
 import { useEffect } from 'react';
 
-export default function HomePage() {
+export default function HomePage({ profile }) {
   document.title = 'CIMSA ULM';
 
   return (
     <>
-      <Banner />
+      <Banner profile={profile} />
       <br />
       <VisionMissionSection />
       <br />

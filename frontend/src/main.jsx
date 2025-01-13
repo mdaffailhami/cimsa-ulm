@@ -43,7 +43,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      // await new Promise((resolve) => setTimeout(resolve, 3000));
+      // await new Promise((resolve) => setTimeout(resolve, 2000));
       try {
         const res = await fetch(`${endpoint}/api/cimsa-profile`);
         const data = await res.json();
@@ -62,7 +62,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route index element={<HomePage />} />
+          <Route index element={<HomePage profile={profile} />} />
           <Route path='about-us' element={<AboutUsPage />} />
           <Route path='about-us/ifmsa' element={<AboutIFMSAPage />} />
           <Route path='programs' element={<ProgramsPage />} />
