@@ -4,6 +4,7 @@ import BlogSection from '../BlogSection';
 import NumberOfThingsSection from './NumberOfThingsSection';
 import QuoteSection from './QuoteSection';
 import VisionMissionSection from './VisionMissionSection';
+import { useEffect } from 'react';
 
 export default function HomePage() {
   document.title = 'CIMSA ULM';

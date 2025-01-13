@@ -40,7 +40,7 @@ function SocmedButton({ iconClass, url }) {
     </Col>
   );
 }
-export default function SocmedsSection() {
+export default function SocmedsSection({ socmeds }) {
   return (
     <>
       <h1
@@ -73,36 +73,20 @@ export default function SocmedsSection() {
       >
         <Row className='justify-content-center' style={{ gap: '5px' }}>
           <SocmedButton
-            iconClass='fa-brands fa-facebook'
-            url='https://www.instagram.com/lambungmangkurat/'
-          />
-          <SocmedButton
             iconClass='fa-brands fa-instagram'
-            url='https://www.instagram.com/lambungmangkurat/'
-          />
-          <SocmedButton
-            iconClass='fa-brands fa-linkedin'
-            url='https://www.instagram.com/lambungmangkurat/'
-          />
-          <SocmedButton
-            iconClass='fa-brands fa-spotify'
-            url='https://www.instagram.com/lambungmangkurat/'
-          />
-          <SocmedButton
-            iconClass='fa-brands fa-x-twitter'
-            url='https://www.instagram.com/lambungmangkurat/'
-          />
-          <SocmedButton
-            iconClass='fa-brands fa-github'
-            url='https://www.instagram.com/lambungmangkurat/'
-          />
-          <SocmedButton
-            iconClass='fa-brands fa-whatsapp'
-            url='https://www.instagram.com/lambungmangkurat/'
+            url={socmeds.find((item) => item.platform == 'instagram').url}
           />
           <SocmedButton
             iconClass='fa-brands fa-youtube'
-            url='https://www.instagram.com/lambungmangkurat/'
+            url={socmeds.find((item) => item.platform == 'youtube').url}
+          />
+          <SocmedButton
+            iconClass='fa-brands fa-facebook'
+            url={socmeds.find((item) => item.platform == 'facebook').url}
+          />
+          <SocmedButton
+            iconClass='fa-brands fa-x-twitter'
+            url={socmeds.find((item) => item.platform == 'twitter').url}
           />
         </Row>
       </Container>

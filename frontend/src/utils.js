@@ -14,3 +14,17 @@ export function scrollById(id) {
     }
   }
 }
+
+export function setPageMeta(title, description) {
+  document.title = title;
+
+  document.head.insertAdjacentHTML(
+    'beforeend',
+    `<meta name="description" content="${description}">`
+  );
+
+  document.head.insertAdjacentHTML(
+    'beforeend',
+    `<link rel="canonical" href="${window.location.href}">`
+  );
+}

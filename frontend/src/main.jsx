@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Aos from 'aos';
-import { StrictMode } from 'react';
+import { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router';
 import NotFoundPage from './routes/NotFoundPage.jsx';
@@ -18,20 +18,43 @@ import ProgramsPage from './routes/programs/ProgramsPage.jsx';
 import OfficialsPage from './routes/officials/OfficialsPage.jsx';
 import AboutIFMSAPage from './routes/about-us/ifmsa/AboutIFMSAPage.jsx';
 import TrainingsPage from './routes/trainings/TrainingsPage.jsx';
+import { setPageMeta } from './utils.js';
+import { endpoint } from './configs.js';
 
 createRoot(document.getElementById('root')).render(<App />);
 
 function App() {
-  // Set web title
-  document.title = 'CIMSA ULM';
   // Change web favicon
   document.head.insertAdjacentHTML(
     'beforeend',
     `<link rel="icon" href="${Logo}">`
   );
 
+  setPageMeta(
+    'CIMSA ULM',
+    "Center for Indonesian Medical Students' Activities - Universitas Lambung Mangkurat"
+  );
+
   // Initialize AOS
   Aos.init();
+
+  const [profile, setProfile] = useState(null);
+  const [socmeds, setSocmeds] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      // await new Promise((resolve) => setTimeout(resolve, 3000));
+      try {
+        const res = await fetch(`${endpoint}/api/cimsa-profile`);
+        const data = await res.json();
+
+        setProfile(data.profile);
+        setSocmeds(data.social_media);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
 
   return (
     <StrictMode>
@@ -46,10 +69,13 @@ function App() {
           <Route path='trainings' element={<TrainingsPage />} />
           <Route path='officials' element={<OfficialsPage />} />
           <Route path='alumni-senior' element={<AlumniSeniorPage />} />
-          <Route path='contact-us' element={<ContactUsPage />} />
+          <Route
+            path='contact-us'
+            element={<ContactUsPage socmeds={socmeds} />}
+          />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
-        <Footer />
+        <Footer profile={profile} socmeds={socmeds} />
       </BrowserRouter>
     </StrictMode>
   );
