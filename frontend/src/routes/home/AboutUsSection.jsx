@@ -1,10 +1,5 @@
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { css } from '@emotion/react';
-import {
-  Parallax,
-  ParallaxBanner,
-  ParallaxProvider,
-} from 'react-scroll-parallax';
 import { useEffect, useReducer } from 'react';
 import PrimaryButton from '../PrimaryButton';
 
@@ -34,7 +29,7 @@ export default function AboutUsSection() {
 
   return (
     <div style={{ position: 'relative' }}>
-      <ParallaxProvider>
+      {/* <ParallaxProvider>
         <ParallaxBanner
           id='about-us-section-banner'
           style={{ width: '100%', height: '800px', filter: 'brightness(65%)' }}
@@ -47,7 +42,20 @@ export default function AboutUsSection() {
             },
           ]}
         />
-      </ParallaxProvider>
+      </ParallaxProvider> */}
+      <div
+        id='about-us-section-banner'
+        css={css`
+          background-image: url('https://www.shutterstock.com/image-photo/group-students-digital-tablet-laptop-600nw-2347371743.jpg');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          width: 100%;
+          height: 800px;
+          filter: brightness(65%);
+          background-attachment: fixed;
+        `}
+      />
       <Container
         id='about-us-section-text'
         style={{

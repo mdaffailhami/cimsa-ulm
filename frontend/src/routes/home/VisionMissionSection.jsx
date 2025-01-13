@@ -1,4 +1,4 @@
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Card, Col, Container, Image, Row } from 'react-bootstrap';
 import { css } from '@emotion/react';
 import { useEffect, useReducer } from 'react';
 
@@ -77,10 +77,9 @@ function ImageCard({ id, image, aos }) {
       data-aos-once='true'
       data-aos-duration='1200'
       css={css`
-        background-image: url('${image}');
-        background-position: center;
-        background-size: cover;
-
+        background-color: red;
+        border: none;
+        overflow: hidden;
         width: 100%;
         height: 220px;
 
@@ -89,7 +88,16 @@ function ImageCard({ id, image, aos }) {
           height: 280px;
         }
       `}
-    />
+    >
+      <Image
+        src={image}
+        css={css`
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        `}
+      />
+    </Card>
   );
 }
 
