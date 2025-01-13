@@ -4,8 +4,9 @@ import { Carousel, Container } from 'react-bootstrap';
 export default function ProgramSection({
   id,
   title,
-  subtitle,
+  // subtitle,
   body,
+  images,
   endSection = true,
 }) {
   return (
@@ -28,18 +29,18 @@ export default function ProgramSection({
         data-aos='zoom-in'
         data-aos-once='true'
         data-aos-duration='1200'
-        style={{ color: 'red' }}
+        style={{ color: 'red', marginBottom: '14px' }}
       >
         <b>{title}</b>
       </h2>
-      <p
+      {/* <p
         data-aos='zoom-in-down'
         data-aos-once='true'
         data-aos-duration='1200'
         style={{ marginBottom: '14px' }}
       >
         {subtitle}
-      </p>
+      </p> */}
       <Carousel
         data-aos='fade-up'
         data-aos-once='true'
@@ -53,60 +54,28 @@ export default function ProgramSection({
           }
         `}
       >
-        {/* <Carousel.Item>
-          <img
-            css={css`
-              width: 100%;
-              object-fit: cover;
-              height: 60vw;
-              border-radius: 20px;
+        {images.map((image, i) => (
+          <Carousel.Item key={i}>
+            <img
+              css={css`
+                width: 100%;
+                object-fit: cover;
+                height: 60vw;
+                border-radius: 20px;
 
-              @media (min-width: 992px) {
-                height: 520px;
-                border-radius: 24px;
-              }
-            `}
-            // picture={
-        //   'https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2024/07/LOME_Daniella-Enjelika-Sinaga-e1721380348578-300x300.png'
-        // }
-            src='https://avatars.githubusercontent.com/u/74972129?v=4'
-          />
-        </Carousel.Item> */}
-        <Carousel.Item>
-          <img
-            css={css`
-              width: 100%;
-              object-fit: cover;
-              height: 60vw;
-              border-radius: 20px;
-
-              @media (min-width: 992px) {
-                height: 520px;
-                border-radius: 24px;
-              }
-            `}
-            src='https://www.system-concepts.com/wp-content/uploads/2020/02/excited-minions-gif.gif'
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            css={css`
-              width: 100%;
-              object-fit: cover;
-              height: 60vw;
-              border-radius: 20px;
-
-              @media (min-width: 992px) {
-                height: 520px;
-                border-radius: 24px;
-              }
-            `}
-            src='https://picsum.photos/800/400'
-          />
-        </Carousel.Item>
+                @media (min-width: 992px) {
+                  height: 520px;
+                  border-radius: 24px;
+                }
+              `}
+              src={image}
+            />
+          </Carousel.Item>
+        ))}
       </Carousel>
       <br />
       {body}
+      <br />
       {endSection && <hr />}
     </Container>
   );

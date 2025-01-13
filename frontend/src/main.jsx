@@ -73,7 +73,7 @@ function CimsaProvider({ children }) {
 
         setCimsa(data);
       } catch (err) {
-        console.error(err);
+        alert(err);
       }
     })();
   }, []);

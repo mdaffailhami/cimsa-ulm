@@ -31,8 +31,6 @@ function QuickLink({ title, url }) {
 export default function Footer() {
   const { profile, socmeds } = useContext(CimsaContext);
 
-  console.log('RENDER');
-
   if (!profile) {
     const FooterContainer = ({ height }) => (
       <div

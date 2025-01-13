@@ -27,7 +27,7 @@ export default function ContactUsPage() {
 
         setPageData(await res.json());
       } catch (err) {
-        console.error(err);
+        alert(err);
       }
     })();
   }, []);
