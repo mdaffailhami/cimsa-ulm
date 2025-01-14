@@ -38,12 +38,16 @@ export default function ContactUsPage() {
     return <LoadingIndicator />;
   }
 
+  const { contents, contact } = pageData;
+
   return (
     <>
       <Container style={{ paddingTop: '100px' }}>
         <PageHeader
           title={pageData.name}
-          description={pageData.contents[0].text_content}
+          description={
+            contents.find((x) => x.column === 'description').text_content
+          }
         />
         <br />
         <ContactForm />
@@ -51,16 +55,18 @@ export default function ContactUsPage() {
         <hr />
         <br />
       </Container>
-      <MapSection />
+      <MapSection
+        mapUrl={contents.find((x) => x.column === 'map-url').text_content}
+      />
       <br />
       <br />
       <SocmedsSection />
       <br />
       <br />
       <OfficialCardSection
-        period={pageData.contact.generation}
-        position={pageData.contact.occupation}
-        picture={pageData.contact.image}
+        period={contact.generation}
+        position={contact.occupation}
+        picture={contact.image}
         // picture={'https://avatars.githubusercontent.com/u/74972129?v=4'}
         // picture={
         //   'https://www.system-concepts.com/wp-content/uploads/2020/02/excited-minions-gif.gif'
@@ -68,9 +74,9 @@ export default function ContactUsPage() {
         // picture={
         //   'https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2024/07/LOME_Daniella-Enjelika-Sinaga-e1721380348578-300x300.png'
         // }
-        name={pageData.contact.name}
-        email={pageData.contact.email}
-        phone={pageData.contact.phone}
+        name={contact.name}
+        email={contact.email}
+        phone={contact.phone}
       />
     </>
   );
