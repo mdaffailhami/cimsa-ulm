@@ -91,6 +91,12 @@ class PageSeeder extends Seeder
                         'text_content' => "5",
                     ],
                     [
+                        "column" => 'about-us-bg-image',
+                        "type" => 'image',
+                        'section' => "about-us",
+                        'text_content' => null,
+                    ],
+                    [
                         "column" => 'about-us',
                         "type" => 'text',
                         'section' => 'about-us',

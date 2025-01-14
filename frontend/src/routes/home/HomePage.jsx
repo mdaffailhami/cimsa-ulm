@@ -75,6 +75,9 @@ export default function HomePage() {
       <br />
       <AboutUsSection
         about={contents.find((x) => x.column === 'about-us').text_content}
+        bgImage={
+          contents.find((x) => x.column === 'about-us-bg-image').image_content
+        }
       />
       <br />
       <hr />

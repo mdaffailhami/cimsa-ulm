@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { useEffect, useReducer } from 'react';
 import PrimaryButton from '../PrimaryButton';
 
-export default function AboutUsSection({ about }) {
+export default function AboutUsSection({ about, bgImage }) {
   const [update, forceUpdate] = useReducer((x) => x + 1, 0);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function AboutUsSection({ about }) {
       <div
         id='about-us-section-banner'
         css={css`
-          background-image: url('https://www.shutterstock.com/image-photo/group-students-digital-tablet-laptop-600nw-2347371743.jpg');
+          background-image: url('${bgImage}');
           background-repeat: no-repeat;
           background-size: cover;
           background-position: center;
