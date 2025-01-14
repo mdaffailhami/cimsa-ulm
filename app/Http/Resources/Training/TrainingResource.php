@@ -17,7 +17,8 @@ class TrainingResource extends JsonResource
         return [
             "image" => $this->image,
             "name" => $this->name,
-            "description" => $this->description
+            "description" => $this->description,
+            "url" => $this->url
         ];
     }
 }

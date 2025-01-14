@@ -198,6 +198,34 @@ class PageSeeder extends Seeder
                     'end_year' => '2026',
                 ],
             ],
+            [
+                "name" => 'Trainings',
+                'contents' => [
+                    [
+                        "column" => 'description',
+                        "label" => 'Description',
+                        "type" => 'text',
+                        'section' => null,
+                        'text_content' => 'True to our vision, CIMSA UGM aims to empower medical students in every possible aspect.',
+                    ],
+                    [
+                        "column" => 'trainers-description',
+                        "label" => 'Trainers Description',
+                        "type" => 'text',
+                        'section' => null,
+                        'text_content' => 'CIMSA has an established capacity building system where members may become trainers that will act as peer educators on various topics. These ‘trainings of trainers’ are conducted each year (some are held biennially), ensuring a steady production of trainers and a continuous stream of capacity buildings.',
+                    ],
+
+                ],
+                'contact' => [
+                    "name" => 'Muhammad Daffa Ilhami',
+                    'ocupation' => 'Vice Local Coordinator',
+                    'email' => 'vlecimsaugm@gmail.com',
+                    'phone' => '082226926058',
+                    'start_year' => '2025',
+                    'end_year' => '2026',
+                ],
+            ],
         ];
 
         DB::beginTransaction();

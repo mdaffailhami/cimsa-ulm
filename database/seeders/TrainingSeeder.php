@@ -33,10 +33,15 @@ class TrainingSeeder extends Seeder
                 "url" => "https://cimsa.fk.ugm.ac.id/"
             ],
             [
-                "name" => "Huma Rights Education Facilitators",
-                "description" => "Huma Rights Education Facilitators are ....",
+                "name" => "Human Rights Education Facilitators",
+                "description" => "Human Rights Education Facilitators are ....",
                 "url" => "https://cimsa.fk.ugm.ac.id/"
-            ]
+            ],
+            [
+                "name" => "Public Health Leaders",
+                "description" => "Public Health Leaders are ....",
+                "url" => "https://cimsa.fk.ugm.ac.id/"
+            ],
         ];
 
         DB::beginTransaction();
