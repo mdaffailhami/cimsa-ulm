@@ -36,4 +36,4 @@ def run(host, port, server_class=HTTPServer, handler_class=CustomHandler):
 
 
 if __name__ == "__main__":
-    run(host='0.0.0.0', port=8000)
+    run(host='0.0.0.0', port=5000)

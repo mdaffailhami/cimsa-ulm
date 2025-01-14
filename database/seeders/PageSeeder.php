@@ -26,6 +26,20 @@ class PageSeeder extends Seeder
                 "name" => 'Landing',
                 'contents' => [
                     [
+                        "column" => 'banner-title',
+                        "label" => 'Banner Title',
+                        "type" => 'text',
+                        'section' => 'banner',
+                        'text_content' => "CENTER FOR INDONESIAN MEDICAL STUDENTS' ACTIVITIES",
+                    ],
+                    [
+                        "column" => 'banner-image',
+                        "label" => 'Banner Image',
+                        "type" => 'image',
+                        'section' => 'banner',
+                        'text_content' => null,
+                    ],
+                    [
                         "column" => 'vision',
                         "label" => 'Vision',
                         "type" => 'text',
@@ -53,6 +67,30 @@ class PageSeeder extends Seeder
                         'text_content' => null,
                     ],
                     [
+                        "column" => 'established-year',
+                        "type" => 'text',
+                        'section' => "statistics",
+                        'text_content' => "2001",
+                    ],
+                    [
+                        "column" => 'active-members',
+                        "type" => 'text',
+                        'section' => "statistics",
+                        'text_content' => "+500",
+                    ],
+                    [
+                        "column" => 'successful-projects',
+                        "type" => 'text',
+                        'section' => "statistics",
+                        'text_content' => "+120",
+                    ],
+                    [
+                        "column" => 'community-developments',
+                        "type" => 'text',
+                        'section' => "statistics",
+                        'text_content' => "5",
+                    ],
+                    [
                         "column" => 'about-us',
                         "type" => 'text',
                         'section' => 'about-us',
@@ -77,7 +115,7 @@ class PageSeeder extends Seeder
                         "label" => 'Quote Author',
                         "type" => 'text',
                         'section' => 'quotes',
-                        'content' => "Plato",
+                        'text_content' => "Plato",
                     ],
                 ],
                 'contact' => null,
@@ -101,6 +139,7 @@ class PageSeeder extends Seeder
                 'contents' => [
                     [
                         "column" => 'description',
+                        "label" => 'Description',
                         "type" => 'text',
                         'section' => null,
                         'text_content' => "Ever-expanding efforts, CIMSA UGM is always looking for opportunities to collaborate and make greater impacts.",

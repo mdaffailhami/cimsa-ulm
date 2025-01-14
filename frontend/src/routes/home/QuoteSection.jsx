@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { Col, Container, Row } from 'react-bootstrap';
 
-export default function QuoteSection() {
+export default function QuoteSection({ quote, author, image }) {
   return (
     <div
       style={{
@@ -23,7 +23,7 @@ export default function QuoteSection() {
           <Col>
             <center>
               <img
-                src='https://img.freepik.com/free-photo/glowing-sky-sphere-orbits-starry-galaxy-generated-by-ai_188544-15599.jpg'
+                src={image}
                 width={600}
                 css={css`
                   height: 300px;
@@ -59,10 +59,7 @@ export default function QuoteSection() {
                 data-aos-duration='1200'
                 data-aos-once='true'
               >
-                ❝ He is Allah: the Creator, the Inventor, the Shaper. He ˹alone˺
-                has the Most Beautiful Names. Whatever is in the heavens and the
-                earth ˹constantly˺ glorifies Him. And He is the Almighty,
-                All-Wise. ❞
+                ❝ {quote} ❞
               </h2>
               <footer
                 className='blockquote-footer'
@@ -77,7 +74,7 @@ export default function QuoteSection() {
                   }
                 `}
               >
-                Al-Hashr:24
+                {author}
               </footer>
             </blockquote>
           </Col>

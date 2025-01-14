@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { CimsaContext } from '../../main';
 import { useContext } from 'react';
 
-export default function Banner() {
+export default function Banner({ title, image }) {
   const { profile } = useContext(CimsaContext);
 
   return (
@@ -20,7 +20,8 @@ export default function Banner() {
               transparent,
               rgba(255, 0, 0, 0.15)
             ),
-            url('https://www.system-concepts.com/wp-content/uploads/2020/02/excited-minions-gif.gif');
+            url(${image});
+          /* url('https://www.system-concepts.com/wp-content/uploads/2020/02/excited-minions-gif.gif'); */
           background-size: cover;
           background-position: center;
           width: 100%;
@@ -58,7 +59,7 @@ export default function Banner() {
             }
           `}
         >
-          CENTER FOR INDONESIAN MEDICAL STUDENTS' ACTIVITIES
+          {title}
         </h1>
         <br />
         {(() => {
