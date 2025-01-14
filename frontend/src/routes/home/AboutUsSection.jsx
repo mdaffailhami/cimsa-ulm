@@ -1,14 +1,9 @@
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { css } from '@emotion/react';
-import {
-  Parallax,
-  ParallaxBanner,
-  ParallaxProvider,
-} from 'react-scroll-parallax';
 import { useEffect, useReducer } from 'react';
 import PrimaryButton from '../PrimaryButton';
 
-export default function AboutUsSection() {
+export default function AboutUsSection({ about, bgImage }) {
   const [update, forceUpdate] = useReducer((x) => x + 1, 0);
 
   useEffect(() => {
@@ -34,7 +29,7 @@ export default function AboutUsSection() {
 
   return (
     <div style={{ position: 'relative' }}>
-      <ParallaxProvider>
+      {/* <ParallaxProvider>
         <ParallaxBanner
           id='about-us-section-banner'
           style={{ width: '100%', height: '800px', filter: 'brightness(65%)' }}
@@ -47,7 +42,20 @@ export default function AboutUsSection() {
             },
           ]}
         />
-      </ParallaxProvider>
+      </ParallaxProvider> */}
+      <div
+        id='about-us-section-banner'
+        css={css`
+          background-image: url('${bgImage}');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          width: 100%;
+          height: 800px;
+          filter: brightness(65%);
+          background-attachment: fixed;
+        `}
+      />
       <Container
         id='about-us-section-text'
         style={{
@@ -101,14 +109,7 @@ export default function AboutUsSection() {
           data-aos-once='true'
           data-aos-duration='1200'
         >
-          CIMSA (Center for Indonesian Medical Students’ Activities) is an
-          independent, non-profit and non-governmental organization, that
-          centers on the Sustainable Development Goals. Through its vision,
-          “Empowering Medical Students, Improving Nation’s Health”, CIMSA
-          provides chances and experiences for medical students to express their
-          opinions and idealisms through their social actions that will bring
-          out tangible results for the development of this nation, especially in
-          the medical field.
+          {about}
         </p>
         <br />
         <PrimaryButton to='/about-us'>Learn More</PrimaryButton>

@@ -26,6 +26,20 @@ class PageSeeder extends Seeder
                 "name" => 'Landing',
                 'contents' => [
                     [
+                        "column" => 'banner-title',
+                        "label" => 'Banner Title',
+                        "type" => 'text',
+                        'section' => 'banner',
+                        'text_content' => "CENTER FOR INDONESIAN MEDICAL STUDENTS' ACTIVITIES",
+                    ],
+                    [
+                        "column" => 'banner-image',
+                        "label" => 'Banner Image',
+                        "type" => 'image',
+                        'section' => 'banner',
+                        'text_content' => null,
+                    ],
+                    [
                         "column" => 'vision',
                         "label" => 'Vision',
                         "type" => 'text',
@@ -53,6 +67,36 @@ class PageSeeder extends Seeder
                         'text_content' => null,
                     ],
                     [
+                        "column" => 'established-year',
+                        "type" => 'text',
+                        'section' => "statistics",
+                        'text_content' => "2001",
+                    ],
+                    [
+                        "column" => 'active-members',
+                        "type" => 'text',
+                        'section' => "statistics",
+                        'text_content' => "+500",
+                    ],
+                    [
+                        "column" => 'successful-projects',
+                        "type" => 'text',
+                        'section' => "statistics",
+                        'text_content' => "+120",
+                    ],
+                    [
+                        "column" => 'community-developments',
+                        "type" => 'text',
+                        'section' => "statistics",
+                        'text_content' => "5",
+                    ],
+                    [
+                        "column" => 'about-us-bg-image',
+                        "type" => 'image',
+                        'section' => "about-us",
+                        'text_content' => null,
+                    ],
+                    [
                         "column" => 'about-us',
                         "type" => 'text',
                         'section' => 'about-us',
@@ -77,7 +121,7 @@ class PageSeeder extends Seeder
                         "label" => 'Quote Author',
                         "type" => 'text',
                         'section' => 'quotes',
-                        'content' => "Plato",
+                        'text_content' => "Plato",
                     ],
                 ],
                 'contact' => null,
@@ -101,9 +145,18 @@ class PageSeeder extends Seeder
                 'contents' => [
                     [
                         "column" => 'description',
+                        "label" => 'Description',
                         "type" => 'text',
                         'section' => null,
                         'text_content' => "Ever-expanding efforts, CIMSA UGM is always looking for opportunities to collaborate and make greater impacts.",
+                        'image_content' => null
+                    ],
+                    [
+                        "column" => 'map-url',
+                        "label" => 'Map URL',
+                        "type" => 'text',
+                        'section' => null,
+                        'text_content' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.211029688729!2d114.58294921060936!3d-3.2978638966631637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2de4230963790c57%3A0x902859712cc02755!2sLambung%20Mangkurat%20University%20-%20Campus%20I%20Banjarmasin!5e0!3m2!1sen!2sid!4v1734245455540!5m2!1sen!2sid',
                         'image_content' => null
                     ],
 
@@ -115,6 +168,34 @@ class PageSeeder extends Seeder
                     'phone' => '082226926058',
                     'start_year' => '2024',
                     'end_year' => '2025',
+                ],
+            ],
+            [
+                "name" => 'Alumni Senior',
+                'contents' => [
+                    [
+                        "column" => 'description',
+                        "label" => 'Description',
+                        "type" => 'text',
+                        'section' => null,
+                        'text_content' => "CIMSA ULM is forever thankful to those who have contributed their hearts, spirits, and time to making CIMSA ULM what it is today. This is a page dedicated to our alumni and seniors.",
+                    ],
+                    [
+                        "column" => 'map-image',
+                        "label" => 'Map Image',
+                        "type" => 'image',
+                        'section' => null,
+                        'text_content' => null
+                    ],
+
+                ],
+                'contact' => [
+                    "name" => 'Muhammad Daffa Ilhami',
+                    'ocupation' => 'Vice Local Coordinator',
+                    'email' => 'vlecimsaugm@gmail.com',
+                    'phone' => '082226926058',
+                    'start_year' => '2025',
+                    'end_year' => '2026',
                 ],
             ],
         ];

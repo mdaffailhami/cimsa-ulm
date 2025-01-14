@@ -3,20 +3,54 @@ import PageHeader from '../PageHeader';
 import BlogSection from '../BlogSection';
 import OfficialCardSection from '../OfficialCardSection';
 import AlumniDistributionSection from './AlumniDistributionSection';
+import LoadingIndicator from '../LoadingIndicator';
+import { endpoint } from '../../configs';
+import { useEffect, useState } from 'react';
+import { setPageMeta } from '../../utils';
 
 export default function AlumniSeniorPage() {
-  document.title = 'Alumni & Senior - CIMSA ULM';
+  setPageMeta(
+    'Alumni & Senior - CIMSA ULM',
+    'CIMSA ULM is forever thankful to those who have contributed their hearts, spirits, and time to making CIMSA ULM what it is today. This is a page dedicated to our alumni and seniors.'
+  );
+
+  const [pageData, setPageData] = useState(undefined);
+
+  useEffect(() => {
+    (async () => {
+      // await new Promise((resolve) => setTimeout(resolve, 3000));
+      try {
+        const res = await fetch(`${endpoint}/api/page/alumni-senior`);
+        const data = await res.json();
+
+        if (!data) throw new Error('Error fetching data');
+
+        setPageData(data);
+      } catch (err) {
+        alert(err);
+      }
+    })();
+  }, []);
+
+  if (!pageData) {
+    return <LoadingIndicator />;
+  }
+
+  // console.log(pageData);
+
+  const { contents, contact } = pageData;
 
   return (
     <>
       <PageHeader
         title='Alumni & Senior'
-        description='Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga at sint
-        fugit repudiandae consequuntur? Quidem eligendi aspernatur nisi debitis
-        autem? Praesentium, dolorem voluptatibus cupiditate esse ratione
-        repudiandae aut doloremque delectus.'
+        description={
+          contents.find((x) => x.column === 'description').text_content
+        }
       />
-      <AlumniDistributionSection />
+      <AlumniDistributionSection
+        image={contents.find((x) => x.column === 'map-image').image_content}
+      />
       <br />
       <br />
       <BlogSection totalPosts={3} />
@@ -41,18 +75,12 @@ export default function AlumniSeniorPage() {
             </h4>
           </div>
         }
-        period={'2024-2025'}
-        position={'Vice Local Coordinator'}
-        picture={'https://avatars.githubusercontent.com/u/74972129?v=4'}
-        // picture={
-        //   'https://www.system-concepts.com/wp-content/uploads/2020/02/excited-minions-gif.gif'
-        // }
-        // picture={
-        //   'https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2024/07/LOME_Daniella-Enjelika-Sinaga-e1721380348578-300x300.png'
-        // }
-        name={'Muhammad Daffa Ilhami'}
-        email={'mdaffailhami@gmail.com'}
-        phone={'+62 812-3456-7890'}
+        period={contact.generation}
+        position={contact.occupation}
+        picture={contact.image}
+        name={contact.name}
+        email={contact.email}
+        phone={contact.phone}
       />
     </>
   );

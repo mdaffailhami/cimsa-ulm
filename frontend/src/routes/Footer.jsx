@@ -3,6 +3,10 @@ import Logo from '../assets/Logo';
 import { Global, css } from '@emotion/react';
 import { Link } from 'react-router';
 import OnHoverAnimationCss from './OnHoverAnimationCss';
+import { useContext, useEffect, useState } from 'react';
+import LoadingIndicator from './LoadingIndicator';
+import { endpoint } from '../configs';
+import { CimsaContext } from '../main';
 
 function SocmedLink({ title, iconClass, url }) {
   return (
@@ -25,6 +29,30 @@ function QuickLink({ title, url }) {
 }
 
 export default function Footer() {
+  const { profile, socmeds } = useContext(CimsaContext);
+
+  if (!profile) {
+    const FooterContainer = ({ height }) => (
+      <div
+        css={css`
+          background-color: #2d2d2d;
+          height: ${height};
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        `}
+      >
+        <LoadingIndicator center={false} color='white' />
+      </div>
+    );
+
+    if (window.innerWidth < 768) {
+      return <FooterContainer height={'800px'} />;
+    } else {
+      return <FooterContainer height={'305px'} />;
+    }
+  }
+
   return (
     <>
       <Global
@@ -70,51 +98,55 @@ export default function Footer() {
                 </div>
               </Link>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed
-                nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis
-                ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.
-                Mauris massa. Vestibulum lacinia arcu eget nulla.
+                {
+                  profile.find((item) => item.column == 'deskripsi')
+                    .text_content
+                }
               </p>
             </Col>
             <Col md={3}>
               <h5 style={{ color: 'red' }}>Contact Info</h5>
               <p>
                 <Link to='/contact-us#map'>
-                  <i className='fa-solid fa-location-dot' /> 123 Main Street,
-                  Anytown, USA 12345
+                  <i className='fa-solid fa-location-dot' />{' '}
+                  {profile.find((item) => item.column == 'alamat').text_content}
                 </Link>
               </p>
               <p>
-                <i className='fa-solid fa-phone' /> (123) 456-7890
+                <i className='fa-solid fa-phone' />{' '}
+                {
+                  profile.find((item) => item.column == 'nomor-telepon')
+                    .text_content
+                }
               </p>
               <p>
                 <Link to='/contact-us'>
-                  <i className='fa-solid fa-envelope' /> info@example.com
+                  <i className='fa-solid fa-envelope' />{' '}
+                  {profile.find((item) => item.column == 'email').text_content}
                 </Link>
               </p>
             </Col>
             <Col md={2}>
               <h5 style={{ color: 'red' }}>Follow Us</h5>
               <SocmedLink
-                title='Facebook'
-                iconClass='fa-brands fa-facebook'
-                url='https://www.facebook.com'
-              />
-              <SocmedLink
-                title='Twitter'
-                iconClass='fa-brands fa-x'
-                url='https://www.x.com'
-              />
-              <SocmedLink
                 title='Instagram'
                 iconClass='fa-brands fa-instagram'
-                url='https://www.instagram.com'
+                url={socmeds.find((item) => item.platform == 'instagram').url}
               />
               <SocmedLink
-                title='LinkedIn'
-                iconClass='fa-brands fa-linkedin'
-                url='https://www.linkedin.com'
+                title='YouTube'
+                iconClass='fa-brands fa-youtube'
+                url={socmeds.find((item) => item.platform == 'youtube').url}
+              />
+              <SocmedLink
+                title='Facebook'
+                iconClass='fa-brands fa-facebook'
+                url={socmeds.find((item) => item.platform == 'facebook').url}
+              />
+              <SocmedLink
+                title='X'
+                iconClass='fa-brands fa-x-twitter'
+                url={socmeds.find((item) => item.platform == 'twitter').url}
               />
             </Col>
             <Col md={2}>

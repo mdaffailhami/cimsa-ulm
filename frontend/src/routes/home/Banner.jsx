@@ -1,7 +1,11 @@
 import { Container } from 'react-bootstrap';
 import { css } from '@emotion/react';
+import { CimsaContext } from '../../main';
+import { useContext } from 'react';
 
-export default function Banner() {
+export default function Banner({ title, image }) {
+  const { profile } = useContext(CimsaContext);
+
   return (
     <div
       css={css`
@@ -16,7 +20,8 @@ export default function Banner() {
               transparent,
               rgba(255, 0, 0, 0.15)
             ),
-            url('https://www.system-concepts.com/wp-content/uploads/2020/02/excited-minions-gif.gif');
+            url(${image});
+          /* url('https://www.system-concepts.com/wp-content/uploads/2020/02/excited-minions-gif.gif'); */
           background-size: cover;
           background-position: center;
           width: 100%;
@@ -54,23 +59,39 @@ export default function Banner() {
             }
           `}
         >
-          CENTER FOR INDONESIAN MEDICAL STUDENTS' ACTIVITIES
+          {title}
         </h1>
         <br />
-        <p
-          className='lead'
-          data-aos='fade-up'
-          data-aos-duration='1200'
-          css={css`
-            font-size: 16px;
+        {(() => {
+          const University = ({ children }) => (
+            <p
+              className='lead'
+              data-aos='fade-up'
+              data-aos-duration='1200'
+              css={css`
+                font-size: 16px;
 
-            @media (min-width: 992px) {
-              font-size: 26px;
-            }
-          `}
-        >
-          UNIVERSITAS LAMBUNG MANGKURAT
-        </p>
+                @media (min-width: 992px) {
+                  font-size: 26px;
+                }
+              `}
+            >
+              {children}
+            </p>
+          );
+
+          if (!profile) {
+            return <University>&nbsp;</University>;
+          } else {
+            return (
+              <University>
+                {profile
+                  .find((item) => item.column == 'universitas')
+                  .text_content.toUpperCase()}
+              </University>
+            );
+          }
+        })()}
         <hr
           style={{ border: '2px solid red', width: '200px' }}
           data-aos='zoom-in'
