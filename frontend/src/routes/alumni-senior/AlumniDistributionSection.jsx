@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-export default function AlumniDistributionSection() {
+export default function AlumniDistributionSection({ image }) {
   return (
     <div
       data-aos='zoom-out-up'
@@ -38,7 +38,7 @@ export default function AlumniDistributionSection() {
         </h1>
       </div>
       <img
-        src='https://www.system-concepts.com/wp-content/uploads/2020/02/excited-minions-gif.gif'
+        src={image}
         style={{
           width: '100vw',
           height: 'auto',

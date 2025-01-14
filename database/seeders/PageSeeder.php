@@ -156,6 +156,34 @@ class PageSeeder extends Seeder
                     'end_year' => '2025',
                 ],
             ],
+            [
+                "name" => 'Alumni Senior',
+                'contents' => [
+                    [
+                        "column" => 'description',
+                        "label" => 'Description',
+                        "type" => 'text',
+                        'section' => null,
+                        'text_content' => "CIMSA ULM is forever thankful to those who have contributed their hearts, spirits, and time to making CIMSA ULM what it is today. This is a page dedicated to our alumni and seniors.",
+                    ],
+                    [
+                        "column" => 'map-image',
+                        "label" => 'Map Image',
+                        "type" => 'image',
+                        'section' => null,
+                        'text_content' => null
+                    ],
+
+                ],
+                'contact' => [
+                    "name" => 'Muhammad Daffa Ilhami',
+                    'ocupation' => 'Vice Local Coordinator',
+                    'email' => 'vlecimsaugm@gmail.com',
+                    'phone' => '082226926058',
+                    'start_year' => '2025',
+                    'end_year' => '2026',
+                ],
+            ],
         ];
 
         DB::beginTransaction();

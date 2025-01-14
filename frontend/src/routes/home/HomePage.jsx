@@ -37,8 +37,6 @@ export default function HomePage() {
     return <LoadingIndicator />;
   }
 
-  console.log(contents);
-
   return (
     <>
       <Banner
