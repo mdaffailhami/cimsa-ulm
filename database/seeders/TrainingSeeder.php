@@ -19,19 +19,23 @@ class TrainingSeeder extends Seeder
         $trainings = [
             [
                 "name" => "CIMSA TRAINERS",
-                "description" => "CIMSA Trainers, or also commonly called backbones, gives trainings on the topic of CIMSA itself and skills related to organizational management, communication, and leadership. CIMSA Trainers are trained in ‘TNTs’ or Training New Trainers which are held both regionally and nationally."
+                "description" => "CIMSA Trainers, or also commonly called backbones, gives trainings on the topic of CIMSA itself and skills related to organizational management, communication, and leadership. CIMSA Trainers are trained in ‘TNTs’ or Training New Trainers which are held both regionally and nationally.",
+                "url" => "https://cimsa.fk.ugm.ac.id/"
             ],
             [
                 "name" => "Medical Education Trainers",
-                "description" => "Medical Education Trainers are ...."
+                "description" => "Medical Education Trainers are ....",
+                "url" => "https://cimsa.fk.ugm.ac.id/"
             ],
             [
                 "name" => "Peer Educator Trainers",
-                "description" => "Peer Educator Trainers are ...."
+                "description" => "Peer Educator Trainers are ....",
+                "url" => "https://cimsa.fk.ugm.ac.id/"
             ],
             [
                 "name" => "Huma Rights Education Facilitators",
-                "description" => "Huma Rights Education Facilitators are ...."
+                "description" => "Huma Rights Education Facilitators are ....",
+                "url" => "https://cimsa.fk.ugm.ac.id/"
             ]
         ];
 
@@ -47,6 +51,7 @@ class TrainingSeeder extends Seeder
                 $training_model->image = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
                 $training_model->name = $training['name'];
                 $training_model->description = $training['description'];
+                $training_model->url = $training['url'];
 
                 $training_model->save();
             }
