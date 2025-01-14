@@ -19,7 +19,7 @@ class PageContactResource extends JsonResource
             "name" => $this->name,
             "email" => $this->email,
             "phone" => $this->phone,
-            "occupation" => $this->occupation,
+            "occupation" => $this->ocupation,
             "generation" => $this->start_year . "/" . $this->end_year,
         ];
     }
