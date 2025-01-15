@@ -8,7 +8,8 @@ export default function BlogCard({ thumbnail, title, description }) {
       xs={12}
       sm={12}
       md={6}
-      lg={4}
+      lg={6}
+      xl={4}
       style={{ marginBottom: '24px' }}
       data-aos='fade'
       data-aos-duration='1200'
@@ -20,6 +21,7 @@ export default function BlogCard({ thumbnail, title, description }) {
         css={css`
           height: 419px;
           text-decoration: none;
+          overflow: hidden;
 
           ${OnHoverAnimationCss(1.05)}
         `}

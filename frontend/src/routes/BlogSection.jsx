@@ -1,9 +1,14 @@
-import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Pagination, Row } from 'react-bootstrap';
 import BlogCard from './BlogCard';
-import { css } from '@emotion/react';
+import { css, Global } from '@emotion/react';
 import PrimaryButton from './PrimaryButton';
 
-function BlogSection({ totalPosts, header = null, includeEndDivider = false }) {
+function BlogSection({
+  totalPosts,
+  header = null,
+  includeEndDivider = false,
+  usePagination,
+}) {
   return (
     <Container
       data-aos='fade-right'
@@ -53,9 +58,63 @@ function BlogSection({ totalPosts, header = null, includeEndDivider = false }) {
           return cards;
         })()}
       </Row>
-      <center>
-        <PrimaryButton to='/blog'>See All Posts</PrimaryButton>
-      </center>
+      {(() => {
+        if (!usePagination) {
+          return (
+            <center>
+              <PrimaryButton to='/blog'>See All Posts</PrimaryButton>
+            </center>
+          );
+        } else {
+          return (
+            <>
+              <Global
+                styles={css`
+                  .pagination > li > a {
+                    background-color: white;
+                    color: red;
+                  }
+
+                  .pagination > li > a:focus,
+                  .pagination > li > a:hover,
+                  .pagination > li > span:focus,
+                  .pagination > li > span:hover {
+                    color: red;
+                    outline: none;
+                    box-shadow: none;
+                  }
+
+                  .pagination > .active > a,
+                  .pagination > .active > .page-link {
+                    color: white;
+                    background-color: red !important;
+                    border: solid 1px red !important;
+                  }
+
+                  .pagination > .active > a:hover {
+                    background-color: red !important;
+                    border: solid 1px red;
+                  }
+                `}
+              />
+              <Pagination
+                css={css`
+                  display: flex;
+                  justify-content: center;
+                `}
+              >
+                <Pagination.Prev />
+                <Pagination.Item active>{1}</Pagination.Item>
+                <Pagination.Item>{2}</Pagination.Item>
+                <Pagination.Item>{3}</Pagination.Item>
+                <Pagination.Ellipsis />
+                <Pagination.Item>{28}</Pagination.Item>
+                <Pagination.Next />
+              </Pagination>
+            </>
+          );
+        }
+      })()}
       {includeEndDivider && <hr />}
     </Container>
   );

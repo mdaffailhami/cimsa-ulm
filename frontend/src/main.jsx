@@ -18,9 +18,9 @@ import ProgramsPage from './routes/programs/ProgramsPage.jsx';
 import OfficialsPage from './routes/officials/OfficialsPage.jsx';
 import AboutIFMSAPage from './routes/about-us/ifmsa/AboutIFMSAPage.jsx';
 import TrainingsPage from './routes/trainings/TrainingsPage.jsx';
-import { setPageMeta } from './utils.js';
 import { endpoint } from './configs.js';
 import ActivitiesPage from './routes/activities/ActivitiesPage.jsx';
+import BlogPage from './routes/blog/BlogPage.jsx';
 
 createRoot(document.getElementById('root')).render(<App />);
 
@@ -44,6 +44,8 @@ function App() {
           <Navbar />
           <Routes>
             <Route index element={<HomePage />} />
+            <Route path='blog' element={<BlogPage />} />
+            <Route path='blog/:category' element={<BlogPage />} />
             <Route path='about-us' element={<AboutUsPage />} />
             <Route path='about-us/ifmsa' element={<AboutIFMSAPage />} />
             <Route path='activities' element={<ActivitiesPage />} />
