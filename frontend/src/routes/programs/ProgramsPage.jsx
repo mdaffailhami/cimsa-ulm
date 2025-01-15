@@ -137,7 +137,7 @@ export default function ProgramsPage() {
                 ).description
               }
             </p>
-            <PrimaryButton to='/trainings'>
+            <PrimaryButton to='/activities/trainings'>
               <i
                 className='fa-solid fa-arrow-right'
                 style={{ marginRight: '6.95px' }}

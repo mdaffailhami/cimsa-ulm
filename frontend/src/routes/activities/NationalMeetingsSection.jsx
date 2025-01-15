@@ -2,7 +2,11 @@ import { css } from '@emotion/react';
 import { Col, Container, Row } from 'react-bootstrap';
 import PrimaryButton from '../PrimaryButton';
 
-export default function NationalMeetingsSection() {
+export default function NationalMeetingsSection({
+  nationalMeetingsDesc,
+  nationalMeetingsEmbeddedYoutubeUrl,
+  becomeDelegatesUrl,
+}) {
   return (
     <>
       <Container fluid style={{ background: 'red', color: 'white' }}>
@@ -29,15 +33,7 @@ export default function NationalMeetingsSection() {
                 <b>National Meetings</b>
               </h1>
               <p data-aos='fade' data-aos-once='true' data-aos-duration='1200'>
-                One of CIMSA’s goal is to provide a forum for Indonesian medical
-                students to discuss topics related to health and educatiom.
-                Therefore, every year CIMSA holds its annual meetings on
-                February, May, and October. Each meeting has specific goals,
-                target, and strategies designed by CIMSA national officer. The
-                core activities on our meetings are Grand Lecture and Issue
-                Update, Trainings, Plenary Session, Parallel Sessions, and Small
-                Working Group Discussions. In the end, the output of these
-                meetings will be implemented in our locals’ activities.
+                {nationalMeetingsDesc}
               </p>
               <p
                 data-aos='zoom-out'
@@ -66,7 +62,7 @@ export default function NationalMeetingsSection() {
                       height: 315px;
                     }
                   `}
-                  src='https://www.youtube.com/embed/Hap0KvyFwLI?si=WLVLwJAUrKCPpwD1'
+                  src={nationalMeetingsEmbeddedYoutubeUrl}
                   title='YouTube video player'
                   frameborder='0'
                   allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
@@ -112,7 +108,7 @@ export default function NationalMeetingsSection() {
               align-items: center;
             `}
           >
-            <PrimaryButton to={'#'}>
+            <PrimaryButton to={becomeDelegatesUrl}>
               <b>BECOME OUR DELEGATES</b>
             </PrimaryButton>
           </Col>

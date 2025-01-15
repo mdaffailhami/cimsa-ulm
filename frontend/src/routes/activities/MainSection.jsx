@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import PrimaryButton from '../PrimaryButton';
 import { Container } from 'react-bootstrap';
 
-export default function MainSection() {
+export default function MainSection({ programs, trainings }) {
   return (
     <section
       css={css`
@@ -88,15 +88,7 @@ export default function MainSection() {
             }
           `}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam dolores
-          quasi nihil, voluptatibus doloribus illum porro sint debitis nam
-          aliquid nobis nemo consequatur, sit vel necessitatibus excepturi, id
-          praesentium quae.
-          <br />
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
-          incidunt, similique autem hic quae a iste vero dolor unde
-          necessitatibus, velit natus minima fuga officiis perferendis
-          architecto ipsa eligendi illo.
+          {programs}
         </p>
         <PrimaryButton to='/activities/programs' isLarge={true}>
           Learn More
@@ -136,15 +128,7 @@ export default function MainSection() {
             }
           `}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam dolores
-          quasi nihil, voluptatibus doloribus illum porro sint debitis nam
-          aliquid nobis nemo consequatur, sit vel necessitatibus excepturi, id
-          praesentium quae.
-          <br />
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
-          incidunt, similique autem hic quae a iste vero dolor unde
-          necessitatibus, velit natus minima fuga officiis perferendis
-          architecto ipsa eligendi illo.
+          {trainings}
         </p>
         <PrimaryButton to='/activities/trainings' isLarge={true}>
           Learn More
