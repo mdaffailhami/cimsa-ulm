@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 // This route will catch all non-defined routes and return the react-index view.
@@ -11,15 +12,20 @@ Route::fallback(function () {
 });
 
 Route::prefix('/admin')->group(function () {
-    Route::get('/', function () {
-        return redirect()->route('admin.dashboard');
+    Route::middleware('auth')->group(function () {
+        Route::get('/', function () {
+            return redirect()->route('admin.dashboard');
+        });
+
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
+
+        Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     });
 
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
-
-    Route::get('/login', function () {
-        return view('admin.login');
-    })->name('admin.login');
+    Route::middleware('guest')->group(function () {
+        Route::get('/login', [AuthController::class, 'index'])->name('admin.login-page');
+        Route::post('/login', [AuthController::class, 'login'])->name('admin.login');
+    });
 })->name('admin');

@@ -15,7 +15,7 @@
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/pages-sign-in.html" />
 
-    <title>Sign In | AdminKit Demo</title>
+    <title>Sign In</title>
 
     <link href="{{ asset('/admin-dist/css/app.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -33,27 +33,45 @@
                         <div class="text-center mt-4">
                             <h1 class="h2">Welcome Back 🥳</h1>
                             <p class="lead">
-                                Sign in to your account to continue
+                                Sign in to your account to access the dashboard
                             </p>
                         </div>
 
                         <div class="card">
                             <div class="card-body">
                                 <div class="m-sm-4">
-                                    <div class="text-center">
+                                    {{-- <div class="text-center">
                                         <img src="{{ asset('/admin-dist/img/avatars/avatar.jpg') }}" alt="Charles Hall"
                                             class="img-fluid rounded-circle" width="132" height="132" />
-                                    </div>
-                                    <form>
+                                    </div> --}}
+                                    <form action="{{ route('admin.login') }}" method="POST">
+                                        @csrf
+
                                         <div class="mb-3">
-                                            <label class="form-label">Email</label>
-                                            <input class="form-control form-control-lg" type="email" name="email"
-                                                placeholder="Enter your email" />
+                                            <label class="form-label">Username</label>
+                                            <input
+                                                class="form-control form-control-lg @error('credentials') is-invalid @enderror"
+                                                type="text" name="username" placeholder="Enter your username"
+                                                value="{{ old('username') }}" autocomplete="off" />
+
+                                            @error('credentials')
+                                                <div class="invalid-feedback">
+                                                    Your credentials is invalid
+                                                </div>
+                                            @enderror
                                         </div>
+
                                         <div class="mb-3">
                                             <label class="form-label">Password</label>
-                                            <input class="form-control form-control-lg" type="password" name="password"
-                                                placeholder="Enter your password" />
+                                            <input
+                                                class="form-control form-control-lg @error('credentials') is-invalid @enderror"
+                                                type="password" name="password" placeholder="Enter your password" />
+                                            @error('credentials')
+                                                <div class="invalid-feedback">
+                                                    Your credentials is invalid
+                                                </div>
+                                            @enderror
+
                                             {{-- <small>
                                                 <a href="index.html">Forgot password?</a>
                                             </small> --}}
@@ -70,7 +88,8 @@
                                         </div> --}}
 
                                         <div class="text-center mt-3 ">
-                                            <button type="submit" class="btn btn-lg btn-primary">Sign in</button>
+                                            <button type="submit"
+                                                class="btn btn-lg btn-primary container">Login</button>
                                         </div>
                                     </form>
                                 </div>
