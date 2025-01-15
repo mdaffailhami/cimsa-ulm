@@ -2,7 +2,12 @@ import { css } from '@emotion/react';
 import PrimaryButton from '../PrimaryButton';
 import { Container } from 'react-bootstrap';
 
-export default function MainSection({ programs, trainings }) {
+export default function MainSection({
+  programsImage,
+  programsDesc,
+  trainingsDesc,
+  trainingsImage,
+}) {
   return (
     <section
       css={css`
@@ -20,7 +25,7 @@ export default function MainSection({ programs, trainings }) {
       <div
         css={css`
           position: relative;
-          background-image: url('https://picsum.photos/200');
+          background-image: url('${programsImage}');
           background-size: cover;
           background-position: center;
           background-attachment: fixed;
@@ -88,7 +93,7 @@ export default function MainSection({ programs, trainings }) {
             }
           `}
         >
-          {programs}
+          {programsDesc}
         </p>
         <PrimaryButton to='/activities/programs' isLarge={true}>
           Learn More
@@ -128,7 +133,7 @@ export default function MainSection({ programs, trainings }) {
             }
           `}
         >
-          {trainings}
+          {trainingsDesc}
         </p>
         <PrimaryButton to='/activities/trainings' isLarge={true}>
           Learn More
@@ -138,7 +143,7 @@ export default function MainSection({ programs, trainings }) {
       <div
         css={css`
           position: relative;
-          background-image: url('https://picsum.photos/200');
+          background-image: url('${trainingsImage}');
           background-size: cover;
           background-position: center;
           background-attachment: fixed;

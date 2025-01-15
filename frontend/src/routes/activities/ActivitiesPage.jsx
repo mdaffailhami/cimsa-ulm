@@ -38,10 +38,16 @@ export default function ActivitiesPage() {
   return (
     <div style={{ lineHeight: '1.7' }}>
       <MainSection
-        programs={
+        programsImage={
+          contents.find((x) => x.column === 'programs-image').image_content
+        }
+        programsDesc={
           contents.find((x) => x.column === 'programs-description').text_content
         }
-        trainings={
+        trainingsImage={
+          contents.find((x) => x.column === 'trainings-image').image_content
+        }
+        trainingsDesc={
           contents.find((x) => x.column === 'trainings-description')
             .text_content
         }

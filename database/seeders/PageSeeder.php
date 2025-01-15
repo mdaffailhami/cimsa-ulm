@@ -202,18 +202,32 @@ class PageSeeder extends Seeder
                 "name" => 'Activities',
                 'contents' => [
                     [
+                        "column" => 'programs-image',
+                        "label" => 'Programs Image',
+                        "type" => 'image',
+                        'section' => 'programs',
+                        'text_content' => null,
+                    ],
+                    [
                         "column" => 'programs-description',
                         "label" => 'Programs Description',
                         "type" => 'text',
-                        'section' => null,
+                        'section' => 'programs',
                         'text_content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam dolores quasi nihil, voluptatibus doloribus illum porro sint debitis nam aliquid nobis nemo consequatur, sit vel necessitatibus excepturi, id praesentium quae.
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam incidunt, similique autem hic quae a iste vero dolor unde necessitatibus, velit natus minima fuga officiis perferendis architecto ipsa eligendi illo.',
+                    ],
+                    [
+                        "column" => 'trainings-image',
+                        "label" => 'Trainings Image',
+                        "type" => 'image',
+                        'section' => 'trainings',
+                        'text_content' => null,
                     ],
                     [
                         "column" => 'trainings-description',
                         "label" => 'Trainings Description',
                         "type" => 'text',
-                        'section' => null,
+                        'section' => 'trainings',
                         'text_content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam dolores quasi nihil, voluptatibus doloribus illum porro sint debitis nam aliquid nobis nemo consequatur, sit vel necessitatibus excepturi, id praesentium quae.
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam incidunt, similique autem hic quae a iste vero dolor unde necessitatibus, velit natus minima fuga officiis perferendis architecto ipsa eligendi illo.',
                     ],
@@ -221,21 +235,21 @@ class PageSeeder extends Seeder
                         "column" => 'national-meetings-description',
                         "label" => 'National Meetings Description',
                         "type" => 'text',
-                        'section' => null,
+                        'section' => 'national-meetings',
                         'text_content' => 'One of CIMSA’s goal is to provide a forum for Indonesian medical students to discuss topics related to health and educatiom. Therefore, every year CIMSA holds its annual meetings on February, May, and October. Each meeting has specific goals, target, and strategies designed by CIMSA national officer. The core activities on our meetings are Grand Lecture and Issue Update, Trainings, Plenary Session, Parallel Sessions, and Small Working Group Discussions. In the end, the output of these meetings will be implemented in our locals’ activities.',
                     ],
                     [
                         "column" => 'national-meetings-embedded-youtube-url',
                         "label" => 'National Meetings Embedded Youtube URL',
                         "type" => 'text',
-                        'section' => null,
+                        'section' => 'national-meetings',
                         'text_content' => 'https://www.youtube.com/embed/Hap0KvyFwLI?si=WLVLwJAUrKCPpwD1',
                     ],
                     [
                         "column" => 'become-delegates-url',
                         "label" => 'Become Delegates URL',
                         "type" => 'text',
-                        'section' => null,
+                        'section' => 'national-meetings',
                         'text_content' => 'https://mdaffailhami.github.io',
                     ],
 
