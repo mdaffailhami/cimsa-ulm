@@ -47,7 +47,25 @@ class OfficialSeeder extends Seeder
                     'Suporting Division Coordinator',
                     'Local Officer',
                 ]
-            ]
+            ],
+            [
+                'start_year' => '2021',
+                'end_year' => '2022',
+                'divisions' => [
+                    'Excecutive Board',
+                    'Suporting Division Coordinator',
+                    'Local Officer',
+                ]
+            ],
+            [
+                'start_year' => '2020',
+                'end_year' => '2021',
+                'divisions' => [
+                    'Excecutive Board',
+                    'Suporting Division Coordinator',
+                    'Local Officer',
+                ]
+            ],
         ];
 
         $positions = [

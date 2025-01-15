@@ -1,16 +1,53 @@
 import { css } from '@emotion/react';
 import PageHeader from '../PageHeader';
 import OrganizationStructure from './OrganizationStructure';
+import { setPageMeta } from '../../utils';
+import { useEffect, useState } from 'react';
+import { endpoint } from '../../configs';
+import LoadingIndicator from '../LoadingIndicator';
 
 export default function OfficialsPage() {
-  document.title = 'The Officials - CIMSA ULM';
+  setPageMeta(
+    'The Officials - CIMSA ULM',
+    'Meet the officials of CIMSA ULM. We are a team of dedicated and passionate individuals who work together to achieve our goals and make a positive impact in our community.'
+  );
+  const [pageData, setPageData] = useState(undefined);
+  const [officials, setOfficials] = useState(undefined);
+
+  useEffect(() => {
+    (async () => {
+      // await new Promise((resolve) => setTimeout(resolve, 3000));
+      try {
+        const res = await fetch(`${endpoint}/api/page/officials`);
+        const res2 = await fetch(`${endpoint}/api/official`);
+        const data = await res.json();
+        const data2 = await res2.json();
+
+        if (!data && !data2) throw new Error('Error fetching data');
+
+        setPageData(data);
+        setOfficials(data2.data);
+      } catch (err) {
+        alert(err);
+      }
+    })();
+  }, []);
+
+  if (!pageData) {
+    return <LoadingIndicator />;
+  }
+
+  const { contents } = pageData;
+
   return (
     <>
       <PageHeader
-        title='The Officials'
-        description='Endless gratitude for all of your contributions to CIMSA UGM.'
+        title='Meet the Officials'
+        description={
+          contents.find((x) => x.column === 'description').text_content
+        }
       />
-      <OrganizationStructure />
+      <OrganizationStructure officials={officials} />
     </>
   );
 }

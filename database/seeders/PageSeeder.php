@@ -284,6 +284,20 @@ class PageSeeder extends Seeder
                     'end_year' => '2026',
                 ],
             ],
+            [
+                "name" => 'Officials',
+                'contents' => [
+                    [
+                        "column" => 'description',
+                        "label" => 'Description',
+                        "type" => 'text',
+                        'section' => null,
+                        'text_content' => 'Meet the officials of CIMSA ULM. We are a team of dedicated and passionate individuals who work together to achieve our goals and make a positive impact in our community.',
+                    ],
+
+                ],
+                'contact' => null,
+            ],
         ];
 
         DB::beginTransaction();

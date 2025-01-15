@@ -3,18 +3,8 @@ import { useEffect, useReducer, useState } from 'react';
 import { Accordion, Container, Tab, Tabs } from 'react-bootstrap';
 import OrganizationStructureContent from './OrganizationStructureContent';
 
-export default function OrganizationStructure() {
+export default function OrganizationStructure({ officials }) {
   const [isUsingAccordion, setIsUsingAccordion] = useState(false);
-  const periods = [
-    '2025-2026',
-    '2024-2025',
-    '2023-2024',
-    '2022-2023',
-    '2021-2022',
-    '2020-2021',
-    '2019-2020',
-    '2018-2019',
-  ];
 
   const [update, forceUpdate] = useReducer((x) => x + 1, 0);
 
@@ -36,7 +26,12 @@ export default function OrganizationStructure() {
   }, [update]);
 
   return (
-    <Container id='organization-structure'>
+    <Container
+      id='organization-structure'
+      data-aos='fade-up'
+      data-aos-duration='1200'
+      data-aos-once='true'
+    >
       <Global
         styles={css`
           #organization-structure .nav-link {
@@ -72,9 +67,13 @@ export default function OrganizationStructure() {
           })()}
         `}
       >
-        {periods.map((period, i) => {
+        {officials.map((official, i) => {
           return (
-            <Tab key={i} eventKey={i} title={period}>
+            <Tab
+              key={i}
+              eventKey={i}
+              title={`${official.year}—${Number(official.year) + 1}`}
+            >
               {(() => {
                 if (isUsingAccordion) {
                   return;
@@ -82,7 +81,7 @@ export default function OrganizationStructure() {
                   return (
                     <>
                       <br />
-                      <OrganizationStructureContent period={period} />;
+                      <OrganizationStructureContent official={official} />
                       <br />
                     </>
                   );
@@ -93,16 +92,21 @@ export default function OrganizationStructure() {
         })}
       </Tabs>
       {isUsingAccordion && (
-        <Accordion defaultActiveKey='0'>
-          {periods.map((period, i) => (
-            <Accordion.Item key={i} eventKey={i.toString()}>
-              <Accordion.Header>{period}</Accordion.Header>
-              <Accordion.Body>
-                <OrganizationStructureContent period={period} />
-              </Accordion.Body>
-            </Accordion.Item>
-          ))}
-        </Accordion>
+        <>
+          <Accordion defaultActiveKey='0'>
+            {officials.map((official, i) => (
+              <Accordion.Item key={i} eventKey={i.toString()}>
+                <Accordion.Header>
+                  {official.year}—{Number(official.year) + 1}
+                </Accordion.Header>
+                <Accordion.Body>
+                  <OrganizationStructureContent official={official} />
+                </Accordion.Body>
+              </Accordion.Item>
+            ))}
+          </Accordion>
+          <br />
+        </>
       )}
     </Container>
   );
