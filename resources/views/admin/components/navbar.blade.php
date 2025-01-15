@@ -91,9 +91,13 @@
                         <i class="align-middle me-1" data-feather="settings"></i>
                         Settings & Privacy</a>
 
-                    <a class="dropdown-item" href="index.html">
-                        <i class="align-middle me-1" data-feather="log-out"></i>
-                        Logout</a>
+                    <form action="{{ route('admin.logout') }}" method="post">
+                        @csrf
+                        <button type="submit" class="dropdown-item">
+                            <i class="align-middle me-1" data-feather="log-out"></i>
+                            Logout
+                        </button>
+                    </form>
                 </div>
             </li>
         </ul>
