@@ -144,11 +144,7 @@ export default function Navbar() {
               </NavDropdown>
               <NavDropdown
                 title='What We Do'
-                active={
-                  location.pathname === '/activities' ||
-                  location.pathname === '/programs' ||
-                  location.pathname === '/trainings'
-                }
+                active={location.pathname.startsWith('/activities')}
               >
                 <NavDropdown.Item
                   as={Link}
@@ -160,16 +156,15 @@ export default function Navbar() {
                 <NavDropdown.Divider />
                 <NavDropdown.Item
                   as={Link}
-                  to='/programs'
-                  active={location.pathname === '/programs'}
+                  to='/activities/programs'
+                  active={location.pathname === '/activities/programs'}
                 >
                   Programs
                 </NavDropdown.Item>
-                <NavDropdown.Divider />
                 <NavDropdown.Item
                   as={Link}
-                  to='/trainings'
-                  active={location.pathname === '/trainings'}
+                  to='/activities/trainings'
+                  active={location.pathname === '/activities/trainings'}
                 >
                   Trainings
                 </NavDropdown.Item>
