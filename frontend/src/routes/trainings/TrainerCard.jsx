@@ -3,7 +3,7 @@ import { Card, Col, Container, Image, Row } from 'react-bootstrap';
 import PrimaryButton from '../PrimaryButton';
 import OnHoverAnimationCss from '../OnHoverAnimationCss';
 
-export default function TrainerCard({ thumbnail, title, description }) {
+export default function TrainerCard({ thumbnail, title, description, url }) {
   return (
     <Col
       style={{ marginBottom: '24px' }}
@@ -13,7 +13,7 @@ export default function TrainerCard({ thumbnail, title, description }) {
     >
       <Card
         as='a'
-        href={`/blog/${title.toLowerCase().replace(/ /g, '-')}`}
+        href={url}
         css={css`
           height: 500px;
           text-decoration: none;

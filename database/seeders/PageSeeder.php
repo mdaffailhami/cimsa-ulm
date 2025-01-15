@@ -198,6 +198,106 @@ class PageSeeder extends Seeder
                     'end_year' => '2026',
                 ],
             ],
+            [
+                "name" => 'Activities',
+                'contents' => [
+                    [
+                        "column" => 'programs-image',
+                        "label" => 'Programs Image',
+                        "type" => 'image',
+                        'section' => 'programs',
+                        'text_content' => null,
+                    ],
+                    [
+                        "column" => 'programs-description',
+                        "label" => 'Programs Description',
+                        "type" => 'text',
+                        'section' => 'programs',
+                        'text_content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam dolores quasi nihil, voluptatibus doloribus illum porro sint debitis nam aliquid nobis nemo consequatur, sit vel necessitatibus excepturi, id praesentium quae.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam incidunt, similique autem hic quae a iste vero dolor unde necessitatibus, velit natus minima fuga officiis perferendis architecto ipsa eligendi illo.',
+                    ],
+                    [
+                        "column" => 'trainings-image',
+                        "label" => 'Trainings Image',
+                        "type" => 'image',
+                        'section' => 'trainings',
+                        'text_content' => null,
+                    ],
+                    [
+                        "column" => 'trainings-description',
+                        "label" => 'Trainings Description',
+                        "type" => 'text',
+                        'section' => 'trainings',
+                        'text_content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam dolores quasi nihil, voluptatibus doloribus illum porro sint debitis nam aliquid nobis nemo consequatur, sit vel necessitatibus excepturi, id praesentium quae.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam incidunt, similique autem hic quae a iste vero dolor unde necessitatibus, velit natus minima fuga officiis perferendis architecto ipsa eligendi illo.',
+                    ],
+                    [
+                        "column" => 'national-meetings-description',
+                        "label" => 'National Meetings Description',
+                        "type" => 'text',
+                        'section' => 'national-meetings',
+                        'text_content' => 'One of CIMSA’s goal is to provide a forum for Indonesian medical students to discuss topics related to health and educatiom. Therefore, every year CIMSA holds its annual meetings on February, May, and October. Each meeting has specific goals, target, and strategies designed by CIMSA national officer. The core activities on our meetings are Grand Lecture and Issue Update, Trainings, Plenary Session, Parallel Sessions, and Small Working Group Discussions. In the end, the output of these meetings will be implemented in our locals’ activities.',
+                    ],
+                    [
+                        "column" => 'national-meetings-embedded-youtube-url',
+                        "label" => 'National Meetings Embedded Youtube URL',
+                        "type" => 'text',
+                        'section' => 'national-meetings',
+                        'text_content' => 'https://www.youtube.com/embed/Hap0KvyFwLI?si=WLVLwJAUrKCPpwD1',
+                    ],
+                    [
+                        "column" => 'become-delegates-url',
+                        "label" => 'Become Delegates URL',
+                        "type" => 'text',
+                        'section' => 'national-meetings',
+                        'text_content' => 'https://mdaffailhami.github.io',
+                    ],
+
+                ],
+                'contact' => null,
+            ],
+            [
+                "name" => 'Trainings',
+                'contents' => [
+                    [
+                        "column" => 'description',
+                        "label" => 'Description',
+                        "type" => 'text',
+                        'section' => null,
+                        'text_content' => 'True to our vision, CIMSA UGM aims to empower medical students in every possible aspect.',
+                    ],
+                    [
+                        "column" => 'trainers-description',
+                        "label" => 'Trainers Description',
+                        "type" => 'text',
+                        'section' => null,
+                        'text_content' => 'CIMSA has an established capacity building system where members may become trainers that will act as peer educators on various topics. These ‘trainings of trainers’ are conducted each year (some are held biennially), ensuring a steady production of trainers and a continuous stream of capacity buildings.',
+                    ],
+
+                ],
+                'contact' => [
+                    "name" => 'Muhammad Daffa Ilhami',
+                    'ocupation' => 'Vice Local Coordinator',
+                    'email' => 'vlecimsaugm@gmail.com',
+                    'phone' => '082226926058',
+                    'start_year' => '2025',
+                    'end_year' => '2026',
+                ],
+            ],
+            [
+                "name" => 'Officials',
+                'contents' => [
+                    [
+                        "column" => 'description',
+                        "label" => 'Description',
+                        "type" => 'text',
+                        'section' => null,
+                        'text_content' => 'Meet the officials of CIMSA ULM. We are a team of dedicated and passionate individuals who work together to achieve our goals and make a positive impact in our community.',
+                    ],
+
+                ],
+                'contact' => null,
+            ],
         ];
 
         DB::beginTransaction();

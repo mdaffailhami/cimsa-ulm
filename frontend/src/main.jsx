@@ -20,6 +20,7 @@ import AboutIFMSAPage from './routes/about-us/ifmsa/AboutIFMSAPage.jsx';
 import TrainingsPage from './routes/trainings/TrainingsPage.jsx';
 import { setPageMeta } from './utils.js';
 import { endpoint } from './configs.js';
+import ActivitiesPage from './routes/activities/ActivitiesPage.jsx';
 
 createRoot(document.getElementById('root')).render(<App />);
 
@@ -45,8 +46,9 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path='about-us' element={<AboutUsPage />} />
             <Route path='about-us/ifmsa' element={<AboutIFMSAPage />} />
-            <Route path='programs' element={<ProgramsPage />} />
-            <Route path='trainings' element={<TrainingsPage />} />
+            <Route path='activities' element={<ActivitiesPage />} />
+            <Route path='activities/programs' element={<ProgramsPage />} />
+            <Route path='activities/trainings' element={<TrainingsPage />} />
             <Route path='officials' element={<OfficialsPage />} />
             <Route path='alumni-senior' element={<AlumniSeniorPage />} />
             <Route path='contact-us' element={<ContactUsPage />} />

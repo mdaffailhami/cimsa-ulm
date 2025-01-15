@@ -2,7 +2,7 @@ import { Container, Row } from 'react-bootstrap';
 import TrainerCard from './TrainerCard';
 import { css } from '@emotion/react';
 
-export default function OurTrainersSection() {
+export default function OurTrainersSection({ description, trainers }) {
   return (
     <Container fluid style={{ background: 'red', padding: '14px 0 8px 0' }}>
       <Container>
@@ -26,11 +26,7 @@ export default function OurTrainersSection() {
             data-aos-once='true'
             style={{ fontSize: '20px' }}
           >
-            CIMSA has an established capacity building system where members may
-            become trainers that will act as peer educators on various topics.
-            These ‘trainings of trainers’ are conducted each year (some are held
-            biennially), ensuring a steady production of trainers and a
-            continuous stream of capacity buildings.
+            {description}
           </p>
         </Container>
         <Row
@@ -43,48 +39,14 @@ export default function OurTrainersSection() {
             justify-content: center;
           `}
         >
-          <TrainerCard
-            thumbnail={`https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2020/05/2020-05-31-03.53.39-5.jpg`}
-            title={'Cimsa Trainers'}
-            description={
-              'CIMSA Trainers, or also commonly called backbones, gives trainings on the topic of CIMSA itself and skills related to organizational management, communication, and leadership. CIMSA Trainers are trained in ‘TNTs’ or Training New Trainers which are held both regionally and nationally.'
-            }
-          />
-          <TrainerCard
-            thumbnail={`https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2022/02/DSC07531-2048x1149.png`}
-            title={'Medical Education Trainers'}
-            description={
-              'CIMSA Trainers, or also commonly called backbones, gives trainings on the topic of CIMSA itself and skills related to organizational management, communication, and leadership. CIMSA Trainers are trained in ‘TNTs’ or Training New Trainers which are held both regionally and nationally.'
-            }
-          />
-          <TrainerCard
-            thumbnail={`https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2020/05/2020-05-31-03.53.39-5.jpg`}
-            title={'Peer Education Trainers'}
-            description={
-              'CIMSA Trainers, or also commonly called backbones, gives trainings on the topic of CIMSA itself and skills related to organizational management, communication, and leadership. CIMSA Trainers are trained in ‘TNTs’ or Training New Trainers which are held both regionally and nationally.'
-            }
-          />
-          <TrainerCard
-            thumbnail={`https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2022/02/DSC07531-2048x1149.png`}
-            title={'Cimsa Trainers'}
-            description={
-              'CIMSA Trainers, or also commonly called backbones, gives trainings on the topic of CIMSA itself and skills related to organizational management, communication, and leadership. CIMSA Trainers are trained in ‘TNTs’ or Training New Trainers which are held both regionally and nationally.'
-            }
-          />
-          <TrainerCard
-            thumbnail={`https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2020/05/2020-05-31-03.53.39-5.jpg`}
-            title={'Medical Education Trainers'}
-            description={
-              'CIMSA Trainers, or also commonly called backbones, gives trainings on the topic of CIMSA itself and skills related to organizational management, communication, and leadership. CIMSA Trainers are trained in ‘TNTs’ or Training New Trainers which are held both regionally and nationally.'
-            }
-          />
-          <TrainerCard
-            thumbnail={`https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2022/02/DSC07531-2048x1149.png`}
-            title={'Peer Education Trainers'}
-            description={
-              'CIMSA Trainers, or also commonly called backbones, gives trainings on the topic of CIMSA itself and skills related to organizational management, communication, and leadership. CIMSA Trainers are trained in ‘TNTs’ or Training New Trainers which are held both regionally and nationally.'
-            }
-          />
+          {trainers.map((trainer) => (
+            <TrainerCard
+              thumbnail={trainer.image}
+              title={trainer.name}
+              description={trainer.description}
+              url={trainer.url}
+            />
+          ))}
         </Row>
       </Container>
     </Container>
