@@ -10,3 +10,16 @@ Route::fallback(function () {
     return view('react-index');
 });
 
+Route::prefix('/admin')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('admin.dashboard');
+    });
+
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+
+    Route::get('/login', function () {
+        return view('admin.login');
+    })->name('admin.login');
+})->name('admin');
