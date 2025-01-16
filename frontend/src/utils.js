@@ -28,3 +28,7 @@ export function setPageMeta(title, description) {
     `<link rel="canonical" href="${window.location.href}">`
   );
 }
+
+export function getWebPaths() {
+  return window.location.pathname.split('/').slice(1);
+}

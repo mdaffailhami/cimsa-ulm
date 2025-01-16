@@ -46,6 +46,7 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path='blog' element={<BlogPage />} />
             <Route path='blog/:category' element={<BlogPage />} />
+            <Route path='blog/:category/:page' element={<BlogPage />} />
             <Route path='about-us' element={<AboutUsPage />} />
             <Route path='about-us/ifmsa' element={<AboutIFMSAPage />} />
             <Route path='activities' element={<ActivitiesPage />} />

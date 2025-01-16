@@ -298,6 +298,27 @@ class PageSeeder extends Seeder
                 ],
                 'contact' => null,
             ],
+            [
+                "name" => 'Blog',
+                'contents' => [
+                    [
+                        "column" => 'description',
+                        "label" => 'Description',
+                        "type" => 'text',
+                        'section' => null,
+                        'text_content' => 'Content from our members, seniors, alumni, and activity reports.',
+                    ],
+
+                ],
+                'contact' => [
+                    "name" => 'Muhammad Daffa Ilhami',
+                    'ocupation' => 'Vice Local Coordinator',
+                    'email' => 'vlecimsaugm@gmail.com',
+                    'phone' => '082226926058',
+                    'start_year' => '2025',
+                    'end_year' => '2026',
+                ],
+            ],
         ];
 
         DB::beginTransaction();
