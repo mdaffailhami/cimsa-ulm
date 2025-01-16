@@ -9,8 +9,7 @@ import { getWebPaths } from '../../utils';
 export default function PostsSection() {
   const paths = getWebPaths();
 
-  const [blog, setBlog] = useState([]);
-  const { pagination, posts: data } = blog;
+  const [blog, setBlog] = useState(undefined);
 
   const [configs, setConfigs] = useState({
     category: paths[1],
@@ -25,33 +24,48 @@ export default function PostsSection() {
   };
 
   const setPage = (newPage) => {
-    if (!pagination) throw new Error('Failed to navigate!');
+    if (!blog) throw new Error('Failed to navigate!');
+
     newPage = parseInt(newPage);
     if (newPage < 1) newPage = 1;
-    if (newPage > pagination.last_page) newPage = pagination.last_page;
+    if (newPage > blog.pagination.last_page)
+      newPage = blog.pagination.last_page;
 
     window.history.replaceState({}, '', `/blog/${category}/${newPage}`);
     setConfigs({ ...configs, page: newPage });
   };
 
-  // useEffect(() => {
-  //   (async () => {
-  //     // await new Promise((resolve) => setTimeout(resolve, 3000));
-  //     try {
-  //       const res = await fetch(
-  //         `${endpoint}/api/post?page=1&limit=3&category=articles`
-  //       );
+  useEffect(() => {
+    // loading
+    setBlog(undefined);
 
-  //       setPageData(await res.json());
-  //     } catch (err) {
-  //       alert(err);
-  //     }
-  //   })();
-  // }, []);
+    (async () => {
+      // await new Promise((resolve) => setTimeout(resolve, 1000));
+      try {
+        const res = await fetch(
+          `${endpoint}/api/post?page=${page}&limit=9&category=${
+            category == 'all' ? '' : category
+          }`
+        );
 
-  // if (!pageData) {
-  //   return <LoadingIndicator />;
-  // }
+        const data = await res.json();
+        if (!data) throw new Error('Error fetching data');
+
+        // If current page is greater than new last page
+        if (data.pagination.last_page < page) {
+          setPage(data.pagination.last_page);
+        }
+
+        setBlog(data);
+      } catch (err) {
+        alert(err);
+      }
+    })();
+  }, [configs]);
+
+  if (!blog) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <>
@@ -59,9 +73,6 @@ export default function PostsSection() {
         <hr />
       </div>
       <section
-        data-aos='zoom-in-up'
-        data-aos-duration='1200'
-        data-aos-once='true'
         className='d-flex justify-content-center align-items-center'
         style={{ display: 'flex', justifyContent: 'center', gap: '12px' }}
       >
@@ -89,26 +100,15 @@ export default function PostsSection() {
       </section>
       <section>
         <BlogSection
+          aos={null}
           header={<br />}
-          totalPosts={9}
+          posts={blog.data}
           footer={
             <PostsPagination
               activePage={page}
-              totalPage={!pagination ? 1 : pagination.last_page}
+              totalPage={!blog ? 1 : blog.pagination.last_page}
               onPageChange={(x) => {
-                if (category == undefined) {
-                  window.history.replaceState(
-                    {},
-                    '',
-                    `/blog${x == 1 ? '' : `/${x}`}`
-                  );
-                } else {
-                  window.history.replaceState(
-                    {},
-                    '',
-                    `/blog/${paths[2]}${x == 1 ? '' : `/${x}`}`
-                  );
-                }
+                window.history.replaceState({}, '', `/blog/${category}/${x}`);
 
                 setPage(x);
               }}

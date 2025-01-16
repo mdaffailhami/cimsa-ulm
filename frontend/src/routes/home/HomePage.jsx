@@ -82,7 +82,7 @@ export default function HomePage() {
       <br />
       <hr />
       <br />
-      <BlogSection totalPosts={6} />
+      {/* <BlogSection totalPosts={6} /> */}
       <br />
       <hr />
       <br />

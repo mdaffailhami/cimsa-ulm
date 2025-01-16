@@ -8,12 +8,6 @@ export default function PostsPagination({
 }) {
   const totalShowedPage = 3;
 
-  const onClick = (page) => {
-    if (page == activePage) return;
-
-    onPageChange(parseInt(page));
-  };
-
   return (
     <>
       <Global
@@ -51,7 +45,10 @@ export default function PostsPagination({
           justify-content: center;
         `}
       >
-        <Pagination.Prev key={'prev'} onClick={() => onClick(activePage - 1)} />
+        <Pagination.Prev
+          key={'prev'}
+          onClick={() => onPageChange(activePage - 1)}
+        />
         {(() => {
           let result = [];
 
@@ -64,7 +61,7 @@ export default function PostsPagination({
                   <Pagination.Item
                     key={totalPage}
                     active={activePage == totalPage}
-                    onClick={() => onClick(totalPage)}
+                    onClick={() => onPageChange(totalPage)}
                   >
                     {totalPage}
                   </Pagination.Item>
@@ -76,7 +73,7 @@ export default function PostsPagination({
                   <Pagination.Item
                     key={i}
                     active={activePage == i}
-                    onClick={() => onClick(i)}
+                    onClick={() => onPageChange(i)}
                   >
                     {i}
                   </Pagination.Item>
@@ -88,7 +85,7 @@ export default function PostsPagination({
               <Pagination.Item
                 key={1}
                 active={activePage == 1}
-                onClick={() => onClick(1)}
+                onClick={() => onPageChange(1)}
               >
                 1
               </Pagination.Item>
@@ -104,7 +101,7 @@ export default function PostsPagination({
                   <Pagination.Item
                     key={totalPage}
                     active={activePage == totalPage}
-                    onClick={() => onClick(totalPage)}
+                    onClick={() => onPageChange(totalPage)}
                   >
                     {totalPage}
                   </Pagination.Item>
@@ -115,7 +112,7 @@ export default function PostsPagination({
                   <Pagination.Item
                     key={i}
                     active={activePage == i}
-                    onClick={() => onClick(i)}
+                    onClick={() => onPageChange(i)}
                   >
                     {i}
                   </Pagination.Item>
@@ -126,7 +123,10 @@ export default function PostsPagination({
 
           return result;
         })()}
-        <Pagination.Next key={'next'} onClick={() => onClick(activePage + 1)} />
+        <Pagination.Next
+          key={'next'}
+          onClick={() => onPageChange(activePage + 1)}
+        />
       </Pagination>
     </>
   );

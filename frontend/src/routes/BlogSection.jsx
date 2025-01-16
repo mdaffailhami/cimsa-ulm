@@ -4,14 +4,15 @@ import { css } from '@emotion/react';
 import PrimaryButton from './PrimaryButton';
 
 function BlogSection({
-  totalPosts,
+  posts,
   header = null,
   includeEndDivider = false,
   footer = null,
+  aos = 'fade-right',
 }) {
   return (
     <Container
-      data-aos='fade-right'
+      data-aos={aos}
       data-aos-once='true'
       data-aos-duration='1200'
       css={css`
@@ -36,27 +37,16 @@ function BlogSection({
         }
       })()}
       <Row className='d-flex justify-content-center'>
-        {(() => {
-          const cards = [];
-
-          for (let i = 1; i <= totalPosts; i++) {
-            cards.push(
-              <BlogCard
-                key={i}
-                thumbnail={`https://picsum.photos/200/${301 + i}`}
-                title={
-                  i +
-                  ' Judul lurr aowkwkwkkw lol uwu wadidaw, naniii, zehhahhahaha'
-                }
-                description={
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris auctor, ipsum sit amet convallis varius, lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                }
-              />
-            );
-          }
-
-          return cards;
-        })()}
+        {posts.map((post, i) => (
+          <BlogCard
+            key={i}
+            thumbnail={post.cover}
+            title={post.title}
+            description={post.highlight}
+            date={post.updated_at}
+            url={`/blog/detail/${post.slug}`}
+          />
+        ))}
       </Row>
       {(() => {
         if (!footer) {

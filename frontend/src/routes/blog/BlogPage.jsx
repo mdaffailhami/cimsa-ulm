@@ -76,13 +76,6 @@ export default function BlogPage() {
         period={contact.generation}
         position={contact.occupation}
         picture={contact.image}
-        // picture={'https://avatars.githubusercontent.com/u/74972129?v=4'}
-        // picture={
-        //   'https://www.system-concepts.com/wp-content/uploads/2020/02/excited-minions-gif.gif'
-        // }
-        // picture={
-        //   'https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2024/07/LOME_Daniella-Enjelika-Sinaga-e1721380348578-300x300.png'
-        // }
         name={contact.name}
         email={contact.email}
         phone={contact.phone}

@@ -53,7 +53,7 @@ export default function AlumniSeniorPage() {
       />
       <br />
       <br />
-      <BlogSection totalPosts={3} />
+      {/* <BlogSection totalPosts={3} /> */}
       <br />
       <br />
       <OfficialCardSection
