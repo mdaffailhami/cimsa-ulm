@@ -1,25 +1,28 @@
 import { css } from '@emotion/react';
 import { Card, Col, Image } from 'react-bootstrap';
 import OnHoverAnimationCss from './OnHoverAnimationCss';
+import { Link } from 'react-router';
 
-export default function BlogCard({ thumbnail, title, description }) {
+export default function BlogCard({ thumbnail, title, description, date, url }) {
   return (
     <Col
       xs={12}
       sm={12}
       md={6}
-      lg={4}
+      lg={6}
+      xl={4}
       style={{ marginBottom: '24px' }}
       data-aos='fade'
       data-aos-duration='1200'
       data-aos-once='true'
     >
       <Card
-        as='a'
-        href={`/blog/${title.toLowerCase().replace(/ /g, '-')}`}
+        as={Link}
+        to={url}
         css={css`
           height: 419px;
           text-decoration: none;
+          overflow: hidden;
 
           ${OnHoverAnimationCss(1.05)}
         `}
@@ -48,7 +51,11 @@ export default function BlogCard({ thumbnail, title, description }) {
               font-size: 13px;
             `}
           >
-            Januari 12, 2025
+            {new Intl.DateTimeFormat('en-US', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+            }).format(new Date(date))}
           </div>
         </Card.Header>
         <Card.Body>

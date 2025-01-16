@@ -10,6 +10,15 @@ export default function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
+    // If the last character of the url is '/', then remove it (Prevent trailing slash)
+    if (location.pathname.match('/.*/$')) {
+      window.history.replaceState(
+        {},
+        '',
+        location.pathname.replace(/\/+$/, '') + location.search
+      );
+    }
+
     // Scroll to top instantly when location changes
     window.scrollTo({ top: 0, behavior: 'instant' });
 
@@ -76,7 +85,7 @@ export default function Navbar() {
               />
               <Nav.Link
                 as={Link}
-                to='/blog'
+                to='/blog/all/1'
                 active={location.pathname.startsWith('/blog')}
               >
                 Blog

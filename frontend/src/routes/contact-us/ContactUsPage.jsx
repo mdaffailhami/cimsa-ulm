@@ -4,7 +4,7 @@ import ContactForm from './ContactForm';
 import PageHeader from '../PageHeader';
 import { useLocation } from 'react-router';
 import { useEffect, useState } from 'react';
-import SocmedsSection from './SocmedsSection';
+import SocmedsSection from '../SocmedsSection';
 import OfficialCardSection from '../OfficialCardSection';
 import { scrollById, setPageMeta } from '../../utils';
 import { endpoint } from '../../configs';

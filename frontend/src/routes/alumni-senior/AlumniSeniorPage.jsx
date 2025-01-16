@@ -15,28 +15,30 @@ export default function AlumniSeniorPage() {
   );
 
   const [pageData, setPageData] = useState(undefined);
+  const [blog, setBlog] = useState(undefined);
 
   useEffect(() => {
     (async () => {
       // await new Promise((resolve) => setTimeout(resolve, 3000));
       try {
         const res = await fetch(`${endpoint}/api/page/alumni-senior`);
+        const res2 = await fetch(`${endpoint}/api/post?page=1&limit=3`);
         const data = await res.json();
+        const data2 = await res2.json();
 
-        if (!data) throw new Error('Error fetching data');
+        if (!data && !data2) throw new Error('Error fetching data');
 
         setPageData(data);
+        setBlog(data2);
       } catch (err) {
         alert(err);
       }
     })();
   }, []);
 
-  if (!pageData) {
+  if (!pageData || !blog) {
     return <LoadingIndicator />;
   }
-
-  // console.log(pageData);
 
   const { contents, contact } = pageData;
 
@@ -53,7 +55,7 @@ export default function AlumniSeniorPage() {
       />
       <br />
       <br />
-      <BlogSection totalPosts={3} />
+      <BlogSection posts={blog.data} />
       <br />
       <br />
       <OfficialCardSection

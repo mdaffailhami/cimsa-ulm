@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import { Col, Container, Row } from 'react-bootstrap';
-import OnHoverAnimationCss from '../OnHoverAnimationCss';
+import OnHoverAnimationCss from './OnHoverAnimationCss';
 import { useContext } from 'react';
-import { CimsaContext } from '../../main';
-import LoadingIndicator from '../LoadingIndicator';
+import { CimsaContext } from '../main';
+import LoadingIndicator from './LoadingIndicator';
 
 function SocmedButton({ iconClass, url }) {
   return (
