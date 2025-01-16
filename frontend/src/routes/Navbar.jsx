@@ -85,7 +85,7 @@ export default function Navbar() {
               />
               <Nav.Link
                 as={Link}
-                to='/blog'
+                to='/blog/all/1'
                 active={location.pathname.startsWith('/blog')}
               >
                 Blog

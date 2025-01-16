@@ -52,7 +52,7 @@ function BlogSection({
         if (!footer) {
           return (
             <center>
-              <PrimaryButton to='/blog'>See All Posts</PrimaryButton>
+              <PrimaryButton to='/blog/all/1'>See All Posts</PrimaryButton>
             </center>
           );
         } else {
