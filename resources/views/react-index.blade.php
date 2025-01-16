@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module" crossorigin src="/assets/index-D-lujUFv.js"></script>
+    <script type="module" crossorigin src="/assets/index-t4ubrKlR.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-DOkt4nC3.css">
   </head>
   <body>
     <div id="root"></div>
-</body>
-
+  </body>
 </html>

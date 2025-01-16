@@ -20,21 +20,28 @@ export default function ProgramsPage() {
   useEffect(() => scrollById(location.hash), [location]);
 
   const [programs, setPrograms] = useState(undefined);
+  const [blog, setBlog] = useState(undefined);
 
   useEffect(() => {
     (async () => {
       // await new Promise((resolve) => setTimeout(resolve, 3000));
       try {
         const res = await fetch(`${endpoint}/api/program`);
+        const res2 = await fetch(`${endpoint}/api/post?page=1&limit=3`);
+        const data = await res.json();
+        const data2 = await res2.json();
 
-        setPrograms((await res.json()).data);
+        if (!data && !data2) throw new Error('Error fetching data');
+
+        setPrograms(data.data);
+        setBlog(data2);
       } catch (err) {
         alert(err);
       }
     })();
   }, []);
 
-  if (!programs) {
+  if (!programs || !blog) {
     return <LoadingIndicator />;
   }
 
@@ -69,7 +76,7 @@ export default function ProgramsPage() {
       />
       <BlogSection
         includeEndDivider={true}
-        totalPosts={3}
+        posts={blog.data}
         header={
           <center>
             <h3>
