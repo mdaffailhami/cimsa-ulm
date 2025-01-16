@@ -16,24 +16,28 @@ export default function HomePage() {
   );
 
   const [contents, setContents] = useState(undefined);
+  const [blog, setBlog] = useState(undefined);
 
   useEffect(() => {
     (async () => {
       // await new Promise((resolve) => setTimeout(resolve, 3000));
       try {
         const res = await fetch(`${endpoint}/api/page/landing`);
+        const res2 = await fetch(`${endpoint}/api/post?page=1&limit=6`);
         const data = await res.json();
+        const data2 = await res2.json();
 
-        if (!data) throw new Error('Error fetching data');
+        if (!data && !data2) throw new Error('Error fetching data');
 
         setContents(data.contents);
+        setBlog(data2);
       } catch (err) {
         alert(err);
       }
     })();
   }, []);
 
-  if (!contents) {
+  if (!contents || !blog) {
     return <LoadingIndicator />;
   }
 
@@ -82,7 +86,7 @@ export default function HomePage() {
       <br />
       <hr />
       <br />
-      {/* <BlogSection totalPosts={6} /> */}
+      <BlogSection posts={blog.data} />
       <br />
       <hr />
       <br />
