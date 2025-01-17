@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 // This route will catch all non-defined routes and return the react-index view.
 // This is necessary because the frontend is a SPA and the backend should not
@@ -9,6 +10,10 @@ use Illuminate\Support\Facades\Route;
 // should be returned and the frontend will handle the route from there.
 Route::fallback(function () {
     return view('react-index');
+});
+
+Route::get('/test', function () {
+    return Inertia::render('Welcome');
 });
 
 Route::prefix('/admin')->group(function () {
