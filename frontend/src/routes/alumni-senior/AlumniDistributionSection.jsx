@@ -38,7 +38,10 @@ export default function AlumniDistributionSection({ image }) {
         </h1>
       </div>
       <img
-        src={image}
+        // src={image}
+        src={
+          'https://cdn.britannica.com/37/245037-050-79129D52/world-map-continents-oceans.jpg'
+        }
         style={{
           width: '100vw',
           height: 'auto',

@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from 'react';
 import LoadingIndicator from './LoadingIndicator';
 import { endpoint } from '../configs';
 import { CimsaContext } from '../main';
+import HtmlParser from './HtmlParser';
 
 function SocmedLink({ title, iconClass, url }) {
   return (
@@ -98,10 +99,12 @@ export default function Footer() {
                 </div>
               </Link>
               <p>
-                {
-                  profile.find((item) => item.column == 'deskripsi')
-                    .text_content
-                }
+                <HtmlParser
+                  html={
+                    profile.find((item) => item.column == 'deskripsi')
+                      .text_content
+                  }
+                />
               </p>
             </Col>
             <Col md={3}>

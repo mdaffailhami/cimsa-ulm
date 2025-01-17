@@ -7,6 +7,7 @@ import { getWebPaths, setPageMeta } from '../../utils';
 import LoadingIndicator from '../LoadingIndicator';
 import { endpoint } from '../../configs';
 import { useEffect, useState } from 'react';
+import HtmlParser from '../HtmlParser';
 
 export default function BlogPage() {
   setPageMeta(
@@ -64,7 +65,11 @@ export default function BlogPage() {
         <PageHeader
           title={'BLOG'}
           description={
-            contents.find((x) => x.column === 'description').text_content
+            <HtmlParser
+              html={
+                contents.find((x) => x.column === 'description').text_content
+              }
+            />
           }
         />
         <PostsSection totalPage={totalPage} />

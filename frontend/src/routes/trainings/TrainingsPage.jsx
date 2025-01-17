@@ -6,6 +6,7 @@ import { setPageMeta } from '../../utils';
 import { useEffect, useState } from 'react';
 import { endpoint } from '../../configs';
 import LoadingIndicator from '../LoadingIndicator';
+import HtmlParser from '../HtmlParser';
 
 export default function TrainingsPage() {
   setPageMeta(
@@ -46,12 +47,19 @@ export default function TrainingsPage() {
       <PageHeader
         title='Our Trainings'
         description={
-          contents.find((x) => x.column === 'description').text_content
+          <HtmlParser
+            html={contents.find((x) => x.column === 'description').text_content}
+          />
         }
       />
       <OurTrainersSection
         description={
-          contents.find((x) => x.column === 'trainers-description').text_content
+          <HtmlParser
+            html={
+              contents.find((x) => x.column === 'trainers-description')
+                .text_content
+            }
+          />
         }
         trainers={trainers}
       />
