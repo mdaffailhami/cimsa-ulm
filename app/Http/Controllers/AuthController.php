@@ -11,8 +11,7 @@ class AuthController extends Controller
 {
     public function index()
     {
-        // return view('admin.login');
-        return Inertia::render('Admin/LoginPage');
+        return view('admin.login');
     }
 
     public function login(Request $request): RedirectResponse
