@@ -4,6 +4,7 @@ import { setPageMeta } from '../../utils';
 import { useEffect, useState } from 'react';
 import { endpoint } from '../../configs';
 import LoadingIndicator from '../LoadingIndicator';
+import HtmlParser from '../HtmlParser';
 
 export default function OfficialsPage() {
   setPageMeta(
@@ -43,7 +44,9 @@ export default function OfficialsPage() {
       <PageHeader
         title='Meet the Officials'
         description={
-          contents.find((x) => x.column === 'description').text_content
+          <HtmlParser
+            html={contents.find((x) => x.column === 'description').text_content}
+          />
         }
       />
       <OrganizationStructure officials={officials} />

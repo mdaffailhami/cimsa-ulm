@@ -4,6 +4,7 @@ import { setPageMeta } from '../../utils';
 import LoadingIndicator from '../LoadingIndicator';
 import MainSection from './MainSection';
 import NationalMeetingsSection from './NationalMeetingsSection';
+import HtmlParser from '../HtmlParser';
 
 export default function ActivitiesPage() {
   setPageMeta(
@@ -42,22 +43,35 @@ export default function ActivitiesPage() {
           contents.find((x) => x.column === 'programs-image').image_content
         }
         programsDesc={
-          contents.find((x) => x.column === 'programs-description').text_content
+          <HtmlParser
+            html={
+              contents.find((x) => x.column === 'programs-description')
+                .text_content
+            }
+          />
         }
         trainingsImage={
           contents.find((x) => x.column === 'trainings-image').image_content
         }
         trainingsDesc={
-          contents.find((x) => x.column === 'trainings-description')
-            .text_content
+          <HtmlParser
+            html={
+              contents.find((x) => x.column === 'trainings-description')
+                .text_content
+            }
+          />
         }
       />
       <br />
       <br />
       <NationalMeetingsSection
         nationalMeetingsDesc={
-          contents.find((x) => x.column === 'national-meetings-description')
-            .text_content
+          <HtmlParser
+            html={
+              contents.find((x) => x.column === 'national-meetings-description')
+                .text_content
+            }
+          />
         }
         nationalMeetingsEmbeddedYoutubeUrl={
           contents.find(

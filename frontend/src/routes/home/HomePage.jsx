@@ -8,6 +8,7 @@ import { setPageMeta } from '../../utils';
 import { useEffect, useState } from 'react';
 import LoadingIndicator from '../LoadingIndicator';
 import { endpoint } from '../../configs';
+import HtmlParser from '../HtmlParser';
 
 export default function HomePage() {
   setPageMeta(
@@ -49,11 +50,19 @@ export default function HomePage() {
       />
       <br />
       <VisionMissionSection
-        vision={contents.find((x) => x.column === 'vision').text_content}
+        vision={
+          <HtmlParser
+            html={contents.find((x) => x.column === 'vision').text_content}
+          />
+        }
         visionImage={
           contents.find((x) => x.column === 'vision-image').image_content
         }
-        mission={contents.find((x) => x.column === 'mission').text_content}
+        mission={
+          <HtmlParser
+            html={contents.find((x) => x.column === 'mission').text_content}
+          />
+        }
         missionImage={
           contents.find((x) => x.column === 'mission-image').image_content
         }
@@ -78,7 +87,11 @@ export default function HomePage() {
       <hr />
       <br />
       <AboutUsSection
-        about={contents.find((x) => x.column === 'about-us').text_content}
+        about={
+          <HtmlParser
+            html={contents.find((x) => x.column === 'about-us').text_content}
+          />
+        }
         bgImage={
           contents.find((x) => x.column === 'about-us-bg-image').image_content
         }
@@ -91,7 +104,11 @@ export default function HomePage() {
       <hr />
       <br />
       <QuoteSection
-        quote={contents.find((x) => x.column === 'quote').text_content}
+        quote={
+          <HtmlParser
+            html={contents.find((x) => x.column === 'quote').text_content}
+          />
+        }
         author={contents.find((x) => x.column === 'quote-author').text_content}
         image={contents.find((x) => x.column === 'quote-image').image_content}
       />

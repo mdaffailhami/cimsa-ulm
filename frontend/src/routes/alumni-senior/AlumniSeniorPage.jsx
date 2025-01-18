@@ -7,6 +7,7 @@ import LoadingIndicator from '../LoadingIndicator';
 import { endpoint } from '../../configs';
 import { useEffect, useState } from 'react';
 import { setPageMeta } from '../../utils';
+import HtmlParser from '../HtmlParser';
 
 export default function AlumniSeniorPage() {
   setPageMeta(
@@ -47,7 +48,9 @@ export default function AlumniSeniorPage() {
       <PageHeader
         title='Alumni & Senior'
         description={
-          contents.find((x) => x.column === 'description').text_content
+          <HtmlParser
+            html={contents.find((x) => x.column === 'description').text_content}
+          />
         }
       />
       <AlumniDistributionSection

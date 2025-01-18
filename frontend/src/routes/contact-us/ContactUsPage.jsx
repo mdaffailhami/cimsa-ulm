@@ -9,6 +9,7 @@ import OfficialCardSection from '../OfficialCardSection';
 import { scrollById, setPageMeta } from '../../utils';
 import { endpoint } from '../../configs';
 import LoadingIndicator from '../LoadingIndicator';
+import HtmlParser from '../HtmlParser';
 
 export default function ContactUsPage() {
   setPageMeta(
@@ -46,7 +47,11 @@ export default function ContactUsPage() {
         <PageHeader
           title={pageData.name}
           description={
-            contents.find((x) => x.column === 'description').text_content
+            <HtmlParser
+              html={
+                contents.find((x) => x.column === 'description').text_content
+              }
+            />
           }
         />
         <br />
