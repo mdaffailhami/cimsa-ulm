@@ -27,7 +27,7 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
+            <li class="sidebar-item ">
                 <a class="sidebar-link" href="#">
                     <i class="align-middle" data-feather="users"></i> <span class="align-middle">Officials</span>
                 </a>
@@ -69,7 +69,7 @@
                 User Management
             </li>
 
-            <li class="sidebar-item">
+            <li class="sidebar-item {{ request()->routeIs('user.index') ? 'active' : '' }}">
                 <a class="sidebar-link" href="/admin/user">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Users</span>
                 </a>

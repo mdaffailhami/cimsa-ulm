@@ -27,9 +27,22 @@
 </head>
 
 <body>
-    <x-layout.master>
-        @yield('contents')
-    </x-layout.master>
+    <div class="wrapper">
+        <x-layout.sidebar />
+
+        <div class="main">
+            <x-layout.navbar />
+
+            <main class="content">
+                <div class="container-fluid p-0">
+
+                    {{ $slot }}
+                </div>
+            </main>
+
+            <x-layout.footer />
+        </div>
+    </div>
 
     <script src="/admin-dist/bootstrap/js/bootstrap.js"></script>
     <script src="/admin-dist/js/app.js"></script>

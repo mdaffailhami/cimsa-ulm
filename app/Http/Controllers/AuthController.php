@@ -11,7 +11,7 @@ class AuthController extends Controller
 {
     public function index()
     {
-        return view('admin.login');
+        return view('admin.pages.login');
     }
 
     public function login(Request $request): RedirectResponse
@@ -22,7 +22,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             // Redirect to intended page or dashboard
-            return redirect()->intended(route('admin.dashboard', absolute: false));
+            return redirect()->intended(route('admin.dashboard-page', absolute: false));
         }
 
         // Authentication failed
