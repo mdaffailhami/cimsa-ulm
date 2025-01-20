@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,6 +29,7 @@ Route::prefix('/admin')->group(function () {
         })->name('admin.dashboard');
 
         Route::resource('user', UserController::class);
+        Route::resource('role', RoleController::class);
 
         Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     });
