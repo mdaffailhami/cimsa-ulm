@@ -70,13 +70,13 @@
             </li>
 
             <li class="sidebar-item {{ request()->routeIs('user.index') ? 'active' : '' }}">
-                <a class="sidebar-link" href="/admin/user">
+                <a class="sidebar-link" href="{{ route('user.index') }}">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Users</span>
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+            <li class="sidebar-item {{ request()->routeIs('role.index') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('role.index') }}">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Roles</span>
                 </a>
             </li>
