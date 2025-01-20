@@ -14,4 +14,9 @@ class PageContent extends Model
         "text_content",
         "image_content"
     ];
+
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class, 'entity_id');
+    }
 }

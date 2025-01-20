@@ -362,15 +362,21 @@ class PageSeeder extends Seeder
             'text_content' => isset($data['text_content']) ? $data["text_content"] : null,
         ];
 
+        $page_content_model = $page_model->contents()->create($payload);
+
         if ($data['type'] === 'image') {
-            $path_name = "pages/{$slug}";
-            $image_name = generateImage('image', $path_name);
-            $image_url = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
+            // Looping Galeries
+            for ($i = 1; $i <= 3; $i++) {
 
-            $payload["image_content"] = $image_url;
+                $path_name = "pages/{$slug}";
+                $image_name = generateImage('image', $path_name);
+                $page_content_model->galleries()->create([
+                    "url" => config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name,
+                    "order" => $i,
+                    "type" => "page-content"
+                ]);
+            }
         }
-
-        $page_model->contents()->create($payload);
     }
 
     public function createPageContact($page_model, $data)
