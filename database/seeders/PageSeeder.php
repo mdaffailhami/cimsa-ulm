@@ -219,7 +219,7 @@ class PageSeeder extends Seeder
                     [
                         "column" => 'trainings-image',
                         "label" => 'Trainings Image',
-                        "type" => 'image',
+                        "type" => 'multiple-image',
                         'section' => 'trainings',
                         'text_content' => null,
                     ],
@@ -362,14 +362,21 @@ class PageSeeder extends Seeder
             'text_content' => isset($data['text_content']) ? $data["text_content"] : null,
         ];
 
+        if ($data['type'] === 'image') {
+            $path_name = "pages/{$slug}";
+            $image_name = generateImage('image', $path_name);
+            $image_url = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
+            $payload["image_content"] = $image_url;
+        }
+
         $page_content_model = $page_model->contents()->create($payload);
 
-        if ($data['type'] === 'image') {
+        if ($data['type'] === 'multiple-image') {
             // Looping Galeries
             for ($i = 1; $i <= 3; $i++) {
-
                 $path_name = "pages/{$slug}";
                 $image_name = generateImage('image', $path_name);
+
                 $page_content_model->galleries()->create([
                     "url" => config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name,
                     "order" => $i,
