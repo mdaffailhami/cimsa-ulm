@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -54,6 +55,23 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+        ];
+    }
+
+    protected $appends = [
+        "role"
+    ];
+
+    public function getRoleAttribute()
+    {
+        $role = $this->roles[0];
+        $display_name  = collect(explode('-', $role->name))
+            ->map(fn($word) => ucfirst($word))
+            ->join(' ');
+
+        return (object)[
+            "name" => $role->name,
+            "display_name" => $display_name
         ];
     }
 

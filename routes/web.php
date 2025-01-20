@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -23,8 +24,10 @@ Route::prefix('/admin')->group(function () {
         });
 
         Route::get('/dashboard', function () {
-            return view('admin.dashboard');
+            return view('admin.pages.dashboard');
         })->name('admin.dashboard');
+
+        Route::resource('user', UserController::class);
 
         Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     });

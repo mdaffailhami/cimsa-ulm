@@ -17,8 +17,11 @@
 
     <title>@yield('title')</title>
 
+    <link href="/admin-dist/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="/admin-dist/css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    @vite(['resources/js/app.js'])
 
     @yield('styles')
 
@@ -27,23 +30,23 @@
 
 <body>
     <div class="wrapper">
-        @include('admin.components.sidebar')
+        <x-layout.sidebar />
 
         <div class="main">
-            @include('admin.components.navbar')
+            <x-layout.navbar />
 
             <main class="content">
                 <div class="container-fluid p-0">
 
-                    @yield('contents')
-
+                    {{ $slot }}
                 </div>
             </main>
 
-            @include('admin.components.footer')
+            <x-layout.footer />
         </div>
     </div>
 
+    <script src="/admin-dist/bootstrap/js/bootstrap.js"></script>
     <script src="/admin-dist/js/app.js"></script>
 
     @yield('scripts')

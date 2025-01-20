@@ -1,6 +1,6 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand" href="index.html">
+        <a class="sidebar-brand" href="{{ route('admin.dashboard') }}">
             <span class="align-middle">CIMSA ULM</span>
         </a>
 
@@ -9,14 +9,14 @@
                 Main Menu
             </li>
 
-            <li class="sidebar-item active">
-                <a class="sidebar-link" href="index.html">
+            <li class="sidebar-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                <a class="sidebar-link " href="{{ route('admin.dashboard') }}">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-profile.html">
+                <a class="sidebar-link" href="#">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">CIMSA Profile</span>
                 </a>
             </li>
@@ -27,7 +27,7 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
+            <li class="sidebar-item ">
                 <a class="sidebar-link" href="#">
                     <i class="align-middle" data-feather="users"></i> <span class="align-middle">Officials</span>
                 </a>
@@ -69,8 +69,8 @@
                 User Management
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+            <li class="sidebar-item {{ request()->routeIs('user.index') ? 'active' : '' }}">
+                <a class="sidebar-link" href="/admin/user">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Users</span>
                 </a>
             </li>
