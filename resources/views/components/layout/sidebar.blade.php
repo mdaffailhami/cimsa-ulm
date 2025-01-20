@@ -58,7 +58,7 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="{{ route('category.index') }}">
                     <i class="align-middle" data-feather="layers"></i> <span class="align-middle">Categories</span>
                 </a>
             </li>
@@ -81,11 +81,11 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
+            {{-- <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Permissions</span>
                 </a>
-            </li>
+            </li> --}}
 
         </ul>
     </div>
