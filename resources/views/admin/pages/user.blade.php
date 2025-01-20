@@ -1,5 +1,5 @@
 <x-layout.master>
-    @section('title', 'Dashboard')
+    @section('title', 'Manajemen User')
 
     <h1 class="h3 mb-3"><strong>Manajemen User</h1>
 
@@ -10,7 +10,9 @@
 
                     <h5 class="card-title mb-0">Daftar User</h5>
 
-                    <button class="btn btn-primary">Tambah User <i class="align-middle" data-feather="plus"></i>
+                    {{-- Add Button --}}
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal" data-mode="create">
+                        Tambah User <i class="align-middle" data-feather="plus"></i>
                     </button>
                 </div>
 
@@ -35,16 +37,24 @@
                                     <td class="">{{ $user->email }}</td>
                                     <td class="">{{ $user->phone }}</td>
                                     <td class="">{{ $user->visible_password }}</td>
-                                    <td><span class="badge bg-primary p-2">{{ $user->roles[0]->name }}</span></td>
+                                    <td><span class="badge bg-primary p-2">{{ $user->role->display_name }}</span>
+                                    </td>
                                     <td class="">
                                         <div class="d-flex justify-content-evenly">
-                                            <button type="button" class="btn btn-warning text-dark"
-                                                data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ubah">
+                                            {{-- Edit Button --}}
+                                            <button type="button"
+                                                class="btn btn-warning text-dark {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }}"
+                                                data-bs-toggle="modal" data-bs-target="#userModal" data-mode="edit"
+                                                data-action="{{ route('user.update', ['user' => $user->uuid]) }}"
+                                                data-user="{{ json_encode($user) }}">
                                                 <i class="align-middle" data-feather="edit"></i>
                                             </button>
 
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" data-bs-title="Hapus">
+                                            <!-- Delete Button -->
+                                            <button type="button"
+                                                class="btn btn-danger {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }} "
+                                                data-bs-toggle="modal" data-bs-target="#deleteUserModal"
+                                                data-action="{{ route('user.destroy', ['user' => $user->uuid]) }}">
                                                 <i class="align-middle" data-feather="trash"></i>
                                             </button>
                                         </div>
@@ -52,28 +62,115 @@
                                 </tr>
                             @endforeach
                         </tbody>
-
-                        {{-- Pagination --}}
-                        <caption class="mb-0 ">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </caption>
                     </table>
+
+                    {{-- Pagination --}}
+                    <div class="mt-3">
+                        {{ $users->links('vendor.pagination.bootstrap-5') }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- User Add/Edit Form Modal -->
+        <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="userModalLabel">Tambah User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Add User Form -->
+                        <form id="userForm" action="{{ route('user.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="_method" id="method" value="POST">
+
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control @error('username') is-invalid @enderror"
+                                    id="username" name="username" value="{{ old('username') }}" required>
+                                @error('username')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="full_name" class="form-label">Nama Lengkap</label>
+                                <input type="text" class="form-control @error('full_name') is-invalid @enderror"
+                                    id="full_name" name="full_name" value="{{ old('full_name') }}" required>
+                                @error('full_name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                    id="email" name="email" value="{{ old('email') }}" required>
+                                @error('email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Nomor HP</label>
+                                <input type="text" class="form-control @error('phone') is-invalid @enderror"
+                                    id="phone" name="phone" value="{{ old('phone') }}" required>
+                                @error('phone')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="role" class="form-label">Role</label>
+                                <select class="form-select" id="role" name="role" required>
+                                    <option value="" disabled selected>Please select a role
+                                    </option>
+                                    @foreach ($roles as $role)
+                                        <option value="{{ $role->name }}">{{ $role->display_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Close</button>
+                                <button id="submitButton" type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Confirmation Modal -->
+        <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteUserModalLabel">Hapus User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Apakah Anda yakin ingin menghapus user ini?</p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <form id="deleteUserForm" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Hapus User</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,11 +180,130 @@
     @section('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+                let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
                     return new bootstrap.Tooltip(tooltipTriggerEl);
                 });
             });
         </script>
+
+        {{-- Modal --}}
+        <script>
+            const fillForm = (user) => {
+                // Pre-fill the form fields if editing a user
+                document.getElementById('username').value = user.username;
+                document.getElementById('full_name').value = user.full_name;
+                document.getElementById('email').value = user.email;
+                document.getElementById('phone').value = user.phone;
+                document.getElementById('role').value = user.role.name;
+
+                // Set the role in the select dropdown
+                const roleSelect = document.getElementById('role');
+                roleSelect.value = user.role.name;
+            }
+
+            const resetForm = () => {
+                // Pre-fill the form fields if editing a user
+                document.getElementById('username').value = '';
+                document.getElementById('full_name').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('role').value = '';
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                let userModal = new bootstrap.Modal(document.getElementById('userModal'));
+                let deleteUserModal = new bootstrap.Modal(document.getElementById('deleteUserModal'));
+
+                // Handle the modal trigger for add and edit action
+                document.querySelectorAll('[data-bs-target="#userModal"]').forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        let actionUrl = button.getAttribute('data-action');
+                        let user = JSON.parse(button.getAttribute('data-user'));
+                        let mode = button.getAttribute('data-mode');
+
+                        // Update modal title and action URL for editing
+                        if (mode === 'edit') {
+                            document.getElementById('userModalLabel').textContent = 'Edit User';
+                            document.getElementById('userForm').setAttribute('action', actionUrl);
+                            document.getElementById('submitButton').textContent = 'Ubah';
+                            document.getElementById('method').value = 'PUT';
+
+                            fillForm(user);
+                        } else {
+                            // Set to Add User if no action URL is provided
+                            document.getElementById('userModalLabel').textContent = 'Tambah User';
+                            document.getElementById('userForm').setAttribute('action',
+                                '{{ route('user.store') }}');
+                            document.getElementById('submitButton').textContent = 'Simpan';
+                            document.getElementById('method').value = 'POST';
+
+                            // resetForm();
+                        }
+
+                    });
+                });
+
+                // Handle the modal trigger for delete action
+                document.querySelectorAll('[data-bs-target="#deleteUserModal"]').forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        let actionUrl = button.getAttribute('data-action');
+                        document.getElementById('deleteUserForm').setAttribute('action', actionUrl);
+                    });
+                });
+            });
+        </script>
+
+        @session('success')
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: "Berhasil!",
+                        text: "{{ session('success') }}",
+                        icon: "success"
+                    });
+                });
+            </script>
+        @endsession
+
+        @session('error')
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: 'Gagal!',
+                        text: "{{ session('error') }}"
+                        icon: 'error',
+                        confirmButtonText: 'Lanjut'
+                    })
+                });
+            </script>
+        @endsession
+
+        @if ($errors->any())
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: 'Validation Error!',
+                        html: `
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            `,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            let userModal = new bootstrap.Modal(document.getElementById('userModal'));
+
+                            userModal.show();
+                        }
+                    });;
+
+
+                });
+            </script>
+        @endif
     @endsection
 </x-layout.master>

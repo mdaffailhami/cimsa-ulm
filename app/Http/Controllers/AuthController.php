@@ -22,7 +22,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             // Redirect to intended page or dashboard
-            return redirect()->intended(route('admin.dashboard-page', absolute: false));
+            return redirect()->intended(route('admin.dashboard', absolute: false));
         }
 
         // Authentication failed
