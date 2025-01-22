@@ -42,6 +42,38 @@ if (! function_exists('generatePassword')) {
     }
 }
 
+if (! function_exists('uploadFile')) {
+    function uploadFile($path_name, $temp_file)
+    {
+        $temp_source = storage_path($temp_file);
+        $storage_path = storage_path("/app/public/{$path_name}/");
+
+        $file_name = pathinfo($temp_source, PATHINFO_FILENAME) . "." . pathinfo($temp_source, PATHINFO_EXTENSION);
+
+        // Check if path exists
+        if (!File::exists($storage_path)) {
+            // if path dont exist create new directory
+            File::makeDirectory($storage_path, 0777, true, true);
+        }
+
+        File::move($temp_source, "{$storage_path}/{$file_name}");
+        if (File::exists($temp_source)) {
+            File::delete(storage_path($temp_file));
+        }
+
+        return $file_name;
+    }
+}
+
+if (! function_exists('deleteFile')) {
+    function deleteFile()
+    {
+        if (File::exists()) {
+            File::delete(storage_path());
+        }
+    }
+}
+
 if (! function_exists('generateImage')) {
     function generateImage($category, $path_name)
     {

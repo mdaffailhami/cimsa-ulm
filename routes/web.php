@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,6 +29,8 @@ Route::prefix('/admin')->group(function () {
         Route::get('/dashboard', function () {
             return view('admin.pages.dashboard');
         })->name('admin.dashboard');
+
+        Route::resource('training', TrainingController::class);
 
         Route::resource('user', UserController::class);
         Route::resource('role', RoleController::class);
