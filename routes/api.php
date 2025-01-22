@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CimsaProfileController;
 use App\Http\Controllers\CommitteController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\OfficialController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
@@ -14,14 +15,10 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-Route::get('/image/{path}', function ($path) {
-    $filePath = public_path("storage/{$path}");
-    if (file_exists($filePath)) {
-        return response()->file($filePath);
-    } else {
-        abort(404); // Return a 404 response if the file doesn't exist
-    }
-})->where('path', '.*');
+Route::get('/image/{path}', [ImageController::class, 'show'])->where('path', '.*')->name('api.image.show');
+Route::post('/image/upload', [ImageController::class, 'upload'])->name('api.image.upload');
+Route::post('/image/revert', [ImageController::class, 'revert'])->name('api.image.revert');
+Route::post('/image/load', [ImageController::class, 'load'])->name('api.image.load');
 
 
 Route::get('/cimsa-profile', [CimsaProfileController::class, 'api']);

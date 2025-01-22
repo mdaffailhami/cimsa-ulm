@@ -40,9 +40,9 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
-                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Programs</span>
+            <li class="sidebar-item {{ request()->routeIs('training.index') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('training.index') }}">
+                    <i class="align-middle" data-feather="book-open"></i> <span class="align-middle">Pelatihan</span>
                 </a>
             </li>
 
@@ -57,9 +57,9 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
+            <li class="sidebar-item {{ request()->routeIs('category.index') ? 'active' : '' }}">
                 <a class="sidebar-link" href="{{ route('category.index') }}">
-                    <i class="align-middle" data-feather="layers"></i> <span class="align-middle">Categories</span>
+                    <i class="align-middle" data-feather="layers"></i> <span class="align-middle">Kategori</span>
                 </a>
             </li>
 
