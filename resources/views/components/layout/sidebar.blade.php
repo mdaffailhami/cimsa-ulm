@@ -48,18 +48,19 @@
 
             {{-- Article Management Menu --}}
             <li class="sidebar-header">
-                Article Management
+                Manajemen Artikel
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
-                    <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Articles</span>
+            <li class="sidebar-item {{ request()->routeIs('article.index') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('article.index') }}">
+                    <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Artikel</span>
                 </a>
             </li>
 
             <li class="sidebar-item {{ request()->routeIs('category.index') ? 'active' : '' }}">
                 <a class="sidebar-link" href="{{ route('category.index') }}">
-                    <i class="align-middle" data-feather="layers"></i> <span class="align-middle">Kategori</span>
+                    <i class="align-middle" data-feather="layers"></i> <span class="align-middle">Kategori
+                        Artikel</span>
                 </a>
             </li>
 
