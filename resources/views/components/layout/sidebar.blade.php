@@ -34,16 +34,17 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
-                    <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Standing
-                        Committees</span>
+            <li class="sidebar-item {{ request()->routeIs('committe.index') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('committe.index') }}">
+                    <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Manajemen
+                        Komite</span>
                 </a>
             </li>
 
             <li class="sidebar-item {{ request()->routeIs('training.index') ? 'active' : '' }}">
                 <a class="sidebar-link" href="{{ route('training.index') }}">
-                    <i class="align-middle" data-feather="book-open"></i> <span class="align-middle">Pelatihan</span>
+                    <i class="align-middle" data-feather="book-open"></i> <span class="align-middle">Manajemen
+                        Pelatihan</span>
                 </a>
             </li>
 

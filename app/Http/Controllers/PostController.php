@@ -79,7 +79,7 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'highlight' => 'required',
             'content' => 'required',
-            'image' => 'required',
+            'cover' => 'required',
             'categories' => 'required',
         ], [
             'title.required' => 'Judul tidak boleh kosong.',
@@ -91,7 +91,7 @@ class PostController extends Controller
 
             'content.required' => 'Konten tidak boleh kosong',
 
-            'image.required' => 'Sampul artikel tidak boleh kosong',
+            'cover.required' => 'Sampul artikel tidak boleh kosong',
 
             'categories.required' => 'Kategori tidak boleh kosong',
         ]);
@@ -104,7 +104,7 @@ class PostController extends Controller
 
             $date = Carbon::now();
             $path_name = "post/{$date->year}";
-            $image_name = uploadFile($path_name, $request->image);
+            $image_name = uploadFile($path_name, $request->cover);
 
             $article->author_id = Auth::user()->uuid;
             $article->title = $validated['title'];
@@ -155,7 +155,7 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'highlight' => 'required',
             'content' => 'required',
-            'image' => 'required',
+            'cover' => 'required',
             'categories' => 'required',
         ], [
             'title.required' => 'Judul tidak boleh kosong.',
@@ -167,7 +167,7 @@ class PostController extends Controller
 
             'content.required' => 'Konten tidak boleh kosong',
 
-            'image.required' => 'Sampul artikel tidak boleh kosong',
+            'cover.required' => 'Sampul artikel tidak boleh kosong',
 
             'categories.required' => 'Kategori tidak boleh kosong',
         ]);
@@ -178,10 +178,10 @@ class PostController extends Controller
             $article = Post::find($id);
             $categories = Category::whereIn('name', $request->categories)->pluck('id')->toArray(); // Get Category id
 
-            if ($request->image && str_starts_with($request->image, 'tmp/')) {
+            if ($request->cover && str_starts_with($request->cover, 'tmp/')) {
                 $date = Carbon::now();
                 $path_name = "post/{$date->year}";
-                $image_name = uploadFile($path_name, $request->image);
+                $image_name = uploadFile($path_name, $request->cover);
 
                 $article->cover = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
             }

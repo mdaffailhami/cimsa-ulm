@@ -1,19 +1,19 @@
 <x-layout.master>
-    @section('title', 'Manajemen Artikel')
+    @section('title', 'Manajemen Komite')
 
-    <h1 class="h3 mb-3"><strong>Manajemen Artikel</h1>
+    <h1 class="h3 mb-3"><strong>Manajemen Komite</h1>
 
     <div class="row">
         <div class="col-24 col-lg-24 col-xxl-24 d-flex">
             <div class="card flex-fill">
                 <div class="card-header d-flex align-items-center justify-content-between">
 
-                    <h5 class="card-title mb-0">Daftar Artikel</h5>
+                    <h5 class="card-title mb-0">Daftar Komite</h5>
 
                     {{-- Add Button --}}
                     <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
                         data-bs-target="#formModal" data-mode="create">
-                        Tambah Artikel<i class="ms-2 align-middle" data-feather="plus"></i>
+                        Tambah Komite<i class="ms-2 align-middle" data-feather="plus"></i>
                     </button>
                 </div>
 
@@ -21,44 +21,40 @@
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="d-none d-xl-table-cell">Judul</th>
-                                <th class="d-none d-xl-table-cell">Penulis</th>
-                                <th class="d-none d-xl-table-cell">Highlight</th>
-                                <th class="d-none d-xl-table-cell">Cover</th>
-                                <th class="">Aksi</th>
+                                <th class="d-none d-xl-table-cell" style="width : 120px !important">Logo</th>
+                                <th class="d-none d-xl-table-cell">Nama</th>
+                                <th class="d-none d-xl-table-cell">Deskripsi</th>
+                                <th class="" style="width : 150px !important">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($posts as $post)
+                            @foreach ($committees as $committe)
                                 <tr>
-                                    <td class="d-none d-xl-table-cell">{{ $post->title }}</td>
-                                    <td class="d-none d-xl-table-cell">{{ $post->author->full_name }}</td>
-                                    <td class="d-none d-xl-table-cell">{{ $post->highlight }}</td>
                                     <td class="">
-                                        <img src="{{ $post->cover }}" class="img-thumbnail" style="width: 300px"
-                                            alt="{{ $post->slug }}">
+                                        <img src="{{ $committe->logo }}" class="img-thumbnail" style="width: 100px"
+                                            alt="{{ $committe->name }}">
                                     </td>
-                                    <td class="">
+                                    <td class="d-none d-xl-table-cell">{{ $committe->name }}</td>
+                                    <td class="d-none d-xl-table-cell">{{ $committe->description }}</td>
+                                    <td>
                                         <div class="d-flex justify-content-evenly">
-                                            {{-- Preview Button --}}
-                                            <button type="button" class="btn btn-info disabled" data-bs-toggle="modal"
-                                                data-bs-target="#formModal" data-mode="edit"
-                                                data-action="{{ route('article.show', ['article' => $post->slug]) }}">
-                                                <i class="align-middle" data-feather="eye"></i>
-                                            </button>
-
                                             {{-- Edit Button --}}
-                                            <button type="button" class="btn btn-warning text-dark "
-                                                data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                data-action="{{ route('article.update', ['article' => $post->uuid]) }}"
-                                                data-article="{{ json_encode($post) }}">
+                                            <a class="btn btn-warning text-dark"
+                                                href="{{ route('committe.edit', ['committe' => $committe->uuid]) }}">
                                                 <i class="align-middle" data-feather="edit"></i>
-                                            </button>
+                                            </a>
+
+                                            {{-- <button type="button" class="btn btn-warning text-dark"
+                                                data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                data-action="{{ route('committe.update', ['committe' => $committe->uuid]) }}"
+                                                data-committe="{{ json_encode($committe) }}">
+                                                <i class="align-middle" data-feather="edit"></i>
+                                            </button> --}}
 
                                             <!-- Delete Button -->
-                                            <button type="button" class="btn btn-danger " data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                                 data-bs-target="#deleteFormModal"
-                                                data-action="{{ route('article.destroy', ['article' => $post->uuid]) }}">
+                                                data-action="{{ route('committe.destroy', ['committe' => $committe->uuid]) }}">
                                                 <i class="align-middle" data-feather="trash"></i>
                                             </button>
                                         </div>
@@ -70,33 +66,33 @@
 
                     {{-- Pagination --}}
                     <div class="mt-3">
-                        {{ $posts->links('vendor.pagination.bootstrap-5') }}
+                        {{ $committees->links('vendor.pagination.bootstrap-5') }}
                     </div>
 
                 </div>
             </div>
         </div>
 
-        <!-- Artikel Add/Edit Form Modal -->
+        <!-- Komite Add/Edit Form Modal -->
         <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="formModalLabel">Tambah Artikel</h5>
+                        <h5 class="modal-title" id="formModalLabel">Tambah Komite</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- Add Article Form -->
-                        <form id="articleForm" action="{{ route('article.store') }}" method="POST">
+                        <!-- Add Komite Form -->
+                        <form id="committeForm" action="{{ route('committe.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="_method" id="method" value="POST">
 
                             <div class="mb-3">
-                                <label for="title" class="form-label">Judul Artikel</label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror"
-                                    id="title" name="title" placeholder="Masukkan Judul..."
-                                    value="{{ old('title') }}" required>
-                                @error('title')
+                                <label for="name" class="form-label">Nama Komite</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                    id="name" name="name" placeholder="Masukkan nama..."
+                                    value="{{ old('name') }}" required>
+                                @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -104,10 +100,10 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="highlight" class="form-label">Ringkasan Artikel</label>
-                                <textarea class="form-control @error('highlight') is-invalid @enderror" placeholder="Masukkan ringkasan..."
-                                    id="highlight" name="highlight" value="{{ old('highlight') }}" required style="height: 100px"></textarea>
-                                @error('highlight')
+                                <label for="description" class="form-label">Deskripsi Singkat</label>
+                                <textarea class="form-control @error('description') is-invalid @enderror" placeholder="Masukkan deskripsi..."
+                                    id="description" name="description" value="{{ old('description') }}" required style="height: 100px"></textarea>
+                                @error('description')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -115,31 +111,12 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="content" class="form-label">Konten</label>
-                                <textarea class="form-control ckeditor @error('content') is-invalid @enderror" placeholder="Masukkan ringkasan..."
-                                    id="content" name="content" value="{{ old('content') }}" style="height: 100px"></textarea>
-                                @error('content')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="cover" class="form-label">Sampul Artikel</label>
-                                <input type="file" class="filepond" id="cover" name="cover"
-                                    accept="image/*">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="categories" class="form-label">Kategori</label>
-                                <select id="categories" name="categories[]" class="form-control" multiple>
-                                </select>
+                                <label for="logo" class="form-label">Logo Komite</label>
+                                <input type="file" class="filepond" id="logo" name="logo" accept="image/*">
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button id="submitButton" type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>
@@ -154,20 +131,20 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteFormModalLabel">Hapus article</h5>
+                        <h5 class="modal-title" id="deleteFormModalLabel">Hapus Komite</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Apakah Anda yakin ingin menghapus article ini?</p>
+                        <p>Apakah Anda yakin ingin menghapus Komite ini?</p>
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                        <form id="deletearticleForm" method="POST" style="display: inline;">
+                        <form id="deleteCommitteForm" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Hapus article</button>
+                            <button type="submit" class="btn btn-danger">Hapus</button>
                         </form>
                     </div>
                 </div>
@@ -178,75 +155,34 @@
 
     @section('scripts')
         <script>
-            const fillForm = (article, choices, filePond, contentEditor) => {
-                // Pre-fill the form fields if editing a article
-                document.getElementById('title').value = article.title;
-                document.getElementById('highlight').value = article.highlight;
-                document.getElementById('content').value = article.content;
-
-                // Get the categories of the article
-                const article_categories = article.categories.map(category => category
-                    .name);
-
-                choices.clearStore(); // Clear internal Choices.js data
-                choices.setValue(article_categories); // Clear selected values
-
-                // Clear previous files in FilePond
-                filePond.removeFiles();
-
-                let file_path = article.cover.split('image/')[1];
-
-                // Add the existing file using the image URL
-                filePond.setOptions({
-                    files: [{
-                        source: file_path,
-                        options: {
-                            type: 'local',
-                        }
-                    }, ]
-                })
-
-                // Update CKEditor value
-                contentEditor.setData(article.content)
-            }
-
-            const resetForm = () => {
-                // Pre-fill the form fields if editing a article
-                document.getElementById('title').value = '';
-            }
-
-            const getOptions = () => {
-                const categories = @json($categories);
-
-                return categories.map((category) => {
-                    return {
-                        value: category.name,
-                        label: category.name,
-                    }
-                })
-            }
-
-            document.addEventListener('DOMContentLoaded', async function() {
-
-                // Initialize Tooltip
+            document.addEventListener('DOMContentLoaded', function() {
                 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
                 let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
                     return new bootstrap.Tooltip(tooltipTriggerEl);
                 });
 
-                // Initialize Modal
+            });
+        </script>
+
+        {{-- Modal --}}
+        <script>
+            const fillForm = (committe) => {
+                // Pre-fill the form fields if editing a committe
+                document.getElementById('name').value = committe.name;
+
+            }
+
+            const resetForm = () => {
+                // Pre-fill the form fields if editing a committe
+                document.getElementById('name').value = '';
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
                 let formModal = new bootstrap.Modal(document.getElementById('formModal'));
                 let deleteFormModal = new bootstrap.Modal(document.getElementById('deleteFormModal'));
 
-                // Initialize Choice
-                choices = new Choices('#categories', {
-                    removeItemButton: true,
-                    placeholderValue: 'Pilih Kategori',
-                    searchPlaceholderValue: 'Cari Kategori'
-                });
-
-                // Initialize Filepond
-                const imageInput = document.querySelector('#cover');
+                // Initialize FilePond on the input field
+                const imageInput = document.querySelector('#logo');
                 const pond = FilePond.create(imageInput, {
                     allowMultiple: false,
                     maxFiles: 1,
@@ -296,51 +232,38 @@
                     },
                 });
 
-                // Initialize CKEditor
-                let contentEditor = await InitializeCKEditor('#content');
-
                 // Handle the modal trigger for add and edit action
                 document.querySelectorAll('[data-bs-target="#formModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
                         let actionUrl = button.getAttribute('data-action');
-                        let article = JSON.parse(button.getAttribute('data-article'));
+                        let committe = JSON.parse(button.getAttribute('data-committe'));
                         let mode = button.getAttribute('data-mode');
-                        let options = getOptions();
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
-                            document.getElementById('formModalLabel').textContent = 'Edit Artikel';
-                            document.getElementById('articleForm').setAttribute('action',
-                                actionUrl);
+                            document.getElementById('formModalLabel').textContent = 'Edit committe';
+                            document.getElementById('committeForm').setAttribute('action', actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';
                             document.getElementById('method').value = 'PUT';
 
-                            fillForm(article, choices, pond, contentEditor);
-
+                            fillForm(committe);
                         } else {
-                            // Set to Add article if no action URL is provided
-                            document.getElementById('formModalLabel').textContent =
-                                'Tambah Artikel';
-                            document.getElementById('articleForm').setAttribute('action',
-                                '{{ route('article.store') }}');
+                            // Set to Add committe if no action URL is provided
+                            document.getElementById('formModalLabel').textContent = 'Tambah Komite';
+                            document.getElementById('committeForm').setAttribute('action',
+                                '{{ route('committe.store') }}');
                             document.getElementById('submitButton').textContent = 'Simpan';
                             document.getElementById('method').value = 'POST';
-
-                            choices.clearStore(); // Clear internal Choices.js data
-                            choices.setValue([]); // Clear selected values
                         }
-
-                        choices.setChoices(options);
 
                     });
                 });
 
                 // Handle the modal trigger for delete action
                 document.querySelectorAll('[data-bs-target="#deleteFormModal"]').forEach(function(button) {
-                    button.addEventListener('click', async function() {
+                    button.addEventListener('click', function() {
                         let actionUrl = button.getAttribute('data-action');
-                        document.getElementById('deletearticleForm').setAttribute('action',
-                            actionUrl);
+                        document.getElementById('deleteCommitteForm').setAttribute('action', actionUrl);
                     });
                 });
             });
@@ -376,7 +299,7 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
-                        title: 'Validation Error!',
+                        title: 'Validasi Error',
                         html: `
                 <ul>
                     @foreach ($errors->all() as $error)

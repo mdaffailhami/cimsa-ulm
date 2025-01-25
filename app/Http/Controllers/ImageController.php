@@ -25,10 +25,20 @@ class ImageController extends Controller
         try {
             // Validate the incoming file
             $request->validate([
-                'image' => 'required|image|max:10240', // max 10MB
+                'image' => 'image|max:10240', // max 10MB,
+                'logo' => 'image|max:10240', // max 10MB,
+                'cover' => 'image|max:10240', // max 10MB,
+                'avatar' => 'image|max:10240' // max 10MB,
             ]);
 
-            $file = $request->file('image');
+            $file = $request->file('image')
+                ?? $request->file('logo')
+                ?? $request->file('cover')
+                ?? $request->file('avatar');
+
+            if (!$file) {
+                return response()->json(['error' => 'No valid file provided'], 400);
+            }
 
             $file_name = Carbon::now()->timestamp . "-" . explode('.', $file->getClientOriginalName())[0] . '.' . $file->getClientOriginalExtension(); // file name = <timestamp>-<file_name>.<file_extension>
 
