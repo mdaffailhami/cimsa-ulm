@@ -24,6 +24,7 @@ class PostDetailResource extends JsonResource
             "slug" => $this->slug,
             "title" => $this->title,
             "highlight" => $this->highlight,
+            "content" => $this->content,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
             "categories" => $categories

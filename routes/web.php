@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
@@ -33,7 +33,7 @@ Route::prefix('/admin')->group(function () {
 
         Route::resource('training', TrainingController::class);
 
-        Route::resource('article', ArticleController::class);
+        Route::resource('article', PostController::class);
         Route::resource('category', CategoryController::class);
 
         Route::resource('user', UserController::class);

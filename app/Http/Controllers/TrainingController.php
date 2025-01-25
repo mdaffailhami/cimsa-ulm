@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Training\TrainingResource;
 use App\Models\Training;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,6 +11,15 @@ use Illuminate\Support\Facades\Log;
 
 class TrainingController extends Controller
 {
+    public function api()
+    {
+        $programs = Training::all();
+
+        return response()->json([
+            'data' => TrainingResource::collection($programs)
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      */
