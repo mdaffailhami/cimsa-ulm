@@ -63,6 +63,7 @@ class ArticleController extends Controller
             DB::commit();
 
             $article = new Post();
+            $categories = Category::whereIn('name', $request->categories)->pluck('id')->toArray(); // Get Category id
 
             $date = Carbon::now();
             $path_name = "post/{$date->year}";
@@ -77,9 +78,7 @@ class ArticleController extends Controller
 
             $article->save();
 
-            $article->categories()->sync($validated['categories']);
-
-
+            $article->categories()->sync($categories);
 
             // Redirect to the last page of articles
             return redirect()->route('article.index')
@@ -140,6 +139,7 @@ class ArticleController extends Controller
             DB::commit();
 
             $article = Post::find($id);
+            $categories = Category::whereIn('name', $request->categories)->pluck('id')->toArray(); // Get Category id
 
             if ($request->image && str_starts_with($request->image, 'tmp/')) {
                 $date = Carbon::now();
@@ -157,7 +157,7 @@ class ArticleController extends Controller
 
             $article->save();
 
-            $article->categories()->sync($validated['categories']);
+            $article->categories()->sync($categories);
 
             // Redirect to the last page of articles
             return redirect()->route('article.index')

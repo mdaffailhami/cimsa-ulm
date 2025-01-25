@@ -87,7 +87,7 @@
                     </div>
                     <div class="modal-body">
                         <!-- Add Article Form -->
-                        <form id="modalForm" action="{{ route('article.store') }}" method="POST">
+                        <form id="articleForm" action="{{ route('article.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="_method" id="method" value="POST">
 
@@ -134,9 +134,6 @@
                             <div class="mb-3">
                                 <label for="categories" class="form-label">Kategori</label>
                                 <select id="categories" name="categories[]" class="form-control" multiple>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
                                 </select>
                             </div>
 
@@ -223,7 +220,7 @@
 
                 return categories.map((category) => {
                     return {
-                        value: category.id,
+                        value: category.name,
                         label: category.name,
                     }
                 })
@@ -313,7 +310,8 @@
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
                             document.getElementById('formModalLabel').textContent = 'Edit Artikel';
-                            document.getElementById('formModal').setAttribute('action', actionUrl);
+                            document.getElementById('articleForm').setAttribute('action',
+                                actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';
                             document.getElementById('method').value = 'PUT';
 
@@ -323,7 +321,7 @@
                             // Set to Add article if no action URL is provided
                             document.getElementById('formModalLabel').textContent =
                                 'Tambah Artikel';
-                            document.getElementById('formModal').setAttribute('action',
+                            document.getElementById('articleForm').setAttribute('action',
                                 '{{ route('article.store') }}');
                             document.getElementById('submitButton').textContent = 'Simpan';
                             document.getElementById('method').value = 'POST';
