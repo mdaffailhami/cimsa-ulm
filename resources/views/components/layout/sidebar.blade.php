@@ -21,9 +21,10 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
-                    <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Pages</span>
+            <li class="sidebar-item {{ request()->routeIs('page.index') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('page.index') }}">
+                    <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Manajemen
+                        Halaman</span>
                 </a>
             </li>
 

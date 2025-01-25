@@ -18,6 +18,15 @@ class Page extends Model
         "uri",
     ];
 
+    protected $appends = [
+        'url'
+    ];
+
+    public function getUrlAttribute()
+    {
+        return config('global')['frontend_url'] . "/" . $this->uri;
+    }
+
     public function contents()
     {
         return $this->hasMany(PageContent::class, 'page_id');

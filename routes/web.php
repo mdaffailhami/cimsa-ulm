@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TrainingController;
@@ -31,6 +32,7 @@ Route::prefix('/admin')->group(function () {
             return view('admin.pages.dashboard');
         })->name('admin.dashboard');
 
+        Route::resource('page', PageController::class);
         Route::resource('training', TrainingController::class);
 
         Route::resource('article', PostController::class);
