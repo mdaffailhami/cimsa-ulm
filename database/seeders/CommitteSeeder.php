@@ -77,7 +77,7 @@ class CommitteSeeder extends Seeder
 
                 $committe_model = new Committe();
 
-                $committe_model->logo = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
+                $committe_model->logo = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
                 $committe_model->name = $committe["name"];
                 $committe_model->color = $committe["color"];
                 $committe_model->description = $committe["description"];
@@ -130,7 +130,7 @@ class CommitteSeeder extends Seeder
         $image_name = generateImage('avatar', $path_name);
 
         $committe_model->testimonies()->create([
-            "image" => config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name,
+            "image" => config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name,
             "name" => $faker->name,
             "position" => $faker->jobTitle,
             "description" => $faker->paragraph,
@@ -143,7 +143,7 @@ class CommitteSeeder extends Seeder
         $image_name = generateImage('image', $path_name);
 
         $committe_model->galleries()->create([
-            "url" => config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name,
+            "url" => config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name,
             "order" => $order,
             "type" => 'committe'
         ]);

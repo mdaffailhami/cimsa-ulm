@@ -111,7 +111,7 @@ class PostController extends Controller
             $article->slug = Str::slug($validated['title']);
             $article->highlight = $validated['highlight'];
             $article->content = $validated['content'];
-            $article->cover = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
+            $article->cover = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
 
             $article->save();
 
@@ -183,7 +183,7 @@ class PostController extends Controller
                 $path_name = "post/{$date->year}";
                 $image_name = uploadFile($path_name, $request->image);
 
-                $article->cover = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
+                $article->cover = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
             }
 
             $article->author_id = Auth::user()->uuid;

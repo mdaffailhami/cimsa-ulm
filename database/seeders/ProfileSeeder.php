@@ -62,7 +62,7 @@ class ProfileSeeder extends Seeder
                 if ($profile['type'] === 'image') {
                     $path_name = "profile";
                     $image_name = generateImage('image', $path_name);
-                    $image_url = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
+                    $image_url = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
 
                     $profile_model->image_content = $image_url;
                 }

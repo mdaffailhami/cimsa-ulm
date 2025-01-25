@@ -66,7 +66,7 @@ class ProgramSeeder extends Seeder
         $image_name = generateImage('image', $path_name);
 
         $program_model->galleries()->create([
-            "url" => config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name,
+            "url" => config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name,
             "order" => $order,
             "type" => "program"
         ]);

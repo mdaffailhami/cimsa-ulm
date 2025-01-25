@@ -53,7 +53,7 @@ class TrainingSeeder extends Seeder
 
 
                 $training_model = new Training();
-                $training_model->image = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
+                $training_model->image = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
                 $training_model->name = $training['name'];
                 $training_model->description = $training['description'];
                 $training_model->url = $training['url'];

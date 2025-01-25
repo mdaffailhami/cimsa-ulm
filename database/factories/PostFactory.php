@@ -30,7 +30,7 @@ class PostFactory extends Factory
         $date = Carbon::now();
         $path_name = "post/{$date->year}";
         $image_name = generateImage('image', $path_name);
-        $image_url = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
+        $image_url = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
 
         return [
             "author_id" => $users->random(1)->first()->uuid,

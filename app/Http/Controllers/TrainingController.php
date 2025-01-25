@@ -70,7 +70,7 @@ class TrainingController extends Controller
             $training->name = $request->name;
             $training->url = $request->url;
             $training->description = $request->description;
-            $training->image = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
+            $training->image = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
 
             $training->save();
 
@@ -138,7 +138,7 @@ class TrainingController extends Controller
             if ($request->image && str_starts_with($request->image, 'tmp/')) {
                 $path_name = "training";
                 $image_name = uploadFile($path_name, $request->image);
-                $training->image = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
+                $training->image = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
             }
 
 

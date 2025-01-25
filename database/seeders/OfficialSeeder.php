@@ -83,7 +83,7 @@ class OfficialSeeder extends Seeder
                 $path_name = "official";
                 $image_name = generateImage('official', $path_name);
 
-                $official_model->poster = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
+                $official_model->poster = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
                 $official_model->start_year = $official['start_year'];
                 $official_model->end_year = $official['end_year'];
 
@@ -116,7 +116,7 @@ class OfficialSeeder extends Seeder
         $image_name = generateImage('avatar', $path_name);
 
         $division_model->members()->create([
-            'image' => config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name,
+            'image' => config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name,
             'name' => $faker->name,
             'email' => $faker->unique()->safeEmail,
             'position' => $position,

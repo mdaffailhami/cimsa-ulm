@@ -365,7 +365,7 @@ class PageSeeder extends Seeder
         if ($data['type'] === 'image') {
             $path_name = "pages/{$slug}";
             $image_name = generateImage('image', $path_name);
-            $image_url = config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name;
+            $image_url = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
             $payload["image_content"] = $image_url;
         }
 
@@ -378,7 +378,7 @@ class PageSeeder extends Seeder
                 $image_name = generateImage('image', $path_name);
 
                 $page_content_model->galleries()->create([
-                    "url" => config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name,
+                    "url" => config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name,
                     "order" => $i,
                     "type" => "page-content"
                 ]);
@@ -392,7 +392,7 @@ class PageSeeder extends Seeder
         $image_name = generateImage('avatar', $path_name);
 
         $page_model->contact()->create([
-            'image' => config('global')["url"] . "/api/image/" . $path_name . "/" . $image_name,
+            'image' => config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name,
             'name' => $data['name'],
             'ocupation' => $data['ocupation'],
             'email' => $data['email'],
