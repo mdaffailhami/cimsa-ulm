@@ -15,10 +15,10 @@ return new class extends Migration
             $table->uuid()->primary();
             $table->string('logo')->nullable();
             $table->string('name')->unique();
-            $table->char('color', 7);
+            $table->char('color', 7)->nullable();
             $table->string('description');
-            $table->text('long_description');
-            $table->string('mission_statement');
+            $table->text('long_description')->nullable();
+            $table->string('mission_statement')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

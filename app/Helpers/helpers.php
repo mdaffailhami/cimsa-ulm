@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -46,9 +47,12 @@ if (! function_exists('uploadFile')) {
     function uploadFile($path_name, $temp_file)
     {
         $temp_source = storage_path($temp_file);
-        $storage_path = storage_path("/app/public/{$path_name}/");
+        $storage_path = storage_path("/app/public/{$path_name}");
 
-        $file_name = pathinfo($temp_source, PATHINFO_FILENAME) . "." . pathinfo($temp_source, PATHINFO_EXTENSION);
+        if (!File::exists($temp_source)) {
+            Log::info('Temporary file not found');
+            throw new \Exception("Temporary file not found at {$temp_source}");
+        }
 
         // Check if path exists
         if (!File::exists($storage_path)) {
@@ -56,7 +60,10 @@ if (! function_exists('uploadFile')) {
             File::makeDirectory($storage_path, 0777, true, true);
         }
 
+        $file_name = pathinfo($temp_source, PATHINFO_FILENAME) . "." . pathinfo($temp_source, PATHINFO_EXTENSION);
+
         File::move($temp_source, "{$storage_path}/{$file_name}");
+
         if (File::exists($temp_source)) {
             File::delete(storage_path($temp_file));
         }
