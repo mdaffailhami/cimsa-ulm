@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommitteController;
+use App\Http\Controllers\OfficialController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
@@ -34,6 +35,7 @@ Route::prefix('/admin')->group(function () {
         })->name('admin.dashboard');
 
         Route::resource('page', PageController::class);
+        Route::resource('official', OfficialController::class);
         Route::resource('committe', CommitteController::class);
         Route::resource('training', TrainingController::class);
 

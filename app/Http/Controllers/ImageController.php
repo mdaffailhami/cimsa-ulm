@@ -28,12 +28,14 @@ class ImageController extends Controller
                 'image' => 'image|max:10240', // max 10MB,
                 'logo' => 'image|max:10240', // max 10MB,
                 'cover' => 'image|max:10240', // max 10MB,
+                'poster' => 'image|max:10240', // max 10MB,
                 'avatar' => 'image|max:10240' // max 10MB,
             ]);
 
             $file = $request->file('image')
                 ?? $request->file('logo')
                 ?? $request->file('cover')
+                ?? $request->file('poster')
                 ?? $request->file('avatar');
 
             if (!$file) {
