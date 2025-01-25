@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RoleController;
@@ -32,9 +33,11 @@ Route::prefix('/admin')->group(function () {
 
         Route::resource('training', TrainingController::class);
 
+        Route::resource('article', ArticleController::class);
+        Route::resource('category', CategoryController::class);
+
         Route::resource('user', UserController::class);
         Route::resource('role', RoleController::class);
-        Route::resource('category', CategoryController::class);
 
         Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     });
