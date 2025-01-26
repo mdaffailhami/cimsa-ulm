@@ -55,7 +55,11 @@ export default function ContactUsPage() {
           }
         />
         <br />
-        <ContactForm />
+        <ContactForm
+          web3formsKey={
+            contents.find((x) => x.column === 'web3forms-key').text_content
+          }
+        />
         <br />
         <hr />
         <br />

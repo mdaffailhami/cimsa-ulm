@@ -152,6 +152,14 @@ class PageSeeder extends Seeder
                         'image_content' => null
                     ],
                     [
+                        "column" => 'web3forms-key',
+                        "label" => 'Web3Forms Key',
+                        "type" => 'text',
+                        'section' => null,
+                        'text_content' => "c95eefba-3246-43b9-8f02-87afe5cb48c9",
+                        'image_content' => null
+                    ],
+                    [
                         "column" => 'map-url',
                         "label" => 'Map URL',
                         "type" => 'text',

@@ -4,6 +4,8 @@
 //       }, 0.3);
 // }
 
+import { useEffect } from 'react';
+
 export function scrollById(id) {
   // Detect hash in URL, if there is a hash then scroll to that section
   if (id) {
@@ -31,4 +33,20 @@ export function setPageMeta(title, description) {
 
 export function getWebPaths() {
   return window.location.pathname.split('/').slice(1);
+}
+
+export function useScript(url) {
+  useEffect(() => {
+    const script = document.createElement('script');
+
+    script.src = url;
+    script.async = true;
+    script.defer = true;
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, [url]);
 }
