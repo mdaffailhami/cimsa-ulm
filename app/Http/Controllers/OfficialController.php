@@ -55,8 +55,6 @@ class OfficialController extends Controller
         ]);
 
         try {
-            DB::commit();
-
             $official = new Official();
 
             $path_name = "official";
@@ -64,6 +62,8 @@ class OfficialController extends Controller
 
             $official->poster = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
             $official->start_year = $validated['year'];
+
+            DB::commit();
             $official->save();
 
             // Redirect to the last official of officials
@@ -111,8 +111,6 @@ class OfficialController extends Controller
         ]);
 
         try {
-            DB::commit();
-
             $official = Official::findOrFail($id);
 
             if ($request->poster && str_starts_with($request->poster, 'tmp/')) {
@@ -124,6 +122,8 @@ class OfficialController extends Controller
             }
 
             $official->start_year = $validated['year'];
+
+            DB::commit();
             $official->save();
 
             // Redirect to the last official of officials

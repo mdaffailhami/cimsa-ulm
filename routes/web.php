@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommitteController;
+use App\Http\Controllers\DivisionMemberController;
 use App\Http\Controllers\OfficialController;
 use App\Http\Controllers\OfficialDivisionController;
 use App\Http\Controllers\PageController;
@@ -43,6 +44,11 @@ Route::prefix('/admin')->group(function () {
             Route::post('division', [OfficialDivisionController::class, 'store'])->name('official.division.store');
             Route::put('/division/{division}', [OfficialDivisionController::class, 'update'])->name('official.division.update');
             Route::delete('/division/{division}', [OfficialDivisionController::class, 'destroy'])->name('official.division.destroy');
+
+            Route::get('{year}/division/{id}/member', [DivisionMemberController::class, 'index'])->name('official.division.member.index');
+            Route::post('division/member', [DivisionMemberController::class, 'store'])->name('official.division.member.store');
+            Route::put('/division/member/{member}', [DivisionMemberController::class, 'update'])->name('official.division.member.update');
+            Route::delete('/division/member/{member}', [DivisionMemberController::class, 'destroy'])->name('official.division.member.destroy');
         });
 
         Route::resource('committe', CommitteController::class);
