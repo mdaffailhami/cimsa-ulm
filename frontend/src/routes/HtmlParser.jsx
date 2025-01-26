@@ -1,3 +1,3 @@
 export default function HtmlParser({ html }) {
-  return <div dangerouslySetInnerHTML={{ __html: html }} />;
+  return <span dangerouslySetInnerHTML={{ __html: html }} />;
 }
