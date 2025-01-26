@@ -2,21 +2,18 @@ import { css } from '@emotion/react';
 import { Button, Form } from 'react-bootstrap';
 import OnHoverAnimationCss from '../OnHoverAnimationCss';
 import { useScript } from '../../utils';
+import { useState } from 'react';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 export default function ContactForm({ web3formsKey }) {
-  // Script for Web3Forms Captcha
-  useScript('https://web3forms.com/client/script.js');
+  const [hCaptchaResponse, setHCaptchaResponse] = useState(null);
 
   return (
     <Form
       action='https://api.web3forms.com/submit'
       method='POST'
       onSubmit={(e) => {
-        const hCaptcha = document.querySelector(
-          'textarea[name=h-captcha-response]'
-        ).value;
-
-        if (!hCaptcha) {
+        if (!hCaptchaResponse) {
           e.preventDefault();
           alert('Please fill in the Captcha');
           return;
@@ -40,7 +37,12 @@ export default function ContactForm({ web3formsKey }) {
       {/* /Web3Forms */}
       <Form.Group controlId='formName'>
         <Form.Label>Name</Form.Label>
-        <Form.Control name='name' type='text' placeholder='Enter your name' />
+        <Form.Control
+          name='name'
+          type='text'
+          placeholder='Enter your name'
+          required
+        />
       </Form.Group>
       <Form.Group controlId='formEmail' className='mt-3'>
         <Form.Label>Email address</Form.Label>
@@ -48,6 +50,7 @@ export default function ContactForm({ web3formsKey }) {
           name='email'
           type='email'
           placeholder='Enter your email'
+          required
         />
       </Form.Group>
       <Form.Group controlId='formMessage' className='mt-3'>
@@ -57,16 +60,19 @@ export default function ContactForm({ web3formsKey }) {
           as='textarea'
           rows={3}
           placeholder='Enter your message'
+          required
         />
       </Form.Group>
 
       {/* Web3Forms Captcha */}
-      <div style={{ display: 'flex' }}>
+      <div className='d-flex' style={{ marginTop: '10px' }}>
         <div style={{ flexGrow: 1 }} />
-        <div
-          className='h-captcha'
-          data-captcha='true'
-          style={{ marginTop: '10px' }}
+        <HCaptcha
+          sitekey='50b2fe65-b00b-4b9e-ad62-3ba471098be2'
+          reCaptchaCompat={false}
+          onVerify={(token) => {
+            setHCaptchaResponse(token);
+          }}
         />
       </div>
       {/* /Web3Forms Captcha */}
