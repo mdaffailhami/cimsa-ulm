@@ -29,7 +29,7 @@
             </li>
 
             <li
-                class="sidebar-item {{ request()->routeIs(['official.index', 'official.division.index']) ? 'active' : '' }}">
+                class="sidebar-item {{ request()->routeIs(['official.index', 'official.division.index', 'official.division.member.index']) ? 'active' : '' }}">
                 <a class="sidebar-link" href="{{ route('official.index') }}">
                     <i class="align-middle" data-feather="users"></i> <span class="align-middle">Manajemen
                         Angkatan</span>
