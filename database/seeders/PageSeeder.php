@@ -227,7 +227,7 @@ class PageSeeder extends Seeder
                     [
                         "column" => 'trainings-image',
                         "label" => 'Trainings Image',
-                        "type" => 'multiple-image',
+                        "type" => 'image',
                         'section' => 'trainings',
                         'text_content' => null,
                     ],
@@ -259,6 +259,20 @@ class PageSeeder extends Seeder
                         "type" => 'text',
                         'section' => 'national-meetings',
                         'text_content' => 'https://mdaffailhami.github.io',
+                    ],
+
+                ],
+                'contact' => null,
+            ],
+            [
+                "name" => 'Programs',
+                'contents' => [
+                    [
+                        "column" => 'description',
+                        "label" => 'Description',
+                        "type" => 'text',
+                        'section' => null,
+                        'text_content' => 'We manifest the will to achieve our goals through ways that are relevant-to-the-issue, sustainable, and accountable.',
                     ],
 
                 ],

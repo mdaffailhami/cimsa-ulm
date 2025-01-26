@@ -8,6 +8,7 @@ import PrimaryButton from '../PrimaryButton';
 import BlogSection from '../BlogSection';
 import LoadingIndicator from '../LoadingIndicator';
 import { endpoint } from '../../configs';
+import HtmlParser from '../HtmlParser';
 
 export default function ProgramsPage() {
   const description =
@@ -19,6 +20,7 @@ export default function ProgramsPage() {
 
   useEffect(() => scrollById(location.hash), [location]);
 
+  const [pageData, setPageData] = useState(undefined);
   const [programs, setPrograms] = useState(undefined);
   const [blog, setBlog] = useState(undefined);
 
@@ -26,28 +28,41 @@ export default function ProgramsPage() {
     (async () => {
       // await new Promise((resolve) => setTimeout(resolve, 3000));
       try {
-        const res = await fetch(`${endpoint}/api/program`);
-        const res2 = await fetch(`${endpoint}/api/post?page=1&limit=3`);
+        const res = await fetch(`${endpoint}/api/page/programs`);
+        const res2 = await fetch(`${endpoint}/api/program`);
+        const res3 = await fetch(`${endpoint}/api/post?page=1&limit=3`);
         const data = await res.json();
         const data2 = await res2.json();
+        const data3 = await res3.json();
 
-        if (!data && !data2) throw new Error('Error fetching data');
+        if (!data || !data2 || !data3) throw new Error('Error fetching data');
 
-        setPrograms(data.data);
-        setBlog(data2);
+        setPageData(data);
+        setPrograms(data2.data);
+        setBlog(data3);
       } catch (err) {
         alert(err);
       }
     })();
   }, []);
 
-  if (!programs || !blog) {
+  if (!pageData || !programs || !blog) {
     return <LoadingIndicator />;
   }
 
   return (
     <>
-      <PageHeader title='Our Programs' description={description} />
+      <PageHeader
+        title='Our Programs'
+        description={
+          <HtmlParser
+            html={
+              pageData.contents.find((x) => x.column == 'description')
+                .text_content
+            }
+          />
+        }
+      />
       <ProgramsHeader />
       <br />
       <ProgramSection
