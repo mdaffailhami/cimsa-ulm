@@ -19,12 +19,16 @@ export default function AboutIFMSAPage() {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`${endpoint}/api/page/about-ifmsa`);
-      const data = await res.json();
+      try {
+        const res = await fetch(`${endpoint}/api/page/about-ifmsa`);
+        const data = await res.json();
 
-      if (!data) throw new Error('Error fetching data');
+        if (!data) throw new Error('Error fetching data');
 
-      setPageData(data);
+        setPageData(data);
+      } catch (error) {
+        alert(error);
+      }
     })();
   }, []);
 
