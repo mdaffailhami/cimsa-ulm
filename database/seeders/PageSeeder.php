@@ -127,6 +127,36 @@ class PageSeeder extends Seeder
                 'contact' => null,
             ],
             [
+                "name" => 'About IFMSA',
+                'contents' => [
+                    [
+                        "column" => 'description',
+                        "label" => 'Description',
+                        "type" => 'text',
+                        'section' => null,
+                        'text_content' => "<b>International Federation of Medical Students’ Association (IFMSA)</b> adalah organisasi non-profit, non-pemerintah dan non-partisipan yang mewakili asosiasi mahasiswa kedokteran internasional. IFMSA didirikan pada tahun 1951 dan merupakan salah satu organisasi pelajar dan organisasi pelajar kedokteran tertua di dunia. IFMSA terbagi menjadi lima region: Asia-Pacific tempat kita berada, America, Eastern-Mediterranean, Africa, dan Europe. Menghubungkan mahasiswa kedokteran dari 141 organisasi di 130 negara di seluruh dunia, IFMSA memiliki tujuan yang terbagi dalam enam area: kesehatan masyarakat, kesehatan reproduksi seksual, pendidikan kedokteran, hak asasi manusia dan perdamaian, pertukaran pelajar profesional, dan pertukaran pelajar penelitian.",
+                        'image_content' => null
+                    ],
+                    [
+                        "column" => 'ifmsa-description',
+                        "label" => 'IFMSA Description',
+                        "type" => 'text',
+                        'section' => null,
+                        'text_content' => "Setiap tahun, <b>IFMSA</b> menyelenggarakan lebih dari 13.000 program pertukaran penelitian dan klinis bagi mahasiswanya untuk mengeksplorasi inovasi dalam bidang kedokteran, dan sistem kesehatan dalam lingkungan yang berbeda. IFMSA juga secara resmi diakui oleh Perserikatan Bangsa-Bangsa sebagai suara mahasiswa kedokteran internasional, dan memiliki hubungan resmi dengan badan-badan PBB utama, seperti Organisasi Kesehatan Dunia, UNESCO, UNAIDS, UNHCR dan UNFPA, serta pendukung utama seperti World Medical Association (WMA). Ini memastikan bahwa IFMSA dianggap sebagai mitra utama dalam hal masalah kesehatan global, internasional dan lokal. Selain itu, federasi ini memiliki kemitraan resmi dengan beberapa organisasi dan institusi kesehatan dan pembangunan internasional lainnya. Anggota organisasi di IFMSA dinamakan National Member Organization (NMO) dan Indonesia diwakili oleh satu representatif mahasiswa kedokteran Indonesia yaitu NMO CIMSA Indonesia.",
+                        'image_content' => null
+                    ],
+                    [
+                        "column" => 'ifmsa-url',
+                        "label" => 'IFMSA URL',
+                        "type" => 'text',
+                        'section' => null,
+                        'text_content' => "https://ifmsa.org",
+                        'image_content' => null
+                    ],
+                ],
+                'contact' => null
+            ],
+            [
                 "name" => 'About Us',
                 'contents' => [
                     [

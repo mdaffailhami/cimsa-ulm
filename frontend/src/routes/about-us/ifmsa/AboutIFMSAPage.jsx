@@ -3,8 +3,33 @@ import PageHeader from '../../PageHeader';
 import { Col, Container, Image, Row } from 'react-bootstrap';
 import PrimaryButton from '../../PrimaryButton';
 import OnHoverAnimationCss from '../../OnHoverAnimationCss';
+import { setPageMeta } from '../../../utils';
+import { useEffect, useState } from 'react';
+import { endpoint } from '../../../configs';
+import LoadingIndicator from '../../LoadingIndicator';
+import HtmlParser from '../../HtmlParser';
 
 export default function AboutIFMSAPage() {
+  setPageMeta(
+    'About IFMSA - CIMSA ULM',
+    'International Federation of Medical Students’ Association (IFMSA) adalah organisasi non-profit, non-pemerintah dan non-partisipan yang mewakili asosiasi mahasiswa kedokteran internasional. IFMSA didirikan pada tahun 1951 dan merupakan salah satu organisasi pelajar dan organisasi pelajar kedokteran tertua di dunia.'
+  );
+
+  const [pageData, setPageData] = useState(undefined);
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch(`${endpoint}/api/page/about-ifmsa`);
+      const data = await res.json();
+
+      if (!data) throw new Error('Error fetching data');
+
+      setPageData(data);
+    })();
+  }, []);
+
+  if (!pageData) return <LoadingIndicator />;
+
   return (
     <>
       <Global
@@ -17,7 +42,14 @@ export default function AboutIFMSAPage() {
       />
       <PageHeader
         title='About IFMSA'
-        description='International Federation of Medical Students’ Association (IFMSA) adalah organisasi non-profit, non-pemerintah dan non-partisipan yang mewakili asosiasi mahasiswa kedokteran internasional. IFMSA didirikan pada tahun 1951 dan merupakan salah satu organisasi pelajar dan organisasi pelajar kedokteran tertua di dunia. IFMSA terbagi menjadi lima region: Asia-Pacific tempat kita berada, America, Eastern-Mediterranean, Africa, dan Europe. Menghubungkan mahasiswa kedokteran dari 141 organisasi di 130 negara di seluruh dunia, IFMSA memiliki tujuan yang terbagi dalam enam area: kesehatan masyarakat, kesehatan reproduksi seksual, pendidikan kedokteran, hak asasi manusia dan perdamaian, pertukaran pelajar profesional, dan pertukaran pelajar penelitian.'
+        description={
+          <HtmlParser
+            html={
+              pageData.contents.find((x) => x.column === 'description')
+                .text_content
+            }
+          />
+        }
         titleColor='#1f3868'
       />
       <Container fluid style={{ background: '#1f3868', padding: '26.5px 0' }}>
@@ -82,25 +114,19 @@ export default function AboutIFMSAPage() {
                   }
                 `}
               >
-                Setiap tahun, IFMSA menyelenggarakan lebih dari 13.000 program
-                pertukaran penelitian dan klinis bagi mahasiswanya untuk
-                mengeksplorasi inovasi dalam bidang kedokteran, dan sistem
-                kesehatan dalam lingkungan yang berbeda. IFMSA juga secara resmi
-                diakui oleh Perserikatan Bangsa-Bangsa sebagai suara mahasiswa
-                kedokteran internasional, dan memiliki hubungan resmi dengan
-                badan-badan PBB utama, seperti Organisasi Kesehatan Dunia,
-                UNESCO, UNAIDS, UNHCR dan UNFPA, serta pendukung utama seperti
-                World Medical Association (WMA). Ini memastikan bahwa IFMSA
-                dianggap sebagai mitra utama dalam hal masalah kesehatan global,
-                internasional dan lokal. Selain itu, federasi ini memiliki
-                kemitraan resmi dengan beberapa organisasi dan institusi
-                kesehatan dan pembangunan internasional lainnya. Anggota
-                organisasi di IFMSA dinamakan National Member Organization (NMO)
-                dan Indonesia diwakili oleh satu representatif mahasiswa
-                kedokteran Indonesia yaitu NMO CIMSA Indonesia.
+                <HtmlParser
+                  html={
+                    pageData.contents.find(
+                      (x) => x.column === 'ifmsa-description'
+                    ).text_content
+                  }
+                />
               </p>
               <PrimaryButton
-                to='https://ifmsa.org'
+                to={
+                  pageData.contents.find((x) => x.column === 'ifmsa-url')
+                    .text_content
+                }
                 target='_blank'
                 color='#1f3868'
                 isLarge={false}
