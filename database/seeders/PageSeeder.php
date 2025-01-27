@@ -171,6 +171,20 @@ class PageSeeder extends Seeder
                 'contact' => null
             ],
             [
+                "name" => 'SCOs',
+                'contents' => [
+                    [
+                        "column" => 'description',
+                        "label" => 'Description',
+                        "type" => 'text',
+                        'section' => 'description',
+                        'text_content' => "We organize our work through six Standing Committees that represent focus areas of equal importance in order to maintain a balanced, holistic, and steady approach towards our targets and goals.",
+                        'image_content' => null
+                    ],
+                ],
+                'contact' => null
+            ],
+            [
                 "name" => 'Contact Us',
                 'contents' => [
                     [

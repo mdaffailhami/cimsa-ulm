@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { useParams } from 'react-router';
 import { setPageMeta } from '../../../utils';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { endpoint } from '../../../configs';
 import LoadingIndicator from '../../LoadingIndicator';
 import { Container, Dropdown, Image } from 'react-bootstrap';
@@ -74,7 +74,7 @@ export default function PostDetailPage() {
 
             <Dropdown.Menu as={'ul'} style={{ padding: 0, width: 'auto' }}>
               {post.categories.map((category, i) => (
-                <>
+                <Fragment key={i}>
                   {i != 0 && <Dropdown.Divider style={{ margin: 0 }} />}
                   <Dropdown.Item
                     as={'li'}
@@ -88,7 +88,7 @@ export default function PostDetailPage() {
                   >
                     {category}
                   </Dropdown.Item>
-                </>
+                </Fragment>
               ))}
             </Dropdown.Menu>
           </Dropdown>
@@ -99,10 +99,12 @@ export default function PostDetailPage() {
           data-aos-once='true'
           src={post.cover}
           css={css`
+            position: relative;
             max-width: 800px;
             width: 100%;
             display: block;
             margin: 10px auto;
+            z-index: -1;
           `}
         />
       </header>
