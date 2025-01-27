@@ -41,4 +41,9 @@ class Committe extends Model
     {
         return $this->hasMany(Gallery::class, 'entity_id');
     }
+
+    public function contact()
+    {
+        return $this->hasOne(PageContact::class, 'page_id');
+    }
 }

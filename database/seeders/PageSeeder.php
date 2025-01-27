@@ -414,6 +414,7 @@ class PageSeeder extends Seeder
         $image_name = generateImage('avatar', $path_name);
 
         $page_model->contact()->create([
+            'type' => 'page',
             'image' => config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name,
             'name' => $data['name'],
             'ocupation' => $data['ocupation'],

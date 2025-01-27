@@ -22,7 +22,7 @@ class CommitteController extends Controller
 
     public function apiDetail($name)
     {
-        $committe = Committe::where('name', $name)->first();
+        $committe = Committe::with('contact')->where('name', $name)->first();
 
         return response()->json([
             "data" => new CommitteDetailResource($committe)

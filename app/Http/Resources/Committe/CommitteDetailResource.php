@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Committe;
 
 use App\Http\Resources\GalleryResource;
+use App\Http\Resources\Page\PageContactResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,15 +23,17 @@ class CommitteDetailResource extends JsonResource
 
         return [
             "logo" => $this->logo,
+            "background" => $this->background,
             "name" => $this->name,
             "color" => $this->color,
             "description" => $this->description,
-            "long_description" => $this->long_description, // show if detailed
-            "mission_statement" => $this->mission_statement, // show if detailed
-            "activities" => CommitteActivityResource::collection($this->activities), // show if detailed
-            "testimonies" => CommitteTestimonyResource::collection($this->testimonies), // show if detailed
-            "focuses" => $focuses, // show if detailed
-            "galleries" => GalleryResource::collection($this->galleries) // show if detailed
+            "long_description" => $this->long_description,
+            "mission_statement" => $this->mission_statement,
+            "activities" => CommitteActivityResource::collection($this->activities),
+            "testimonies" => CommitteTestimonyResource::collection($this->testimonies),
+            "focuses" => $focuses,
+            "galleries" => GalleryResource::collection($this->galleries),
+            "contact" => new PageContactResource($this->contact)
         ];
     }
 }

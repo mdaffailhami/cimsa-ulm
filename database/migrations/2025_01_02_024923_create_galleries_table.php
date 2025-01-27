@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('galleries', function (Blueprint $table) {
             $table->uuid()->primary();
             $table->uuid('entity_id')->nullable()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('type');
+            $table->string('type'); // page_contents | committe | program
             $table->string('url');
             $table->integer('order');
             $table->timestamps();
