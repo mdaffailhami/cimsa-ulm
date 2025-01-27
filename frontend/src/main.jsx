@@ -22,6 +22,7 @@ import { endpoint } from './configs.js';
 import ActivitiesPage from './routes/activities/ActivitiesPage.jsx';
 import BlogPage from './routes/blog/BlogPage.jsx';
 import PostDetailPage from './routes/blog/detail/PostDetailPage.jsx';
+import ScosPage from './routes/scos/ScosPage.jsx';
 
 createRoot(document.getElementById('root')).render(<App />);
 
@@ -51,6 +52,7 @@ function App() {
             <Route path='blog/:category/:page' element={<BlogPage />} />
             <Route path='about-us' element={<AboutUsPage />} />
             <Route path='about-us/ifmsa' element={<AboutIFMSAPage />} />
+            <Route path='scos' element={<ScosPage />} />
             <Route path='activities' element={<ActivitiesPage />} />
             <Route path='activities/programs' element={<ProgramsPage />} />
             <Route path='activities/trainings' element={<TrainingsPage />} />
