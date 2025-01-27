@@ -451,7 +451,6 @@ class PageSeeder extends Seeder
             'email' => $data['email'],
             'phone' => $data['phone'],
             'year' => $data['year'],
-            'end_year' => $data['end_year'],
         ]);
     }
 }

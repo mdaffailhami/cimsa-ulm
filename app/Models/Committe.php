@@ -44,6 +44,6 @@ class Committe extends Model
 
     public function contact()
     {
-        return $this->hasOne(PageContact::class, 'page_id');
+        return $this->hasOne(PageContact::class, 'page_id', 'uuid');
     }
 }

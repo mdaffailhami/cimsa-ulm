@@ -105,6 +105,12 @@ class CommitteSeeder extends Seeder
 
                 $committe_model->save();
 
+                // Set Contact
+                if (isset($committe["contact"])) {
+                    $this->createPageContact($committe_model, $committe["contact"]);
+                }
+
+                // Set Upcoming Activities
                 foreach ($committe["activities"] as $activity) {
                     $activity_model = $committe_model->activities();
 
@@ -114,6 +120,7 @@ class CommitteSeeder extends Seeder
                     ]);
                 }
 
+                //  Set Area Focuses
                 foreach ($committe["focuses"] as $focus) {
                     $focus_model = $committe_model->focuses();
 
@@ -130,11 +137,6 @@ class CommitteSeeder extends Seeder
                 // Looping Galeries
                 for ($i = 1; $i <= 2; $i++) {
                     $this->createGaleries($committe_model, $i);
-                }
-
-                // Set Contact
-                if (isset($committe['contact'])) {
-                    $this->createPageContact($committe_model, $committe["contact"]);
                 }
             }
 
@@ -186,7 +188,6 @@ class CommitteSeeder extends Seeder
             'email' => $data['email'],
             'phone' => $data['phone'],
             'year' => $data['year'],
-            'end_year' => $data['end_year'],
         ]);
     }
 }
