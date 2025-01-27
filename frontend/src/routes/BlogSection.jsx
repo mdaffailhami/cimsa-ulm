@@ -9,6 +9,7 @@ function BlogSection({
   includeEndDivider = false,
   footer = null,
   aos = 'fade-right',
+  reloadDocument = false,
 }) {
   return (
     <Container
@@ -40,6 +41,7 @@ function BlogSection({
         {posts.map((post, i) => (
           <BlogCard
             key={i}
+            reloadDocument={reloadDocument}
             thumbnail={post.cover}
             title={post.title}
             description={post.highlight}

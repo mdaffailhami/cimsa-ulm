@@ -21,6 +21,7 @@ import TrainingsPage from './routes/trainings/TrainingsPage.jsx';
 import { endpoint } from './configs.js';
 import ActivitiesPage from './routes/activities/ActivitiesPage.jsx';
 import BlogPage from './routes/blog/BlogPage.jsx';
+import PostDetailPage from './routes/blog/detail/PostDetailPage.jsx';
 
 createRoot(document.getElementById('root')).render(<App />);
 
@@ -45,6 +46,7 @@ function App() {
           <Routes>
             <Route index element={<HomePage />} />
             <Route path='blog' element={<BlogPage />} />
+            <Route path='blog/detail/:slug' element={<PostDetailPage />} />
             <Route path='blog/:category' element={<BlogPage />} />
             <Route path='blog/:category/:page' element={<BlogPage />} />
             <Route path='about-us' element={<AboutUsPage />} />
