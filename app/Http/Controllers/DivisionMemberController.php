@@ -16,7 +16,7 @@ class DivisionMemberController extends Controller
      */
     public function index($year, $id)
     {
-        $official = Official::where('start_year', $year)->first();
+        $official = Official::where('year', $year)->first();
         $division = $official->divisions()->findOrFail($id);
         $members = $division->members()->latest()->paginate(5);
 

@@ -13,7 +13,7 @@ class PageContact extends Model
         "occupation",
         "email",
         "phone",
-        "start_year",
+        "year",
         "end_year"
     ];
 }

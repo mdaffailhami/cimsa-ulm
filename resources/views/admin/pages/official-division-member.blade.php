@@ -2,7 +2,7 @@
     @section('title', 'Manajemen Anggota Divisi')
 
     <div class="d-flex align-items-center mb-3" style="gap: 8px">
-        <a href="{{ route('official.division.index', ['year' => $official->start_year]) }}" class="text-dark">
+        <a href="{{ route('official.division.index', ['year' => $official->year]) }}" class="text-dark">
             <i class="align-middle" data-feather="arrow-left"></i>
         </a>
         <h1 class="h3 m-0"><strong>Manajemen Anggota Divisi {{ $division->name }}</h1>

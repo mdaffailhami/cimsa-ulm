@@ -13,7 +13,7 @@ class OfficialController extends Controller
 {
     public function api()
     {
-        $officials = Official::with('divisions')->orderBy('start_year', 'desc')->get();
+        $officials = Official::with('divisions')->orderBy('year', 'desc')->get();
 
         return response()->json([
             'data' => OfficialResource::collection($officials)
@@ -25,7 +25,7 @@ class OfficialController extends Controller
      */
     public function index()
     {
-        $officials = Official::orderBy('start_year', 'desc')->paginate(5);
+        $officials = Official::orderBy('year', 'desc')->paginate(5);
         return view('admin.pages.official', compact('officials'));
     }
 
@@ -46,7 +46,7 @@ class OfficialController extends Controller
 
         $validated = $request->validate([
             'poster' => 'required',
-            'year' => 'required|unique:officials,start_year',
+            'year' => 'required|unique:officials,year',
         ], [
             'poster.required' => 'Poster tidak boleh kosong.',
 
@@ -61,7 +61,7 @@ class OfficialController extends Controller
             $image_name = uploadFile($path_name, $request->poster);
 
             $official->poster = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
-            $official->start_year = $validated['year'];
+            $official->year = $validated['year'];
 
             DB::commit();
             $official->save();
@@ -102,7 +102,7 @@ class OfficialController extends Controller
 
         $validated = $request->validate([
             'poster' => 'required',
-            'year' => 'required|unique:officials,start_year',
+            'year' => 'required|unique:officials,year',
         ], [
             'poster.required' => 'Poster tidak boleh kosong.',
 
@@ -121,7 +121,7 @@ class OfficialController extends Controller
                 $official->poster = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
             }
 
-            $official->start_year = $validated['year'];
+            $official->year = $validated['year'];
 
             DB::commit();
             $official->save();

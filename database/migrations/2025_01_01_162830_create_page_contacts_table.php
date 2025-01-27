@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('page_contacts', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('page_id')->constrained('pages', 'uuid')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->uuid('page_id');
+            $table->string('type'); // page | comitte
             $table->string('image')->nullable();
             $table->string('name');
             $table->string('ocupation');
             $table->string('email');
             $table->char('phone', 13);
-            $table->year('start_year');
+            $table->year('year');
             $table->year('end_year');
             $table->timestamps();
         });

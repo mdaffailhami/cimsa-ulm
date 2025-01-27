@@ -36,7 +36,15 @@ class CommitteSeeder extends Seeder
                 "focuses" => [
                     "Human Resource for Health",
                     "Medical Education Resources, Research, and Development System"
-                ]
+                ],
+                'contact' => [
+                    "name" => 'Muhammad Daffa Ilhami',
+                    'ocupation' => 'Vice Local Coordinator',
+                    'email' => 'vlecimsaugm@gmail.com',
+                    'phone' => '082226926058',
+                    'year' => '2025',
+                    'end_year' => '2026',
+                ],
             ],
             [
                 "name" => "SCORA",
@@ -64,7 +72,15 @@ class CommitteSeeder extends Seeder
                     "Sexual and Gender Identity",
                     "Gender-based Violence",
                     "HIV and Other STIs"
-                ]
+                ],
+                'contact' => [
+                    "name" => 'Muhammad Daffa Ilhami',
+                    'ocupation' => 'Vice Local Coordinator',
+                    'email' => 'vlecimsaugm@gmail.com',
+                    'phone' => '082226926058',
+                    'year' => '2025',
+                    'end_year' => '2026',
+                ],
             ]
         ];
 
@@ -73,11 +89,14 @@ class CommitteSeeder extends Seeder
         try {
             foreach ($committees as $committe) {
                 $path_name = "committe";
-                $image_name = generateImage('committe', $path_name);
+                $logo_name = generateImage('committe', $path_name);
+                $bg_name = generateImage('image', $path_name);
+
 
                 $committe_model = new Committe();
 
-                $committe_model->logo = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
+                $committe_model->logo = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $logo_name;
+                $committe_model->background = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $logo_name;
                 $committe_model->name = $committe["name"];
                 $committe_model->color = $committe["color"];
                 $committe_model->description = $committe["description"];
@@ -111,6 +130,11 @@ class CommitteSeeder extends Seeder
                 // Looping Galeries
                 for ($i = 1; $i <= 2; $i++) {
                     $this->createGaleries($committe_model, $i);
+                }
+
+                // Set Contact
+                if (isset($committe['contact'])) {
+                    $this->createPageContact($committe_model, $committe["contact"]);
                 }
             }
 
@@ -146,6 +170,23 @@ class CommitteSeeder extends Seeder
             "url" => config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name,
             "order" => $order,
             "type" => 'committe'
+        ]);
+    }
+
+    public function createPageContact($commite_model, $data)
+    {
+        $path_name = "avatar/page-contact";
+        $image_name = generateImage('avatar', $path_name);
+
+        $commite_model->contact()->create([
+            'type' => "committe",
+            'image' => config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name,
+            'name' => $data['name'],
+            'ocupation' => $data['ocupation'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+            'year' => $data['year'],
+            'end_year' => $data['end_year'],
         ]);
     }
 }

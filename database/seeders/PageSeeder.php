@@ -204,7 +204,7 @@ class PageSeeder extends Seeder
                     'ocupation' => 'Vice Local Coordinator for External Affairs',
                     'email' => 'vlecimsaugm@gmail.com',
                     'phone' => '082226926058',
-                    'start_year' => '2024',
+                    'year' => '2024',
                     'end_year' => '2025',
                 ],
             ],
@@ -232,7 +232,7 @@ class PageSeeder extends Seeder
                     'ocupation' => 'Vice Local Coordinator',
                     'email' => 'vlecimsaugm@gmail.com',
                     'phone' => '082226926058',
-                    'start_year' => '2025',
+                    'year' => '2025',
                     'end_year' => '2026',
                 ],
             ],
@@ -332,7 +332,7 @@ class PageSeeder extends Seeder
                     'ocupation' => 'Vice Local Coordinator',
                     'email' => 'vlecimsaugm@gmail.com',
                     'phone' => '082226926058',
-                    'start_year' => '2025',
+                    'year' => '2025',
                     'end_year' => '2026',
                 ],
             ],
@@ -367,7 +367,7 @@ class PageSeeder extends Seeder
                     'ocupation' => 'Vice Local Coordinator',
                     'email' => 'vlecimsaugm@gmail.com',
                     'phone' => '082226926058',
-                    'start_year' => '2025',
+                    'year' => '2025',
                     'end_year' => '2026',
                 ],
             ],
@@ -444,12 +444,13 @@ class PageSeeder extends Seeder
         $image_name = generateImage('avatar', $path_name);
 
         $page_model->contact()->create([
+            'type' => 'page',
             'image' => config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name,
             'name' => $data['name'],
             'ocupation' => $data['ocupation'],
             'email' => $data['email'],
             'phone' => $data['phone'],
-            'start_year' => $data['start_year'],
+            'year' => $data['year'],
             'end_year' => $data['end_year'],
         ]);
     }

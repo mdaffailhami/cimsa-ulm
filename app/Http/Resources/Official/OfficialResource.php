@@ -16,7 +16,7 @@ class OfficialResource extends JsonResource
     {
         return [
             "poster" => $this->poster,
-            "year" => $this->start_year,
+            "year" => $this->year,
             "divisions" => OfficialDivisionResource::collection($this->divisions)
         ];
     }

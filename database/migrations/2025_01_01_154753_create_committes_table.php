@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('committes', function (Blueprint $table) {
             $table->uuid()->primary();
             $table->string('logo')->nullable();
+            $table->string('background')->nullable();
             $table->string('name')->unique();
             $table->char('color', 7)->nullable();
             $table->string('description');
