@@ -106,7 +106,9 @@ class CommitteController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $committe = Committe::with(['activities', 'focuses', 'testimonies', 'contact'])->where('name', $id)->first();
+
+        return view('admin.pages.committe-detail', compact('committe'));
     }
 
     /**
@@ -129,10 +131,6 @@ class CommitteController extends Controller
             DB::commit();
 
             $committe = Committe::findOrFail($id);
-            $committe->name = $validated['name'];
-
-            $committe->save();
-
 
             // Redirect to the last committe of committees
             return redirect()->route('committe.index')

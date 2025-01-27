@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
 
         DB::table('galleries')->truncate();
+        DB::table('page_contacts')->truncate();
 
         $this->call([
             RolePermissionSeeder::class,

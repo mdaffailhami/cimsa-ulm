@@ -1,0 +1,581 @@
+<x-layout.master>
+    @section('title', 'Detail Komite')
+
+    <h1 class="h3 mb-3"><strong>{{ $committe->name }}</h1>
+
+    <div class="row">
+        {{-- Profile Komite --}}
+        <div class="col-md-12">
+            <div class="card flex-fill">
+                <div class="card-header ">
+                    <h5 class="card-title">Profile {{ $committe->name }}</h5>
+                </div>
+
+                <div class="card-body">
+                    <!-- Add Komite Form -->
+                    <form id="profileForm" action="{{ route('committe.update', ['committe' => $committe->uuid]) }}"
+                        method="POST">
+                        @method('PUT')
+                        @csrf
+
+                        <div class="row mb-3">
+                            <label for="name" class="col-sm-2 col-form-label">Nama Komite</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                    id="name" name="name" placeholder="Masukkan nama..."
+                                    value="{{ $committe->name }}" required>
+                            </div>
+                            @error('name')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="description" class="col-sm-2 col-form-label">Deskripsi Singkat</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control @error('description') is-invalid @enderror" placeholder="Masukkan deskripsi..."
+                                    id="description" name="description" required style="height: 100px">{{ $committe->description }}</textarea>
+                            </div>
+                            @error('description')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="long_description" class="col-sm-2 col-form-label">Deskripsi Panjang</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control @error('long_description') is-invalid @enderror" placeholder="Masukkan deskripsi..."
+                                    id="long_description" name="long_description" required>{{ $committe->long_description }}</textarea>
+                            </div>
+                            @error('long_description')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="mission" class="col-sm-2 col-form-label">Misi</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control @error('mission') is-invalid @enderror" placeholder="Masukkan misi..." id="mission"
+                                    name="mission" required>{{ $committe->mission }}</textarea>
+                            </div>
+                            @error('mission')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="focuses" class="col-sm-2 col-form-label">Fokus Area</label>
+                            <div class="col-sm-6">
+                                <div id="focuses-container">
+                                    <!-- Dynamic inputs will be appended here -->
+                                </div>
+                                <button type="button" class="btn btn-success mt-2" id="add-focus-btn">Tambah Fokus
+                                    Area</button>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Aktivitas Mendatang</label>
+                            <div class="col-sm-6">
+                                <div id="activities-container">
+                                    <!-- Dynamic activity inputs will be appended here -->
+                                </div>
+                                <button type="button" class="btn btn-success mt-2" id="add-activity-btn">Tambah
+                                    Aktivitas</button>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {{-- Profile Testimoni --}}
+        <div class="col-md-12">
+            <div class="card flex-fill">
+                <div class="card-header ">
+                    <h5 class="card-title">Testimoni {{ $committe->name }}</h5>
+                </div>
+
+                <div class="card-body">
+                    <!-- Add Testimoni Form -->
+                    <form id="profileForm" action="#" method="POST">
+                        @method('PUT')
+                        @csrf
+
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {{-- Narahubung Komite --}}
+        <div class="col-md-12">
+            <div class="card flex-fill">
+                <div class="card-header ">
+                    <h5 class="card-title">Narahubung {{ $committe->name }}</h5>
+                </div>
+
+                <div class="card-body">
+                    <!-- Add Komite Form -->
+                    <form id="contactForm" action="#" method="POST">
+                        @method('PUT')
+                        @csrf
+
+                        <div class="row mb-3">
+                            <label for="contact_name" class="col-sm-2 col-form-label">Nama Narahubung</label>
+                            <div class="col-sm-6">
+                                <input type="contact_name"
+                                    class="form-control @error('contact_name') is-invalid @enderror" id="contact_name"
+                                    name="contact_name" placeholder="Masukkan nama..."
+                                    value="{{ $committe->contact->name ?? '' }}" required>
+                            </div>
+                            @error('contact_name')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="contact_email" class="col-sm-2 col-form-label">Email Narahubung</label>
+                            <div class="col-sm-6">
+                                <input type="email"
+                                    class="form-control @error('contact_email') is-invalid @enderror"
+                                    id="contact_email" name="contact_email" placeholder="Masukkan email..."
+                                    value="{{ $committe->contact->email ?? '' }}" required>
+                            </div>
+                            @error('contact_email')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="contact_phone" class="col-sm-2 col-form-label">Nomor Telepon</label>
+                            <div class="col-sm-6">
+                                <input type="text"
+                                    class="form-control @error('contact_phone') is-invalid @enderror"
+                                    id="contact_phone" name="contact_phone" placeholder="Masukkan Nomor telepon..."
+                                    value="{{ $committe->contact->phone ?? '' }}" required>
+                            </div>
+                            @error('contact_phone')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="contact_ocupation" class="col-sm-2 col-form-label">Jabatan</label>
+                            <div class="col-sm-6">
+                                <input type="text"
+                                    class="form-control @error('contact_ocupation') is-invalid @enderror"
+                                    id="contact_ocupation" name="contact_ocupation" placeholder="Masukkan jabatan..."
+                                    value="{{ $committe->contact->ocupation ?? '' }}" required>
+                            </div>
+                            @error('contact_ocupation')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="contact_year" class="col-sm-2 col-form-label">Tahun Angkatan</label>
+                            <div class="col-sm-6">
+                                <select id="contact_year" name="contact_year" class="form-select">
+                                    <option selected disabled>Pilih Tahun</option>
+                                </select>
+                            </div>
+                            @error('contact_year')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="avatar" class="col-sm-2 col-form-label">Foto narahubung</label>
+                            <div class="col-sm-6">
+                                <input type="file" class="filepond" id="avatar" name="avatar"
+                                    accept="image/*">
+                            </div>
+                            @error('avatar')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section('scripts')
+
+        {{-- Profile Form --}}
+        <script>
+            const getYear = (contact_year = null) => {
+                const yearSelect = document.getElementById("contact_year");
+                const currentYear = new Date().getFullYear();
+                const startYear = 2000;
+
+                for (let year = currentYear; year >= startYear; year--) {
+                    const option = document.createElement("option");
+                    option.value = year;
+                    option.textContent = year;
+
+                    if (year === contact_year) {
+                        option.selected = true;
+                    } else if (year === currentYear) {
+                        option.selected = true;
+                    }
+
+                    yearSelect.appendChild(option);
+                }
+            }
+
+            const createFocusInput = (focus = null, focusesContainer) => {
+                const focusWrapper = document.createElement('div');
+                focusWrapper.className = 'input-group mb-2';
+
+                // focus input field
+                const focusInput = document.createElement('input');
+                focusInput.type = 'text';
+                focusInput.name = 'focuss[]'; // Array input name
+                focusInput.className = 'form-control';
+                focusInput.placeholder = 'Masukkan fokus area...';
+                focusInput.value = focus?.description || '';
+
+                // Remove button
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'btn btn-danger';
+                removeBtn.innerHTML = 'Remove';
+
+                // Remove focus input on button click
+                removeBtn.addEventListener('click', () => {
+                    // Only remove if there is more than one focus input
+                    if (focusesContainer.children.length > 1) {
+                        focusWrapper.remove();
+                    }
+                });
+
+                // Append input and remove button to wrapper
+                focusWrapper.appendChild(focusInput);
+                focusWrapper.appendChild(removeBtn);
+
+                return focusWrapper;
+            };
+
+            const createActivityInput = (activity = null, activitiesContainer) => {
+                const activityWrapper = document.createElement('div');
+                activityWrapper.className = 'mb-3 border p-3 rounded activity-input';
+
+                // Title input
+                const nameGroup = document.createElement('div');
+                nameGroup.className = 'mb-2';
+                const nameLabel = document.createElement('label');
+                nameLabel.innerText = 'name';
+                nameLabel.className = 'form-label';
+                const nameInput = document.createElement('input');
+                nameInput.type = 'text';
+                nameInput.name = 'activities[][name]'; // Dynamic array input name
+                nameInput.className = 'form-control';
+                nameInput.placeholder = 'Enter activity name...';
+                nameInput.value = activity?.name || '';
+                nameGroup.appendChild(nameLabel);
+                nameGroup.appendChild(nameInput);
+
+                // Description textarea
+                const descriptionGroup = document.createElement('div');
+                const descriptionLabel = document.createElement('label');
+                descriptionLabel.innerText = 'Description';
+                descriptionLabel.className = 'form-label';
+                const descriptionTextarea = document.createElement('textarea');
+                descriptionTextarea.name = 'activities[][description]'; // Dynamic array input name
+                descriptionTextarea.className = 'form-control';
+                descriptionTextarea.placeholder = 'Enter activity description...';
+                descriptionTextarea.rows = 3;
+                descriptionTextarea.value = activity?.description || '';
+                descriptionGroup.appendChild(descriptionLabel);
+                descriptionGroup.appendChild(descriptionTextarea);
+
+                // Remove button
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'btn btn-danger mt-2';
+                removeBtn.innerHTML = 'Remove Activity';
+                removeBtn.addEventListener('click', () => {
+                    // Ensure at least one activity input remains
+                    if (activitiesContainer.children.length > 1) {
+                        activityWrapper.remove();
+                    }
+                });
+
+                // Append inputs and button to the activity wrapper
+                activityWrapper.appendChild(nameGroup);
+                activityWrapper.appendChild(descriptionGroup);
+                activityWrapper.appendChild(removeBtn);
+
+                return activityWrapper;
+            };
+
+            const initializeDefaultFocus = (focusesContainer) => {
+                const defaultFocusInput = createFocusInput(null, focusesContainer);
+                focusesContainer.appendChild(defaultFocusInput);
+            };
+
+            const initializeDefaultActivity = (activitiesContainer) => {
+                const defaultActivityInput = createActivityInput(null, activitiesContainer);
+                activitiesContainer.appendChild(defaultActivityInput);
+            };
+
+            const initializeProfileForm = async (committe) => {
+                // Initialize CKEditor
+                let long_description_editor = await InitializeCKEditor('#long_description');
+                let mission_editor = await InitializeCKEditor('#mission');
+
+                // Initialize Focus Container
+                const focusesContainer = document.getElementById('focuses-container');
+                const addFocusBtn = document.getElementById('add-focus-btn');
+
+                // Add a new activities input on button click
+                addFocusBtn.addEventListener('click', () => {
+                    const newFocusInput = createFocusInput(null, focusesContainer);
+                    focusesContainer.appendChild(newFocusInput);
+                });
+
+                // Initialize Activity Container
+                const activitiesContainer = document.getElementById('activities-container');
+                const addActivityBtn = document.getElementById('add-activity-btn');
+
+                // Add a new Activity input on button click
+                addActivityBtn.addEventListener('click', () => {
+                    const newActivityInput = createActivityInput(null, activitiesContainer);
+                    activitiesContainer.appendChild(newActivityInput);
+                });
+
+                // Pre-fill the form fields if editing a committe
+                document.getElementById('name').value = committe.name;
+                document.getElementById('description').value = committe.description;
+
+                // Set CKEditor Value
+                if (committe.long_description) {
+                    long_description_editor.setData(committe.long_description)
+                }
+
+                if (committe.mission_statement) {
+                    mission_editor.setData(committe.mission_statement)
+                }
+
+                // Pre-fill Focuses Input
+                // Add focuss if available, otherwise add the default focus input
+                if (committe.focuses.length > 0) {
+                    committe.focuses.forEach((focus) => {
+                        const focusInput = createFocusInput(focus, focusesContainer);
+                        focusesContainer.appendChild(focusInput);
+                    });
+                } else {
+                    initializeDefaultFocus(focusesContainer); // Add a default input if no focuss exist
+                }
+
+                // Pre-fill activities Input
+                // Add activity if available, otherwise add the default focus input
+                if (committe.activities.length > 0) {
+                    committe.activities.forEach((activity) => {
+                        const activityInput = createActivityInput(activity, activitiesContainer);
+                        activitiesContainer.appendChild(activityInput);
+                    });
+                } else {
+                    initializeDefaultActivity(activitiesContainer); // Add a default input if no activity exist
+                }
+            }
+
+            const initializeTestimoniesForm = (testimonies) => {}
+
+            const initializeContactForm = (contact) => {
+                // Initialize Year
+                getYear(contact.year);
+
+                // Initialize Filepond
+                const avatar_input = document.querySelector('#avatar');
+                const avatar_pond = FilePond.create(avatar_input, {
+                    allowMultiple: false,
+                    maxFiles: 1,
+                    allowImagePreview: true,
+                    acceptedFileTypes: ['image/*'],
+                    server: {
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        process: {
+                            url: '{{ route('api.image.upload') }}', // Endpoint to handle the file upload
+                            method: 'POST',
+                            withCredentials: false,
+                            onload: (response) => {
+                                response = JSON.parse(response);
+                                console.log(response);
+
+                                return response; // Return the file path to FilePond
+                            },
+                            onerror: (response) => {
+                                console.error('Error uploading file:', response);
+                            }
+                        },
+                        revert: {
+                            url: '{{ route('api.image.revert') }}', // Endpoint to revert/remove the uploaded file
+                            method: 'POST',
+                            withCredentials: false,
+                            onload: (response) => {
+                                // Handle the revert response
+                                console.log('Revert response:', response);
+                            },
+                            onerror: (response) => {
+                                console.error('Error reverting file:', response);
+                            }
+                        },
+                        load: {
+                            url: '/api/image/',
+                            method: 'GET',
+                            withCredentials: false,
+                            onload: (response) => {
+                                return response;
+                            },
+                            onerror: (response) => {
+                                console.error('Error loading file:', response);
+                            }
+                        }
+                    },
+                });
+
+                document.getElementById('contact_name').value = contact.name;
+                document.getElementById('contact_email').value = contact.email;
+                document.getElementById('contact_phone').value = contact.phone;
+                document.getElementById('contact_ocupation').value = contact.ocupation;
+
+                // Set avatar_input
+                let avatar_path = contact.image.split('image/')[1];
+
+                // Add the existing file using the image URL
+                avatar_pond.setOptions({
+                    files: [{
+                        source: avatar_path,
+                        options: {
+                            type: 'local',
+                        }
+                    }, ]
+                })
+            }
+
+            document.addEventListener('DOMContentLoaded', async function() {
+                // Initialize Data
+                let committe = @json($committe);
+                let testimonies = committe.testimonies;
+                let contact = committe.contact;
+
+                console.log(committe);
+
+
+                initializeProfileForm(committe);
+
+                if (testimonies) {
+                    initializeTestimoniesForm(testimonies)
+                }
+
+                if (contact) {
+                    initializeContactForm(contact)
+                }
+
+
+            });
+        </script>
+
+        {{-- Alert --}}
+        @session('success')
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: "Berhasil!",
+                        text: "{{ session('success') }}",
+                        icon: "success"
+                    });
+                });
+            </script>
+        @endsession
+
+        @session('error')
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: 'Gagal!',
+                        text: "{{ session('error') }}"
+                        icon: 'error',
+                        confirmButtonText: 'Lanjut'
+                    })
+                });
+            </script>
+        @endsession
+
+        @if ($errors->any())
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: 'Validasi Error',
+                        html: `
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            `,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            let formModal = new bootstrap.Modal(document.getElementById('formModal'));
+
+                            formModal.show();
+                        }
+                    });;
+
+
+                });
+            </script>
+        @endif
+    @endsection
+</x-layout.master>

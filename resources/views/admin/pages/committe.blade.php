@@ -40,16 +40,9 @@
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Edit Button --}}
                                             <a class="btn btn-warning text-dark"
-                                                href="{{ route('committe.edit', ['committe' => $committe->uuid]) }}">
+                                                href="{{ route('committe.edit', ['committe' => $committe->name]) }}">
                                                 <i class="align-middle" data-feather="edit"></i>
                                             </a>
-
-                                            {{-- <button type="button" class="btn btn-warning text-dark"
-                                                data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                data-action="{{ route('committe.update', ['committe' => $committe->uuid]) }}"
-                                                data-committe="{{ json_encode($committe) }}">
-                                                <i class="align-middle" data-feather="edit"></i>
-                                            </button> --}}
 
                                             <!-- Delete Button -->
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"

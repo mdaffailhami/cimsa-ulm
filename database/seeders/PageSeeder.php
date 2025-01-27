@@ -17,7 +17,6 @@ class PageSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('page_contacts')->truncate();
         DB::table('page_contents')->truncate();
         DB::table('pages')->truncate();
 

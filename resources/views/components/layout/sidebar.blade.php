@@ -36,7 +36,7 @@
                 </a>
             </li>
 
-            <li class="sidebar-item {{ request()->routeIs('committe.index') ? 'active' : '' }}">
+            <li class="sidebar-item {{ request()->routeIs(['committe.index', 'committe.edit']) ? 'active' : '' }}">
                 <a class="sidebar-link" href="{{ route('committe.index') }}">
                     <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Manajemen
                         Komite</span>
