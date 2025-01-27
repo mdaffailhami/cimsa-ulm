@@ -22,8 +22,7 @@ class OfficialSeeder extends Seeder
 
         $officials = [
             [
-                'start_year' => '2024',
-                'end_year' => '2025',
+                'year' => '2024',
                 'divisions' => [
                     'Excecutive Board',
                     'Suporting Division Coordinator',
@@ -31,8 +30,7 @@ class OfficialSeeder extends Seeder
                 ]
             ],
             [
-                'start_year' => '2023',
-                'end_year' => '2024',
+                'year' => '2023',
                 'divisions' => [
                     'Excecutive Board',
                     'Suporting Division Coordinator',
@@ -40,8 +38,7 @@ class OfficialSeeder extends Seeder
                 ]
             ],
             [
-                'start_year' => '2022',
-                'end_year' => '2023',
+                'year' => '2022',
                 'divisions' => [
                     'Excecutive Board',
                     'Suporting Division Coordinator',
@@ -49,8 +46,7 @@ class OfficialSeeder extends Seeder
                 ]
             ],
             [
-                'start_year' => '2021',
-                'end_year' => '2022',
+                'year' => '2021',
                 'divisions' => [
                     'Excecutive Board',
                     'Suporting Division Coordinator',
@@ -58,8 +54,7 @@ class OfficialSeeder extends Seeder
                 ]
             ],
             [
-                'start_year' => '2020',
-                'end_year' => '2021',
+                'year' => '2020',
                 'divisions' => [
                     'Excecutive Board',
                     'Suporting Division Coordinator',
@@ -84,8 +79,7 @@ class OfficialSeeder extends Seeder
                 $image_name = generateImage('official', $path_name);
 
                 $official_model->poster = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
-                $official_model->start_year = $official['start_year'];
-                $official_model->end_year = $official['end_year'];
+                $official_model->year = $official['year'];
 
                 $official_model->save();
 

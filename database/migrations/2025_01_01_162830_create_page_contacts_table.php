@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('ocupation');
             $table->string('email');
             $table->char('phone', 13);
-            $table->year('start_year');
+            $table->year('year');
             $table->year('end_year');
             $table->timestamps();
         });

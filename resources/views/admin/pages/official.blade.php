@@ -29,7 +29,7 @@
                         <tbody>
                             @foreach ($officials as $official)
                                 <tr>
-                                    <td class="d-none d-xl-table-cell">{{ $official->start_year }}</td>
+                                    <td class="d-none d-xl-table-cell">{{ $official->year }}</td>
                                     <td class="text-center">
                                         <img src="{{ $official->poster }}" class="img-thumbnail" style="width: 300px"
                                             alt="{{ $official->name }}">
@@ -38,7 +38,7 @@
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Division Button --}}
                                             <a class="btn btn-info"
-                                                href="{{ route('official.division.index', ['year' => $official->start_year]) }}">
+                                                href="{{ route('official.division.index', ['year' => $official->year]) }}">
                                                 <i class="align-middle" data-feather="users"></i>
                                             </a>
 
@@ -141,7 +141,7 @@
         <script>
             const fillForm = (official, filePond) => {
                 // Pre-fill the form fields if editing a official
-                document.getElementById('year').value = official.start_year;
+                document.getElementById('year').value = official.year;
 
                 // Clear previous files in FilePond
                 filePond.removeFiles();

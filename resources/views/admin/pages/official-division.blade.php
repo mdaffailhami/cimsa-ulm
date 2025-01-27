@@ -5,7 +5,7 @@
         <a href="{{ route('official.index') }}" class="text-dark">
             <i class="align-middle" data-feather="arrow-left"></i>
         </a>
-        <h1 class="h3 m-0"><strong>Manajemen Divisi Angkatan {{ $official->start_year }}</h1>
+        <h1 class="h3 m-0"><strong>Manajemen Divisi Angkatan {{ $official->year }}</h1>
     </div>
 
     <div class="row">
@@ -14,7 +14,7 @@
                 <div class="card-header d-flex align-items-center justify-content-between">
 
 
-                    <h5 class="card-title mb-0">Daftar Divisi Angkatan {{ $official->start_year }}</h5>
+                    <h5 class="card-title mb-0">Daftar Divisi Angkatan {{ $official->year }}</h5>
 
                     {{-- Add Button --}}
                     <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
@@ -39,7 +39,7 @@
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Division Button --}}
                                             <a class="btn btn-info"
-                                                href="{{ route('official.division.member.index', ['year' => $official->start_year, 'id' => $division->id]) }}">
+                                                href="{{ route('official.division.member.index', ['year' => $official->year, 'id' => $division->id]) }}">
                                                 <i class="align-middle" data-feather="users"></i>
                                             </a>
 

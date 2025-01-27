@@ -15,7 +15,7 @@ class Official extends Model
 
     protected $fillable = [
         'poster',
-        'start_year',
+        'year',
         'end_year',
     ];
 
