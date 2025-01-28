@@ -9,6 +9,7 @@ class CommitteActivity extends Model
     protected $fillable = [
         "committe_id",
         "title",
+        "name",
         "description",
     ];
 }

@@ -1,7 +1,12 @@
 <x-layout.master>
     @section('title', 'Detail Komite')
 
-    <h1 class="h3 mb-3"><strong>{{ $committe->name }}</h1>
+    <div class="d-flex align-items-center mb-3" style="gap: 8px">
+        <a href="{{ route('committe.index') }}" class="text-dark">
+            <i class="align-middle" data-feather="arrow-left"></i>
+        </a>
+        <h1 class="h3 m-0"><strong>{{ $committe->name }}</strong></h1>
+    </div>
 
     <div class="row">
         {{-- Profile Komite --}}
@@ -12,11 +17,12 @@
                 </div>
 
                 <div class="card-body">
-                    <!-- Add Komite Form -->
                     <form id="profileForm" action="{{ route('committe.update', ['committe' => $committe->uuid]) }}"
                         method="POST">
                         @method('PUT')
                         @csrf
+
+                        <input type="hidden" id="form_category" name="form_category" value="profile">
 
                         <div class="row mb-3">
                             <label for="name" class="col-sm-2 col-form-label">Nama Komite</label>
@@ -53,7 +59,7 @@
                             <label for="long_description" class="col-sm-2 col-form-label">Deskripsi Panjang</label>
                             <div class="col-sm-6">
                                 <textarea class="form-control @error('long_description') is-invalid @enderror" placeholder="Masukkan deskripsi..."
-                                    id="long_description" name="long_description" required>{{ $committe->long_description }}</textarea>
+                                    id="long_description" name="long_description">{{ $committe->long_description }}</textarea>
                             </div>
                             @error('long_description')
                                 <div class="col-sm-6 offset-sm-2">
@@ -68,7 +74,7 @@
                             <label for="mission" class="col-sm-2 col-form-label">Misi</label>
                             <div class="col-sm-6">
                                 <textarea class="form-control @error('mission') is-invalid @enderror" placeholder="Masukkan misi..." id="mission"
-                                    name="mission" required>{{ $committe->mission }}</textarea>
+                                    name="mission">{{ $committe->mission }}</textarea>
                             </div>
                             @error('mission')
                                 <div class="col-sm-6 offset-sm-2">
@@ -101,6 +107,21 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="gallery" class="col-sm-2 col-form-label">Galeri</label>
+                            <div class="col-sm-6">
+                                <input type="file" class="filepond" id="gallery" name="galleries[]"
+                                    accept="image/*">
+                            </div>
+                            @error('gallery')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </form>
                 </div>
@@ -116,9 +137,12 @@
 
                 <div class="card-body">
                     <!-- Add Testimoni Form -->
-                    <form id="profileForm" action="#" method="POST">
+                    <form id="profileForm" action="{{ route('committe.update', ['committe' => $committe->uuid]) }}"
+                        method="POST">
                         @method('PUT')
                         @csrf
+
+                        <input type="hidden" id="form_category" name="form_category" value="testimony">
 
                         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </form>
@@ -135,9 +159,14 @@
 
                 <div class="card-body">
                     <!-- Add Komite Form -->
-                    <form id="contactForm" action="#" method="POST">
+                    <form id="contactForm" action="{{ route('committe.update', ['committe' => $committe->uuid]) }}"
+                        method="POST">
                         @method('PUT')
                         @csrf
+
+                        <input type="hidden" id="form_category" name="form_category" value="contact">
+                        <input type="hidden" id="page_contact_id" name="page_contact_id"
+                            value="{{ $committe->contact->id ?? null }}">
 
                         <div class="row mb-3">
                             <label for="contact_name" class="col-sm-2 col-form-label">Nama Narahubung</label>
@@ -250,6 +279,7 @@
         {{-- Profile Form --}}
         <script>
             const getYear = (contact_year = null) => {
+
                 const yearSelect = document.getElementById("contact_year");
                 const currentYear = new Date().getFullYear();
                 const startYear = 2000;
@@ -259,7 +289,7 @@
                     option.value = year;
                     option.textContent = year;
 
-                    if (year === contact_year) {
+                    if (year == contact_year) {
                         option.selected = true;
                     } else if (year === currentYear) {
                         option.selected = true;
@@ -273,13 +303,22 @@
                 const focusWrapper = document.createElement('div');
                 focusWrapper.className = 'input-group mb-2';
 
-                // focus input field
-                const focusInput = document.createElement('input');
-                focusInput.type = 'text';
-                focusInput.name = 'focuss[]'; // Array input name
-                focusInput.className = 'form-control';
-                focusInput.placeholder = 'Masukkan fokus area...';
-                focusInput.value = focus?.description || '';
+                // Generate a unique index for this focus
+                const focusIndex = focusesContainer.children.length;
+
+                // id input field
+                const idInput = document.createElement('input');
+                idInput.type = 'hidden';
+                idInput.name = `focuses[${focusIndex}][id]`;
+                idInput.value = focus?.id || null;
+
+                // description input field
+                const descriptionInput = document.createElement('input');
+                descriptionInput.type = 'text';
+                descriptionInput.name = `focuses[${focusIndex}][description]`;
+                descriptionInput.className = 'form-control';
+                descriptionInput.placeholder = 'Masukkan fokus area...';
+                descriptionInput.value = focus?.description || '';
 
                 // Remove button
                 const removeBtn = document.createElement('button');
@@ -296,7 +335,8 @@
                 });
 
                 // Append input and remove button to wrapper
-                focusWrapper.appendChild(focusInput);
+                focusWrapper.appendChild(idInput);
+                focusWrapper.appendChild(descriptionInput);
                 focusWrapper.appendChild(removeBtn);
 
                 return focusWrapper;
@@ -306,15 +346,24 @@
                 const activityWrapper = document.createElement('div');
                 activityWrapper.className = 'mb-3 border p-3 rounded activity-input';
 
+                // Generate a unique index for this activity
+                const activityIndex = activitiesContainer.children.length;
+
+                // ID Input
+                const idInput = document.createElement('input');
+                idInput.type = 'hidden';
+                idInput.name = `activities[${activityIndex}][id]`; // Use the same index for id and description
+                idInput.value = activity?.id || null;
+
                 // Title input
                 const nameGroup = document.createElement('div');
                 nameGroup.className = 'mb-2';
                 const nameLabel = document.createElement('label');
-                nameLabel.innerText = 'name';
+                nameLabel.innerText = 'Name';
                 nameLabel.className = 'form-label';
                 const nameInput = document.createElement('input');
                 nameInput.type = 'text';
-                nameInput.name = 'activities[][name]'; // Dynamic array input name
+                nameInput.name = `activities[${activityIndex}][name]`; // Use the same index for name and description
                 nameInput.className = 'form-control';
                 nameInput.placeholder = 'Enter activity name...';
                 nameInput.value = activity?.name || '';
@@ -327,7 +376,8 @@
                 descriptionLabel.innerText = 'Description';
                 descriptionLabel.className = 'form-label';
                 const descriptionTextarea = document.createElement('textarea');
-                descriptionTextarea.name = 'activities[][description]'; // Dynamic array input name
+                descriptionTextarea.name =
+                    `activities[${activityIndex}][description]`; // Use the same index for name and description
                 descriptionTextarea.className = 'form-control';
                 descriptionTextarea.placeholder = 'Enter activity description...';
                 descriptionTextarea.rows = 3;
@@ -348,6 +398,7 @@
                 });
 
                 // Append inputs and button to the activity wrapper
+                activityWrapper.appendChild(idInput);
                 activityWrapper.appendChild(nameGroup);
                 activityWrapper.appendChild(descriptionGroup);
                 activityWrapper.appendChild(removeBtn);
@@ -390,6 +441,54 @@
                     activitiesContainer.appendChild(newActivityInput);
                 });
 
+                // Initialize FilePond for the gallery input
+                const galleryInput = document.querySelector('#gallery');
+                const galleryPond = FilePond.create(galleryInput, {
+                    allowMultiple: true, // Allow multiple files
+                    maxFiles: 3, // Set a maximum number of files (optional)
+                    allowImagePreview: true, // Enable image preview
+                    acceptedFileTypes: ['image/*'], // Accept only image files
+                    server: {
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Include CSRF token
+                        },
+                        process: {
+                            url: '{{ route('api.image.upload') }}', // Endpoint to handle file uploads
+                            method: 'POST',
+                            withCredentials: false,
+                            onload: (response) => {
+                                response = JSON.parse(response);
+                                return response; // Return the file path to FilePond
+                            },
+                            onerror: (response) => {
+                                console.error('Error uploading file:', response);
+                            }
+                        },
+                        revert: {
+                            url: '{{ route('api.image.revert') }}', // Endpoint to revert/remove uploaded files
+                            method: 'POST',
+                            withCredentials: false,
+                            onload: (response) => {
+                                console.log('Revert response:', response);
+                            },
+                            onerror: (response) => {
+                                console.error('Error reverting file:', response);
+                            }
+                        },
+                        load: {
+                            url: '/api/image/',
+                            method: 'GET',
+                            withCredentials: false,
+                            onload: (response) => {
+                                return response;
+                            },
+                            onerror: (response) => {
+                                console.error('Error loading file:', response);
+                            }
+                        }
+                    }
+                });
+
                 // Pre-fill the form fields if editing a committe
                 document.getElementById('name').value = committe.name;
                 document.getElementById('description').value = committe.description;
@@ -424,13 +523,32 @@
                 } else {
                     initializeDefaultActivity(activitiesContainer); // Add a default input if no activity exist
                 }
+
+                // Pre-fill the gallery with existing images
+                if (committe.galleries && committe.galleries.length > 0) {
+
+                    const galleryFiles = committe.galleries.map(gallery => {
+
+                        let image_path = gallery?.url?.split('image/')[1];
+                        return {
+                            source: image_path,
+                            options: {
+                                type: 'local'
+                            }
+                        };
+                    });
+
+                    galleryPond.setOptions({
+                        files: galleryFiles
+                    });
+                }
             }
 
             const initializeTestimoniesForm = (testimonies) => {}
 
             const initializeContactForm = (contact) => {
                 // Initialize Year
-                getYear(contact.year);
+                getYear(contact?.year);
 
                 // Initialize Filepond
                 const avatar_input = document.querySelector('#avatar');
@@ -449,7 +567,6 @@
                             withCredentials: false,
                             onload: (response) => {
                                 response = JSON.parse(response);
-                                console.log(response);
 
                                 return response; // Return the file path to FilePond
                             },
@@ -483,23 +600,25 @@
                     },
                 });
 
-                document.getElementById('contact_name').value = contact.name;
-                document.getElementById('contact_email').value = contact.email;
-                document.getElementById('contact_phone').value = contact.phone;
-                document.getElementById('contact_ocupation').value = contact.ocupation;
+                if (contact) {
+                    document.getElementById('contact_name').value = contact?.name;
+                    document.getElementById('contact_email').value = contact?.email;
+                    document.getElementById('contact_phone').value = contact?.phone;
+                    document.getElementById('contact_ocupation').value = contact?.ocupation;
 
-                // Set avatar_input
-                let avatar_path = contact.image.split('image/')[1];
+                    // Set avatar_input
+                    let avatar_path = contact?.image?.split('image/')[1];
 
-                // Add the existing file using the image URL
-                avatar_pond.setOptions({
-                    files: [{
-                        source: avatar_path,
-                        options: {
-                            type: 'local',
-                        }
-                    }, ]
-                })
+                    // Add the existing file using the image URL
+                    avatar_pond.setOptions({
+                        files: [{
+                            source: avatar_path,
+                            options: {
+                                type: 'local',
+                            }
+                        }, ]
+                    })
+                }
             }
 
             document.addEventListener('DOMContentLoaded', async function() {
@@ -508,20 +627,9 @@
                 let testimonies = committe.testimonies;
                 let contact = committe.contact;
 
-                console.log(committe);
-
-
                 initializeProfileForm(committe);
-
-                if (testimonies) {
-                    initializeTestimoniesForm(testimonies)
-                }
-
-                if (contact) {
-                    initializeContactForm(contact)
-                }
-
-
+                initializeTestimoniesForm(testimonies)
+                initializeContactForm(contact)
             });
         </script>
 

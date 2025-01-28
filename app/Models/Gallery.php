@@ -11,4 +11,10 @@ class Gallery extends Model
 
     protected $primaryKey = 'uuid';
     public $incrementing = false;
+
+    protected $fillable = [
+        "type",
+        "url",
+        "order",
+    ];
 }
