@@ -2,13 +2,13 @@ import { Col, Container, Image, Row } from 'react-bootstrap';
 import OnHoverAnimationCss from '../OnHoverAnimationCss';
 import { css } from '@emotion/react';
 
-export default function SDGsSection() {
-  const sdgs = [
-    'https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/elementor/thumbs/sdg3-pdloulk821eqai4m2atlml1vt2kd2xyjmf3vrwkjlw.png',
-    'https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/elementor/thumbs/sdg-4-pdjpwijpo9276o2s4a7wh3k75nbhqqf9svn34vjaro.png',
-    'https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/elementor/thumbs/sdg5-pdlous53dvnqjrv1zvnzm1e3yrnxktonzboa4uasec.png',
-    'https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/elementor/thumbs/sdg13-pdloupbktdjvkxz5gcg3wk3q6m1txqdgyxptp0eyx0.png',
-  ];
+export default function SDGsSection({ description, sdgs }) {
+  // sdgs = [
+  //   'https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/elementor/thumbs/sdg3-pdloulk821eqai4m2atlml1vt2kd2xyjmf3vrwkjlw.png',
+  //   'https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/elementor/thumbs/sdg-4-pdjpwijpo9276o2s4a7wh3k75nbhqqf9svn34vjaro.png',
+  //   'https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/elementor/thumbs/sdg5-pdlous53dvnqjrv1zvnzm1e3yrnxktonzboa4uasec.png',
+  //   'https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/elementor/thumbs/sdg13-pdloupbktdjvkxz5gcg3wk3q6m1txqdgyxptp0eyx0.png',
+  // ];
 
   return (
     <Container fluid style={{ background: 'red' }}>
@@ -36,9 +36,7 @@ export default function SDGsSection() {
             data-aos-once='true'
             style={{ fontSize: '20px' }}
           >
-            We believe in the Sustainable Development Goals (SDGs) and are
-            especially aiding the completion of SDG 3 (Good Health), 4 (Quality
-            Education), 5 (Gender Equality), and 13 (Climate Action).
+            {description}
           </p>
           <br />
           <h3 data-aos='zoom-in' data-aos-duration='1200' data-aos-once='true'>
@@ -53,6 +51,9 @@ export default function SDGsSection() {
             md={4}
             className='g-4'
             css={css`
+              display: flex;
+              justify-content: center;
+
               @media (min-width: 1200px) {
                 width: 960px;
               }
@@ -64,6 +65,7 @@ export default function SDGsSection() {
                 data-aos='flip-right'
                 data-aos-duration='1200'
                 data-aos-once='true'
+                // style={{ flexGrow: 1 }}
               >
                 <Image
                   src={sdg}

@@ -3,7 +3,7 @@ import { Col, Container, Image, Row } from 'react-bootstrap';
 import PrimaryButton from '../PrimaryButton';
 import OnHoverAnimationCss from '../OnHoverAnimationCss';
 
-export default function IFMSASection() {
+export default function IFMSASection({ description }) {
   return (
     <Container
       css={css`
@@ -80,16 +80,7 @@ export default function IFMSASection() {
                 }
               `}
             >
-              IFMSA is a <b>non-profit</b>, <b>non-governmental</b>, and{' '}
-              <b>non-partisan</b> <b>federation</b> representing{' '}
-              <b>association of medical students internationally</b>. Since
-              1951, <b>IFMSA has been run</b> for and by medical students{' '}
-              <b>around the world</b>. IFMSA has been{' '}
-              <b>recognized by the United Nations’ System</b> and
-              <b> World Health Organization</b>.
-              <b> CIMSA has been affiliated</b> with the IFMSA{' '}
-              <b>since 2002 </b>and is the{' '}
-              <b>sole representative since September 11th, 2019</b>.
+              {description}
             </p>
             <PrimaryButton to='/about-us/ifmsa' color='#1f3868' isLarge={false}>
               <i

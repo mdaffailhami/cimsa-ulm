@@ -1,8 +1,14 @@
 import { css } from '@emotion/react';
 import { Col, Container, Row } from 'react-bootstrap';
 import OnHoverAnimationCss from '../OnHoverAnimationCss';
+import HtmlParser from '../HtmlParser';
 
-export default function VisionMissionSection() {
+export default function VisionMissionSection({
+  description,
+  vision,
+  missions,
+}) {
+  console.log(missions);
   return (
     <Container fluid style={{ background: 'red' }}>
       <Container
@@ -24,8 +30,7 @@ export default function VisionMissionSection() {
           data-aos-once='true'
           style={{ fontSize: '20px' }}
         >
-          We have formulized our vision and mission in the hopes that CIMSA UGM
-          can better address the problems in our area
+          {description}
         </p>
         <br />
         <div data-aos='zoom-in' data-aos-duration='1200' data-aos-once='true'>
@@ -44,12 +49,7 @@ export default function VisionMissionSection() {
             <h2 style={{ color: 'red' }}>
               <b>VISION</b>
             </h2>
-            <p style={{ fontSize: '18px' }}>
-              CIMSA UGM sebagai organisasi mahasiswa kedokteran yang adaptif,
-              dinamis, dan bergairah dalam melaksanakan program kerja
-              berkelanjutan serta mewujudkan lingkungan yang profesional dan
-              harmonis bagi para member dan officials.{' '}
-            </p>
+            <p style={{ fontSize: '18px' }}>{vision}</p>
           </Container>
         </div>
         <hr />
@@ -68,55 +68,20 @@ export default function VisionMissionSection() {
             `}
           >
             <h2 style={{ color: 'red' }}>
-              <b>MISSION</b>
+              <b>MISSIONs</b>
             </h2>
             <br />
             <Row xs={1} sm={1} md={2} className='justify-content-center g-3'>
-              <Col>
-                <h4>
-                  <b>Title 1</b>
-                </h4>
-                <p style={{ fontSize: '18px' }}>
-                  Description 1 goes here. It should be a concise and meaningful
-                  statement that reflects the essence of the first mission.
-                </p>
-              </Col>
-              <Col>
-                <h4>
-                  <b>Title 2</b>
-                </h4>
-                <p style={{ fontSize: '18px' }}>
-                  Description 2 goes here. It should be a concise and meaningful
-                  statement that reflects the essence of the second mission.
-                </p>
-              </Col>
-              <Col>
-                <h4>
-                  <b>Title 3</b>
-                </h4>
-                <p style={{ fontSize: '18px' }}>
-                  Description 3 goes here. It should be a concise and meaningful
-                  statement that reflects the essence of the third mission.
-                </p>
-              </Col>
-              <Col>
-                <h4>
-                  <b>Title 4</b>
-                </h4>
-                <p style={{ fontSize: '18px' }}>
-                  Description 4 goes here. It should be a concise and meaningful
-                  statement that reflects the essence of the fourth mission.
-                </p>
-              </Col>
-              <Col>
-                <h4>
-                  <b>Title 5</b>
-                </h4>
-                <p style={{ fontSize: '18px' }}>
-                  Description 5 goes here. It should be a concise and meaningful
-                  statement that reflects the essence of the fifth mission.
-                </p>
-              </Col>
+              {missions.map((mission, i) => (
+                <Col key={i}>
+                  <h4>
+                    <b>{mission.title}</b>
+                  </h4>
+                  <p style={{ fontSize: '18px' }}>
+                    <HtmlParser html={mission.description} />
+                  </p>
+                </Col>
+              ))}
             </Row>
           </Container>
         </div>

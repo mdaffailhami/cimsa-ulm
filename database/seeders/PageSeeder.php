@@ -162,8 +162,79 @@ class PageSeeder extends Seeder
                         "column" => 'description',
                         "label" => 'Description',
                         "type" => 'text',
-                        'section' => 'description',
-                        'text_content' => "Center for Indonesian Medical Students’ Activities is a non-profit, non- government, and non-politic organization facilitating medical students of Indonesia who intend to make great impacts on our nation’s health with activity-based projects. CIMSA empowers medical students of Indonesia to play their major role in health promotion and prevention as a step to improve nation’s health. Also, CIMSA prepares all medical students of Indonesia to increase their capacity in medical fields as future health professionals. CIMSA was officially established in May, 6th 2001 and currently maintains 27 locals throughout Indonesia with over 8000 members. Since 2002, CIMSA has been affiliated with International Federation of Medical Students’ Association (IFMSA), which is recognized by World Health Organization as the biggest international forum for medical students.",
+                        'section' => 'header',
+                        'text_content' => "<b>Center for Indonesian Medical Students’ Activities</b> is a non-profit, non- government, and non-politic organization facilitating medical students of Indonesia who intend to make great impacts on our nation’s health with activity-based projects. CIMSA empowers medical students of Indonesia to play their major role in health promotion and prevention as a step to improve nation’s health. Also, CIMSA prepares all medical students of Indonesia to increase their capacity in medical fields as future health professionals. CIMSA was officially established in May, 6th 2001 and currently maintains 27 locals throughout Indonesia with over 8000 members. Since 2002, CIMSA has been affiliated with International Federation of Medical Students’ Association (IFMSA), which is recognized by World Health Organization as the biggest international forum for medical students.",
+                        'image_content' => null
+                    ],
+                    [
+                        "column" => 'sdgs-description',
+                        "label" => 'SDGs Description',
+                        "type" => 'text',
+                        'section' => 'sdgs',
+                        'text_content' => 'We believe in the <b>Sustainable Development Goals (SDGs)</b> and are especially aiding the completion of SDG 3 (Good Health), 4 (Quality Education), 5 (Gender Equality), and 13 (Climate Action).',
+                        'image_content' => null
+                    ],
+                    [
+                        "column" => 'sdgs',
+                        "label" => 'SDGs',
+                        "type" => 'multiple-image',
+                        'section' => 'sdgs',
+                        'text_content' => null,
+                        'image_content' => null
+                    ],
+                    [
+                        "column" => 'ifmsa-description',
+                        "label" => 'IFMSA Description',
+                        "type" => 'text',
+                        'section' => 'ifmsa',
+                        'text_content' => 'IFMSA is a <b>non-profit</b>, <b>non-governmental</b>, and <b>non-partisan</b> <b>federation</b> representing <b>association of medical students internationally</b>. Since 1951, <b>IFMSA has been run</b> for and by medical students <b>around the world</b>. IFMSA has been <b>recognized by the United Nations’ System</b> and <b> World Health Organization</b>. <b> CIMSA has been affiliated</b> with the IFMSA <b>since 2002 </b>and is the <b>sole representative since September 11th, 2019</b>.',
+                        'image_content' => null
+                    ],
+                    [
+                        "column" => 'vision-mission-description',
+                        "label" => 'Vision & Mission Description',
+                        "type" => 'text',
+                        'section' => 'vision-mission',
+                        'text_content' => 'We have formulized our vision and mission in the hopes that CIMSA UGM can better address the problems in our area.',
+                        'image_content' => null
+                    ],
+                    [
+                        "column" => 'vision',
+                        "label" => 'Vision',
+                        "type" => 'text',
+                        'section' => 'vision-mission',
+                        'text_content' => 'CIMSA ULM sebagai organisasi mahasiswa kedokteran yang adaptif, dinamis, dan bergairah dalam melaksanakan program kerja berkelanjutan serta mewujudkan lingkungan yang profesional dan harmonis bagi para member dan officials.',
+                        'image_content' => null
+                    ],
+                    [
+                        "column" => 'missions',
+                        "label" => 'Missions',
+                        "type" => 'text',
+                        'section' => 'vision-mission',
+                        'text_content' => '
+                            [
+                                {
+                                    "title": "INTERNAL",
+                                    "description": "Mewujudkan <b>CIMSA ULM</b> yang mampu menginspirasi melalui pemberdayaan individu dalam aktivitas relevan dan progresif berdasarkan riset dan data untuk memberikan pengaruh kepada member dan masyarakat."
+                                },
+                                {
+                                    "title": "EXTERNAL",
+                                    "description": "Mengoptimalkan hubungan dan kerja sama dengan pihak eksternal dan alumni senior, meningkatkan penggunaan media yang eksploratif, serta melaksanakan advokasi yang berkelanjutan sebagai perwujudan mahasiswa kedokteran yang aktif dan tanggap isu."
+                                },
+                                {
+                                    "title": "ADMINISTRATION",
+                                    "description": "Kesekretariatan <b><i>CIMSA ULM</i></b> yang efektif, profesional, terintegrasi, dan berbasis teknologi dengan adanya sistem administrasi yang terstandarisasi SOP dan akomodatif bagi member dan officials."
+                                },
+                                {
+                                    "title": "FINANCE",
+                                    "description": "Mengelola dan menjaga kestabilan keuangan CIMSA UGM melalui optimalisasi perencanaan keuangan dan fundraising yang terstruktur, strategis, dan inovatif untuk mendukung program kerja organisasi."
+                                },
+                                {
+                                    "title": "ORGANIZATIONAL DEVELOPMENT",
+                                    "description": "Mengoptimalkan pemanfaatan riset dan data dengan berpedoman pada AD/ART serta rencana strategis untuk mendukung pengembangan organisasi."
+                                }
+                            ]
+                        ',
                         'image_content' => null
                     ],
                 ],
