@@ -22,6 +22,7 @@ class ImageController extends Controller
 
     public function upload(Request $request)
     {
+
         try {
             // Validate the incoming file
             $request->validate([
@@ -29,14 +30,26 @@ class ImageController extends Controller
                 'logo' => 'image|max:10240', // max 10MB,
                 'cover' => 'image|max:10240', // max 10MB,
                 'poster' => 'image|max:10240', // max 10MB,
-                'avatar' => 'image|max:10240' // max 10MB,
+                'avatar' => 'image|max:10240', // max 10MB,
+                'background' => 'image|max:10240', // max 10MB,
+                'galleries.*' => 'image|max:10240', // max 10MB
             ]);
 
-            $file = $request->file('image')
-                ?? $request->file('logo')
-                ?? $request->file('cover')
-                ?? $request->file('poster')
-                ?? $request->file('avatar');
+            $fileTypes = ['image', 'logo', 'cover', 'poster', 'avatar', 'background'];
+
+            if ($request->file('testimonies')) {
+                foreach ($request->file('testimonies') as $image) {
+                    $file = $image['avatar'];
+                }
+            } else {
+                $file = $request->file('image')
+                    ?? $request->file('logo')
+                    ?? $request->file('cover')
+                    ?? $request->file('poster')
+                    ?? $request->file('avatar')
+                    ?? $request->file('background')
+                    ?? $request->file('galleries')[0];
+            }
 
             if (!$file) {
                 return response()->json(['error' => 'No valid file provided'], 400);

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->char('color', 7)->nullable();
             $table->string('description');
             $table->text('long_description')->nullable();
-            $table->string('mission_statement')->nullable();
+            $table->text('mission_statement')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

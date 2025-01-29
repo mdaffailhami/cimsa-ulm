@@ -285,7 +285,7 @@ class PageSeeder extends Seeder
                 ],
                 'contact' => [
                     "name" => 'ANYASEFRIA RIZQIDA A.',
-                    'ocupation' => 'Vice Local Coordinator for External Affairs',
+                    'occupation' => 'Vice Local Coordinator for External Affairs',
                     'email' => 'vlecimsaugm@gmail.com',
                     'phone' => '082226926058',
                     'year' => '2024',
@@ -313,7 +313,7 @@ class PageSeeder extends Seeder
                 ],
                 'contact' => [
                     "name" => 'Muhammad Daffa Ilhami',
-                    'ocupation' => 'Vice Local Coordinator',
+                    'occupation' => 'Vice Local Coordinator',
                     'email' => 'vlecimsaugm@gmail.com',
                     'phone' => '082226926058',
                     'year' => '2025',
@@ -413,7 +413,7 @@ class PageSeeder extends Seeder
                 ],
                 'contact' => [
                     "name" => 'Muhammad Daffa Ilhami',
-                    'ocupation' => 'Vice Local Coordinator',
+                    'occupation' => 'Vice Local Coordinator',
                     'email' => 'vlecimsaugm@gmail.com',
                     'phone' => '082226926058',
                     'year' => '2025',
@@ -448,7 +448,7 @@ class PageSeeder extends Seeder
                 ],
                 'contact' => [
                     "name" => 'Muhammad Daffa Ilhami',
-                    'ocupation' => 'Vice Local Coordinator',
+                    'occupation' => 'Vice Local Coordinator',
                     'email' => 'vlecimsaugm@gmail.com',
                     'phone' => '082226926058',
                     'year' => '2025',
@@ -531,7 +531,7 @@ class PageSeeder extends Seeder
             'type' => 'page',
             'image' => config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name,
             'name' => $data['name'],
-            'ocupation' => $data['ocupation'],
+            'occupation' => $data['occupation'],
             'email' => $data['email'],
             'phone' => $data['phone'],
             'year' => $data['year'],
