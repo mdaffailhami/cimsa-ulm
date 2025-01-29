@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignUuid('committe_uuid')->constrained('committes', 'uuid')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('image');
             $table->string('name');
-            $table->string('position');
+            $table->string('occupation');
+            $table->year('year');
             $table->text('description');
             $table->timestamps();
         });

@@ -116,12 +116,13 @@ class CommitteController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    { // Determine which method to call based on the form_category
+    {
+        // Determine which method to call based on the form_category
         switch ($request->form_category) {
             case 'profile':
                 return $this->updateProfile($request, $id);
 
-            case 'testimonies':
+            case 'testimony':
                 return $this->updateTestimonies($request, $id);
 
             case 'contact':
@@ -248,6 +249,47 @@ class CommitteController extends Controller
         if ($request->form_category !== 'testimony') {
             return;
         }
+
+        $validated = $request->validate([
+            'testimonies.*.name' => 'required|string|max:255',
+            'testimonies.*.occupation' => 'required|string|max:255',
+            'testimonies.*.year' => 'required|string|max:4',
+            'testimonies.*.description' => 'required|string|max:255',
+            'testimonies.*.avatar' => 'required|string',
+        ], [
+            'testimonies.*.name.required' => 'Nama tidak boleh kosong.',
+            'testimonies.*.name.string' => 'Nama harus sebuah string.',
+            'testimonies.*.name.max' => 'Nama tidak boleh melebihi 255 karakter.',
+
+            'testimonies.*.occupation.required' => 'Jabatan tidak boleh kosong.',
+            'testimonies.*.occupation.string' => 'Jabatan harus sebuah string.',
+            'testimonies.*.occupation.max' => 'Jabatan tidak boleh melebihi 255 karakter.',
+
+            'testimonies.*.year.required' => 'Tahun angkatan tidak boleh kosong.',
+            'testimonies.*.year.string' => 'Tahun angkatan harus sebuah string.',
+            'testimonies.*.year.max' => 'Tahun angkatan tidak boleh melebihi 4 karakter.',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $committe = Committe::findOrFail($id);
+
+            if ($request->testimonies) {
+                $committe->syncTestimonies($request->testimonies);
+            }
+
+            DB::commit();
+
+            // Redirect to the last committe of committees
+            return back()
+                ->with('success', 'Berhasil mengubah testimoni.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            Log::error('Error storing committe: ' . $th->getMessage());
+
+            return back()->withErrors(['error' => 'Server Internal Error.']);
+        }
     }
 
     private function updateContact($request, $id)
@@ -262,7 +304,7 @@ class CommitteController extends Controller
             'contact_name' => 'required|string|max:255',
             'contact_email' => 'required|email',
             'contact_phone' => 'required|string|max:13',
-            'contact_ocupation' => 'required|string|max:255',
+            'contact_occupation' => 'required|string|max:255',
             'contact_year' => 'required|string|max:4'
         ], [
             'name.required' => 'Nama narahubung tidak boleh kosong.',
@@ -276,9 +318,9 @@ class CommitteController extends Controller
             'phone.string' => 'Nomor HP harus sebuah string.',
             'phone.max' => 'Nomor HP tidak boleh melebihi 13 karakter.',
 
-            'ocupation.required' => 'Jabatan tidak boleh kosong.',
-            'ocupation.string' => 'Jabatan harus sebuah string.',
-            'ocupation.max' => 'Jabatan tidak boleh melebihi 255 karakter.',
+            'occupation.required' => 'Jabatan tidak boleh kosong.',
+            'occupation.string' => 'Jabatan harus sebuah string.',
+            'occupation.max' => 'Jabatan tidak boleh melebihi 255 karakter.',
 
             'year.required' => 'Tahun angkatan tidak boleh kosong.',
             'year.string' => 'Tahun angkatan harus sebuah string.',
@@ -299,7 +341,7 @@ class CommitteController extends Controller
             $contact->name = $request->contact_name;
             $contact->email = $request->contact_email;
             $contact->phone = $request->contact_phone;
-            $contact->ocupation = $request->contact_ocupation;
+            $contact->occupation = $request->contact_occupation;
             $contact->year = $request->contact_year;
 
             if ($request->avatar && str_starts_with($request->avatar, 'tmp/')) {

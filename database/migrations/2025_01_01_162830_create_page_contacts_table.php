@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('type'); // page | comitte
             $table->string('image')->nullable();
             $table->string('name');
-            $table->string('ocupation');
+            $table->string('occupation');
             $table->string('email');
             $table->char('phone', 13);
             $table->year('year');

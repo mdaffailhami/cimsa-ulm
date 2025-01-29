@@ -48,7 +48,37 @@ class Committe extends Model
         return $this->hasOne(PageContact::class, 'page_id', 'uuid');
     }
 
-    // Static Method
+    public function syncTestimonies($testimonies)
+    {
+        // Optionally, delete testimonies that are no longer in the request
+        $testimonyIds = array_filter(array_column($testimonies, 'id'));
+        $this->testimonies()->whereNotIn('id', $testimonyIds)->delete();
+
+        foreach ($testimonies as $testimony) {
+            $data = [
+                'name' => $testimony['name'],
+                'occupation' => $testimony['occupation'],
+                'year' => $testimony['year'],
+                'description' => $testimony['description'],
+            ];
+
+            if ($testimony['avatar'] && str_starts_with($testimony['avatar'], 'tmp/')) {
+                $path_name = "avatar/page-contact";
+                $image_name = uploadFile($path_name, $testimony['avatar']);
+
+                $data['image'] = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
+            }
+
+            if (!empty($testimony['id'])) {
+                // Update existing activity
+                $this->testimonies()->where('id', $testimony['id'])->update($data);
+            } else {
+                // Create new activity
+                $this->testimonies()->create($data);
+            }
+        }
+    }
+
     public function syncActivities($activities)
     {
         // Optionally, delete activities that are no longer in the request
@@ -56,18 +86,17 @@ class Committe extends Model
         $this->activities()->whereNotIn('id', $activityIds)->delete();
 
         foreach ($activities as $activity) {
+            $data = [
+                'name' => $activity['name'],
+                'description' => $activity['description'],
+            ];
+
             if (!empty($activity['id'])) {
                 // Update existing activity
-                $this->activities()->where('id', $activity['id'])->update([
-                    'name' => $activity['name'],
-                    'description' => $activity['description'],
-                ]);
+                $this->activities()->where('id', $activity['id'])->update($data);
             } else {
                 // Create new activity
-                $this->activities()->create([
-                    'name' => $activity['name'],
-                    'description' => $activity['description'],
-                ]);
+                $this->activities()->create($data);
             }
         }
     }
@@ -79,16 +108,16 @@ class Committe extends Model
         $this->focuses()->whereNotIn('id', $focusIds)->delete();
 
         foreach ($focuses as $focus) {
+            $data = [
+                'description' => $focus['description'],
+            ];
+
             if (!empty($focus['id'])) {
                 // Update existing focus
-                $this->focuses()->where('id', $focus['id'])->update([
-                    'description' => $focus['description'],
-                ]);
+                $this->focuses()->where('id', $focus['id'])->update($data);
             } else {
                 // Create new focus
-                $this->focuses()->create([
-                    'description' => $focus['description'],
-                ]);
+                $this->focuses()->create($data);
             }
         }
     }

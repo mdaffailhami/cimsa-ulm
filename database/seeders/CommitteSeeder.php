@@ -39,7 +39,7 @@ class CommitteSeeder extends Seeder
                 ],
                 'contact' => [
                     "name" => 'Muhammad Daffa Ilhami',
-                    'ocupation' => 'Vice Local Coordinator',
+                    'occupation' => 'Vice Local Coordinator',
                     'email' => 'vlecimsaugm@gmail.com',
                     'phone' => '082226926058',
                     'year' => '2025',
@@ -75,7 +75,7 @@ class CommitteSeeder extends Seeder
                 ],
                 'contact' => [
                     "name" => 'Muhammad Daffa Ilhami',
-                    'ocupation' => 'Vice Local Coordinator',
+                    'occupation' => 'Vice Local Coordinator',
                     'email' => 'vlecimsaugm@gmail.com',
                     'phone' => '082226926058',
                     'year' => '2025',
@@ -158,7 +158,8 @@ class CommitteSeeder extends Seeder
         $committe_model->testimonies()->create([
             "image" => config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name,
             "name" => $faker->name,
-            "position" => $faker->jobTitle,
+            "occupation" => $faker->jobTitle,
+            "year" => $faker->numberBetween(2000, date('Y')),
             "description" => $faker->paragraph,
         ]);
     }
@@ -184,7 +185,7 @@ class CommitteSeeder extends Seeder
             'type' => "committe",
             'image' => config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name,
             'name' => $data['name'],
-            'ocupation' => $data['ocupation'],
+            'occupation' => $data['occupation'],
             'email' => $data['email'],
             'phone' => $data['phone'],
             'year' => $data['year'],

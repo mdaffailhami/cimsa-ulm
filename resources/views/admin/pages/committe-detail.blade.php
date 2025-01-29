@@ -160,8 +160,10 @@
         {{-- Profile Testimoni --}}
         <div class="col-md-12">
             <div class="card flex-fill">
-                <div class="card-header ">
-                    <h5 class="card-title">Testimoni {{ $committe->name }}</h5>
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="card-title mb-0">Testimoni {{ $committe->name }}</h5>
+                    <button id="add-testimony" type="button" class="btn btn-primary">Tambah
+                        Testimoni</button>
                 </div>
 
                 <div class="card-body">
@@ -172,6 +174,10 @@
                         @csrf
 
                         <input type="hidden" id="form_category" name="form_category" value="testimony">
+
+                        <div id="testimonies-container">
+
+                        </div>
 
                         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </form>
@@ -249,14 +255,15 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="contact_ocupation" class="col-sm-2 col-form-label">Jabatan</label>
+                            <label for="contact_occupation" class="col-sm-2 col-form-label">Jabatan</label>
                             <div class="col-sm-6">
                                 <input type="text"
-                                    class="form-control @error('contact_ocupation') is-invalid @enderror"
-                                    id="contact_ocupation" name="contact_ocupation" placeholder="Masukkan jabatan..."
-                                    value="{{ $committe->contact->ocupation ?? '' }}" required>
+                                    class="form-control @error('contact_occupation') is-invalid @enderror"
+                                    id="contact_occupation" name="contact_occupation"
+                                    placeholder="Masukkan jabatan..."
+                                    value="{{ $committe->contact->occupation ?? '' }}" required>
                             </div>
-                            @error('contact_ocupation')
+                            @error('contact_occupation')
                                 <div class="col-sm-6 offset-sm-2">
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -307,9 +314,8 @@
 
         {{-- Profile Form --}}
         <script>
-            const getYear = (contact_year = null) => {
+            const getYear = (yearInput, contact_year = null) => {
 
-                const yearSelect = document.getElementById("contact_year");
                 const currentYear = new Date().getFullYear();
                 const startYear = 2000;
 
@@ -324,7 +330,7 @@
                         option.selected = true;
                     }
 
-                    yearSelect.appendChild(option);
+                    yearInput.appendChild(option);
                 }
             }
 
@@ -435,6 +441,154 @@
                 return activityWrapper;
             };
 
+            const createTestimonyInput = (testimony = null, testimoniesContainer) => {
+                const testimonyWrapper = document.createElement('div');
+                testimonyWrapper.className = 'mb-3 border p-3 rounded testimony-input';
+
+                // Generate a unique index for this testimony
+                const testimonyIndex = testimoniesContainer.children.length;
+
+                // Label for testimony section
+                const testimonyLabel = document.createElement('h5');
+                testimonyLabel.innerText = `Testimoni ${testimonyIndex + 1}`;
+                testimonyLabel.className = 'mb-2';
+
+                // ID Input (Hidden)
+                const idInput = document.createElement('input');
+                idInput.type = 'hidden';
+                idInput.name = `testimonies[${testimonyIndex}][id]`;
+                idInput.value = testimony?.id || '';
+
+                // Name Input
+                const nameGroup = document.createElement('div');
+                nameGroup.className = 'row mb-3';
+                const nameLabel = document.createElement('label');
+                nameLabel.innerText = 'Nama';
+                nameLabel.className = 'col-sm-2 col-form-label';
+                const nameInputWrapper = document.createElement('div');
+                nameInputWrapper.className = 'col-sm-6';
+                const nameInput = document.createElement('input');
+                nameInput.type = 'text';
+                nameInput.name = `testimonies[${testimonyIndex}][name]`;
+                nameInput.className = 'form-control';
+                nameInput.placeholder = 'Masukkan nama...';
+                nameInput.value = testimony?.name || '';
+                nameInputWrapper.appendChild(nameInput);
+                nameGroup.appendChild(nameLabel);
+                nameGroup.appendChild(nameInputWrapper);
+
+                // Occupation Input
+                const occupationGroup = document.createElement('div');
+                occupationGroup.className = 'row mb-3';
+                const occupationLabel = document.createElement('label');
+                occupationLabel.innerText = 'Jabatan';
+                occupationLabel.className = 'col-sm-2 col-form-label';
+                const occupationInputWrapper = document.createElement('div');
+                occupationInputWrapper.className = 'col-sm-6';
+                const occupationInput = document.createElement('input');
+                occupationInput.type = 'text';
+                occupationInput.name = `testimonies[${testimonyIndex}][occupation]`;
+                occupationInput.className = 'form-control';
+                occupationInput.placeholder = 'Masukkan jabatan...';
+                occupationInput.value = testimony?.occupation || '';
+                occupationInputWrapper.appendChild(occupationInput);
+                occupationGroup.appendChild(occupationLabel);
+                occupationGroup.appendChild(occupationInputWrapper);
+
+                // Year Input
+                const yearGroup = document.createElement('div');
+                yearGroup.className = 'row mb-3';
+                const yearLabel = document.createElement('label');
+                yearLabel.innerText = 'Tahun Angkatan';
+                yearLabel.className = 'col-sm-2 col-form-label';
+                const yearInputWrapper = document.createElement('div');
+                yearInputWrapper.className = 'col-sm-6';
+                const yearInput = document.createElement('select');
+                yearInput.id = `testimonies[${testimonyIndex}][year]`;
+                yearInput.name = `testimonies[${testimonyIndex}][year]`;
+                yearInput.className = 'form-select';
+                const defaultOption = document.createElement('option');
+                yearInputWrapper.appendChild(yearInput);
+                yearGroup.appendChild(yearLabel);
+                yearGroup.appendChild(yearInputWrapper);
+
+                getYear(yearInput, testimony?.year);
+
+                // Description textarea
+                const descriptionGroup = document.createElement('div');
+                descriptionGroup.className = 'row mb-3';
+                const descriptionLabel = document.createElement('label');
+                descriptionLabel.innerText = 'Testimoni';
+                descriptionLabel.className = 'col-sm-2 col-form-label';
+                const descriptionInputWrapper = document.createElement('div');
+                descriptionInputWrapper.className = 'col-sm-6';
+                const descriptionTextarea = document.createElement('textarea');
+                descriptionTextarea.name = `testimonies[${testimonyIndex}][description]`;
+                descriptionTextarea.className = 'form-control';
+                descriptionTextarea.placeholder = 'Masukkan deskripsi...';
+                descriptionTextarea.rows = 3;
+                descriptionTextarea.value = testimony?.description || '';
+                descriptionInputWrapper.appendChild(descriptionTextarea);
+                descriptionGroup.appendChild(descriptionLabel);
+                descriptionGroup.appendChild(descriptionInputWrapper);
+
+                // Image Input
+                const avatarGroup = document.createElement('div');
+                avatarGroup.className = 'row mb-3';
+                const avatarLabel = document.createElement('label');
+                avatarLabel.innerText = 'Foto Narahubung';
+                avatarLabel.className = 'col-sm-2 col-form-label';
+                const avatarInputWrapper = document.createElement('div');
+                avatarInputWrapper.className = 'col-sm-6';
+                const avatarInput = document.createElement('input');
+                avatarInput.type = 'file';
+                avatarInput.name = `testimonies[${testimonyIndex}][avatar]`;
+                avatarInput.className = 'filepond';
+                avatarInput.accept = 'image/*';
+                avatarInputWrapper.appendChild(avatarInput);
+                avatarGroup.appendChild(avatarLabel);
+                avatarGroup.appendChild(avatarInputWrapper);
+
+                // Remove Button
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'btn btn-danger mt-2';
+                removeBtn.innerHTML = 'Remove Testimony';
+                removeBtn.addEventListener('click', () => {
+                    if (testimoniesContainer.children.length > 1) {
+                        testimonyWrapper.remove();
+                    }
+                });
+
+                // Append elements to the testimony wrapper
+                testimonyWrapper.appendChild(testimonyLabel);
+                testimonyWrapper.appendChild(idInput);
+                testimonyWrapper.appendChild(nameGroup);
+                testimonyWrapper.appendChild(occupationGroup);
+                testimonyWrapper.appendChild(yearGroup);
+                testimonyWrapper.appendChild(descriptionGroup);
+                testimonyWrapper.appendChild(avatarGroup);
+                testimonyWrapper.appendChild(removeBtn);
+
+                // Initialize FilePond for the image input
+                const avatar_pond = initializeImagePond(avatarInput, false, 1);
+
+                // Load existing image if available
+                if (testimony?.image) {
+                    let testimony_path = testimony.image.split('image/')[1];
+                    avatar_pond.setOptions({
+                        files: [{
+                            source: testimony_path,
+                            options: {
+                                type: 'local',
+                            }
+                        }]
+                    });
+                }
+
+                return testimonyWrapper;
+            };
+
             const initializeDefaultFocus = (focusesContainer) => {
                 const defaultFocusInput = createFocusInput(null, focusesContainer);
                 focusesContainer.appendChild(defaultFocusInput);
@@ -443,6 +597,11 @@
             const initializeDefaultActivity = (activitiesContainer) => {
                 const defaultActivityInput = createActivityInput(null, activitiesContainer);
                 activitiesContainer.appendChild(defaultActivityInput);
+            };
+
+            const initializeDefaultTestimony = (testimoniesContainer) => {
+                const defaultTestimonyInput = createTestimonyInput(null, testimoniesContainer);
+                testimoniesContainer.appendChild(defaultTestimonyInput);
             };
 
             const initializeProfileForm = async (committe) => {
@@ -495,28 +654,6 @@
                     mission_editor.setData(committe.mission_statement)
                 }
 
-                // Pre-fill Focuses Input
-                // Add focuss if available, otherwise add the default focus input
-                if (committe.focuses.length > 0) {
-                    committe.focuses.forEach((focus) => {
-                        const focusInput = createFocusInput(focus, focusesContainer);
-                        focusesContainer.appendChild(focusInput);
-                    });
-                } else {
-                    initializeDefaultFocus(focusesContainer); // Add a default input if no focuss exist
-                }
-
-                // Pre-fill activities Input
-                // Add activity if available, otherwise add the default focus input
-                if (committe.activities.length > 0) {
-                    committe.activities.forEach((activity) => {
-                        const activityInput = createActivityInput(activity, activitiesContainer);
-                        activitiesContainer.appendChild(activityInput);
-                    });
-                } else {
-                    initializeDefaultActivity(activitiesContainer); // Add a default input if no activity exist
-                }
-
                 // Set logo_input
                 if (committe?.logo) {
                     let logo = committe?.logo?.split('image/')[1];
@@ -565,13 +702,56 @@
                         files: galleryFiles
                     });
                 }
+
+                // Pre-fill Focuses Input
+                // Add focuss if available, otherwise add the default focus input
+                if (committe.focuses.length > 0) {
+                    committe.focuses.forEach((focus) => {
+                        const focusInput = createFocusInput(focus, focusesContainer);
+                        focusesContainer.appendChild(focusInput);
+                    });
+                } else {
+                    initializeDefaultFocus(focusesContainer); // Add a default input if no focuss exist
+                }
+
+                // Pre-fill activities Input
+                // Add activity if available, otherwise add the default focus input
+                if (committe.activities.length > 0) {
+                    committe.activities.forEach((activity) => {
+                        const activityInput = createActivityInput(activity, activitiesContainer);
+                        activitiesContainer.appendChild(activityInput);
+                    });
+                } else {
+                    initializeDefaultActivity(activitiesContainer); // Add a default input if no activity exist
+                }
             }
 
-            const initializeTestimoniesForm = (testimonies) => {}
+            const initializeTestimoniesForm = (testimonies) => {
+                const testimoniesContainer = document.getElementById('testimonies-container');
+                const addTestimonyBtn = document.getElementById('add-testimony');
+
+                addTestimonyBtn.addEventListener('click', () => {
+                    const newTestimony = createTestimonyInput(null, testimoniesContainer);
+                    testimoniesContainer.appendChild(newTestimony);
+                });
+
+                // Pre-fill testimonies Input
+                // Add testimony if available, otherwise add the default focus input
+                if (testimonies.length > 0) {
+                    testimonies.forEach((testimony) => {
+                        const testimonyInput = createTestimonyInput(testimony, testimoniesContainer);
+                        testimoniesContainer.appendChild(testimonyInput);
+                    });
+                } else {
+                    initializeDefaultTestimony(testimoniesContainer); // Add a default input if no testimony exist
+                }
+            }
 
             const initializeContactForm = (contact) => {
                 // Initialize Year
-                getYear(contact?.year);
+                const contact_year = document.getElementById('contact_year');
+
+                getYear(contact_year, contact?.year);
 
                 // Initialize Filepond
                 const avatar_input = document.querySelector('#avatar');
@@ -581,7 +761,7 @@
                     document.getElementById('contact_name').value = contact?.name;
                     document.getElementById('contact_email').value = contact?.email;
                     document.getElementById('contact_phone').value = contact?.phone;
-                    document.getElementById('contact_ocupation').value = contact?.ocupation;
+                    document.getElementById('contact_occupation').value = contact?.occupation;
 
                     // Set avatar_input
                     let avatar_path = contact?.image?.split('image/')[1];
