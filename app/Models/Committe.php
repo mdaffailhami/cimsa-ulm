@@ -51,8 +51,11 @@ class Committe extends Model
     // Static Method
     public function syncActivities($activities)
     {
+        // Optionally, delete activities that are no longer in the request
+        $activityIds = array_filter(array_column($activities, 'id'));
+        $this->activities()->whereNotIn('id', $activityIds)->delete();
+
         foreach ($activities as $activity) {
-            Log::info($activity);
             if (!empty($activity['id'])) {
                 // Update existing activity
                 $this->activities()->where('id', $activity['id'])->update([
@@ -67,14 +70,14 @@ class Committe extends Model
                 ]);
             }
         }
-
-        // Optionally, delete activities that are no longer in the request
-        $activityIds = array_filter(array_column($activities, 'id'));
-        $this->activities()->whereNotIn('id', $activityIds)->delete();
     }
 
     public function syncFocuses($focuses)
     {
+        // Optionally, delete focuses that are no longer in the request
+        $focusIds = array_filter(array_column($focuses, 'id'));
+        $this->focuses()->whereNotIn('id', $focusIds)->delete();
+
         foreach ($focuses as $focus) {
             if (!empty($focus['id'])) {
                 // Update existing focus
@@ -88,10 +91,6 @@ class Committe extends Model
                 ]);
             }
         }
-
-        // Optionally, delete focuses that are no longer in the request
-        $focusIds = array_filter(array_column($focuses, 'id'));
-        $this->focuses()->whereNotIn('id', $focusIds)->delete();
     }
 
     public function syncGalleries($galleries)
@@ -100,8 +99,8 @@ class Committe extends Model
 
         foreach ($galleries as $index => $gallery) {
             if ($gallery && str_starts_with($gallery, 'tmp/')) {
-                $path_name = "avatar/page-contact";
-                $image_name = uploadFile($path_name, $gallery);
+                $path_name = "committe";
+                $image_name = $path_name . "/" . uploadFile($path_name, $gallery);
             } else {
                 $image_name = $gallery;
             }

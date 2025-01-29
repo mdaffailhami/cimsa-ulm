@@ -30,6 +30,7 @@ class ImageController extends Controller
                 'cover' => 'image|max:10240', // max 10MB,
                 'poster' => 'image|max:10240', // max 10MB,
                 'avatar' => 'image|max:10240', // max 10MB,
+                'background' => 'image|max:10240', // max 10MB,
                 'galleries.*' => 'image|max:10240', // max 10MB
             ]);
 
@@ -38,7 +39,8 @@ class ImageController extends Controller
                 ?? $request->file('cover')
                 ?? $request->file('poster')
                 ?? $request->file('avatar')
-                ?? $request->file('galleries');
+                ?? $request->file('background')
+                ?? $request->file('galleries')[0];
 
             if (!$file) {
                 return response()->json(['error' => 'No valid file provided'], 400);

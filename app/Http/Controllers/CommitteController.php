@@ -201,6 +201,20 @@ class CommitteController extends Controller
             $committe->long_description = $validated['long_description'];
             $committe->mission_statement = $validated['mission'];
 
+            if ($request->logo && str_starts_with($request->logo, 'tmp/')) {
+                $path_name = "committe";
+                $image_name = uploadFile($path_name, $request->logo);
+
+                $committe->logo = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
+            }
+
+            if ($request->background && str_starts_with($request->background, 'tmp/')) {
+                $path_name = "committe";
+                $image_name = uploadFile($path_name, $request->background);
+
+                $committe->background = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
+            }
+
             $committe->save();
 
             if ($request->focuses) {

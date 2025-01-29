@@ -25,6 +25,20 @@
                         <input type="hidden" id="form_category" name="form_category" value="profile">
 
                         <div class="row mb-3">
+                            <label for="logo" class="col-sm-2 col-form-label">Logo</label>
+                            <div class="col-sm-6">
+                                <input type="file" class="filepond" id="logo" name="logo" accept="image/*">
+                            </div>
+                            @error('logo')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="name" class="col-sm-2 col-form-label">Nama Komite</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
@@ -86,6 +100,21 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="background" class="col-sm-2 col-form-label">Latar Belakang</label>
+                            <div class="col-sm-6">
+                                <input type="file" class="filepond" id="background" name="background"
+                                    accept="image/*">
+                            </div>
+                            @error('background')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="focuses" class="col-sm-2 col-form-label">Fokus Area</label>
                             <div class="col-sm-6">
                                 <div id="focuses-container">
@@ -108,7 +137,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="gallery" class="col-sm-2 col-form-label">Galeri</label>
+                            <label for="gallery" class="col-sm-2 col-form-label">Galeri Kegiatan</label>
                             <div class="col-sm-6">
                                 <input type="file" class="filepond" id="gallery" name="galleries[]"
                                     accept="image/*">
@@ -441,53 +470,17 @@
                     activitiesContainer.appendChild(newActivityInput);
                 });
 
+                // Initialize FilePond for the logo input
+                const logo_input = document.querySelector('#logo');
+                const logo_pond = initializeImagePond(logo_input)
+
+                // Initialize FilePond for the logo input
+                const background_input = document.querySelector('#background');
+                const background_pond = initializeImagePond(background_input)
+
                 // Initialize FilePond for the gallery input
-                const galleryInput = document.querySelector('#gallery');
-                const galleryPond = FilePond.create(galleryInput, {
-                    allowMultiple: true, // Allow multiple files
-                    maxFiles: 3, // Set a maximum number of files (optional)
-                    allowImagePreview: true, // Enable image preview
-                    acceptedFileTypes: ['image/*'], // Accept only image files
-                    server: {
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Include CSRF token
-                        },
-                        process: {
-                            url: '{{ route('api.image.upload') }}', // Endpoint to handle file uploads
-                            method: 'POST',
-                            withCredentials: false,
-                            onload: (response) => {
-                                response = JSON.parse(response);
-                                return response; // Return the file path to FilePond
-                            },
-                            onerror: (response) => {
-                                console.error('Error uploading file:', response);
-                            }
-                        },
-                        revert: {
-                            url: '{{ route('api.image.revert') }}', // Endpoint to revert/remove uploaded files
-                            method: 'POST',
-                            withCredentials: false,
-                            onload: (response) => {
-                                console.log('Revert response:', response);
-                            },
-                            onerror: (response) => {
-                                console.error('Error reverting file:', response);
-                            }
-                        },
-                        load: {
-                            url: '/api/image/',
-                            method: 'GET',
-                            withCredentials: false,
-                            onload: (response) => {
-                                return response;
-                            },
-                            onerror: (response) => {
-                                console.error('Error loading file:', response);
-                            }
-                        }
-                    }
-                });
+                const gallery_input = document.querySelector('#gallery');
+                const gallery_pond = initializeImagePond(gallery_input, true, 3)
 
                 // Pre-fill the form fields if editing a committe
                 document.getElementById('name').value = committe.name;
@@ -524,6 +517,36 @@
                     initializeDefaultActivity(activitiesContainer); // Add a default input if no activity exist
                 }
 
+                // Set logo_input
+                if (committe?.logo) {
+                    let logo = committe?.logo?.split('image/')[1];
+
+                    // Add the existing file using the image URL
+                    logo_pond.setOptions({
+                        files: [{
+                            source: logo,
+                            options: {
+                                type: 'local',
+                            }
+                        }, ]
+                    })
+                }
+
+                // Set logo_input
+                if (committe?.background) {
+                    let background = committe?.background?.split('image/')[1];
+
+                    // Add the existing file using the image URL
+                    background_pond.setOptions({
+                        files: [{
+                            source: background,
+                            options: {
+                                type: 'local',
+                            }
+                        }, ]
+                    })
+                }
+
                 // Pre-fill the gallery with existing images
                 if (committe.galleries && committe.galleries.length > 0) {
 
@@ -538,7 +561,7 @@
                         };
                     });
 
-                    galleryPond.setOptions({
+                    gallery_pond.setOptions({
                         files: galleryFiles
                     });
                 }
@@ -552,53 +575,7 @@
 
                 // Initialize Filepond
                 const avatar_input = document.querySelector('#avatar');
-                const avatar_pond = FilePond.create(avatar_input, {
-                    allowMultiple: false,
-                    maxFiles: 1,
-                    allowImagePreview: true,
-                    acceptedFileTypes: ['image/*'],
-                    server: {
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        process: {
-                            url: '{{ route('api.image.upload') }}', // Endpoint to handle the file upload
-                            method: 'POST',
-                            withCredentials: false,
-                            onload: (response) => {
-                                response = JSON.parse(response);
-
-                                return response; // Return the file path to FilePond
-                            },
-                            onerror: (response) => {
-                                console.error('Error uploading file:', response);
-                            }
-                        },
-                        revert: {
-                            url: '{{ route('api.image.revert') }}', // Endpoint to revert/remove the uploaded file
-                            method: 'POST',
-                            withCredentials: false,
-                            onload: (response) => {
-                                // Handle the revert response
-                                console.log('Revert response:', response);
-                            },
-                            onerror: (response) => {
-                                console.error('Error reverting file:', response);
-                            }
-                        },
-                        load: {
-                            url: '/api/image/',
-                            method: 'GET',
-                            withCredentials: false,
-                            onload: (response) => {
-                                return response;
-                            },
-                            onerror: (response) => {
-                                console.error('Error loading file:', response);
-                            }
-                        }
-                    },
-                });
+                const avatar_pond = initializeImagePond(avatar_input, false, 1)
 
                 if (contact) {
                     document.getElementById('contact_name').value = contact?.name;
