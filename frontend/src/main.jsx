@@ -23,6 +23,7 @@ import ActivitiesPage from './routes/activities/ActivitiesPage.jsx';
 import BlogPage from './routes/blog/BlogPage.jsx';
 import PostDetailPage from './routes/blog/detail/PostDetailPage.jsx';
 import ScosPage from './routes/scos/ScosPage.jsx';
+import ScoDetailPage from './routes/scos/detail/ScoDetailPage.jsx';
 
 createRoot(document.getElementById('root')).render(<App />);
 
@@ -53,6 +54,7 @@ function App() {
             <Route path='about-us' element={<AboutUsPage />} />
             <Route path='about-us/ifmsa' element={<AboutIFMSAPage />} />
             <Route path='scos' element={<ScosPage />} />
+            <Route path='scos/:name' element={<ScoDetailPage />} />
             <Route path='activities' element={<ActivitiesPage />} />
             <Route path='activities/programs' element={<ProgramsPage />} />
             <Route path='activities/trainings' element={<TrainingsPage />} />
