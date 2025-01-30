@@ -11,7 +11,6 @@ export default function HeroSection({ name, description, images }) {
         display: flex;
         justify-content: center;
         padding: 2%;
-        max-width: 962px;
         background: white;
         box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.4);
         border-radius: 20px;

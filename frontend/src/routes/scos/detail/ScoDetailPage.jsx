@@ -7,6 +7,7 @@ import { css } from '@emotion/react';
 import HeroSection from './HeroSection';
 import { Container } from 'react-bootstrap';
 import HtmlParser from '../../HtmlParser';
+import FocusesMissionSection from './FocusesMissionSection';
 
 export default function ScoDetailPage() {
   const { name } = useParams();
@@ -64,16 +65,32 @@ export default function ScoDetailPage() {
         <Container
           css={css`
             position: relative;
+            max-width: 962px;
             z-index: 10;
-            padding: 34px 0;
             display: flex;
             justify-content: center;
+            flex-direction: column;
+            gap: 40px;
+            padding: 34px 24px;
+
+            @media (min-width: 768px) {
+              padding: 34px 34px;
+            }
+
+            @media (min-width: 992px) {
+              padding: 34px 0;
+            }
           `}
         >
           <HeroSection
             name={sco.name}
             description={<HtmlParser html={sco.long_description} />}
             images={sco.galleries.map((x) => x.url)}
+          />
+          <FocusesMissionSection
+            name={sco.name}
+            focuses={sco.focuses}
+            mission={<HtmlParser html={sco.mission_statement} />}
           />
         </Container>
       </div>
