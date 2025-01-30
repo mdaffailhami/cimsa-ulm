@@ -30,8 +30,8 @@
                             @foreach ($pages as $page)
                                 <tr>
                                     <td class="d-none d-xl-table-cell">{{ $page->name }}</td>
-                                    <td class="d-none d-xl-table-cell"><a
-                                            href="{{ $page->url }}">{{ $page->url }}</a></td>
+                                    <td class="d-none d-xl-table-cell"><a href="{{ $page->url }}"
+                                            target="_blank">{{ $page->url }}</a></td>
                                     <td class="">
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Preview Button --}}
