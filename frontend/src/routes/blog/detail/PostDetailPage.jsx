@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { useParams } from 'react-router';
 import { setPageMeta } from '../../../utils';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useReducer, useState } from 'react';
 import { endpoint } from '../../../configs';
 import LoadingIndicator from '../../LoadingIndicator';
 import { Container, Dropdown, Image } from 'react-bootstrap';
@@ -9,10 +9,16 @@ import HtmlParser from '../../HtmlParser';
 import BlogSection from '../../BlogSection';
 
 export default function PostDetailPage() {
+  const [update, forceUpdate] = useReducer((x) => x + 1, 0);
   const { slug } = useParams();
 
   const [post, setPost] = useState(undefined);
   const [posts, setPosts] = useState(undefined);
+
+  useEffect(() => {
+    setPost(undefined);
+    forceUpdate();
+  }, [slug]);
 
   useEffect(() => {
     document.title = 'Post Detail - CIMSA ULM';
@@ -33,7 +39,7 @@ export default function PostDetailPage() {
         alert(error);
       }
     })();
-  }, []);
+  }, [update]);
 
   if (!post || !posts) return <LoadingIndicator />;
 
@@ -114,7 +120,6 @@ export default function PostDetailPage() {
       </main>
       <hr />
       <BlogSection
-        reloadDocument={true}
         posts={posts}
         header={
           <h1 className='text-center' style={{ marginBottom: '18px' }}>

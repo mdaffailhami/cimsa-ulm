@@ -2,7 +2,7 @@ import { useParams } from 'react-router';
 import { endpoint } from '../../../configs';
 import { setPageMeta } from '../../../utils';
 import LoadingIndicator from '../../LoadingIndicator';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { css } from '@emotion/react';
 import HeroSection from './HeroSection';
 import { Container } from 'react-bootstrap';
@@ -10,11 +10,18 @@ import HtmlParser from '../../HtmlParser';
 import FocusesMissionSection from './FocusesMissionSection';
 
 export default function ScoDetailPage() {
+  const [update, forceUpdate] = useReducer((x) => x + 1, 0);
   const { name } = useParams();
 
   const [sco, setSco] = useState(undefined);
 
   useEffect(() => {
+    setSco(undefined);
+    forceUpdate();
+  }, [name]);
+
+  useEffect(() => {
+    console.log('FETCHING');
     document.title = 'SCO Detail - CIMSA ULM';
 
     (async () => {
@@ -30,7 +37,7 @@ export default function ScoDetailPage() {
         alert(error);
       }
     })();
-  }, []);
+  }, [update]);
 
   if (!sco) return <LoadingIndicator />;
 
