@@ -43,6 +43,7 @@ function TestimonyCard({ testimony, reverse = false, myCss = '' }) {
       css={css`
         display: flex;
         flex-direction: ${reverse ? 'row-reverse' : 'row'};
+        text-align: ${reverse ? 'right' : 'left'};
 
         ${myCss}
       `}
@@ -77,7 +78,7 @@ function TestimonyCard({ testimony, reverse = false, myCss = '' }) {
           <b>{testimony.name || '-'}</b>
         </h3>
         <h6 style={{ color: 'gray' }}>{testimony.position || '-'}</h6>
-        <p style={{ color: 'black' }}>
+        <p style={{ color: 'black', textAlign: 'justify' }}>
           <HtmlParser html={testimony.description || '-'} />
         </p>
       </Col>

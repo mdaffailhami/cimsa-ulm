@@ -40,7 +40,10 @@ export default function UpcomingActivitiesSection({ name, color, activities }) {
           }
         `}
       />
-      <h2 className='text-center display-6' style={{ marginBottom: '18px' }}>
+      <h2
+        className='text-center display-6'
+        style={{ marginBottom: '18px', color: color, fontWeight: 'bold' }}
+      >
         UPCOMING {name} ACTIVITY
       </h2>
       <hr style={{ borderWidth: '3px', opacity: 1, color: color }} />

@@ -3,7 +3,7 @@ import { endpoint } from '../../../configs';
 import { setPageMeta } from '../../../utils';
 import LoadingIndicator from '../../LoadingIndicator';
 import { useEffect, useReducer, useState } from 'react';
-import { css } from '@emotion/react';
+import { css, Global } from '@emotion/react';
 import HeroSection from './HeroSection';
 import { Container } from 'react-bootstrap';
 import HtmlParser from '../../HtmlParser';
@@ -54,6 +54,14 @@ export default function ScoDetailPage() {
 
   return (
     <>
+      <Global
+        styles={css`
+          ::selection {
+            color: white;
+            background-color: ${sco.color};
+          }
+        `}
+      />
       <div
         css={css`
           /* background-image: url(${sco.background}); */
@@ -124,7 +132,11 @@ export default function ScoDetailPage() {
             <>
               <h2
                 className='text-center display-6'
-                style={{ marginBottom: '18px' }}
+                style={{
+                  marginBottom: '18px',
+                  color: sco.color,
+                  fontWeight: 'bold',
+                }}
               >
                 RECENT {sco.name} ACTIVITY
               </h2>
