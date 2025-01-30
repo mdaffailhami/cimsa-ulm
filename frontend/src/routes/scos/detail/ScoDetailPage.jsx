@@ -11,6 +11,7 @@ import FocusesMissionSection from './FocusesMissionSection';
 import TestimonialsSection from './TestimonialsSection';
 import BlogSection from '../../BlogSection';
 import PrimaryButton from '../../PrimaryButton';
+import UpcomingActivitiesSection from './UpcomingActivitiesSection';
 
 export default function ScoDetailPage() {
   const [update, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -105,7 +106,6 @@ export default function ScoDetailPage() {
             images={sco.galleries.map((x) => x.url)}
           />
           <FocusesMissionSection
-            name={sco.name}
             focuses={sco.focuses}
             mission={<HtmlParser html={sco.mission_statement} />}
           />
@@ -115,6 +115,7 @@ export default function ScoDetailPage() {
           />
         </Container>
       </div>
+      <hr />
       <br />
       <Container>
         <BlogSection
@@ -135,15 +136,22 @@ export default function ScoDetailPage() {
           footer={
             <div className='d-flex justify-content-center'>
               <PrimaryButton
+                color={sco.color}
                 style={{ display: 'block', margin: '0 auto' }}
                 to='/blog/all/1'
               >
-                Go to CIMSA Blog
+                <b>Go to CIMSA Blog</b>
               </PrimaryButton>
             </div>
           }
         />
         <br />
+        <br />
+        <UpcomingActivitiesSection
+          name={sco.name}
+          color={sco.color}
+          activities={sco.activities}
+        />
       </Container>
     </>
   );

@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { Col, Row } from 'react-bootstrap';
 
-export default function FocusesMissionSection({ name, focuses, mission }) {
+export default function FocusesMissionSection({ focuses, mission }) {
   return (
     <Row
       as='section'
@@ -22,10 +22,10 @@ export default function FocusesMissionSection({ name, focuses, mission }) {
         }
       `}
     >
-      <MyCol title={`${name}'s Mission Statement`}>
+      <MyCol title={`MISSION STATEMENT`}>
         <p>{mission}</p>
       </MyCol>
-      <MyCol title={`${name}'s Areas of Focus`}>
+      <MyCol title={`AREAS OF FOCUS`}>
         <ol>
           {focuses.map((focus, i) => (
             <li key={i}>
