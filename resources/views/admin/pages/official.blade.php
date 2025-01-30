@@ -165,24 +165,6 @@
                 document.getElementById('year').value = '';
             }
 
-            const getYear = () => {
-                const yearSelect = document.getElementById("year");
-                const currentYear = new Date().getFullYear();
-                const startYear = 2000;
-
-                for (let year = currentYear; year >= startYear; year--) {
-                    const option = document.createElement("option");
-                    option.value = year;
-                    option.textContent = year;
-
-                    if (year === currentYear) {
-                        option.selected = true;
-                    }
-
-                    yearSelect.appendChild(option);
-                }
-            }
-
             document.addEventListener('DOMContentLoaded', function() {
                 // Initialize Tooltip
                 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -199,7 +181,9 @@
                 const pond = initializeImagePond(imageInput);
 
                 // Initialize Year Option
-                getYear()
+                const yearSelect = document.getElementById("year");
+
+                getYear(yearSelect);
 
                 // Handle the modal trigger for add and edit action
                 document.querySelectorAll('[data-bs-target="#formModal"]').forEach(function(button) {

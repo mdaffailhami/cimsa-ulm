@@ -314,26 +314,6 @@
 
         {{-- Profile Form --}}
         <script>
-            const getYear = (yearInput, contact_year = null) => {
-
-                const currentYear = new Date().getFullYear();
-                const startYear = 2000;
-
-                for (let year = currentYear; year >= startYear; year--) {
-                    const option = document.createElement("option");
-                    option.value = year;
-                    option.textContent = year;
-
-                    if (year == contact_year) {
-                        option.selected = true;
-                    } else if (year === currentYear) {
-                        option.selected = true;
-                    }
-
-                    yearInput.appendChild(option);
-                }
-            }
-
             const createFocusInput = (focus = null, focusesContainer) => {
                 const focusWrapper = document.createElement('div');
                 focusWrapper.className = 'input-group mb-2';
