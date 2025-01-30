@@ -219,54 +219,7 @@
 
                 // Initialize FilePond on the input field
                 const imageInput = document.querySelector('#image');
-                const pond = FilePond.create(imageInput, {
-                    allowMultiple: false,
-                    maxFiles: 1,
-                    allowImagePreview: true,
-                    acceptedFileTypes: ['image/*'],
-                    server: {
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        process: {
-                            url: '{{ route('api.image.upload') }}', // Endpoint to handle the file upload
-                            method: 'POST',
-                            withCredentials: false,
-                            onload: (response) => {
-                                response = JSON.parse(response);
-                                console.log(response);
-
-                                return response; // Return the file path to FilePond
-                            },
-                            onerror: (response) => {
-                                console.error('Error uploading file:', response);
-                            }
-                        },
-                        revert: {
-                            url: '{{ route('api.image.revert') }}', // Endpoint to revert/remove the uploaded file
-                            method: 'POST',
-                            withCredentials: false,
-                            onload: (response) => {
-                                // Handle the revert response
-                                console.log('Revert response:', response);
-                            },
-                            onerror: (response) => {
-                                console.error('Error reverting file:', response);
-                            }
-                        },
-                        load: {
-                            url: '/api/image/',
-                            method: 'GET',
-                            withCredentials: false,
-                            onload: (response) => {
-                                return response;
-                            },
-                            onerror: (response) => {
-                                console.error('Error loading file:', response);
-                            }
-                        }
-                    },
-                });
+                const pond = initializeImagePond(imageInput);
 
                 // Handle the modal trigger for add and edit action
                 document.querySelectorAll('[data-bs-target="#formModal"]').forEach(function(button) {
