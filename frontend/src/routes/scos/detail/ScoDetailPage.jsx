@@ -8,6 +8,7 @@ import HeroSection from './HeroSection';
 import { Container } from 'react-bootstrap';
 import HtmlParser from '../../HtmlParser';
 import FocusesMissionSection from './FocusesMissionSection';
+import TestimonialsSection from './TestimonialsSection';
 
 export default function ScoDetailPage() {
   const [update, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -21,7 +22,6 @@ export default function ScoDetailPage() {
   }, [name]);
 
   useEffect(() => {
-    console.log('FETCHING');
     document.title = 'SCO Detail - CIMSA ULM';
 
     (async () => {
@@ -77,15 +77,15 @@ export default function ScoDetailPage() {
             display: flex;
             justify-content: center;
             flex-direction: column;
-            gap: 40px;
-            padding: 34px 24px;
+            gap: 32px;
+            padding: 24px;
 
             @media (min-width: 768px) {
-              padding: 34px 34px;
+              padding: 40px;
             }
 
             @media (min-width: 992px) {
-              padding: 34px 0;
+              padding: 40px 0;
             }
           `}
         >
@@ -99,6 +99,7 @@ export default function ScoDetailPage() {
             focuses={sco.focuses}
             mission={<HtmlParser html={sco.mission_statement} />}
           />
+          <TestimonialsSection testimonies={sco.testimonies} />
         </Container>
       </div>
     </>

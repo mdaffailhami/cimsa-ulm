@@ -17,7 +17,15 @@ export default function HeroSection({ name, description, images }) {
       `}
     >
       <Col>
-        <h1 className='display-4 fw-bold '>
+        <h1
+          className='display-4 fw-bold text-center'
+          css={css`
+            margin-top: 10px;
+            @media (min-width: 992px) {
+              margin-top: 0;
+            }
+          `}
+        >
           <b>{name}</b>
         </h1>
         <hr style={{ borderWidth: '3px', opacity: 1 }} />
