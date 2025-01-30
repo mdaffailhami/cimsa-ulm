@@ -9,12 +9,15 @@ import { Container } from 'react-bootstrap';
 import HtmlParser from '../../HtmlParser';
 import FocusesMissionSection from './FocusesMissionSection';
 import TestimonialsSection from './TestimonialsSection';
+import BlogSection from '../../BlogSection';
+import PrimaryButton from '../../PrimaryButton';
 
 export default function ScoDetailPage() {
   const [update, forceUpdate] = useReducer((x) => x + 1, 0);
   const { name } = useParams();
 
   const [sco, setSco] = useState(undefined);
+  const [posts, setPosts] = useState(undefined);
 
   useEffect(() => {
     setSco(undefined);
@@ -27,19 +30,26 @@ export default function ScoDetailPage() {
     (async () => {
       try {
         const res = await fetch(`${endpoint}/api/committe/${name}`);
+        const res2 = await fetch(
+          `${endpoint}/api/post?page=1&limit=3${
+            process.env.NODE_ENV === 'production' ? `&category=${name}` : ''
+          }`
+        );
         const data = await res.json();
+        const data2 = await res2.json();
 
-        if (!data) throw new Error('Error fetching data');
+        if (!data || !data2) throw new Error('Error fetching data');
 
         setPageMeta(`${data.data.name} - CIMSA ULM`, data.data.description);
         setSco(data.data);
+        setPosts(data2.data);
       } catch (error) {
         alert(error);
       }
     })();
   }, [update]);
 
-  if (!sco) return <LoadingIndicator />;
+  if (!sco || !posts) return <LoadingIndicator />;
 
   return (
     <>
@@ -99,9 +109,42 @@ export default function ScoDetailPage() {
             focuses={sco.focuses}
             mission={<HtmlParser html={sco.mission_statement} />}
           />
-          <TestimonialsSection testimonies={sco.testimonies} />
+          <TestimonialsSection
+            testimonies={sco.testimonies}
+            color={sco.color}
+          />
         </Container>
       </div>
+      <br />
+      <Container>
+        <BlogSection
+          posts={posts}
+          header={
+            <>
+              <h2
+                className='text-center display-6'
+                style={{ marginBottom: '18px' }}
+              >
+                RECENT {sco.name} ACTIVITY
+              </h2>
+              <hr
+                style={{ borderWidth: '3px', opacity: 1, color: sco.color }}
+              />
+            </>
+          }
+          footer={
+            <div className='d-flex justify-content-center'>
+              <PrimaryButton
+                style={{ display: 'block', margin: '0 auto' }}
+                to='/blog/all/1'
+              >
+                Go to CIMSA Blog
+              </PrimaryButton>
+            </div>
+          }
+        />
+        <br />
+      </Container>
     </>
   );
 }

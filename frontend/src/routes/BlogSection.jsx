@@ -12,6 +12,7 @@ function BlogSection({
 }) {
   return (
     <Container
+      as={'section'}
       data-aos={aos}
       data-aos-once='true'
       data-aos-duration='1200'
@@ -51,9 +52,14 @@ function BlogSection({
       {(() => {
         if (!footer) {
           return (
-            <center>
-              <PrimaryButton to='/blog/all/1'>See All Posts</PrimaryButton>
-            </center>
+            <div className='d-flex justify-content-center'>
+              <PrimaryButton
+                style={{ display: 'block', margin: '0 auto' }}
+                to='/blog/all/1'
+              >
+                See All Posts
+              </PrimaryButton>
+            </div>
           );
         } else {
           return footer;

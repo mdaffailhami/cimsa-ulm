@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { Col, Image, Row } from 'react-bootstrap';
 import HtmlParser from '../../HtmlParser';
 
-export default function TestimonialsSection({ testimonies }) {
+export default function TestimonialsSection({ testimonies, color }) {
   return (
     <section
       css={css`
@@ -19,8 +19,7 @@ export default function TestimonialsSection({ testimonies }) {
         style={{
           textAlign: 'center',
           color: 'white',
-          textShadow:
-            '-1.5px -1.5px 0 red, 1.5px -1.5px 0 red, -1.5px 1.5px 0 red, 1.5px 1.5px 0 red',
+          textShadow: `-1.5px -1.5px 0 ${color}, 1.5px -1.5px 0 ${color}, -1.5px 1.5px 0 ${color}, 1.5px 1.5px 0 ${color}`,
         }}
       >
         <b>TESTIMONIALS</b>
