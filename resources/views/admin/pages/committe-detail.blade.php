@@ -487,7 +487,6 @@
                 yearInput.id = `testimonies[${testimonyIndex}][year]`;
                 yearInput.name = `testimonies[${testimonyIndex}][year]`;
                 yearInput.className = 'form-select';
-                const defaultOption = document.createElement('option');
                 yearInputWrapper.appendChild(yearInput);
                 yearGroup.appendChild(yearLabel);
                 yearGroup.appendChild(yearInputWrapper);
