@@ -46,6 +46,7 @@ export default function OrganizationStructure({ officials }) {
             box-shadow: none;
             border-color: rgba(0, 0, 0, 0.125);
           }
+
           .accordion-button:not(.collapsed) {
             background-color: rgba(255, 0, 0, 0.1);
             color: red;

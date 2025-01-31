@@ -93,6 +93,16 @@ export default function Navbar() {
               <NavDropdown
                 title='About Us'
                 active={location.pathname.startsWith('/about-us')}
+                onMouseEnter={(e) => {
+                  if (!e.target.classList.contains('show')) {
+                    e.target.click();
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (e.target.classList.contains('show')) {
+                    e.target.click();
+                  }
+                }}
               >
                 <NavDropdown.Item
                   as={Link}
@@ -113,6 +123,16 @@ export default function Navbar() {
               <NavDropdown
                 title='The SCOs'
                 active={location.pathname.startsWith('/scos')}
+                onMouseEnter={(e) => {
+                  if (!e.target.classList.contains('show')) {
+                    e.target.click();
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (e.target.classList.contains('show')) {
+                    e.target.click();
+                  }
+                }}
               >
                 <NavDropdown.Item
                   as={Link}
@@ -154,6 +174,16 @@ export default function Navbar() {
               <NavDropdown
                 title='What We Do'
                 active={location.pathname.startsWith('/activities')}
+                onMouseEnter={(e) => {
+                  if (!e.target.classList.contains('show')) {
+                    e.target.click();
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (e.target.classList.contains('show')) {
+                    e.target.click();
+                  }
+                }}
               >
                 <NavDropdown.Item
                   as={Link}
