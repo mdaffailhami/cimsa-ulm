@@ -35,11 +35,13 @@ class ImageController extends Controller
                 'galleries.*' => 'image|max:10240', // max 10MB
             ]);
 
-            $fileTypes = ['image', 'logo', 'cover', 'poster', 'avatar', 'background'];
-
             if ($request->file('testimonies')) {
                 foreach ($request->file('testimonies') as $image) {
                     $file = $image['avatar'];
+                }
+            } else if ($request->file('data')) {
+                foreach ($request->file('data') as $image) {
+                    $file = $image['value'] ?? $image['values'];
                 }
             } else {
                 $file = $request->file('image')

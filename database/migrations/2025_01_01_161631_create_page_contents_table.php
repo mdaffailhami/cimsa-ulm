@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('page_contents', function (Blueprint $table) {
-            $table->id();
+            $table->uuid()->primary();
             $table->foreignUuid('page_id')->constrained('pages', 'uuid')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('column');
-            $table->enum('type', ['text', 'image', 'multiple-image']);
+            $table->enum('type', ['text', 'long-text', 'image', 'multiple-image']);
             $table->string('section')->nullable();
-            $table->string('image_content')->nullable();
-            $table->text('text_content')->nullable();
+            $table->string('text_content', 500)->nullable();
+            $table->text('long_text_content')->nullable();
             $table->timestamps();
         });
     }

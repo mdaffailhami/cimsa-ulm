@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CimsaProfileController;
 use App\Http\Controllers\CommitteController;
 use App\Http\Controllers\DivisionMemberController;
 use App\Http\Controllers\OfficialController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
+use App\Models\CimsaProfile;
 use App\Models\OfficialDivision;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,8 +39,13 @@ Route::prefix('/admin')->group(function () {
             return view('admin.pages.dashboard');
         })->name('admin.dashboard');
 
+        Route::resource('cimsa-profile', CimsaProfileController::class);
+
+        Route::put('cimsa-profile/update', [CimsaProfile::class, 'update'])->name('cimsa-profile.update');
+
         Route::resource('page', PageController::class);
         Route::resource('official', OfficialController::class);
+
         Route::prefix('official')->group(function () {
             Route::get('{year}/division', [OfficialDivisionController::class, 'index'])->name('official.division.index');
             Route::post('division', [OfficialDivisionController::class, 'store'])->name('official.division.store');
