@@ -65,8 +65,8 @@ export default function ScoDetailPage() {
       />
       <div
         css={css`
-          /* background-image: url(${sco.background}); */
-          background-image: url('https://froyonion.sgp1.digitaloceanspaces.com/images/blogdetail/3a67d8b8c68d4f067fe1dfee66e4f15947c8f4ae.jpg');
+          background-image: url(${sco.background});
+          /* background-image: url('https://froyonion.sgp1.digitaloceanspaces.com/images/blogdetail/3a67d8b8c68d4f067fe1dfee66e4f15947c8f4ae.jpg'); */
           background-repeat: no-repeat;
           background-size: cover;
           background-position: center;
