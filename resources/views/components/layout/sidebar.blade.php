@@ -15,9 +15,9 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">CIMSA Profile</span>
+            <li class="sidebar-item {{ request()->routeIs('cimsa-profile.index') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('cimsa-profile.index') }}">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile CIMSA</span>
                 </a>
             </li>
 

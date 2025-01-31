@@ -64,11 +64,17 @@ class ProfileSeeder extends Seeder
                 $profile_model->label = $profile['label'];
                 $profile_model->type = $profile['type'];
 
+                // For Text Content
                 if ($profile['type'] === 'text') {
                     $profile_model->text_content = $profile['content'];
                 } else if ($profile['type'] === 'long-text') {
                     $profile_model->long_text_content = $profile['content'];
-                } else if ($profile['type'] === 'image') {
+                }
+
+                $profile_model->save();
+
+                // For Image Content
+                if ($profile['type'] === 'image') {
                     $path_name = "profile";
                     $image_name = generateImage('image', $path_name);
                     $profile_model->galleries()->create([
@@ -87,8 +93,6 @@ class ProfileSeeder extends Seeder
                         ]);
                     }
                 }
-
-                $profile_model->save();
             }
 
             DB::commit();

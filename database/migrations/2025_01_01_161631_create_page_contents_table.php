@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('page_contents', function (Blueprint $table) {
-            $table->id();
+            $table->uuid()->primary();
             $table->foreignUuid('page_id')->constrained('pages', 'uuid')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('column');
             $table->enum('type', ['text', 'long-text', 'image', 'multiple-image']);

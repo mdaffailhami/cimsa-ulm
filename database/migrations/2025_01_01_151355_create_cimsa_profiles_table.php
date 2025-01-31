@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cimsa_profiles', function (Blueprint $table) {
-            $table->id();
+            $table->uuid()->primary();
             $table->string('column');
             $table->string('label');
             $table->enum('type', ['text', 'long-text', 'image', 'multiple-image']);

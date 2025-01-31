@@ -19,7 +19,7 @@ return new class extends Migration
          FOR EACH ROW
          BEGIN
              DELETE FROM galleries
-             WHERE type = 'page_content' AND entity_id = OLD.id;
+             WHERE type = 'page_content' AND entity_id = OLD.uuid;
          END;
      ");
 
@@ -42,6 +42,17 @@ return new class extends Migration
         BEGIN
             DELETE FROM galleries
             WHERE type = 'program' AND entity_id = OLD.uuid;
+        END;
+    ");
+
+        // Trigger for deleting galleries when an cimsa_profile is deleted
+        DB::statement("
+        CREATE TRIGGER delete_cimsa_profile_galleries
+        AFTER DELETE ON cimsa_profiles
+        FOR EACH ROW
+        BEGIN
+            DELETE FROM galleries
+            WHERE type = 'cimsa_profile' AND entity_id = OLD.uuid;
         END;
     ");
 

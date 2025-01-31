@@ -238,12 +238,9 @@ const editorConfig = {
     },
 };
 
-const InitializeCKEditor = async (id) => {
+const InitializeCKEditor = async (input) => {
     // Initialize CKEditor
-    const editor = await ClassicEditor.create(
-        document.querySelector(id),
-        editorConfig
-    );
+    const editor = await ClassicEditor.create(input, editorConfig);
 
     return editor;
 };
