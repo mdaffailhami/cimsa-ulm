@@ -12,6 +12,7 @@ import TestimonialsSection from './TestimonialsSection';
 import BlogSection from '../../BlogSection';
 import PrimaryButton from '../../PrimaryButton';
 import UpcomingActivitiesSection from './UpcomingActivitiesSection';
+import OfficialCardSection from '../../OfficialCardSection';
 
 export default function ScoDetailPage() {
   const [update, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -165,6 +166,23 @@ export default function ScoDetailPage() {
           activities={sco.activities}
         />
       </Container>
+      <br />
+      <hr />
+      <OfficialCardSection
+        period={sco.contact.generation}
+        position={sco.contact.occupation}
+        picture={sco.contact.image}
+        // picture={'https://avatars.githubusercontent.com/u/74972129?v=4'}
+        // picture={
+        //   'https://www.system-concepts.com/wp-content/uploads/2020/02/excited-minions-gif.gif'
+        // }
+        // picture={
+        //   'https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2024/07/LOME_Daniella-Enjelika-Sinaga-e1721380348578-300x300.png'
+        // }
+        name={sco.contact.name}
+        email={sco.contact.email}
+        phone={sco.contact.phone}
+      />
     </>
   );
 }

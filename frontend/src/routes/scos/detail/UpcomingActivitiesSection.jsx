@@ -5,6 +5,9 @@ import HtmlParser from '../../HtmlParser';
 export default function UpcomingActivitiesSection({ name, color, activities }) {
   return (
     <section
+      data-aos='fade-left'
+      data-aos-once='true'
+      data-aos-duration='1200'
       css={css`
         max-width: 962px;
         margin: 0 auto;

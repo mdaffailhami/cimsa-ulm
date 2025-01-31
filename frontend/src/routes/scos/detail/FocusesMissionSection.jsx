@@ -5,6 +5,9 @@ export default function FocusesMissionSection({ focuses, mission }) {
   return (
     <Row
       as='section'
+      data-aos='fade'
+      data-aos-once='true'
+      data-aos-duration='1200'
       xs={1}
       lg={2}
       css={css`
@@ -41,9 +44,19 @@ export default function FocusesMissionSection({ focuses, mission }) {
 function MyCol({ title, children }) {
   return (
     <Col>
-      <h2 className='fw-bold text-center'>{title}</h2>
+      <h2
+        data-aos='zoom-in'
+        data-aos-once='true'
+        data-aos-duration='1200'
+        className='fw-bold text-center'
+      >
+        {title}
+      </h2>
       <hr style={{ borderWidth: '2.8px', opacity: 1 }} />
       <div
+        data-aos='fade-up'
+        data-aos-once='true'
+        data-aos-duration='1200'
         css={css`
           color: black;
           font-size: 18px;

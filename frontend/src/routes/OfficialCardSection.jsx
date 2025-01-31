@@ -58,6 +58,7 @@ export default function OfficialCardSection({
                 `}
               >
                 <img
+                  alt={`${name} - ${position} of CIMSA ULM`}
                   src={picture}
                   css={css`
                     width: 100%;

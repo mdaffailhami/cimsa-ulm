@@ -5,6 +5,9 @@ import HtmlParser from '../../HtmlParser';
 export default function TestimonialsSection({ testimonies, color }) {
   return (
     <section
+      data-aos='fade'
+      data-aos-once='true'
+      data-aos-duration='1200'
       css={css`
         display: flex;
         flex-direction: column;
@@ -60,6 +63,9 @@ function TestimonyCard({ testimony, reverse = false, myCss = '' }) {
         `}
       >
         <Image
+          data-aos='zoom-in'
+          data-aos-once='true'
+          data-aos-duration='1200'
           src={testimony.image}
           alt='Testimony Picture'
           css={css`
@@ -74,11 +80,28 @@ function TestimonyCard({ testimony, reverse = false, myCss = '' }) {
         />
       </Col>
       <Col xs={12} sm={7} lg={9}>
-        <h3 style={{ marginBottom: 0 }}>
+        <h3
+          data-aos={reverse ? 'fade-left' : 'fade-right'}
+          data-aos-once='true'
+          data-aos-duration='1200'
+          style={{ marginBottom: 0 }}
+        >
           <b>{testimony.name || '-'}</b>
         </h3>
-        <h6 style={{ color: 'gray' }}>{testimony.position || '-'}</h6>
-        <p style={{ color: 'black', textAlign: 'justify' }}>
+        <h6
+          data-aos='zoom-in'
+          data-aos-once='true'
+          data-aos-duration='1200'
+          style={{ color: 'gray' }}
+        >
+          {testimony.position || '-'}
+        </h6>
+        <p
+          data-aos='fade-up'
+          data-aos-once='true'
+          data-aos-duration='1200'
+          style={{ color: 'black', textAlign: 'justify' }}
+        >
           <HtmlParser html={testimony.description || '-'} />
         </p>
       </Col>
