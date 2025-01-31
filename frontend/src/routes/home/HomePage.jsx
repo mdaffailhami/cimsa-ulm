@@ -70,19 +70,9 @@ export default function HomePage() {
       <br />
       <hr />
       <NumberOfThingsSection
-        establishedYear={
-          contents.find((x) => x.column === 'established-year').text_content
-        }
-        activeMembers={
-          contents.find((x) => x.column === 'active-members').text_content
-        }
-        successfulProjects={
-          contents.find((x) => x.column === 'successful-projects').text_content
-        }
-        communityDevelopments={
-          contents.find((x) => x.column === 'community-developments')
-            .text_content
-        }
+        statistics={JSON.parse(
+          contents.find((x) => x.column === 'statistics').text_content
+        )}
       />
       <hr />
       <br />

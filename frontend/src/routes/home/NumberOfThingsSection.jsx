@@ -2,12 +2,7 @@ import { css } from '@emotion/react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import CountUp from 'react-countup';
 
-export default function NumberOfThingsSection({
-  establishedYear,
-  activeMembers,
-  successfulProjects,
-  communityDevelopments,
-}) {
+export default function NumberOfThingsSection({ statistics }) {
   return (
     <Container
       className='d-flex flex-wrap justify-content-center'
@@ -15,25 +10,18 @@ export default function NumberOfThingsSection({
       data-aos-duration='1200'
       data-aos-once='true'
     >
-      <Row xs={2} sm={2} md={4} lg={4} className='g-5'>
-        <Col>
-          <NumberOfThing title='Established Year' content={establishedYear} />
-        </Col>
-        <Col>
-          <NumberOfThing title='Active Members' content={activeMembers} />
-        </Col>
-        <Col>
-          <NumberOfThing
-            title='Successful Projects'
-            content={successfulProjects}
-          />
-        </Col>
-        <Col>
-          <NumberOfThing
-            title='Community Developments'
-            content={communityDevelopments}
-          />
-        </Col>
+      <Row
+        xs={2}
+        sm={2}
+        md={4}
+        lg={4}
+        className='g-5 flex justify-content-center'
+      >
+        {statistics.map((statistic, i) => (
+          <Col key={i}>
+            <NumberOfThing title={statistic.name} content={statistic.count} />
+          </Col>
+        ))}
       </Row>
     </Container>
   );

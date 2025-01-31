@@ -66,28 +66,29 @@ class PageSeeder extends Seeder
                         'text_content' => null,
                     ],
                     [
-                        "column" => 'established-year',
+                        "column" => 'statistics',
                         "type" => 'text',
                         'section' => "statistics",
-                        'text_content' => "2001",
-                    ],
-                    [
-                        "column" => 'active-members',
-                        "type" => 'text',
-                        'section' => "statistics",
-                        'text_content' => "+500",
-                    ],
-                    [
-                        "column" => 'successful-projects',
-                        "type" => 'text',
-                        'section' => "statistics",
-                        'text_content' => "+120",
-                    ],
-                    [
-                        "column" => 'community-developments',
-                        "type" => 'text',
-                        'section' => "statistics",
-                        'text_content' => "5",
+                        'text_content' => '
+                            [
+                                {
+                                    "name": "Established Year",
+                                    "count": "2001"
+                                },
+                                {
+                                    "name": "Active Members",
+                                    "count": "+500"
+                                },
+                                {
+                                    "name": "Successful Projects",
+                                    "count": "+120"
+                                },
+                                {
+                                    "name": "Community Developments",
+                                    "count": "5"
+                                }
+                            ]
+                        ',
                     ],
                     [
                         "column" => 'about-us-bg-image',
