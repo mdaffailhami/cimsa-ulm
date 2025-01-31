@@ -4,11 +4,12 @@ import BlogSection from '../BlogSection';
 import NumberOfThingsSection from './NumberOfThingsSection';
 import QuoteSection from './QuoteSection';
 import VisionMissionSection from './VisionMissionSection';
-import { setPageMeta } from '../../utils';
-import { useEffect, useState } from 'react';
+import { fetchJSON, setPageMeta } from '../../utils';
 import LoadingIndicator from '../LoadingIndicator';
 import { endpoint } from '../../configs';
 import HtmlParser from '../HtmlParser';
+import useSWR from 'swr';
+import ErrorIndicator from '../ErrorIndicator';
 
 export default function HomePage() {
   setPageMeta(
@@ -16,62 +17,60 @@ export default function HomePage() {
     "Center for Indonesian Medical Students' Activities - Universitas Lambung Mangkurat"
   );
 
-  const [contents, setContents] = useState(undefined);
-  const [blog, setBlog] = useState(undefined);
+  const page = useSWR(`${endpoint}/api/page/landing`, fetchJSON);
+  const posts = useSWR(`${endpoint}/api/post?page=1&limit=6`, fetchJSON);
 
-  useEffect(() => {
-    (async () => {
-      // await new Promise((resolve) => setTimeout(resolve, 3000));
-      try {
-        const res = await fetch(`${endpoint}/api/page/landing`);
-        const res2 = await fetch(`${endpoint}/api/post?page=1&limit=6`);
-        const data = await res.json();
-        const data2 = await res2.json();
+  if (page.error || posts.error) {
+    return <ErrorIndicator />;
+  }
 
-        if (!data && !data2) throw new Error('Error fetching data');
-
-        setContents(data.contents);
-        setBlog(data2);
-      } catch (err) {
-        alert(err);
-      }
-    })();
-  }, []);
-
-  if (!contents || !blog) {
+  if (page.isLoading || posts.isLoading) {
     return <LoadingIndicator />;
   }
 
   return (
     <>
       <Banner
-        title={contents.find((x) => x.column === 'banner-title').text_content}
-        image={contents.find((x) => x.column === 'banner-image').image_content}
+        title={
+          page.data.contents.find((x) => x.column === 'banner-title')
+            .text_content
+        }
+        image={
+          page.data.contents.find((x) => x.column === 'banner-image')
+            .image_content
+        }
       />
       <br />
       <VisionMissionSection
         vision={
           <HtmlParser
-            html={contents.find((x) => x.column === 'vision').text_content}
+            html={
+              page.data.contents.find((x) => x.column === 'vision').text_content
+            }
           />
         }
         visionImage={
-          contents.find((x) => x.column === 'vision-image').image_content
+          page.data.contents.find((x) => x.column === 'vision-image')
+            .image_content
         }
         mission={
           <HtmlParser
-            html={contents.find((x) => x.column === 'mission').text_content}
+            html={
+              page.data.contents.find((x) => x.column === 'mission')
+                .text_content
+            }
           />
         }
         missionImage={
-          contents.find((x) => x.column === 'mission-image').image_content
+          page.data.contents.find((x) => x.column === 'mission-image')
+            .image_content
         }
       />
       <br />
       <hr />
       <NumberOfThingsSection
         statistics={JSON.parse(
-          contents.find((x) => x.column === 'statistics').text_content
+          page.data.contents.find((x) => x.column === 'statistics').text_content
         )}
       />
       <hr />
@@ -79,28 +78,40 @@ export default function HomePage() {
       <AboutUsSection
         about={
           <HtmlParser
-            html={contents.find((x) => x.column === 'about-us').text_content}
+            html={
+              page.data.contents.find((x) => x.column === 'about-us')
+                .text_content
+            }
           />
         }
         bgImage={
-          contents.find((x) => x.column === 'about-us-bg-image').image_content
+          page.data.contents.find((x) => x.column === 'about-us-bg-image')
+            .image_content
         }
       />
       <br />
       <hr />
       <br />
-      <BlogSection posts={blog.data} />
+      <BlogSection posts={posts.data.data} />
       <br />
       <hr />
       <br />
       <QuoteSection
         quote={
           <HtmlParser
-            html={contents.find((x) => x.column === 'quote').text_content}
+            html={
+              page.data.contents.find((x) => x.column === 'quote').text_content
+            }
           />
         }
-        author={contents.find((x) => x.column === 'quote-author').text_content}
-        image={contents.find((x) => x.column === 'quote-image').image_content}
+        author={
+          page.data.contents.find((x) => x.column === 'quote-author')
+            .text_content
+        }
+        image={
+          page.data.contents.find((x) => x.column === 'quote-image')
+            .image_content
+        }
       />
     </>
   );

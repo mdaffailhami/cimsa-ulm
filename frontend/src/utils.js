@@ -50,3 +50,11 @@ export function useScript(url) {
     };
   }, [url]);
 }
+
+export async function fetchJSON(url) {
+  const response = await fetch(url);
+
+  if (!response.ok) throw new Error(response.statusText);
+
+  return await response.json();
+}
