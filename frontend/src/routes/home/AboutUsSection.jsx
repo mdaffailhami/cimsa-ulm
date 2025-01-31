@@ -82,6 +82,12 @@ export default function AboutUsSection({ about, bgImage }) {
             padding-left: 10%;
             padding-right: 10%;
           }
+
+          @media (min-width: 2000px) {
+            padding: 4%;
+            padding-left: 200px;
+            padding-right: 200px;
+          }
         `}
         data-aos='zoom-in'
         data-aos-once='true'
