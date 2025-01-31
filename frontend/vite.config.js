@@ -12,4 +12,9 @@ export default defineConfig({
       jsxImportSource: '@emotion/react',
     }),
   ],
+  root: './src',
+  build: {
+    outDir: '../dist',
+    emptyOutDir: true,
+  },
 });

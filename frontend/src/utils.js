@@ -4,6 +4,7 @@
 //       }, 0.3);
 // }
 
+import { css } from '@emotion/react';
 import { useEffect } from 'react';
 
 export function scrollById(id) {
@@ -51,10 +52,29 @@ export function useScript(url) {
   }, [url]);
 }
 
+export function getOnHoverAnimationCss(scale, onHover = '', onUnHover = '') {
+  return css`
+    &:hover {
+      transition: all 0.3s ease-in-out !important;
+      transform: scale(${scale}) !important;
+      ${onHover}
+    }
+
+    &:not(:hover) {
+      transition: transform 0.3s ease-in-out !important;
+      /* transform: scale(1) !important; */
+      ${onUnHover}
+    }
+  `;
+}
+
 export async function fetchJSON(url) {
-  const response = await fetch(url);
+  try {
+    const response = await fetch(url);
 
-  if (!response.ok) throw new Error(response.statusText);
-
-  return await response.json();
+    return await response.json();
+  } catch (error) {
+    console.error('Failed to fetch data:', error);
+    throw error;
+  }
 }
