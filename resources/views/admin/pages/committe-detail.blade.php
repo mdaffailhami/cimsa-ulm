@@ -585,8 +585,10 @@
 
             const initializeProfileForm = async (committe) => {
                 // Initialize CKEditor
-                let long_description_editor = await InitializeCKEditor('#long_description');
-                let mission_editor = await InitializeCKEditor('#mission');
+                const long_description_input = document.getElementById('long_description');
+                const mission_editor_input = document.getElementById('mission');
+                let long_description_editor = await InitializeCKEditor(long_description_input);
+                let mission_editor = await InitializeCKEditor(mission_editor_input);
 
                 // Initialize Focus Container
                 const focusesContainer = document.getElementById('focuses-container');

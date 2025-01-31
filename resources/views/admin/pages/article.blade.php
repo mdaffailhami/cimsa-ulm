@@ -249,7 +249,8 @@
                 const imageInput = document.querySelector('#cover');
                 const pond = initializeImagePond(imageInput);
                 // Initialize CKEditor
-                let contentEditor = await InitializeCKEditor('#content');
+                let contentInput = document.getElementById('content');
+                let contentEditor = await InitializeCKEditor(contentInput);
 
                 // Handle the modal trigger for add and edit action
                 document.querySelectorAll('[data-bs-target="#formModal"]').forEach(function(button) {
