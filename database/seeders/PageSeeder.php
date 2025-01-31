@@ -137,6 +137,14 @@ class PageSeeder extends Seeder
                         'image_content' => null
                     ],
                     [
+                        "column" => 'ifmsa-image',
+                        "label" => 'IFMSA Image',
+                        "type" => 'image',
+                        'section' => null,
+                        'text_content' => null,
+                        'image_content' => null
+                    ],
+                    [
                         "column" => 'ifmsa-description',
                         "label" => 'IFMSA Description',
                         "type" => 'text',

@@ -86,7 +86,10 @@ export default function AboutIFMSAPage() {
                 <Image
                   fluid
                   alt='IFMSA Logo'
-                  src='https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2021/09/unnamed-1.jpg'
+                  src={
+                    pageData.contents.find((x) => x.column === 'ifmsa-image')
+                      .image_content
+                  }
                   css={css`
                     border-radius: 30px;
                     box-shadow: 1px 1px 8px 4px rgba(0, 0, 0, 0.4);
