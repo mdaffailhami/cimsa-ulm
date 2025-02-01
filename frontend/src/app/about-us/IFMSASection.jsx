@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import { Col, Container, Image, Row } from 'react-bootstrap';
 import PrimaryButton from '../../components/PrimaryButton';
 import { getOnHoverAnimationCss } from '../../utils';
+import IFMSALogo from '../../assets/ifmsa-logo.jpg';
 
 export default function IFMSASection({ description }) {
   return (
@@ -53,7 +54,7 @@ export default function IFMSASection({ description }) {
             <Image
               fluid
               alt='IFMSA Logo'
-              src='https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2021/09/IFMSA-1.jpg'
+              src={IFMSALogo}
               css={css`
                 border-radius: 30px;
               `}

@@ -2,11 +2,12 @@ import PageHeader from '../../components/PageHeader';
 import SDGsSection from './SDGsSection';
 import IFMSASection from './IFMSASection';
 import VisionMissionSection from './VisionMissionSection';
-import { setPageMeta } from '../../utils';
+import { fetchJSON, setPageMeta } from '../../utils';
 import { useEffect, useState } from 'react';
 import LoadingPage from '../../components/LoadingPage';
 import { endpoint } from '../../configs';
 import HtmlParser from '../../components/HtmlParser';
+import useSWR from 'swr';
 
 export default function AboutUsPage() {
   setPageMeta(
@@ -14,25 +15,10 @@ export default function AboutUsPage() {
     'Center for Indonesian Medical Students’ Activities is a non-profit, non- government, and non-politic organization facilitating medical students of Indonesia who intend to make great impacts on our nation’s health with activity-based projects.'
   );
 
-  const [pageData, setPageData] = useState(undefined);
+  const page = useSWR(`${endpoint}/api/page/about-us`, fetchJSON);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        // await new Promise((resolve) => setTimeout(resolve, 3000));
-        const res = await fetch(`${endpoint}/api/page/about-us`);
-        const data = await res.json();
-
-        if (!data) throw new Error('Error fetching data');
-
-        setPageData(data);
-      } catch (error) {
-        alert(error);
-      }
-    })();
-  }, []);
-
-  if (!pageData) return <LoadingPage />;
+  if (page.isLoading) return <LoadingPage />;
+  if (page.error) return <LoadFailedPage />;
 
   return (
     <>
@@ -41,7 +27,7 @@ export default function AboutUsPage() {
         description={
           <HtmlParser
             html={
-              pageData.contents.find((x) => x.column === 'description')
+              page.data.contents.find((x) => x.column === 'description')
                 .text_content
             }
           />
@@ -51,12 +37,12 @@ export default function AboutUsPage() {
         description={
           <HtmlParser
             html={
-              pageData.contents.find((x) => x.column === 'sdgs-description')
+              page.data.contents.find((x) => x.column === 'sdgs-description')
                 .text_content
             }
           />
         }
-        sdgs={pageData.contents
+        sdgs={page.data.contents
           .find((x) => x.column === 'sdgs')
           .galleries.map((x) => x.url)}
       />
@@ -64,7 +50,7 @@ export default function AboutUsPage() {
         description={
           <HtmlParser
             html={
-              pageData.contents.find((x) => x.column === 'ifmsa-description')
+              page.data.contents.find((x) => x.column === 'ifmsa-description')
                 .text_content
             }
           />
@@ -74,7 +60,7 @@ export default function AboutUsPage() {
         description={
           <HtmlParser
             html={
-              pageData.contents.find(
+              page.data.contents.find(
                 (x) => x.column === 'vision-mission-description'
               ).text_content
             }
@@ -83,12 +69,12 @@ export default function AboutUsPage() {
         vision={
           <HtmlParser
             html={
-              pageData.contents.find((x) => x.column === 'vision').text_content
+              page.data.contents.find((x) => x.column === 'vision').text_content
             }
           />
         }
         missions={JSON.parse(
-          pageData.contents.find((x) => x.column === 'missions').text_content
+          page.data.contents.find((x) => x.column === 'missions').text_content
         )}
       />
       <hr />

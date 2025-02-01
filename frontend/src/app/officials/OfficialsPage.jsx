@@ -1,7 +1,6 @@
 import PageHeader from '../../components/PageHeader';
 import OrganizationStructure from './OrganizationStructure';
 import { fetchJSON, setPageMeta } from '../../utils';
-import { useEffect, useState } from 'react';
 import { endpoint } from '../../configs';
 import LoadingPage from '../../components/LoadingPage';
 import HtmlParser from '../../components/HtmlParser';

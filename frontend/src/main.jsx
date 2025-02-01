@@ -42,9 +42,9 @@ function App() {
   return (
     <StrictMode>
       <GlobalStyle />
-      <CimsaStateProvider>
-        <BrowserRouter>
-          <Navbar />
+      <BrowserRouter>
+        <Navbar />
+        <CimsaStateProvider>
           <Routes>
             <Route index element={<HomePage />} />
             <Route path='blog' element={<BlogPage />} />
@@ -64,8 +64,8 @@ function App() {
             <Route path='*' element={<NotFoundPage />} />
           </Routes>
           <Footer />
-        </BrowserRouter>
-      </CimsaStateProvider>
+        </CimsaStateProvider>
+      </BrowserRouter>
     </StrictMode>
   );
 }

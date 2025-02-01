@@ -2,11 +2,11 @@ import { css, Global } from '@emotion/react';
 import PageHeader from '../../../components/PageHeader';
 import { Col, Container, Image, Row } from 'react-bootstrap';
 import PrimaryButton from '../../../components/PrimaryButton';
-import { getOnHoverAnimationCss, setPageMeta } from '../../../utils';
-import { useEffect, useState } from 'react';
+import { fetchJSON, getOnHoverAnimationCss, setPageMeta } from '../../../utils';
 import { endpoint } from '../../../configs';
 import LoadingPage from '../../../components/LoadingPage';
 import HtmlParser from '../../../components/HtmlParser';
+import useSWR from 'swr';
 
 export default function AboutIFMSAPage() {
   setPageMeta(
@@ -14,24 +14,12 @@ export default function AboutIFMSAPage() {
     'International Federation of Medical Students’ Association (IFMSA) adalah organisasi non-profit, non-pemerintah dan non-partisipan yang mewakili asosiasi mahasiswa kedokteran internasional. IFMSA didirikan pada tahun 1951 dan merupakan salah satu organisasi pelajar dan organisasi pelajar kedokteran tertua di dunia.'
   );
 
-  const [pageData, setPageData] = useState(undefined);
+  const page = useSWR(`${endpoint}/api/page/about-ifmsa`, fetchJSON);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch(`${endpoint}/api/page/about-ifmsa`);
-        const data = await res.json();
+  if (page.isLoading) return <LoadingPage />;
+  if (page.error) return <LoadFailedPage />;
 
-        if (!data) throw new Error('Error fetching data');
-
-        setPageData(data);
-      } catch (error) {
-        alert(error);
-      }
-    })();
-  }, []);
-
-  if (!pageData) return <LoadingPage />;
+  console.log(page.data);
 
   return (
     <>
@@ -48,7 +36,7 @@ export default function AboutIFMSAPage() {
         description={
           <HtmlParser
             html={
-              pageData.contents.find((x) => x.column === 'description')
+              page.data.contents.find((x) => x.column === 'description')
                 .text_content
             }
           />
@@ -86,7 +74,7 @@ export default function AboutIFMSAPage() {
                   fluid
                   alt='IFMSA Logo'
                   src={
-                    pageData.contents.find((x) => x.column === 'ifmsa-image')
+                    page.data.contents.find((x) => x.column === 'ifmsa-image')
                       .image_content
                   }
                   css={css`
@@ -122,7 +110,7 @@ export default function AboutIFMSAPage() {
               >
                 <HtmlParser
                   html={
-                    pageData.contents.find(
+                    page.data.contents.find(
                       (x) => x.column === 'ifmsa-description'
                     ).text_content
                   }
@@ -130,7 +118,7 @@ export default function AboutIFMSAPage() {
               </p>
               <PrimaryButton
                 to={
-                  pageData.contents.find((x) => x.column === 'ifmsa-url')
+                  page.data.contents.find((x) => x.column === 'ifmsa-url')
                     .text_content
                 }
                 target='_blank'
