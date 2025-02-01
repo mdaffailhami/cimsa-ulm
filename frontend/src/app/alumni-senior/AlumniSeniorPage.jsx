@@ -5,9 +5,9 @@ import ContactCardSection from '../../components/ContactCardSection';
 import AlumniDistributionSection from './AlumniDistributionSection';
 import LoadingPage from '../../components/LoadingPage';
 import { endpoint } from '../../configs';
-import { useEffect, useState } from 'react';
-import { setPageMeta } from '../../utils';
+import { fetchJSON, setPageMeta } from '../../utils';
 import HtmlParser from '../../components/HtmlParser';
+import useSWR from 'swr';
 
 export default function AlumniSeniorPage() {
   setPageMeta(
@@ -15,33 +15,16 @@ export default function AlumniSeniorPage() {
     'CIMSA ULM is forever thankful to those who have contributed their hearts, spirits, and time to making CIMSA ULM what it is today. This is a page dedicated to our alumni and seniors.'
   );
 
-  const [pageData, setPageData] = useState(undefined);
-  const [blog, setBlog] = useState(undefined);
+  const page = useSWR(`${endpoint}/api/page/alumni-senior`, fetchJSON);
+  const posts = useSWR(`${endpoint}/api/post?page=1&limit=3`, fetchJSON);
 
-  useEffect(() => {
-    (async () => {
-      // await new Promise((resolve) => setTimeout(resolve, 3000));
-      try {
-        const res = await fetch(`${endpoint}/api/page/alumni-senior`);
-        const res2 = await fetch(`${endpoint}/api/post?page=1&limit=3`);
-        const data = await res.json();
-        const data2 = await res2.json();
-
-        if (!data && !data2) throw new Error('Error fetching data');
-
-        setPageData(data);
-        setBlog(data2);
-      } catch (err) {
-        alert(err);
-      }
-    })();
-  }, []);
-
-  if (!pageData || !blog) {
+  if (page.isLoading || posts.isLoading) {
     return <LoadingPage />;
   }
 
-  const { contents, contact } = pageData;
+  if (page.error || posts.error) {
+    return <LoadFailedPage />;
+  }
 
   return (
     <>
@@ -49,16 +32,21 @@ export default function AlumniSeniorPage() {
         title='Alumni & Senior'
         description={
           <HtmlParser
-            html={contents.find((x) => x.column === 'description').text_content}
+            html={
+              page.data.contents.find((x) => x.column === 'description')
+                .text_content
+            }
           />
         }
       />
       <AlumniDistributionSection
-        image={contents.find((x) => x.column === 'map-image').image_content}
+        image={
+          page.data.contents.find((x) => x.column === 'map-image').image_content
+        }
       />
       <br />
       <br />
-      <BlogSection posts={blog.data} />
+      <BlogSection posts={posts.data.data} />
       <br />
       <br />
       <ContactCardSection
@@ -80,12 +68,12 @@ export default function AlumniSeniorPage() {
             </h4>
           </div>
         }
-        period={contact.generation}
-        position={contact.occupation}
-        picture={contact.image}
-        name={contact.name}
-        email={contact.email}
-        phone={contact.phone}
+        period={page.data.contact.generation}
+        position={page.data.contact.occupation}
+        picture={page.data.contact.image}
+        name={page.data.contact.name}
+        email={page.data.contact.email}
+        phone={page.data.contact.phone}
       />
     </>
   );
