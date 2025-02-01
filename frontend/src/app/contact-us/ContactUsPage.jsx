@@ -43,7 +43,7 @@ export default function ContactUsPage() {
 
   return (
     <>
-      <Container style={{ paddingTop: '100px' }}>
+      <Container>
         <PageHeader
           title={pageData.name}
           description={

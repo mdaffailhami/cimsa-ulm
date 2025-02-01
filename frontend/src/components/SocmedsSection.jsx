@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useContext } from 'react';
-import { CimsaContext } from '../main';
 import LoadingPage from './LoadingPage';
 import { getOnHoverAnimationCss } from '../utils';
+import { CimsaStateContext } from '../states/Cimsa';
 
 function SocmedButton({ iconClass, url }) {
   return (
@@ -44,7 +44,7 @@ function SocmedButton({ iconClass, url }) {
   );
 }
 export default function SocmedsSection() {
-  const { socmeds } = useContext(CimsaContext);
+  const { socmeds } = useContext(CimsaStateContext);
 
   return (
     <>

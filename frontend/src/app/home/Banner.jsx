@@ -1,10 +1,10 @@
 import { Container } from 'react-bootstrap';
 import { css } from '@emotion/react';
-import { CimsaContext } from '../../main';
 import { useContext } from 'react';
+import { CimsaStateContext } from '../../states/Cimsa';
 
 export default function Banner({ title, image }) {
-  const { profile } = useContext(CimsaContext);
+  const cimsa = useContext(CimsaStateContext);
 
   return (
     <div
@@ -80,12 +80,12 @@ export default function Banner({ title, image }) {
             </p>
           );
 
-          if (!profile) {
+          if (!cimsa) {
             return <University>&nbsp;</University>;
           } else {
             return (
               <University>
-                {profile
+                {cimsa.profile
                   .find((item) => item.column == 'universitas')
                   .text_content.toUpperCase()}
               </University>

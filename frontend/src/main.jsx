@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Aos from 'aos';
-import { createContext, StrictMode, useEffect, useState } from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import NotFoundPage from './404';
@@ -18,12 +18,12 @@ import ProgramsPage from './app/programs/ProgramsPage';
 import OfficialsPage from './app/officials/OfficialsPage';
 import AboutIFMSAPage from './app/about-us/ifmsa/AboutIFMSAPage';
 import TrainingsPage from './app/trainings/TrainingsPage';
-import { endpoint } from './configs';
 import ActivitiesPage from './app/activities/ActivitiesPage';
 import BlogPage from './app/blog/BlogPage';
 import PostDetailPage from './app/blog/detail/PostDetailPage';
 import ScosPage from './app/scos/ScosPage';
 import ScoDetailPage from './app/scos/detail/ScoDetailPage';
+import { CimsaStateProvider } from './states/Cimsa';
 
 createRoot(document.getElementById('app')).render(<App />);
 
@@ -42,7 +42,7 @@ function App() {
   return (
     <StrictMode>
       <GlobalStyle />
-      <CimsaProvider>
+      <CimsaStateProvider>
         <BrowserRouter>
           <Navbar />
           <Routes>
@@ -65,39 +65,8 @@ function App() {
           </Routes>
           <Footer />
         </BrowserRouter>
-      </CimsaProvider>
+      </CimsaStateProvider>
     </StrictMode>
-  );
-}
-
-export const CimsaContext = createContext();
-
-function CimsaProvider({ children }) {
-  const [cimsa, setCimsa] = useState(undefined);
-
-  useEffect(() => {
-    (async () => {
-      // await new Promise((resolve) => setTimeout(resolve, 4000));
-      try {
-        const res = await fetch(`${endpoint}/api/cimsa-profile`);
-        const data = await res.json();
-
-        setCimsa(data);
-      } catch (err) {
-        alert(err);
-      }
-    })();
-  }, []);
-
-  return (
-    <CimsaContext.Provider
-      value={{
-        profile: !cimsa ? undefined : cimsa.profile,
-        socmeds: !cimsa ? undefined : cimsa.social_media,
-      }}
-    >
-      {children}
-    </CimsaContext.Provider>
   );
 }
 
@@ -123,6 +92,7 @@ function GlobalStyle() {
           font-family: Arial, sans-serif;
           background-color: #fff;
           color: #000;
+          padding-top: 66px;
         }
 
         a {

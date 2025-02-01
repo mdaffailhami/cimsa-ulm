@@ -72,6 +72,8 @@ export async function fetchJSON(url) {
   try {
     const response = await fetch(url);
 
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     return await response.json();
   } catch (error) {
     console.error('Failed to fetch data:', error);
