@@ -58,7 +58,7 @@ export default function ProgramsPage() {
           <HtmlParser
             html={
               pageData.contents.find((x) => x.column == 'description')
-                .text_content
+                .long_text_content
             }
           />
         }

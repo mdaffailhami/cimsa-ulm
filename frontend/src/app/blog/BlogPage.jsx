@@ -67,7 +67,8 @@ export default function BlogPage() {
           description={
             <HtmlParser
               html={
-                contents.find((x) => x.column === 'description').text_content
+                contents.find((x) => x.column === 'description')
+                  .long_text_content
               }
             />
           }

@@ -37,7 +37,7 @@ export default function AboutIFMSAPage() {
           <HtmlParser
             html={
               page.data.contents.find((x) => x.column === 'description')
-                .text_content
+                .long_text_content
             }
           />
         }
@@ -112,7 +112,7 @@ export default function AboutIFMSAPage() {
                   html={
                     page.data.contents.find(
                       (x) => x.column === 'ifmsa-description'
-                    ).text_content
+                    ).long_text_content
                   }
                 />
               </p>

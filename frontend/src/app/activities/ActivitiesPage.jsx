@@ -30,7 +30,7 @@ export default function ActivitiesPage() {
             html={
               page.data.contents.find(
                 (x) => x.column === 'programs-description'
-              ).text_content
+              ).long_text_content
             }
           />
         }
@@ -43,7 +43,7 @@ export default function ActivitiesPage() {
             html={
               page.data.contents.find(
                 (x) => x.column === 'trainings-description'
-              ).text_content
+              ).long_text_content
             }
           />
         }
@@ -56,7 +56,7 @@ export default function ActivitiesPage() {
             html={
               page.data.contents.find(
                 (x) => x.column === 'national-meetings-description'
-              ).text_content
+              ).long_text_content
             }
           />
         }

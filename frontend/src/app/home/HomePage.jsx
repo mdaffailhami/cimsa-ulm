@@ -45,7 +45,8 @@ export default function HomePage() {
         vision={
           <HtmlParser
             html={
-              page.data.contents.find((x) => x.column === 'vision').text_content
+              page.data.contents.find((x) => x.column === 'vision')
+                .long_text_content
             }
           />
         }
@@ -57,7 +58,7 @@ export default function HomePage() {
           <HtmlParser
             html={
               page.data.contents.find((x) => x.column === 'mission')
-                .text_content
+                .long_text_content
             }
           />
         }
@@ -70,7 +71,8 @@ export default function HomePage() {
       <hr />
       <NumberOfThingsSection
         statistics={JSON.parse(
-          page.data.contents.find((x) => x.column === 'statistics').text_content
+          page.data.contents.find((x) => x.column === 'statistics')
+            .long_text_content
         )}
       />
       <hr />
@@ -80,7 +82,7 @@ export default function HomePage() {
           <HtmlParser
             html={
               page.data.contents.find((x) => x.column === 'about-us')
-                .text_content
+                .long_text_content
             }
           />
         }
@@ -98,11 +100,7 @@ export default function HomePage() {
       <br />
       <QuoteSection
         quote={
-          <HtmlParser
-            html={
-              page.data.contents.find((x) => x.column === 'quote').text_content
-            }
-          />
+          page.data.contents.find((x) => x.column === 'quote').text_content
         }
         author={
           page.data.contents.find((x) => x.column === 'quote-author')

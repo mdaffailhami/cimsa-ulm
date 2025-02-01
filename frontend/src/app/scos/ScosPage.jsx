@@ -46,7 +46,7 @@ export default function ScosPage() {
           <HtmlParser
             html={
               pageData.contents.find((x) => x.column === 'description')
-                .text_content
+                .long_text_content
             }
           />
         }

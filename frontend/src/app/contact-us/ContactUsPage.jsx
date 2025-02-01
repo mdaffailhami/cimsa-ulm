@@ -35,7 +35,7 @@ export default function ContactUsPage() {
             <HtmlParser
               html={
                 page.data.contents.find((x) => x.column === 'description')
-                  .text_content
+                  .long_text_content
               }
             />
           }

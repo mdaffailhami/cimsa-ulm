@@ -255,7 +255,7 @@ class PageSeeder extends Seeder
                     [
                         "column" => 'description',
                         "label" => 'Description',
-                        "type" => 'text',
+                        "type" => 'long-text',
                         'section' => 'description',
                         'content' => "We organize our work through six Standing Committees that represent focus areas of equal importance in order to maintain a balanced, holistic, and steady approach towards our targets and goals.",
                         'image_content' => null
@@ -269,7 +269,7 @@ class PageSeeder extends Seeder
                     [
                         "column" => 'description',
                         "label" => 'Description',
-                        "type" => 'text',
+                        "type" => 'long-text',
                         'section' => null,
                         'content' => "Ever-expanding efforts, CIMSA UGM is always looking for opportunities to collaborate and make greater impacts.",
                         'image_content' => null
@@ -307,7 +307,7 @@ class PageSeeder extends Seeder
                     [
                         "column" => 'description',
                         "label" => 'Description',
-                        "type" => 'text',
+                        "type" => 'long-text',
                         'section' => null,
                         'content' => "CIMSA ULM is forever thankful to those who have contributed their hearts, spirits, and time to making CIMSA ULM what it is today. This is a page dedicated to our alumni and seniors.",
                     ],
@@ -393,7 +393,7 @@ class PageSeeder extends Seeder
                     [
                         "column" => 'description',
                         "label" => 'Description',
-                        "type" => 'text',
+                        "type" => 'long-text',
                         'section' => null,
                         'content' => 'We manifest the will to achieve our goals through ways that are relevant-to-the-issue, sustainable, and accountable.',
                     ],
@@ -407,7 +407,7 @@ class PageSeeder extends Seeder
                     [
                         "column" => 'description',
                         "label" => 'Description',
-                        "type" => 'text',
+                        "type" => 'long-text',
                         'section' => null,
                         'content' => 'True to our vision, CIMSA UGM aims to empower medical students in every possible aspect.',
                     ],
@@ -435,7 +435,7 @@ class PageSeeder extends Seeder
                     [
                         "column" => 'description',
                         "label" => 'Description',
-                        "type" => 'text',
+                        "type" => 'long-text',
                         'section' => null,
                         'content' => 'Meet the officials of CIMSA ULM. We are a team of dedicated and passionate individuals who work together to achieve our goals and make a positive impact in our community.',
                     ],
@@ -449,7 +449,7 @@ class PageSeeder extends Seeder
                     [
                         "column" => 'description',
                         "label" => 'Description',
-                        "type" => 'text',
+                        "type" => 'long-text',
                         'section' => null,
                         'content' => 'Content from our members, seniors, alumni, and activity reports.',
                     ],

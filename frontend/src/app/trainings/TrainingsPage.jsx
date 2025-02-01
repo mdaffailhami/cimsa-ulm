@@ -48,7 +48,9 @@ export default function TrainingsPage() {
         title='Our Trainings'
         description={
           <HtmlParser
-            html={contents.find((x) => x.column === 'description').text_content}
+            html={
+              contents.find((x) => x.column === 'description').long_text_content
+            }
           />
         }
       />
@@ -57,7 +59,7 @@ export default function TrainingsPage() {
           <HtmlParser
             html={
               contents.find((x) => x.column === 'trainers-description')
-                .text_content
+                .long_text_content
             }
           />
         }

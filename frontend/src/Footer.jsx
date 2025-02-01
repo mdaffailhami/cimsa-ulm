@@ -79,7 +79,7 @@ export default function Footer() {
                 <HtmlParser
                   html={
                     cimsa.profile.find((item) => item.column == 'deskripsi')
-                      .text_content
+                      .long_text_content
                   }
                 />
               </p>

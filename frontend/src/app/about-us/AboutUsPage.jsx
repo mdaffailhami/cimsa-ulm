@@ -28,7 +28,7 @@ export default function AboutUsPage() {
           <HtmlParser
             html={
               page.data.contents.find((x) => x.column === 'description')
-                .text_content
+                .long_text_content
             }
           />
         }
@@ -38,7 +38,7 @@ export default function AboutUsPage() {
           <HtmlParser
             html={
               page.data.contents.find((x) => x.column === 'sdgs-description')
-                .text_content
+                .long_text_content
             }
           />
         }
@@ -51,7 +51,7 @@ export default function AboutUsPage() {
           <HtmlParser
             html={
               page.data.contents.find((x) => x.column === 'ifmsa-description')
-                .text_content
+                .long_text_content
             }
           />
         }
@@ -62,19 +62,21 @@ export default function AboutUsPage() {
             html={
               page.data.contents.find(
                 (x) => x.column === 'vision-mission-description'
-              ).text_content
+              ).long_text_content
             }
           />
         }
         vision={
           <HtmlParser
             html={
-              page.data.contents.find((x) => x.column === 'vision').text_content
+              page.data.contents.find((x) => x.column === 'vision')
+                .long_text_content
             }
           />
         }
         missions={JSON.parse(
-          page.data.contents.find((x) => x.column === 'missions').text_content
+          page.data.contents.find((x) => x.column === 'missions')
+            .long_text_content
         )}
       />
       <hr />
