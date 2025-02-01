@@ -18,8 +18,10 @@ class CimsaProfileResource extends JsonResource
         return [
             "column" => $this->column,
             "label" => $this->label,
-            'image_content' => $this->image_content,
+            "type" => $this->type,
             "text_content" => $this->text_content,
+            'long_text_content' => $this->long_text_content,
+            "galleries" => GalleryResource::collection($this->galleries),
         ];
     }
 }

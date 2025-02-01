@@ -18,8 +18,9 @@ class PageContentResource extends JsonResource
         return [
             'section' => $this->section,
             'column' => $this->column,
-            'image_content' => $this->image_content,
+            'type' => $this->type,
             'text_content' => $this->text_content,
+            'long_text_content' => $this->long_text_content,
             "galleries" => GalleryResource::collection($this->galleries)
         ];
     }
