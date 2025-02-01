@@ -6,10 +6,11 @@ import { useLocation } from 'react-router';
 import { useEffect, useState } from 'react';
 import SocmedsSection from '../../components/SocmedsSection';
 import ContactCardSection from '../../components/ContactCardSection';
-import { scrollById, setPageMeta } from '../../utils';
+import { fetchJSON, scrollById, setPageMeta } from '../../utils';
 import { endpoint } from '../../configs';
 import LoadingPage from '../../components/LoadingPage';
 import HtmlParser from '../../components/HtmlParser';
+import useSWR from 'swr';
 
 export default function ContactUsPage() {
   setPageMeta(
@@ -18,38 +19,23 @@ export default function ContactUsPage() {
   );
 
   const location = useLocation();
-  const [pageData, setPageData] = useState(null);
-
-  useEffect(() => {
-    (async () => {
-      // await new Promise((resolve) => setTimeout(resolve, 3000));
-      try {
-        const res = await fetch(`${endpoint}/api/page/contact-us`);
-
-        setPageData(await res.json());
-      } catch (err) {
-        alert(err);
-      }
-    })();
-  }, []);
-
   useEffect(() => scrollById(location.hash), [location]);
 
-  if (!pageData) {
-    return <LoadingPage />;
-  }
+  const page = useSWR(`${endpoint}/api/page/contact-us`, fetchJSON);
 
-  const { contents, contact } = pageData;
+  if (page.isLoading) return <LoadingPage />;
+  if (page.error) return <LoadFailedPage />;
 
   return (
     <>
       <Container>
         <PageHeader
-          title={pageData.name}
+          title='Contact Us'
           description={
             <HtmlParser
               html={
-                contents.find((x) => x.column === 'description').text_content
+                page.data.contents.find((x) => x.column === 'description')
+                  .text_content
               }
             />
           }
@@ -57,7 +43,8 @@ export default function ContactUsPage() {
         <br />
         <ContactForm
           web3formsKey={
-            contents.find((x) => x.column === 'web3forms-key').text_content
+            page.data.contents.find((x) => x.column === 'web3forms-key')
+              .text_content
           }
         />
         <br />
@@ -65,7 +52,9 @@ export default function ContactUsPage() {
         <br />
       </Container>
       <MapSection
-        mapUrl={contents.find((x) => x.column === 'map-url').text_content}
+        mapUrl={
+          page.data.contents.find((x) => x.column === 'map-url').text_content
+        }
       />
       <br />
       <br />
@@ -73,9 +62,9 @@ export default function ContactUsPage() {
       <br />
       <br />
       <ContactCardSection
-        period={contact.generation}
-        position={contact.occupation}
-        picture={contact.image}
+        period={page.data.contact.generation}
+        position={page.data.contact.occupation}
+        picture={page.data.contact.image}
         // picture={'https://avatars.githubusercontent.com/u/74972129?v=4'}
         // picture={
         //   'https://www.system-concepts.com/wp-content/uploads/2020/02/excited-minions-gif.gif'
@@ -83,9 +72,9 @@ export default function ContactUsPage() {
         // picture={
         //   'https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2024/07/LOME_Daniella-Enjelika-Sinaga-e1721380348578-300x300.png'
         // }
-        name={contact.name}
-        email={contact.email}
-        phone={contact.phone}
+        name={page.data.contact.name}
+        email={page.data.contact.email}
+        phone={page.data.contact.phone}
       />
     </>
   );

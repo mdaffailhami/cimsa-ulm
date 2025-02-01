@@ -89,6 +89,7 @@ function GlobalStyle() {
         }
 
         body {
+          overflow-x: hidden;
           font-family: Arial, sans-serif;
           background-color: #fff;
           color: #000;
@@ -119,9 +120,6 @@ function GlobalStyle() {
         #root {
           /* Padding for fixed top navbar */
           padding-top: 56px;
-
-          /* Fix right overflow */
-          overflow: hidden;
         }
       `}
     />
