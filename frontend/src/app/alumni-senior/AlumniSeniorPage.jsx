@@ -41,7 +41,8 @@ export default function AlumniSeniorPage() {
       />
       <AlumniDistributionSection
         image={
-          page.data.contents.find((x) => x.column === 'map-image').image_content
+          page.data.contents.find((x) => x.column === 'map-image').galleries[0]
+            .url
         }
       />
       <br />

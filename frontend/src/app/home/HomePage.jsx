@@ -37,7 +37,7 @@ export default function HomePage() {
         }
         image={
           page.data.contents.find((x) => x.column === 'banner-image')
-            .image_content
+            .galleries[0].url
         }
       />
       <br />
@@ -51,7 +51,7 @@ export default function HomePage() {
         }
         visionImage={
           page.data.contents.find((x) => x.column === 'vision-image')
-            .image_content
+            .galleries[0].url
         }
         mission={
           <HtmlParser
@@ -63,7 +63,7 @@ export default function HomePage() {
         }
         missionImage={
           page.data.contents.find((x) => x.column === 'mission-image')
-            .image_content
+            .galleries[0].url
         }
       />
       <br />
@@ -86,7 +86,7 @@ export default function HomePage() {
         }
         bgImage={
           page.data.contents.find((x) => x.column === 'about-us-bg-image')
-            .image_content
+            .galleries[0].url
         }
       />
       <br />
@@ -110,7 +110,7 @@ export default function HomePage() {
         }
         image={
           page.data.contents.find((x) => x.column === 'quote-image')
-            .image_content
+            .galleries[0].url
         }
       />
     </>

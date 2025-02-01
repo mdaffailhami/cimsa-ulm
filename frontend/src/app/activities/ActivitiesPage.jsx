@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { endpoint } from '../../configs';
-import { setPageMeta } from '../../utils';
+import { fetchJSON, setPageMeta } from '../../utils';
 import LoadingPage from '../../components/LoadingPage';
 import MainSection from './MainSection';
 import NationalMeetingsSection from './NationalMeetingsSection';
 import HtmlParser from '../../components/HtmlParser';
+import useSWR from 'swr';
 
 export default function ActivitiesPage() {
   setPageMeta(
@@ -12,52 +13,37 @@ export default function ActivitiesPage() {
     'Explore our various activities like our programs & our trainings and national meetings at CIMSA ULM.'
   );
 
-  const [pageData, setPageData] = useState(undefined);
+  const page = useSWR(`${endpoint}/api/page/activities`, fetchJSON);
 
-  useEffect(() => {
-    (async () => {
-      // await new Promise((resolve) => setTimeout(resolve, 3000));
-      try {
-        const res = await fetch(`${endpoint}/api/page/activities`);
-        const data = await res.json();
-
-        if (!data) throw new Error('Error fetching data');
-
-        setPageData(data);
-      } catch (err) {
-        alert(err);
-      }
-    })();
-  }, []);
-
-  if (!pageData) {
-    return <LoadingPage />;
-  }
-
-  const { contents } = pageData;
+  if (page.isLoading) return <LoadingPage />;
+  if (page.error) return <LoadFailedPage />;
 
   return (
     <div style={{ lineHeight: '1.7' }}>
       <MainSection
         programsImage={
-          contents.find((x) => x.column === 'programs-image').image_content
+          page.data.contents.find((x) => x.column === 'programs-image')
+            .galleries[0].url
         }
         programsDesc={
           <HtmlParser
             html={
-              contents.find((x) => x.column === 'programs-description')
-                .text_content
+              page.data.contents.find(
+                (x) => x.column === 'programs-description'
+              ).text_content
             }
           />
         }
         trainingsImage={
-          contents.find((x) => x.column === 'trainings-image').image_content
+          page.data.contents.find((x) => x.column === 'trainings-image')
+            .galleries[0].url
         }
         trainingsDesc={
           <HtmlParser
             html={
-              contents.find((x) => x.column === 'trainings-description')
-                .text_content
+              page.data.contents.find(
+                (x) => x.column === 'trainings-description'
+              ).text_content
             }
           />
         }
@@ -68,18 +54,20 @@ export default function ActivitiesPage() {
         nationalMeetingsDesc={
           <HtmlParser
             html={
-              contents.find((x) => x.column === 'national-meetings-description')
-                .text_content
+              page.data.contents.find(
+                (x) => x.column === 'national-meetings-description'
+              ).text_content
             }
           />
         }
         nationalMeetingsEmbeddedYoutubeUrl={
-          contents.find(
+          page.data.contents.find(
             (x) => x.column === 'national-meetings-embedded-youtube-url'
           ).text_content
         }
         becomeDelegatesUrl={
-          contents.find((x) => x.column === 'become-delegates-url').text_content
+          page.data.contents.find((x) => x.column === 'become-delegates-url')
+            .text_content
         }
       />
     </div>

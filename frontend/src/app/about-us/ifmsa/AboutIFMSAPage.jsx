@@ -75,7 +75,7 @@ export default function AboutIFMSAPage() {
                   alt='IFMSA Logo'
                   src={
                     page.data.contents.find((x) => x.column === 'ifmsa-image')
-                      .image_content
+                      .galleries[0].url
                   }
                   css={css`
                     border-radius: 30px;
