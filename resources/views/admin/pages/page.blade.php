@@ -36,7 +36,7 @@
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Preview Button --}}
                                             <a class="btn btn-info"
-                                                href="{{ route('page.show', ['page' => $page->uri]) }}">
+                                                href="{{ route('page.edit', ['page' => $page->uri]) }}">
                                                 <i class="align-middle" data-feather="eye"></i>
                                             </a>
 
@@ -84,6 +84,7 @@
                         <form id="pageForm" action="{{ route('page.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="_method" id="method" value="POST">
+                            <input type="hidden" name="form_category" id="form-category" value="profile">
 
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Halaman</label>
@@ -136,20 +137,10 @@
 
     @section('scripts')
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                    return new bootstrap.Tooltip(tooltipTriggerEl);
-                });
-
-            });
-        </script>
-
-        {{-- Modal --}}
-        <script>
             const fillForm = (page) => {
                 // Pre-fill the form fields if editing a page
                 document.getElementById('name').value = page.name;
+
             }
 
             const resetForm = () => {
@@ -158,6 +149,13 @@
             }
 
             document.addEventListener('DOMContentLoaded', function() {
+                // Initialize Tooltip
+                let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+                let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                });
+
+                // Initialize Modal
                 let formModal = new bootstrap.Modal(document.getElementById('formModal'));
                 let deleteFormModal = new bootstrap.Modal(document.getElementById('deleteFormModal'));
 

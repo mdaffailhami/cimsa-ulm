@@ -40,8 +40,7 @@ Route::prefix('/admin')->group(function () {
         })->name('admin.dashboard');
 
         Route::resource('cimsa-profile', CimsaProfileController::class);
-
-        Route::put('cimsa-profile/update', [CimsaProfile::class, 'update'])->name('cimsa-profile.update');
+        Route::put('cimsa-profile/update', [CimsaProfile::class, 'update'])->name('cimsa-profile.update-new');
 
         Route::resource('page', PageController::class);
         Route::resource('official', OfficialController::class);

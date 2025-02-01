@@ -41,6 +41,6 @@ class Page extends Model
 
     public static function whereUri($uri)
     {
-        return self::where('uri', $uri)->first();
+        return self::where('uri', $uri);
     }
 }
