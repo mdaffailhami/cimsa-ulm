@@ -1,8 +1,9 @@
 import { useParams } from 'react-router';
 import { endpoint } from '../../../configs';
-import { setPageMeta } from '../../../utils';
+import { fetchJSON, setPageMeta } from '../../../utils';
 import LoadingPage from '../../../components/LoadingPage';
-import { useEffect, useReducer, useState } from 'react';
+import LoadFailedPage from '../../../components/LoadFailedPage';
+import { useEffect } from 'react';
 import { css, Global } from '@emotion/react';
 import HeroSection from './HeroSection';
 import { Container } from 'react-bootstrap';
@@ -13,45 +14,40 @@ import BlogSection from '../../../components/BlogSection';
 import PrimaryButton from '../../../components/PrimaryButton';
 import UpcomingActivitiesSection from './UpcomingActivitiesSection';
 import ContactCardSection from '../../../components/ContactCardSection';
+import useSWR from 'swr';
 
 export default function ScoDetailPage() {
-  const [update, forceUpdate] = useReducer((x) => x + 1, 0);
   const { name } = useParams();
 
-  const [sco, setSco] = useState(undefined);
-  const [posts, setPosts] = useState(undefined);
-
-  useEffect(() => {
-    setSco(undefined);
-    forceUpdate();
-  }, [name]);
+  const sco = useSWR(`${endpoint}/api/committe/${name}`, fetchJSON);
+  const posts = useSWR(
+    `${endpoint}/api/post?page=1&limit=3${
+      process.env.NODE_ENV === 'production' ? `&category=${name}` : ''
+    }`,
+    fetchJSON
+  );
 
   useEffect(() => {
     document.title = 'SCO Detail - CIMSA ULM';
 
     (async () => {
-      try {
-        const res = await fetch(`${endpoint}/api/committe/${name}`);
-        const res2 = await fetch(
-          `${endpoint}/api/post?page=1&limit=3${
-            process.env.NODE_ENV === 'production' ? `&category=${name}` : ''
-          }`
-        );
-        const data = await res.json();
-        const data2 = await res2.json();
+      await sco.mutate();
+      await posts.mutate();
 
-        if (!data || !data2) throw new Error('Error fetching data');
+      if (!sco.data || !posts.data) return;
 
-        setPageMeta(`${data.data.name} - CIMSA ULM`, data.data.description);
-        setSco(data.data);
-        setPosts(data2.data);
-      } catch (error) {
-        alert(error);
-      }
+      setPageMeta(
+        `${sco.data.data.name} - CIMSA ULM`,
+        sco.data.data.description
+      );
     })();
-  }, [update]);
+  }, [name]);
 
-  if (!sco || !posts) return <LoadingPage />;
+  if (sco.isLoading || posts.isLoading) return <LoadingPage />;
+
+  if (sco.error || posts.error) return <LoadFailedPage />;
+
+  console.log(sco.data);
 
   return (
     <>
@@ -59,13 +55,13 @@ export default function ScoDetailPage() {
         styles={css`
           ::selection {
             color: white;
-            background-color: ${sco.color};
+            background-color: ${sco.data.data.color};
           }
         `}
       />
       <div
         css={css`
-          background-image: url(${sco.background});
+          background-image: url(${sco.data.data.background});
           /* background-image: url('https://froyonion.sgp1.digitaloceanspaces.com/images/blogdetail/3a67d8b8c68d4f067fe1dfee66e4f15947c8f4ae.jpg'); */
           background-repeat: no-repeat;
           background-size: cover;
@@ -74,7 +70,7 @@ export default function ScoDetailPage() {
           position: relative;
           display: flex;
           justify-content: center;
-          color: ${sco.color};
+          color: ${sco.data.data.color};
         `}
       >
         <div
@@ -84,7 +80,7 @@ export default function ScoDetailPage() {
             height: 100%;
             background: linear-gradient(
               to top,
-              ${sco.color},
+              ${sco.data.data.color},
               rgba(255, 255, 255, 0)
             );
           `}
@@ -110,17 +106,17 @@ export default function ScoDetailPage() {
           `}
         >
           <HeroSection
-            name={sco.name}
-            description={<HtmlParser html={sco.long_description} />}
-            images={sco.galleries.map((x) => x.url)}
+            name={sco.data.data.name}
+            description={<HtmlParser html={sco.data.data.long_description} />}
+            images={sco.data.data.galleries.map((x) => x.url)}
           />
           <FocusesMissionSection
-            focuses={sco.focuses}
-            mission={<HtmlParser html={sco.mission_statement} />}
+            focuses={sco.data.data.focuses}
+            mission={<HtmlParser html={sco.data.data.mission_statement} />}
           />
           <TestimonialsSection
-            testimonies={sco.testimonies}
-            color={sco.color}
+            testimonies={sco.data.data.testimonies}
+            color={sco.data.data.color}
           />
         </Container>
       </div>
@@ -128,28 +124,32 @@ export default function ScoDetailPage() {
       <br />
       <Container>
         <BlogSection
-          posts={posts}
+          posts={posts.data.data}
           header={
             <>
               <h2
                 className='text-center display-6'
                 style={{
                   marginBottom: '18px',
-                  color: sco.color,
+                  color: sco.data.data.color,
                   fontWeight: 'bold',
                 }}
               >
-                RECENT {sco.name} ACTIVITY
+                RECENT {sco.data.data.name} ACTIVITY
               </h2>
               <hr
-                style={{ borderWidth: '3px', opacity: 1, color: sco.color }}
+                style={{
+                  borderWidth: '3px',
+                  opacity: 1,
+                  color: sco.data.data.color,
+                }}
               />
             </>
           }
           footer={
             <div className='d-flex justify-content-center'>
               <PrimaryButton
-                color={sco.color}
+                color={sco.data.data.color}
                 style={{ display: 'block', margin: '0 auto' }}
                 to='/blog/all/1'
               >
@@ -161,17 +161,17 @@ export default function ScoDetailPage() {
         <br />
         <br />
         <UpcomingActivitiesSection
-          name={sco.name}
-          color={sco.color}
-          activities={sco.activities}
+          name={sco.data.data.name}
+          color={sco.data.data.color}
+          activities={sco.data.data.activities}
         />
       </Container>
       <br />
       <hr />
       <ContactCardSection
-        period={sco.contact.generation}
-        position={sco.contact.occupation}
-        picture={sco.contact.image}
+        period={sco.data.data.contact.generation}
+        position={sco.data.data.contact.occupation}
+        picture={sco.data.data.contact.image}
         // picture={'https://avatars.githubusercontent.com/u/74972129?v=4'}
         // picture={
         //   'https://www.system-concepts.com/wp-content/uploads/2020/02/excited-minions-gif.gif'
@@ -179,9 +179,9 @@ export default function ScoDetailPage() {
         // picture={
         //   'https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2024/07/LOME_Daniella-Enjelika-Sinaga-e1721380348578-300x300.png'
         // }
-        name={sco.contact.name}
-        email={sco.contact.email}
-        phone={sco.contact.phone}
+        name={sco.data.data.contact.name}
+        email={sco.data.data.contact.email}
+        phone={sco.data.data.contact.phone}
       />
     </>
   );

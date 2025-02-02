@@ -8,6 +8,7 @@ import { Container, Dropdown, Image } from 'react-bootstrap';
 import HtmlParser from '../../../components/HtmlParser';
 import BlogSection from '../../../components/BlogSection';
 import useSWR from 'swr';
+import LoadFailedPage from '../../../components/LoadFailedPage';
 
 export default function PostDetailPage() {
   const { slug } = useParams();
