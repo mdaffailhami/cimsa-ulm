@@ -25,48 +25,43 @@ class PageSeeder extends Seeder
                 "name" => 'Landing',
                 'contents' => [
                     [
-                        "column" => 'banner-title',
                         "label" => 'Banner Title',
                         "type" => 'text',
                         'section' => 'banner',
                         'content' => "CENTER FOR INDONESIAN MEDICAL STUDENTS' ACTIVITIES",
                     ],
                     [
-                        "column" => 'banner-image',
                         "label" => 'Banner Image',
                         "type" => 'image',
                         'section' => 'banner',
                         'content' => null,
                     ],
                     [
-                        "column" => 'vision',
                         "label" => 'Vision',
                         "type" => 'long-text',
                         'section' => 'vision-mission',
                         'content' => "To empower Indonesia medical students in order to create a healthier, more secure and more prosperous Indonesia where people can enjoy equal opportunities in education and health and also in effort to improve lives and also reach prosperity and social justice. In addition is to reach universally healthier lives for a healthier world.",
                     ],
                     [
-                        "column" => 'vision-image',
                         "label" => 'Vision Image',
                         "type" => 'image',
                         'section' => 'vision-mission',
                         'content' => null
                     ],
                     [
-                        "column" => 'mission',
+                        "label" => "Mission",
                         "type" => 'long-text',
                         'section' => "vision-mission",
                         'content' => "To empower Indonesia medical students in order to create a healthier, more secure and more prosperous Indonesia where people can enjoy equal opportunities in education and health and also in effort to improve lives and also reach prosperity and social justice. In addition is to reach universally healthier lives for a healthier world.",
                     ],
                     [
-                        "column" => 'mission-image',
                         "label" => 'Mission Image',
                         "type" => "image",
                         'section' => "vision-mission",
                         'content' => null,
                     ],
                     [
-                        "column" => 'statistics',
+                        "label" => 'Statistic',
                         "type" => 'long-text',
                         'section' => "statistics",
                         'content' => '
@@ -91,33 +86,30 @@ class PageSeeder extends Seeder
                         ',
                     ],
                     [
-                        "column" => 'about-us-bg-image',
+                        "label" => 'About Us Bg Image',
                         "type" => 'image',
                         'section' => "about-us",
                         'content' => null,
                     ],
                     [
-                        "column" => 'about-us',
+                        "label" => 'About Us',
                         "type" => 'long-text',
                         'section' => 'about-us',
                         'content' => "CIMSA (Center for Indonesian Medical Students’ Activities) is an independent, non-profit and non-governmental organization, that centers on the Sustainable Development Goals. Through its vision, “Empowering Medical Students, Improving Nation’s Health”, CIMSA provides chances and experiences for medical students to express their opinions and idealisms through their social actions that will bring out tangible results for the development of this nation, especially in the medical field.",
                     ],
                     [
-                        "column" => 'quote',
                         "label" => 'Quote',
                         "type" => 'text',
                         'section' => 'quotes',
                         'content' => "Lack of activity destroys the good condition of every human being",
                     ],
                     [
-                        "column" => 'quote-image',
                         "label" => 'Quote Image',
                         "type" => 'image',
                         'section' => 'quotes',
                         'content' => null,
                     ],
                     [
-                        "column" => 'quote-author',
                         "label" => 'Quote Author',
                         "type" => 'text',
                         'section' => 'quotes',
@@ -130,53 +122,44 @@ class PageSeeder extends Seeder
                 "name" => 'About IFMSA',
                 'contents' => [
                     [
-                        "column" => 'description',
                         "label" => 'Description',
                         "type" => 'long-text',
                         'section' => null,
                         'content' => "<b>International Federation of Medical Students’ Association (IFMSA)</b> adalah organisasi non-profit, non-pemerintah dan non-partisipan yang mewakili asosiasi mahasiswa kedokteran internasional. IFMSA didirikan pada tahun 1951 dan merupakan salah satu organisasi pelajar dan organisasi pelajar kedokteran tertua di dunia. IFMSA terbagi menjadi lima region: Asia-Pacific tempat kita berada, America, Eastern-Mediterranean, Africa, dan Europe. Menghubungkan mahasiswa kedokteran dari 141 organisasi di 130 negara di seluruh dunia, IFMSA memiliki tujuan yang terbagi dalam enam area: kesehatan masyarakat, kesehatan reproduksi seksual, pendidikan kedokteran, hak asasi manusia dan perdamaian, pertukaran pelajar profesional, dan pertukaran pelajar penelitian.",
-                        'image_content' => null
                     ],
                     [
-                        "column" => 'ifmsa-image',
                         "label" => 'IFMSA Image',
                         "type" => 'image',
                         'section' => null,
                         'content' => null,
-                        'image_content' => null
                     ],
                     [
-                        "column" => 'ifmsa-description',
                         "label" => 'IFMSA Description',
                         "type" => 'long-text',
                         'section' => null,
                         'content' => "Setiap tahun, <b>IFMSA</b> menyelenggarakan lebih dari 13.000 program pertukaran penelitian dan klinis bagi mahasiswanya untuk mengeksplorasi inovasi dalam bidang kedokteran, dan sistem kesehatan dalam lingkungan yang berbeda. IFMSA juga secara resmi diakui oleh Perserikatan Bangsa-Bangsa sebagai suara mahasiswa kedokteran internasional, dan memiliki hubungan resmi dengan badan-badan PBB utama, seperti Organisasi Kesehatan Dunia, UNESCO, UNAIDS, UNHCR dan UNFPA, serta pendukung utama seperti World Medical Association (WMA). Ini memastikan bahwa IFMSA dianggap sebagai mitra utama dalam hal masalah kesehatan global, internasional dan lokal. Selain itu, federasi ini memiliki kemitraan resmi dengan beberapa organisasi dan institusi kesehatan dan pembangunan internasional lainnya. Anggota organisasi di IFMSA dinamakan National Member Organization (NMO) dan Indonesia diwakili oleh satu representatif mahasiswa kedokteran Indonesia yaitu NMO CIMSA Indonesia.",
-                        'image_content' => null
                     ],
                     [
-                        "column" => 'ifmsa-url',
                         "label" => 'IFMSA URL',
                         "type" => 'text',
                         'section' => null,
                         'content' => "https://ifmsa.org",
-                        'image_content' => null
                     ],
                 ],
+
                 'contact' => null
             ],
             [
                 "name" => 'About Us',
                 'contents' => [
                     [
-                        "column" => 'description',
                         "label" => 'Description',
                         "type" => 'long-text',
                         'section' => 'header',
-                        'content' => "<b>Center for Indonesian Medical Students’ Activities</b> is a non-profit, non- government, and non-politic organization facilitating medical students of Indonesia who intend to make great impacts on our nation’s health with activity-based projects. CIMSA empowers medical students of Indonesia to play their major role in health promotion and prevention as a step to improve nation’s health. Also, CIMSA prepares all medical students of Indonesia to increase their capacity in medical fields as future health professionals. CIMSA was officially established in May, 6th 2001 and currently maintains 27 locals throughout Indonesia with over 8000 members. Since 2002, CIMSA has been affiliated with International Federation of Medical Students’ Association (IFMSA), which is recognized by World Health Organization as the biggest international forum for medical students.",
+                        'content' => "<b>Center for Indonesian Medical Students’ Activities</b> is a non-profit, non-government, and non-politic organization facilitating medical students of Indonesia who intend to make great impacts on our nation’s health with activity-based projects. CIMSA empowers medical students of Indonesia to play their major role in health promotion and prevention as a step to improve nation’s health. Also, CIMSA prepares all medical students of Indonesia to increase their capacity in medical fields as future health professionals. CIMSA was officially established in May 6, 2001 and currently maintains 27 locals throughout Indonesia with over 8000 members. Since 2002, CIMSA has been affiliated with the International Federation of Medical Students’ Association (IFMSA), which is recognized by the World Health Organization as the biggest international forum for medical students.",
                         'image_content' => null
                     ],
                     [
-                        "column" => 'sdgs-description',
                         "label" => 'SDGs Description',
                         "type" => 'long-text',
                         'section' => 'sdgs',
@@ -184,7 +167,6 @@ class PageSeeder extends Seeder
                         'image_content' => null
                     ],
                     [
-                        "column" => 'sdgs',
                         "label" => 'SDGs',
                         "type" => 'multiple-image',
                         'section' => 'sdgs',
@@ -192,15 +174,13 @@ class PageSeeder extends Seeder
                         'image_content' => null
                     ],
                     [
-                        "column" => 'ifmsa-description',
                         "label" => 'IFMSA Description',
                         "type" => 'long-text',
                         'section' => 'ifmsa',
-                        'content' => 'IFMSA is a <b>non-profit</b>, <b>non-governmental</b>, and <b>non-partisan</b> <b>federation</b> representing <b>association of medical students internationally</b>. Since 1951, <b>IFMSA has been run</b> for and by medical students <b>around the world</b>. IFMSA has been <b>recognized by the United Nations’ System</b> and <b> World Health Organization</b>. <b> CIMSA has been affiliated</b> with the IFMSA <b>since 2002 </b>and is the <b>sole representative since September 11th, 2019</b>.',
+                        'content' => 'IFMSA is a <b>non-profit</b>, <b>non-governmental</b>, and <b>non-partisan</b> <b>federation</b> representing <b>association of medical students internationally</b>. Since 1951, <b>IFMSA has been run</b> for and by medical students <b>around the world</b>. IFMSA has been <b>recognized by the United Nations’ System</b> and <b>World Health Organization</b>. <b>CIMSA has been affiliated</b> with IFMSA <b>since 2002</b> and is the <b>sole representative since September 11, 2019</b>.',
                         'image_content' => null
                     ],
                     [
-                        "column" => 'vision-mission-description',
                         "label" => 'Vision & Mission Description',
                         "type" => 'text',
                         'section' => 'vision-mission',
@@ -208,7 +188,6 @@ class PageSeeder extends Seeder
                         'image_content' => null
                     ],
                     [
-                        "column" => 'vision',
                         "label" => 'Vision',
                         "type" => 'text',
                         'section' => 'vision-mission',
@@ -216,44 +195,42 @@ class PageSeeder extends Seeder
                         'image_content' => null
                     ],
                     [
-                        "column" => 'missions',
                         "label" => 'Missions',
                         "type" => 'long-text',
                         'section' => 'vision-mission',
-                        'content' => '
+                        'content' => json_encode([
                             [
-                                {
-                                    "title": "INTERNAL",
-                                    "description": "Mewujudkan <b>CIMSA ULM</b> yang mampu menginspirasi melalui pemberdayaan individu dalam aktivitas relevan dan progresif berdasarkan riset dan data untuk memberikan pengaruh kepada member dan masyarakat."
-                                },
-                                {
-                                    "title": "EXTERNAL",
-                                    "description": "Mengoptimalkan hubungan dan kerja sama dengan pihak eksternal dan alumni senior, meningkatkan penggunaan media yang eksploratif, serta melaksanakan advokasi yang berkelanjutan sebagai perwujudan mahasiswa kedokteran yang aktif dan tanggap isu."
-                                },
-                                {
-                                    "title": "ADMINISTRATION",
-                                    "description": "Kesekretariatan <b><i>CIMSA ULM</i></b> yang efektif, profesional, terintegrasi, dan berbasis teknologi dengan adanya sistem administrasi yang terstandarisasi SOP dan akomodatif bagi member dan officials."
-                                },
-                                {
-                                    "title": "FINANCE",
-                                    "description": "Mengelola dan menjaga kestabilan keuangan CIMSA UGM melalui optimalisasi perencanaan keuangan dan fundraising yang terstruktur, strategis, dan inovatif untuk mendukung program kerja organisasi."
-                                },
-                                {
-                                    "title": "ORGANIZATIONAL DEVELOPMENT",
-                                    "description": "Mengoptimalkan pemanfaatan riset dan data dengan berpedoman pada AD/ART serta rencana strategis untuk mendukung pengembangan organisasi."
-                                }
+                                "title" => "INTERNAL",
+                                "description" => "Mewujudkan <b>CIMSA ULM</b> yang mampu menginspirasi melalui pemberdayaan individu dalam aktivitas relevan dan progresif berdasarkan riset dan data untuk memberikan pengaruh kepada member dan masyarakat."
+                            ],
+                            [
+                                "title" => "EXTERNAL",
+                                "description" => "Mengoptimalkan hubungan dan kerja sama dengan pihak eksternal dan alumni senior, meningkatkan penggunaan media yang eksploratif, serta melaksanakan advokasi yang berkelanjutan sebagai perwujudan mahasiswa kedokteran yang aktif dan tanggap isu."
+                            ],
+                            [
+                                "title" => "ADMINISTRATION",
+                                "description" => "Kesekretariatan <b><i>CIMSA ULM</i></b> yang efektif, profesional, terintegrasi, dan berbasis teknologi dengan adanya sistem administrasi yang terstandarisasi SOP dan akomodatif bagi member dan officials."
+                            ],
+                            [
+                                "title" => "FINANCE",
+                                "description" => "Mengelola dan menjaga kestabilan keuangan CIMSA UGM melalui optimalisasi perencanaan keuangan dan fundraising yang terstruktur, strategis, dan inovatif untuk mendukung program kerja organisasi."
+                            ],
+                            [
+                                "title" => "ORGANIZATIONAL DEVELOPMENT",
+                                "description" => "Mengoptimalkan pemanfaatan riset dan data dengan berpedoman pada AD/ART serta rencana strategis untuk mendukung pengembangan organisasi."
                             ]
-                        ',
+                        ]),
                         'image_content' => null
                     ],
                 ],
+
+
                 'contact' => null
             ],
             [
                 "name" => 'SCOs',
                 'contents' => [
                     [
-                        "column" => 'description',
                         "label" => 'Description',
                         "type" => 'long-text',
                         'section' => 'description',
@@ -267,7 +244,6 @@ class PageSeeder extends Seeder
                 "name" => 'Contact Us',
                 'contents' => [
                     [
-                        "column" => 'description',
                         "label" => 'Description',
                         "type" => 'long-text',
                         'section' => null,
@@ -275,7 +251,6 @@ class PageSeeder extends Seeder
                         'image_content' => null
                     ],
                     [
-                        "column" => 'web3forms-key',
                         "label" => 'Web3Forms Key',
                         "type" => 'text',
                         'section' => null,
@@ -283,7 +258,6 @@ class PageSeeder extends Seeder
                         'image_content' => null
                     ],
                     [
-                        "column" => 'map-url',
                         "label" => 'Map URL',
                         "type" => 'text',
                         'section' => null,
@@ -305,14 +279,12 @@ class PageSeeder extends Seeder
                 "name" => 'Alumni Senior',
                 'contents' => [
                     [
-                        "column" => 'description',
                         "label" => 'Description',
                         "type" => 'long-text',
                         'section' => null,
                         'content' => "CIMSA ULM is forever thankful to those who have contributed their hearts, spirits, and time to making CIMSA ULM what it is today. This is a page dedicated to our alumni and seniors.",
                     ],
                     [
-                        "column" => 'map-image',
                         "label" => 'Map Image',
                         "type" => 'image',
                         'section' => null,
@@ -333,14 +305,12 @@ class PageSeeder extends Seeder
                 "name" => 'Activities',
                 'contents' => [
                     [
-                        "column" => 'programs-image',
                         "label" => 'Programs Image',
                         "type" => 'image',
                         'section' => 'programs',
                         'content' => null,
                     ],
                     [
-                        "column" => 'programs-description',
                         "label" => 'Programs Description',
                         "type" => 'long-text',
                         'section' => 'programs',
@@ -348,14 +318,12 @@ class PageSeeder extends Seeder
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam incidunt, similique autem hic quae a iste vero dolor unde necessitatibus, velit natus minima fuga officiis perferendis architecto ipsa eligendi illo.',
                     ],
                     [
-                        "column" => 'trainings-image',
                         "label" => 'Trainings Image',
                         "type" => 'image',
                         'section' => 'trainings',
                         'content' => null,
                     ],
                     [
-                        "column" => 'trainings-description',
                         "label" => 'Trainings Description',
                         "type" => 'long-text',
                         'section' => 'trainings',
@@ -363,21 +331,18 @@ class PageSeeder extends Seeder
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam incidunt, similique autem hic quae a iste vero dolor unde necessitatibus, velit natus minima fuga officiis perferendis architecto ipsa eligendi illo.',
                     ],
                     [
-                        "column" => 'national-meetings-description',
                         "label" => 'National Meetings Description',
                         "type" => 'long-text',
                         'section' => 'national-meetings',
                         'content' => 'One of CIMSA’s goal is to provide a forum for Indonesian medical students to discuss topics related to health and educatiom. Therefore, every year CIMSA holds its annual meetings on February, May, and October. Each meeting has specific goals, target, and strategies designed by CIMSA national officer. The core activities on our meetings are Grand Lecture and Issue Update, Trainings, Plenary Session, Parallel Sessions, and Small Working Group Discussions. In the end, the output of these meetings will be implemented in our locals’ activities.',
                     ],
                     [
-                        "column" => 'national-meetings-embedded-youtube-url',
                         "label" => 'National Meetings Embedded Youtube URL',
                         "type" => 'text',
                         'section' => 'national-meetings',
                         'content' => 'https://www.youtube.com/embed/Hap0KvyFwLI?si=WLVLwJAUrKCPpwD1',
                     ],
                     [
-                        "column" => 'become-delegates-url',
                         "label" => 'Become Delegates URL',
                         "type" => 'text',
                         'section' => 'national-meetings',
@@ -391,7 +356,6 @@ class PageSeeder extends Seeder
                 "name" => 'Programs',
                 'contents' => [
                     [
-                        "column" => 'description',
                         "label" => 'Description',
                         "type" => 'long-text',
                         'section' => null,
@@ -405,14 +369,12 @@ class PageSeeder extends Seeder
                 "name" => 'Trainings',
                 'contents' => [
                     [
-                        "column" => 'description',
                         "label" => 'Description',
                         "type" => 'long-text',
                         'section' => null,
                         'content' => 'True to our vision, CIMSA UGM aims to empower medical students in every possible aspect.',
                     ],
                     [
-                        "column" => 'trainers-description',
                         "label" => 'Trainers Description',
                         "type" => 'text',
                         'section' => null,
@@ -433,7 +395,6 @@ class PageSeeder extends Seeder
                 "name" => 'Officials',
                 'contents' => [
                     [
-                        "column" => 'description',
                         "label" => 'Description',
                         "type" => 'long-text',
                         'section' => null,
@@ -447,7 +408,6 @@ class PageSeeder extends Seeder
                 "name" => 'Blog',
                 'contents' => [
                     [
-                        "column" => 'description',
                         "label" => 'Description',
                         "type" => 'long-text',
                         'section' => null,
@@ -501,7 +461,8 @@ class PageSeeder extends Seeder
         $slug = Str::slug($page_model->name);
 
         $payload = [
-            'column' => $data['column'],
+            'column' => Str::slug($data['label']),
+            'label' => $data['label'],
             'type' => $data['type'],
             'section' => $data['section'],
         ];

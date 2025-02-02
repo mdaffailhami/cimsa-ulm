@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form id="mainForm" action="{{ route('cimsa-profile.update') }}" method="POST">
+                    <form id="mainForm" action="{{ route('cimsa-profile.update-new') }}" method="POST">
                         @method('PUT')
                         @csrf
 
