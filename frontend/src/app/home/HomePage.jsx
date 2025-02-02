@@ -71,7 +71,7 @@ export default function HomePage() {
       <hr />
       <NumberOfThingsSection
         statistics={JSON.parse(
-          page.data.contents.find((x) => x.column === 'statistics')
+          page.data.contents.find((x) => x.column === 'statistic')
             .long_text_content
         )}
       />
