@@ -15,6 +15,7 @@
                     <form id="contentForm" action="{{ route('page.update', ['page' => $page->uuid]) }}" method="POST">
                         @method('PUT')
                         @csrf
+                        <input type="hidden" id="form_category" name="form_category" value="content">
 
 
                         <button type="submit" id='content-submit-btn' class="btn btn-primary">Simpan Perubahan</button>
@@ -260,6 +261,8 @@
 
                     // Initialize File Pond for Image Field Type
                     if (content.type === 'image' || content.type === 'multiple-image') {
+                        console.log(content);
+
 
                         const imageInput = document.getElementById(`data[${index}][value]`)
                         let is_multiple = content.type === 'image' ? false : true;

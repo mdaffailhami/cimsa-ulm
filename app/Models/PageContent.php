@@ -25,4 +25,24 @@ class PageContent extends Model
     {
         return $this->hasMany(Gallery::class, 'entity_id');
     }
+
+    public function syncGalleries($galleries)
+    {
+        $this->galleries()->delete();
+
+        foreach ($galleries as $index => $gallery) {
+            if ($gallery && str_starts_with($gallery, 'tmp/')) {
+                $path_name = "committe";
+                $image_name = $path_name . "/" . uploadFile($path_name, $gallery);
+            } else {
+                $image_name = $gallery;
+            }
+
+            $this->galleries()->create([
+                "type" => 'committe',
+                'url' => config('global')["backend_url"] . "/api/image/" .  $image_name,
+                "order" => $index
+            ]);
+        }
+    }
 }

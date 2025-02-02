@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\Page\PageResource;
 use App\Models\Page;
 use App\Models\PageContact;
+use App\Models\PageContent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -87,7 +88,7 @@ class PageController extends Controller
      */
     public function edit(string $id)
     {
-        $page = Page::with('contents', 'contact')->whereUri($id)->first();
+        $page = Page::with('contents.galleries', 'contact')->whereUri($id)->first();
         return view('admin.pages.page-content', compact('page'));
     }
 
@@ -172,12 +173,27 @@ class PageController extends Controller
         DB::beginTransaction();
 
         try {
+            if ($request->data) {
+                foreach ($request->data as $content) {
+                    $content_model = PageContent::findOrFail($content['id']);
+
+                    if ($content_model->type === 'text') {
+                        $content_model->text_content = $content['value'];
+                    } else if ($content_model->type === 'long-text') {
+                        $content_model->long_text_content = $content['value'];
+                    } else if ($content_model->type === 'image') {
+                        $galleries = [$content['value']]; // turn value into array so it can be processed with syncGalleries method
+                        $content_model->syncGalleries($galleries);
+                    } else {
+                        $content_model->syncGalleries($content['values']);
+                    }
+
+                    $content_model->save();
+                }
+            }
             DB::commit();
-
-
             // Redirect to the last page of pages
-            return redirect()->route('page.index')
-                ->with('success', 'Berhasil memperbarui konten.');
+            return back()->with('success', 'Berhasil memperbarui konten.');
         } catch (\Throwable $th) {
             DB::rollBack();
             Log::error('Error storing page: ' . $th->getMessage());
