@@ -37,9 +37,6 @@ export default function PostDetailPage() {
     return <LoadFailedPage />;
   }
 
-  console.log(post.data);
-  console.log(posts.data);
-
   return (
     <Container
       as={'article'}

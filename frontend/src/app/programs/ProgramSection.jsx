@@ -74,7 +74,7 @@ export default function ProgramSection({
         ))}
       </Carousel>
       <br />
-      {body}
+      <p>{body}</p>
       <br />
       {endSection && <hr />}
     </Container>

@@ -19,8 +19,6 @@ export default function AboutIFMSAPage() {
   if (page.isLoading) return <LoadingPage />;
   if (page.error) return <LoadFailedPage />;
 
-  console.log(page.data);
-
   return (
     <>
       <Global

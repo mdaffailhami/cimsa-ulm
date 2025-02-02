@@ -8,7 +8,6 @@ export default function VisionMissionSection({
   vision,
   missions,
 }) {
-  console.log(missions);
   return (
     <Container fluid style={{ background: 'red' }}>
       <Container
