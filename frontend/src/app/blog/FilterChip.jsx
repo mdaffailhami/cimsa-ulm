@@ -1,6 +1,5 @@
 import { css, Global } from '@emotion/react';
 import { Badge, Button } from 'react-bootstrap';
-import { Link } from 'react-router';
 
 export default function FilterChip({ category, active, to, onClick }) {
   return (

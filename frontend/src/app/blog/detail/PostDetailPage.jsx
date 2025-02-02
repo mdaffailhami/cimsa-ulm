@@ -1,47 +1,43 @@
 import { css } from '@emotion/react';
 import { useParams } from 'react-router';
-import { setPageMeta } from '../../../utils';
-import { Fragment, useEffect, useReducer, useState } from 'react';
+import { fetchJSON, setPageMeta } from '../../../utils';
+import { Fragment, useEffect } from 'react';
 import { endpoint } from '../../../configs';
 import LoadingPage from '../../../components/LoadingPage';
 import { Container, Dropdown, Image } from 'react-bootstrap';
 import HtmlParser from '../../../components/HtmlParser';
 import BlogSection from '../../../components/BlogSection';
+import useSWR from 'swr';
 
 export default function PostDetailPage() {
-  const [update, forceUpdate] = useReducer((x) => x + 1, 0);
   const { slug } = useParams();
 
-  const [post, setPost] = useState(undefined);
-  const [posts, setPosts] = useState(undefined);
+  const post = useSWR(`${endpoint}/api/post/${slug}`, fetchJSON);
+  const posts = useSWR(`${endpoint}/api/post?page=1&limit=6`, fetchJSON);
 
-  useEffect(() => {
-    setPost(undefined);
-    forceUpdate();
-  }, [slug]);
-
+  // Re-render page when slug changes (e.g. BlogSection in this PostDetailPage is clicked (same route))
   useEffect(() => {
     document.title = 'Post Detail - CIMSA ULM';
 
     (async () => {
-      try {
-        const res = await fetch(`${endpoint}/api/post/${slug}`);
-        const res2 = await fetch(`${endpoint}/api/post?page=1&limit=3`);
-        const data = await res.json();
-        const data2 = await res2.json();
+      await post.mutate();
 
-        if (!data || !data2) throw new Error('Error fetching data');
-
-        setPageMeta(data.data.title, data.data.highlight);
-        setPost(data.data);
-        setPosts(data2.data);
-      } catch (error) {
-        alert(error);
+      if (post.data) {
+        setPageMeta(post.data.data.title, post.data.data.highlight);
       }
     })();
-  }, [update]);
+  }, [slug]);
 
-  if (!post || !posts) return <LoadingPage />;
+  if (post.isLoading || posts.isLoading) {
+    return <LoadingPage />;
+  }
+
+  if (post.error || posts.error) {
+    return <LoadFailedPage />;
+  }
+
+  console.log(post.data);
+  console.log(posts.data);
 
   return (
     <Container
@@ -61,7 +57,7 @@ export default function PostDetailPage() {
             align-items: center;
           `}
         >
-          <h1 style={{ flexGrow: 1 }}>{post.title}</h1>
+          <h1 style={{ flexGrow: 1 }}>{post.data.data.title}</h1>
           <Dropdown
             onMouseEnter={(e) => {
               if (!e.target.classList.contains('show')) {
@@ -79,7 +75,7 @@ export default function PostDetailPage() {
             </Dropdown.Toggle>
 
             <Dropdown.Menu as={'ul'} style={{ padding: 0, width: 'auto' }}>
-              {post.categories.map((category, i) => (
+              {post.data.data.categories.map((category, i) => (
                 <Fragment key={i}>
                   {i != 0 && <Dropdown.Divider style={{ margin: 0 }} />}
                   <Dropdown.Item
@@ -103,7 +99,7 @@ export default function PostDetailPage() {
           data-aos='fade'
           data-aos-duration='1200'
           data-aos-once='true'
-          src={post.cover}
+          src={post.data.data.cover}
           css={css`
             position: relative;
             max-width: 800px;
@@ -116,11 +112,11 @@ export default function PostDetailPage() {
       </header>
       <hr />
       <main data-aos='fade' data-aos-duration='1200' data-aos-once='true'>
-        <HtmlParser html={post.content} />
+        <HtmlParser html={post.data.data.content} />
       </main>
       <hr />
       <BlogSection
-        posts={posts}
+        posts={posts.data.data}
         header={
           <h1 className='text-center' style={{ marginBottom: '18px' }}>
             CHECK OUT OUR OTHER POSTS!

@@ -4,12 +4,12 @@ import BlogSection from '../../components/BlogSection';
 import { endpoint } from '../../configs';
 import LoadingPage from '../../components/LoadingPage';
 import PostsPagination from './PostsPagination';
-import { getWebPaths } from '../../utils';
+import { fetchJSON, getWebPaths } from '../../utils';
+import LoadFailedPage from '../../components/LoadFailedPage';
+import useSWR from 'swr';
 
 export default function PostsSection() {
   const paths = getWebPaths();
-
-  const [blog, setBlog] = useState(undefined);
 
   const [configs, setConfigs] = useState({
     category: paths[1],
@@ -18,53 +18,50 @@ export default function PostsSection() {
 
   const { category, page } = configs;
 
+  const posts = useSWR(
+    `${endpoint}/api/post?page=${page}&limit=9&category=${
+      category == 'all' ? '' : category
+    }`,
+    fetchJSON
+  );
+
   const setCategory = (newCategory) => {
-    window.history.replaceState({}, '', `/blog/${newCategory}/${page}`);
-    setConfigs({ ...configs, category: newCategory });
+    window.history.replaceState({}, '', `/blog/${newCategory}/1`);
+    setConfigs({ category: newCategory, page: 1 });
   };
 
   const setPage = (newPage) => {
-    if (!blog) throw new Error('Failed to navigate!');
+    if (!posts.data) throw new Error('Failed to navigate!');
 
     newPage = parseInt(newPage);
     if (newPage < 1) newPage = 1;
-    if (newPage > blog.pagination.last_page)
-      newPage = blog.pagination.last_page;
+    if (newPage > posts.data.pagination.last_page)
+      newPage = posts.data.pagination.last_page;
 
     window.history.replaceState({}, '', `/blog/${category}/${newPage}`);
     setConfigs({ ...configs, page: newPage });
   };
 
   useEffect(() => {
-    // loading
-    setBlog(undefined);
-
     (async () => {
-      // await new Promise((resolve) => setTimeout(resolve, 1000));
-      try {
-        const res = await fetch(
-          `${endpoint}/api/post?page=${page}&limit=9&category=${
-            category == 'all' ? '' : category
-          }`
-        );
+      // refetch (revalidate/mutate)
+      await posts.mutate();
 
-        const data = await res.json();
-        if (!data) throw new Error('Error fetching data');
-
+      if (posts.data) {
         // If current page is greater than new last page
-        if (data.pagination.last_page < page) {
-          setPage(data.pagination.last_page);
+        if (posts.data.pagination.last_page < page) {
+          setPage(posts.data.pagination.last_page);
         }
-
-        setBlog(data);
-      } catch (err) {
-        alert(err);
       }
     })();
   }, [configs]);
 
-  if (!blog) {
+  if (posts.isLoading) {
     return <LoadingPage />;
+  }
+
+  if (posts.error) {
+    return <LoadFailedPage />;
   }
 
   return (
@@ -102,11 +99,11 @@ export default function PostsSection() {
         <BlogSection
           aos={null}
           header={<br />}
-          posts={blog.data}
+          posts={posts.data.data}
           footer={
             <PostsPagination
               activePage={page}
-              totalPage={!blog ? 1 : blog.pagination.last_page}
+              totalPage={!posts.data ? 1 : posts.data.pagination.last_page}
               onPageChange={(x) => {
                 window.history.replaceState({}, '', `/blog/${category}/${x}`);
 

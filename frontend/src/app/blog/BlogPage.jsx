@@ -3,11 +3,12 @@ import PageHeader from '../../components/PageHeader';
 import PostsSection from './PostsSection';
 import SocmedsSection from '../../components/SocmedsSection';
 import ContactCardSection from '../../components/ContactCardSection';
-import { getWebPaths, setPageMeta } from '../../utils';
+import { fetchJSON, getWebPaths, setPageMeta } from '../../utils';
 import LoadingPage from '../../components/LoadingPage';
 import { endpoint } from '../../configs';
-import { useEffect, useState } from 'react';
 import HtmlParser from '../../components/HtmlParser';
+import useSWR from 'swr';
+import LoadFailedPage from '../../components/LoadFailedPage';
 
 export default function BlogPage() {
   setPageMeta(
@@ -38,26 +39,10 @@ export default function BlogPage() {
     window.history.replaceState({}, '', `/blog/${paths[1]}/1`);
   }
 
-  const [pageData, setPageData] = useState(null);
+  const page = useSWR(`${endpoint}/api/page/blog`, fetchJSON);
 
-  useEffect(() => {
-    (async () => {
-      // await new Promise((resolve) => setTimeout(resolve, 3000));
-      try {
-        const res = await fetch(`${endpoint}/api/page/blog`);
-
-        setPageData(await res.json());
-      } catch (err) {
-        alert(err);
-      }
-    })();
-  }, []);
-
-  if (!pageData) {
-    return <LoadingPage />;
-  }
-
-  const { contents, contact } = pageData;
+  if (page.isLoading) return <LoadingPage />;
+  if (page.error) return <LoadFailedPage />;
 
   return (
     <>
@@ -67,7 +52,7 @@ export default function BlogPage() {
           description={
             <HtmlParser
               html={
-                contents.find((x) => x.column === 'description')
+                page.data.contents.find((x) => x.column === 'description')
                   .long_text_content
               }
             />
@@ -79,12 +64,12 @@ export default function BlogPage() {
       <SocmedsSection />
       <br />
       <ContactCardSection
-        period={contact.generation}
-        position={contact.occupation}
-        picture={contact.image}
-        name={contact.name}
-        email={contact.email}
-        phone={contact.phone}
+        period={page.data.contact.generation}
+        position={page.data.contact.occupation}
+        picture={page.data.contact.image}
+        name={page.data.contact.name}
+        email={page.data.contact.email}
+        phone={page.data.contact.phone}
       />
     </>
   );
