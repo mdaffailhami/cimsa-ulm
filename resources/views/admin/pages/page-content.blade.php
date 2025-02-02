@@ -1,7 +1,15 @@
 <x-layout.master>
     @section('title', 'Manajemen Konten Halaman')
 
-    <h1 class="h3 mb-3"><strong>Manajemen Konten Halaman {{ $page->name }}</h1>
+    <div class="d-flex align-items-center mb-3" style="gap: 8px">
+        <a href="{{ route('page.index') }}" class="text-dark">
+            <i class="align-middle" data-feather="arrow-left"></i>
+        </a>
+        <h1 class="h3 m-0"><strong>Manajemen Konten Halaman {{ $page->name }}</h1>
+    </div>
+
+
+
 
     <div class="row">
         {{-- Content Form  --}}
@@ -126,7 +134,8 @@
                         <div class="row mb-3">
                             <label for="avatar" class="col-sm-2 col-form-label">Foto narahubung</label>
                             <div class="col-sm-6">
-                                <input type="file" class="filepond" id="avatar" name="avatar" accept="image/*">
+                                <input type="file" class="filepond" id="avatar" name="avatar"
+                                    accept="image/*">
                             </div>
                             @error('avatar')
                                 <div class="col-sm-6 offset-sm-2">
@@ -261,8 +270,6 @@
 
                     // Initialize File Pond for Image Field Type
                     if (content.type === 'image' || content.type === 'multiple-image') {
-                        console.log(content);
-
 
                         const imageInput = document.getElementById(`data[${index}][value]`)
                         let is_multiple = content.type === 'image' ? false : true;

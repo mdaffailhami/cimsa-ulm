@@ -15,13 +15,13 @@
                 </a>
             </li>
 
-            <li class="sidebar-item {{ request()->routeIs('cimsa-profile.index') ? 'active' : '' }}">
+            <li class="sidebar-item {{ request()->routeIs(['cimsa-profile.index']) ? 'active' : '' }}">
                 <a class="sidebar-link" href="{{ route('cimsa-profile.index') }}">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile CIMSA</span>
                 </a>
             </li>
 
-            <li class="sidebar-item {{ request()->routeIs('page.index') ? 'active' : '' }}">
+            <li class="sidebar-item {{ request()->routeIs(['page.index', 'page.edit']) ? 'active' : '' }}">
                 <a class="sidebar-link" href="{{ route('page.index') }}">
                     <i class="align-middle" data-feather="layout"></i> <span class="align-middle">Manajemen
                         Halaman</span>
