@@ -1,12 +1,11 @@
-import { css } from '@emotion/react';
 import ContactCardSection from '../../components/ContactCardSection';
 import PageHeader from '../../components/PageHeader';
 import OurTrainersSection from './OurTrainersSection';
-import { setPageMeta } from '../../utils';
-import { useEffect, useState } from 'react';
+import { fetchJSON, setPageMeta } from '../../utils';
 import { endpoint } from '../../configs';
 import LoadingPage from '../../components/LoadingPage';
 import HtmlParser from '../../components/HtmlParser';
+import useSWR from 'swr';
 
 export default function TrainingsPage() {
   setPageMeta(
@@ -14,33 +13,11 @@ export default function TrainingsPage() {
     'CIMSA has an established capacity building system where members may become trainers that will act as peer educators on various topics. These ‘trainings of trainers’ are conducted each year (some are held biennially), ensuring a steady production of trainers and a continuous stream of capacity buildings.'
   );
 
-  const [pageData, setPageData] = useState(undefined);
-  const [trainers, setTrainers] = useState(undefined);
+  const page = useSWR(`${endpoint}/api/page/trainings`, fetchJSON);
+  const trainers = useSWR(`${endpoint}/api/training`, fetchJSON);
 
-  useEffect(() => {
-    (async () => {
-      // await new Promise((resolve) => setTimeout(resolve, 3000));
-      try {
-        const res = await fetch(`${endpoint}/api/page/trainings`);
-        const res2 = await fetch(`${endpoint}/api/training`);
-        const data = await res.json();
-        const data2 = await res2.json();
-
-        if (!data && !data2) throw new Error('Error fetching data');
-
-        setPageData(data);
-        setTrainers(data2.data);
-      } catch (err) {
-        alert(err);
-      }
-    })();
-  }, []);
-
-  if (!pageData) {
-    return <LoadingPage />;
-  }
-
-  const { contents, contact } = pageData;
+  if (page.isLoading || trainers.isLoading) return <LoadingPage />;
+  if (page.error || trainers.error) return <LoadFailedPage />;
 
   return (
     <>
@@ -49,7 +26,8 @@ export default function TrainingsPage() {
         description={
           <HtmlParser
             html={
-              contents.find((x) => x.column === 'description').long_text_content
+              page.data.contents.find((x) => x.column === 'description')
+                .long_text_content
             }
           />
         }
@@ -58,21 +36,22 @@ export default function TrainingsPage() {
         description={
           <HtmlParser
             html={
-              contents.find((x) => x.column === 'trainers-description')
-                .long_text_content
+              page.data.contents.find(
+                (x) => x.column === 'trainers-description'
+              ).long_text_content
             }
           />
         }
-        trainers={trainers}
+        trainers={trainers.data.data}
       />
       <hr />
       <ContactCardSection
-        period={contact.generation}
-        position={contact.occupation}
-        picture={contact.image}
-        name={contact.name}
-        email={contact.email}
-        phone={contact.phone}
+        period={page.data.contact.generation}
+        position={page.data.contact.occupation}
+        picture={page.data.contact.image}
+        name={page.data.contact.name}
+        email={page.data.contact.email}
+        phone={page.data.contact.phone}
       />
     </>
   );
