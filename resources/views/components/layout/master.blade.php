@@ -25,6 +25,29 @@
 
     @yield('styles')
 
+    <style>
+        /* Loading Style */
+        .loading-icon {
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
 
 </head>
 
@@ -36,7 +59,21 @@
             <x-layout.navbar />
 
             <main class="content">
-                <div class="container-fluid p-0">
+                <div id="loading-container"
+                    class="d-flex flex-column justify-content-center align-items-center position-fixed top-0 start-0 w-100 h-100 bg-white opacity-75"
+                    style="z-index: 1050;">
+
+                    <svg class="loading-icon text-primary mb-2" width="50" height="50" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+                        <path d="M12 2a10 10 0 0 1 10 10" stroke-opacity="1"></path>
+                    </svg>
+
+                    <p class="loading-text text-primary fw-semibold">Loading</p>
+                </div>
+
+                <div id="container" class="container-fluid p-0 d-none">
 
                     {{ $slot }}
                 </div>
@@ -48,6 +85,18 @@
 
     <script src="/admin-dist/bootstrap/js/bootstrap.js"></script>
     <script src="/admin-dist/js/app.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingContainer = document.getElementById('loading-container');
+            const contentContainer = document.getElementById('container');
+            loadingContainer.classList.add('d-none');
+            contentContainer.classList.remove('d-none');
+
+            console.log("DOM Loaded");
+
+        })
+    </script>
 
     @yield('scripts')
 
