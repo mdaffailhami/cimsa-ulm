@@ -130,7 +130,7 @@ export default function ProgramsPage() {
             />
             <br />
             <br />
-            <PrimaryButton to='/activities/trainings'>
+            <PrimaryButton to='/trainings'>
               <i
                 className='fa-solid fa-arrow-right'
                 style={{ marginRight: '6.95px' }}

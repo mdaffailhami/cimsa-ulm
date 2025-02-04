@@ -10,13 +10,12 @@ import AboutUsPage from './app/about-us/AboutUsPage';
 import HomePage from './app/home/HomePage';
 import Footer from './Footer';
 import Navbar from './Navbar';
-import Logo from './assets/Logo';
 import { Global, css } from '@emotion/react';
 import ContactUsPage from './app/contact-us/ContactUsPage';
 import AlumniSeniorPage from './app/alumni-senior/AlumniSeniorPage';
 import ProgramsPage from './app/programs/ProgramsPage';
 import OfficialsPage from './app/officials/OfficialsPage';
-import AboutIFMSAPage from './app/about-us/ifmsa/AboutIFMSAPage';
+import AboutIFMSAPage from './app/about-ifmsa/AboutIFMSAPage';
 import TrainingsPage from './app/trainings/TrainingsPage';
 import ActivitiesPage from './app/activities/ActivitiesPage';
 import BlogPage from './app/blog/BlogPage';
@@ -51,12 +50,12 @@ function App() {
               <Route path='blog/:category' element={<BlogPage />} />
               <Route path='blog/:category/:page' element={<BlogPage />} />
               <Route path='about-us' element={<AboutUsPage />} />
-              <Route path='about-us/ifmsa' element={<AboutIFMSAPage />} />
+              <Route path='about-ifmsa' element={<AboutIFMSAPage />} />
               <Route path='scos' element={<ScosPage />} />
               <Route path='scos/:name' element={<ScoDetailPage />} />
               <Route path='activities' element={<ActivitiesPage />} />
-              <Route path='activities/programs' element={<ProgramsPage />} />
-              <Route path='activities/trainings' element={<TrainingsPage />} />
+              <Route path='programs' element={<ProgramsPage />} />
+              <Route path='trainings' element={<TrainingsPage />} />
               <Route path='officials' element={<OfficialsPage />} />
               <Route path='alumni-senior' element={<AlumniSeniorPage />} />
               <Route path='contact-us' element={<ContactUsPage />} />

@@ -83,7 +83,7 @@ export default function IFMSASection({ description }) {
             >
               {description}
             </p>
-            <PrimaryButton to='/about-us/ifmsa' color='#1f3868' isLarge={false}>
+            <PrimaryButton to='/about-ifmsa' color='#1f3868' isLarge={false}>
               <i
                 className='fa-solid fa-arrow-right'
                 style={{ marginRight: '6.95px' }}

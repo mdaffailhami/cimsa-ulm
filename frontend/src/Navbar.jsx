@@ -93,7 +93,10 @@ export default function Navbar() {
                 </Nav.Link>
                 <NavDropdown
                   title='About Us'
-                  active={location.pathname.startsWith('/about-us')}
+                  active={
+                    location.pathname === '/about-us' ||
+                    location.pathname === '/about-ifmsa'
+                  }
                   onMouseEnter={(e) => {
                     if (!e.target.classList.contains('show')) {
                       e.target.click();
@@ -115,8 +118,8 @@ export default function Navbar() {
                   <NavDropdown.Divider />
                   <NavDropdown.Item
                     as={Link}
-                    to='/about-us/ifmsa'
-                    active={location.pathname === '/about-us/ifmsa'}
+                    to='/about-ifmsa'
+                    active={location.pathname === '/about-ifmsa'}
                   >
                     About IFMSA
                   </NavDropdown.Item>
@@ -174,7 +177,11 @@ export default function Navbar() {
                 </NavDropdown>
                 <NavDropdown
                   title='What We Do'
-                  active={location.pathname.startsWith('/activities')}
+                  active={
+                    location.pathname === '/activities' ||
+                    location.pathname === '/programs' ||
+                    location.pathname === '/trainings'
+                  }
                   onMouseEnter={(e) => {
                     if (!e.target.classList.contains('show')) {
                       e.target.click();
@@ -196,15 +203,15 @@ export default function Navbar() {
                   <NavDropdown.Divider />
                   <NavDropdown.Item
                     as={Link}
-                    to='/activities/programs'
-                    active={location.pathname === '/activities/programs'}
+                    to='/programs'
+                    active={location.pathname === '/programs'}
                   >
                     Programs
                   </NavDropdown.Item>
                   <NavDropdown.Item
                     as={Link}
-                    to='/activities/trainings'
-                    active={location.pathname === '/activities/trainings'}
+                    to='/trainings'
+                    active={location.pathname === '/trainings'}
                   >
                     Trainings
                   </NavDropdown.Item>

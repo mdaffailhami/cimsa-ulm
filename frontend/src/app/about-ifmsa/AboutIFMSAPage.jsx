@@ -1,13 +1,13 @@
 import { css, Global } from '@emotion/react';
-import PageHeader from '../../../components/PageHeader';
+import PageHeader from '../../components/PageHeader';
 import { Col, Container, Image, Row } from 'react-bootstrap';
-import PrimaryButton from '../../../components/PrimaryButton';
-import { fetchJSON, getOnHoverAnimationCss, setPageMeta } from '../../../utils';
-import { endpoint } from '../../../configs';
-import LoadingPage from '../../../components/LoadingPage';
-import HtmlParser from '../../../components/HtmlParser';
+import PrimaryButton from '../../components/PrimaryButton';
+import { fetchJSON, getOnHoverAnimationCss, setPageMeta } from '../../utils';
+import { endpoint } from '../../configs';
+import LoadingPage from '../../components/LoadingPage';
+import HtmlParser from '../../components/HtmlParser';
 import useSWR from 'swr';
-import { PageMeta } from '../../../components/PageMeta';
+import { PageMeta } from '../../components/PageMeta';
 
 export default function AboutIFMSAPage() {
   const page = useSWR(`${endpoint}/api/page/about-ifmsa`, fetchJSON);
