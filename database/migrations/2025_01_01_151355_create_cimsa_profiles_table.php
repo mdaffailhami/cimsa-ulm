@@ -15,9 +15,10 @@ return new class extends Migration
             $table->uuid()->primary();
             $table->string('column');
             $table->string('label');
-            $table->enum('type', ['text', 'long-text', 'image', 'multiple-image']);
+            $table->enum('type', ['text', 'long-text', 'image', 'multiple-image', 'multiple-value']);
             $table->string('text_content', 500)->nullable();
             $table->text('long_text_content')->nullable();
+            $table->longText('multiple_value_content')->nullable();
             $table->timestamps();
         });
     }

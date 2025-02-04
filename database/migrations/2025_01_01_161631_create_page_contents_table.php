@@ -16,10 +16,11 @@ return new class extends Migration
             $table->foreignUuid('page_id')->constrained('pages', 'uuid')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('column');
             $table->string('label');
-            $table->enum('type', ['text', 'long-text', 'image', 'multiple-image']);
+            $table->enum('type', ['text', 'long-text', 'image', 'multiple-image', 'multiple-value']);
             $table->string('section')->nullable();
             $table->string('text_content', 500)->nullable();
             $table->text('long_text_content')->nullable();
+            $table->longText('multiple_value_content')->nullable();
             $table->timestamps();
         });
     }
