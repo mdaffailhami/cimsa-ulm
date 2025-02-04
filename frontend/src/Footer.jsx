@@ -75,7 +75,7 @@ export default function Footer() {
                 >
                   <img
                     src={Logo}
-                    alt='Logo'
+                    alt='CIMSA ULM'
                     style={{
                       height: '50px',
                       marginBottom: '10px',

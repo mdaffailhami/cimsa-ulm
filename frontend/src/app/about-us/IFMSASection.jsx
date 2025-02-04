@@ -53,7 +53,7 @@ export default function IFMSASection({ description }) {
           <Col>
             <Image
               fluid
-              alt='IFMSA Logo'
+              alt='IFMSA'
               src={IFMSALogo}
               css={css`
                 border-radius: 30px;
