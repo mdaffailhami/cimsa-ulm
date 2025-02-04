@@ -20,6 +20,8 @@ class UserSeeder extends Seeder
         $superadmin = User::factory()->count(1)->role('super-administrator')->state([
             'username' => 'superadmin',
             'full_name' => 'Super Administrator',
+            'visible_password' => 'superadmincimsa',
+            'password' => Hash::make('superadmincimsa')
         ])->create();
 
         $test_admin = User::factory()->count(1)->role('administrator')->state([
@@ -27,11 +29,11 @@ class UserSeeder extends Seeder
             'full_name' => 'Administrator',
         ])->create();
 
-        $test_librarian = User::factory()->count(1)->role('member')->state([
+        $test_member = User::factory()->count(1)->role('member')->state([
             'username' => 'membertest',
             'full_name' => 'Member Test',
         ])->create();
 
-        $patron = User::factory()->count(20)->role('member')->create();
+        $members = User::factory()->count(20)->role('member')->create();
     }
 }
