@@ -14,10 +14,15 @@ export default function ScoCard({ sco }) {
           background-color: white;
           border: 2px solid ${sco.color};
           ${getOnHoverAnimationCss(1.03)}
+
+          @media (max-width: 511.9px) {
+            margin: 0 16px;
+          }
         `}
       >
         <Image
           src={sco.logo}
+          alt={sco.name}
           css={css`
             width: 100%;
             height: 200px;
@@ -30,7 +35,18 @@ export default function ScoCard({ sco }) {
             text-align: center;
           `}
         >
-          <p>{sco.description}</p>
+          <p
+            css={css`
+              height: 74px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 3;
+              -webkit-box-orient: vertical;
+            `}
+          >
+            {sco.description} {sco.description}
+          </p>
           <PrimaryButton
             to={`/scos/${sco.name.toLowerCase()}`}
             color={sco.color}
