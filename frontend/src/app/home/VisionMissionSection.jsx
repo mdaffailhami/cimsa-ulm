@@ -38,7 +38,12 @@ export default function VisionMissionSection({
     <Container className='d-flex flex-wrap justify-content-center'>
       <Row xs={1} sm={1} md={2}>
         <Col className='d-flex justify-content-center'>
-          <ImageCard id='vision-image' image={visionImage} aos='flip-right' />
+          <ImageCard
+            id='vision-image'
+            alt='CIMSA Vision'
+            image={visionImage}
+            aos='flip-right'
+          />
         </Col>
         <Col className='d-flex align-items-center justify-content-center'>
           <TextCard
@@ -59,14 +64,19 @@ export default function VisionMissionSection({
           />
         </Col>
         <Col className='d-flex justify-content-center'>
-          <ImageCard id='mission-image' image={missionImage} aos='flip-left' />
+          <ImageCard
+            id='mission-image'
+            alt='CIMSA Mission'
+            image={missionImage}
+            aos='flip-left'
+          />
         </Col>
       </Row>
     </Container>
   );
 }
 
-function ImageCard({ id, image, aos }) {
+function ImageCard({ id, image, aos, alt }) {
   return (
     <Card
       id={id}
@@ -88,6 +98,7 @@ function ImageCard({ id, image, aos }) {
     >
       <Image
         src={image}
+        alt={alt}
         css={css`
           width: 100%;
           height: 100%;

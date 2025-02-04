@@ -31,7 +31,7 @@ function NumberOfThing({ title, content }) {
   return (
     <Card style={{ border: 'none' }}>
       <Card.Body>
-        <Card.Title as='h1' className='text-center'>
+        <Card.Title className='text-center'>
           <CountUp
             enableScrollSpy={true} // Start the animation on scroll
             scrollSpyOnce={true}

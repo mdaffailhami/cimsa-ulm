@@ -64,7 +64,7 @@ export default function Banner({ title, image }) {
         <br />
         {(() => {
           const University = ({ children }) => (
-            <p
+            <h2
               className='lead'
               data-aos='fade-up'
               data-aos-duration='1200'
@@ -77,7 +77,7 @@ export default function Banner({ title, image }) {
               `}
             >
               {children}
-            </p>
+            </h2>
           );
 
           if (!cimsa) {

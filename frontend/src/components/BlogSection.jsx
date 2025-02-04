@@ -32,9 +32,19 @@ export default function BlogSection({
           return header;
         } else {
           return (
-            <h1 className='text-center' style={{ marginBottom: '18px' }}>
+            <h2
+              css={css`
+                margin-top: 0;
+                margin-bottom: 18px;
+                text-align: center;
+                font-size: calc(1.375rem + 1.5vw);
+                font-weight: 500;
+                line-height: 1.2;
+                color: var(--bs-heading-color);
+              `}
+            >
               CHECK OUT OUR LATEST UPDATES!
-            </h1>
+            </h2>
           );
         }
       })()}

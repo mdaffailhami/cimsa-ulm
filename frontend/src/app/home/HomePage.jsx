@@ -4,19 +4,15 @@ import BlogSection from '../../components/BlogSection';
 import NumberOfThingsSection from './NumberOfThingsSection';
 import QuoteSection from './QuoteSection';
 import VisionMissionSection from './VisionMissionSection';
-import { fetchJSON, setPageMeta } from '../../utils';
+import { fetchJSON } from '../../utils';
 import LoadingPage from '../../components/LoadingPage';
 import { endpoint } from '../../configs';
 import HtmlParser from '../../components/HtmlParser';
 import useSWR from 'swr';
 import LoadFailedPage from '../../components/LoadFailedPage';
+import { PageMeta } from '../../components/PageMeta';
 
 export default function HomePage() {
-  setPageMeta(
-    'CIMSA ULM',
-    "Center for Indonesian Medical Students' Activities - Universitas Lambung Mangkurat"
-  );
-
   const page = useSWR(`${endpoint}/api/page/landing`, fetchJSON);
   const posts = useSWR(`${endpoint}/api/post?page=1&limit=6`, fetchJSON);
 
@@ -30,6 +26,10 @@ export default function HomePage() {
 
   return (
     <>
+      <PageMeta
+        title='CIMSA ULM'
+        description='CIMSA (Center for Indonesian Medical Students’ Activities) is an independent, non-profit and non-governmental organization, that centers on the Sustainable Development Goals.'
+      />
       <Banner
         title={
           page.data.contents.find((x) => x.column === 'banner-title')

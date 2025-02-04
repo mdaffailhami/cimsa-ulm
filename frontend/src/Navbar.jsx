@@ -51,7 +51,7 @@ export default function Navbar() {
           >
             <img
               src={Logo}
-              alt='Logo'
+              alt='CIMSA ULM'
               style={{ width: 'auto', height: '40px' }}
             />
           </BootstrapNavbar.Brand>

@@ -24,48 +24,48 @@ import PostDetailPage from './app/blog/detail/PostDetailPage';
 import ScosPage from './app/scos/ScosPage';
 import ScoDetailPage from './app/scos/detail/ScoDetailPage';
 import { CimsaStateProvider } from './states/Cimsa';
+import { HelmetProvider } from 'react-helmet-async';
+import { PageMeta } from './components/PageMeta';
 
 createRoot(document.getElementById('app')).render(<App />);
 
 function App() {
-  document.title = 'CIMSA ULM';
-
-  // Change web favicon
-  document.head.insertAdjacentHTML(
-    'beforeend',
-    `<link rel="icon" href="${Logo}">`
-  );
-
   // Initialize AOS
   Aos.init();
 
   return (
     <StrictMode>
       <GlobalStyle />
-      <BrowserRouter>
-        <Navbar />
-        <CimsaStateProvider>
-          <Routes>
-            <Route index element={<HomePage />} />
-            <Route path='blog' element={<BlogPage />} />
-            <Route path='blog/detail/:slug' element={<PostDetailPage />} />
-            <Route path='blog/:category' element={<BlogPage />} />
-            <Route path='blog/:category/:page' element={<BlogPage />} />
-            <Route path='about-us' element={<AboutUsPage />} />
-            <Route path='about-us/ifmsa' element={<AboutIFMSAPage />} />
-            <Route path='scos' element={<ScosPage />} />
-            <Route path='scos/:name' element={<ScoDetailPage />} />
-            <Route path='activities' element={<ActivitiesPage />} />
-            <Route path='activities/programs' element={<ProgramsPage />} />
-            <Route path='activities/trainings' element={<TrainingsPage />} />
-            <Route path='officials' element={<OfficialsPage />} />
-            <Route path='alumni-senior' element={<AlumniSeniorPage />} />
-            <Route path='contact-us' element={<ContactUsPage />} />
-            <Route path='*' element={<NotFoundPage />} />
-          </Routes>
-          <Footer />
-        </CimsaStateProvider>
-      </BrowserRouter>
+      <HelmetProvider>
+        <PageMeta
+          title='CIMSA ULM'
+          description='CIMSA (Center for Indonesian Medical Students’ Activities) is an independent, non-profit and non-governmental organization, that centers on the Sustainable Development Goals.'
+        />
+        <BrowserRouter>
+          <Navbar />
+          <CimsaStateProvider>
+            <Routes>
+              <Route index element={<HomePage />} />
+              <Route path='blog' element={<BlogPage />} />
+              <Route path='blog/detail/:slug' element={<PostDetailPage />} />
+              <Route path='blog/:category' element={<BlogPage />} />
+              <Route path='blog/:category/:page' element={<BlogPage />} />
+              <Route path='about-us' element={<AboutUsPage />} />
+              <Route path='about-us/ifmsa' element={<AboutIFMSAPage />} />
+              <Route path='scos' element={<ScosPage />} />
+              <Route path='scos/:name' element={<ScoDetailPage />} />
+              <Route path='activities' element={<ActivitiesPage />} />
+              <Route path='activities/programs' element={<ProgramsPage />} />
+              <Route path='activities/trainings' element={<TrainingsPage />} />
+              <Route path='officials' element={<OfficialsPage />} />
+              <Route path='alumni-senior' element={<AlumniSeniorPage />} />
+              <Route path='contact-us' element={<ContactUsPage />} />
+              <Route path='*' element={<NotFoundPage />} />
+            </Routes>
+            <Footer />
+          </CimsaStateProvider>
+        </BrowserRouter>
+      </HelmetProvider>
     </StrictMode>
   );
 }
