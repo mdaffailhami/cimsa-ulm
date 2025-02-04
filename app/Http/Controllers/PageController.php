@@ -181,6 +181,8 @@ class PageController extends Controller
                         $content_model->text_content = $content['value'];
                     } else if ($content_model->type === 'long-text') {
                         $content_model->long_text_content = $content['value'];
+                    } else if ($content_model->type === 'multiple-value') {
+                        $content_model->multiple_value_content = json_encode($content['values']);
                     } else if ($content_model->type === 'image') {
                         $galleries = [$content['value']]; // turn value into array so it can be processed with syncGalleries method
                         $content_model->syncGalleries($galleries);

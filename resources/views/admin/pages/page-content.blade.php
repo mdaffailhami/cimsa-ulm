@@ -225,29 +225,52 @@
                 const inputLabel = document.createElement('label');
                 inputLabel.className = "col-sm-2 col-form-label"
                 inputLabel.innerText = content.label;
-                inputLabel.for = `data[${index}][value]`
+                inputLabel.for = content.type === 'multiple-image' ?
+                    `data[${index}][values][]` : `data[${index}][value]`
 
                 const inputWrapper = document.createElement('div');
                 inputWrapper.className = 'col-sm-6'
 
-                let inputValue;
-                // Handling Different Input Types
-                if (content.type === 'text' || content.type === 'long-text') {
-                    inputValue = document.createElement('textarea'); // Use <textarea> for both text and long_text
-                    inputValue.rows = content.type === 'long-text' ? 3 : 1; // Adjust height based on type
-                    inputValue.value = content?.text_content || content?.long_text_content || '';
-                    inputValue.placeholder = `Masukkan ${content.label}`;
-                } else if (content.type === 'image') {
-                    inputValue = document.createElement('input');
-                    inputValue.type = 'file';
-                    inputValue.accept = 'image/*';
+                // If type is multiple value
+
+                if (content.type === 'multiple-value') {
+                    const multipleInputWrapper = document.createElement('div')
+                    multipleInputWrapper.className = 'p-3 border rounded';
+
+                    const sub_contents = JSON.parse(content.multiple_value_content)
+                    sub_contents.forEach(async (sub_content, sub_index) => {
+                        let sub_name_index = `data[${index}][values][${sub_index}]`
+                        let subContentInputElement = createSubContentInput(sub_content, sub_name_index)
+                        multipleInputWrapper.appendChild(subContentInputElement);
+                    });
+
+                    inputWrapper.appendChild(multipleInputWrapper);
+
+                } else {
+                    let inputElement;
+
+                    // Handling Different Input Types
+                    if (content.type === 'text' || content.type === 'long-text') {
+                        inputElement = document.createElement('textarea'); // Use <textarea> for both text and long_text
+                        inputElement.rows = content.type === 'long-text' ? 3 : 2; // Adjust height based on type
+                        inputElement.value = content?.text_content || content?.long_text_content || '';
+                        inputElement.placeholder = `Masukkan ${content.label}`;
+                    } else if (content.type === 'image' || content.type === 'multiple-image') {
+                        inputElement = document.createElement('input');
+                        inputElement.type = 'file';
+                        inputElement.accept = 'image/*';
+                    }
+
+                    inputElement.className = 'form-control';
+                    inputElement.id = `data[${index}][value]`
+                    inputElement.name = content.type === 'multiple-image' ?
+                        `data[${index}][values][]` : `data[${index}][value]`
+
+                    inputWrapper.appendChild(inputElement);
                 }
 
-                inputValue.className = 'form-control';
-                inputValue.id = `data[${index}][value]`
-                inputValue.name = content.type === 'multiple-image' ? `data[${index}][values][]` : `data[${index}][value]`
 
-                inputWrapper.appendChild(inputValue);
+
 
                 inputContainer.appendChild(inputId);
                 inputContainer.appendChild(inputLabel);
@@ -255,6 +278,52 @@
 
                 return inputContainer;
             }
+
+            const createSubContentInput = (sub_content, sub_name_index) => {
+                const subContentWrapper = document.createElement('div');
+                subContentWrapper.className = 'mb-3 sub-content-input';
+
+                subContentLabel = document.createElement('input');
+                subContentLabel.type = 'hidden';
+                subContentLabel.name = `${sub_name_index}[label]`;
+                subContentLabel.value = sub_content.label;
+
+                subContentType = document.createElement('input');
+                subContentType.type = 'hidden';
+                subContentType.name = `${sub_name_index}[type]`;
+                subContentType.value = sub_content.type;
+
+                const subContentInputLabel = document.createElement('label');
+                subContentInputLabel.innerText = sub_content.label;
+                subContentInputLabel.className = '';
+                subContentInputLabel.for = sub_name_index
+
+                let subContentInputElement;
+
+                if (sub_content.type === 'long-text') {
+                    subContentInputElement = document.createElement('textarea');
+                } else {
+                    subContentInputElement = document.createElement('input');
+                    subContentInputElement.type = 'text';
+                }
+
+                subContentInputElement.value = sub_content?.value || '';
+                subContentInputElement.placeholder = `Masukkan ${sub_content.label}`;
+                subContentInputElement.className = 'form-control';
+                subContentInputElement.id = `${sub_name_index}[value]`
+                subContentInputElement.name = `${sub_name_index}[value]`
+
+                // Append elements to the subContent wrapper
+                subContentWrapper.appendChild(subContentLabel);
+                subContentWrapper.appendChild(subContentType);
+                subContentWrapper.appendChild(subContentInputLabel);
+                subContentWrapper.appendChild(subContentInputElement);
+                // subContentWrapper.appendChild(removeBtn);
+
+
+
+                return subContentWrapper;
+            };
 
             const initializeContentForm = (contents) => {
 
@@ -299,6 +368,20 @@
                         const textInput = document.getElementById(`data[${index}][value]`)
                         let editor = await InitializeCKEditor(textInput);
                         editor.setData(content.long_text_content || '')
+                    }
+
+                    // Initialize CKeditor for Multiple Value
+                    else if (content.type === 'multiple-value') {
+                        const sub_contents = JSON.parse(content.multiple_value_content)
+                        sub_contents.forEach(async (sub_content, sub_index) => {
+                            if (sub_content.type === 'long-text') {
+                                const subTextInput = document.getElementById(
+                                    `data[${index}][values][${sub_index}][value]`)
+
+                                let subEditor = await InitializeCKEditor(subTextInput);
+                                subEditor.setData(sub_content.value || '')
+                            }
+                        });
                     }
 
                 })
