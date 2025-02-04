@@ -9,13 +9,9 @@ import { endpoint } from '../../configs';
 import HtmlParser from '../../components/HtmlParser';
 import useSWR from 'swr';
 import LoadFailedPage from '../../components/LoadFailedPage';
+import { PageMeta } from '../../components/PageMeta';
 
 export default function BlogPage() {
-  setPageMeta(
-    'BLOG - CIMSA ULM',
-    'Content from our members, seniors, alumni, and activity reports.'
-  );
-
   const paths = getWebPaths();
   const totalPage = 28;
 
@@ -46,6 +42,10 @@ export default function BlogPage() {
 
   return (
     <>
+      <PageMeta
+        title='Blog - CIMSA ULM'
+        description='Content from our members, seniors, alumni, and activity reports.'
+      />
       <Container>
         <PageHeader
           title={'BLOG'}
