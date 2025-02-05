@@ -21,40 +21,45 @@
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="d-none d-xl-table-cell">Nama</th>
-                                <th class="d-none d-xl-table-cell">URL</th>
-                                <th class="">Aksi</th>
+                                <th class="">Nama</th>
+                                <th class="">URL</th>
+                                <th class="" style="width: 200px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($pages as $page)
                                 <tr>
-                                    <td class="d-none d-xl-table-cell">{{ $page->name }}</td>
-                                    <td class="d-none d-xl-table-cell"><a href="{{ $page->url }}"
+                                    <td class="">{{ $page->name }}</td>
+                                    <td class=""><a href="{{ $page->url }}"
                                             target="_blank">{{ $page->url }}</a></td>
                                     <td class="">
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Preview Button --}}
                                             <a class="btn btn-info"
-                                                href="{{ route('page.edit', ['page' => $page->uri]) }}">
+                                                href="{{ route('page.edit', ['page' => $page->uri]) }}"
+                                                data-bs-toggle="tooltip" title="Konten halaman">
                                                 <i class="align-middle" data-feather="eye"></i>
                                             </a>
 
 
                                             {{-- Edit Button --}}
-                                            <button type="button" class="btn btn-warning text-dark"
-                                                data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                data-action="{{ route('page.update', ['page' => $page->uuid]) }}"
-                                                data-page="{{ json_encode($page) }}">
-                                                <i class="align-middle" data-feather="edit"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Ubah halaman">
+                                                <button type="button" class="btn btn-warning text-dark"
+                                                    data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                    data-action="{{ route('page.update', ['page' => $page->uuid]) }}"
+                                                    data-page="{{ json_encode($page) }}">
+                                                    <i class="align-middle" data-feather="edit"></i>
+                                                </button>
+                                            </div>
 
                                             <!-- Delete Button -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteFormModal"
-                                                data-action="{{ route('page.destroy', ['page' => $page->uuid]) }}">
-                                                <i class="align-middle" data-feather="trash"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Hapus halaman">
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteFormModal"
+                                                    data-action="{{ route('page.destroy', ['page' => $page->uuid]) }}">
+                                                    <i class="align-middle" data-feather="trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -115,7 +120,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="deleteFormModalLabel">Hapus Halaman</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <p>Apakah Anda yakin ingin menghapus Halaman ini?</p>
@@ -168,7 +174,7 @@
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
-                            document.getElementById('formModalLabel').textContent = 'Edit page';
+                            document.getElementById('formModalLabel').textContent = 'Ubah Halaman';
                             document.getElementById('pageForm').setAttribute('action', actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';
                             document.getElementById('method').value = 'PUT';

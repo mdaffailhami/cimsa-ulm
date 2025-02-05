@@ -40,17 +40,21 @@
                                     <td class="">
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Edit Button --}}
-                                            <a class="btn btn-warning text-dark"
-                                                href="{{ route('article.edit', ['article' => $post->slug]) }}">
-                                                <i class="align-middle" data-feather="edit"></i>
-                                            </a>
+                                            <div data-bs-toggle="tooltip" title="Ubah artikel">
+                                                <a class="btn btn-warning text-dark"
+                                                    href="{{ route('article.edit', ['article' => $post->slug]) }}">
+                                                    <i class="align-middle" data-feather="edit"></i>
+                                                </a>
+                                            </div>
 
                                             <!-- Delete Button -->
-                                            <button type="button" class="btn btn-danger " data-bs-toggle="modal"
-                                                data-bs-target="#deleteFormModal"
-                                                data-action="{{ route('article.destroy', ['article' => $post->uuid]) }}">
-                                                <i class="align-middle" data-feather="trash"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Hapus artikel">
+                                                <button type="button" class="btn btn-danger " data-bs-toggle="modal"
+                                                    data-bs-target="#deleteFormModal"
+                                                    data-action="{{ route('article.destroy', ['article' => $post->uuid]) }}">
+                                                    <i class="align-middle" data-feather="trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>

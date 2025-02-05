@@ -21,15 +21,15 @@
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="d-none d-xl-table-cell" style="width : 120px !important">Tahun</th>
-                                <th class="d-none d-xl-table-cell">Poster</th>
-                                <th class="" style="width : 150px !important">Aksi</th>
+                                <th class="" style="width : 120px !important">Tahun</th>
+                                <th class="">Poster</th>
+                                <th class="" style="width : 200px !important">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($officials as $official)
                                 <tr>
-                                    <td class="d-none d-xl-table-cell">{{ $official->year }}</td>
+                                    <td class="">{{ $official->year }}</td>
                                     <td class="text-center">
                                         <img src="{{ $official->poster }}" class="img-thumbnail" style="width: 300px"
                                             alt="{{ $official->name }}">
@@ -38,24 +38,29 @@
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Division Button --}}
                                             <a class="btn btn-info"
-                                                href="{{ route('official.division.index', ['year' => $official->year]) }}">
+                                                href="{{ route('official.division.index', ['year' => $official->year]) }}"
+                                                data-bs-toggle="tooltip" title="Divisi angkatan">
                                                 <i class="align-middle" data-feather="users"></i>
                                             </a>
 
                                             {{-- Edit Button --}}
-                                            <button type="button" class="btn btn-warning text-dark"
-                                                data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                data-action="{{ route('official.update', ['official' => $official->uuid]) }}"
-                                                data-official="{{ json_encode($official) }}">
-                                                <i class="align-middle" data-feather="edit"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Ubah angkatan">
+                                                <button type="button" class="btn btn-warning text-dark"
+                                                    data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                    data-action="{{ route('official.update', ['official' => $official->uuid]) }}"
+                                                    data-official="{{ json_encode($official) }}">
+                                                    <i class="align-middle" data-feather="edit"></i>
+                                                </button>
+                                            </div>
 
                                             <!-- Delete Button -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteFormModal"
-                                                data-action="{{ route('official.destroy', ['official' => $official->uuid]) }}">
-                                                <i class="align-middle" data-feather="trash"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Hapus angkatan">
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteFormModal"
+                                                    data-action="{{ route('official.destroy', ['official' => $official->uuid]) }}">
+                                                    <i class="align-middle" data-feather="trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -72,29 +77,29 @@
             </div>
         </div>
 
-        <!-- Organisasi Add/Edit Form Modal -->
+        <!-- Angkatan Add/Edit Form Modal -->
         <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="formModalLabel">Tambah Organisasi</h5>
+                        <h5 class="modal-title" id="formModalLabel">Tambah Angkatan</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- Add Organisasi Form -->
+                        <!-- Add Angkatan Form -->
                         <form id="officialForm" action="{{ route('official.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="_method" id="method" value="POST">
 
                             <div class="mb-3">
-                                <label for="poster" class="form-label">Tahun Angkatan Organisasi</label>
+                                <label for="poster" class="form-label">Tahun Angkatan</label>
                                 <select id="year" name="year" class="form-select">
                                     <option selected disabled>Pilih Tahun</option>
                                 </select>
                             </div>
 
                             <div class="mb-3">
-                                <label for="poster" class="form-label">Poster Angkatan Organisasi</label>
+                                <label for="poster" class="form-label">Poster</label>
                                 <input type="file" class="filepond" id="poster" name="poster" accept="image/*">
                             </div>
 
@@ -114,12 +119,12 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteFormModalLabel">Hapus Angkatan Organisasi</h5>
+                        <h5 class="modal-title" id="deleteFormModalLabel">Hapus Angkatan Angkatan</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Apakah Anda yakin ingin menghapus Angkatan Organisasi ini?</p>
+                        <p>Apakah Anda yakin ingin menghapus Angkatan Angkatan ini?</p>
 
                     </div>
                     <div class="modal-footer">
@@ -194,7 +199,7 @@
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
-                            document.getElementById('formModalLabel').textContent = 'Edit official';
+                            document.getElementById('formModalLabel').textContent = 'Ubah Angkatan';
                             document.getElementById('officialForm').setAttribute('action', actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';
                             document.getElementById('method').value = 'PUT';
@@ -203,7 +208,7 @@
                         } else {
                             // Set to Add official if no action URL is provided
                             document.getElementById('formModalLabel').textContent =
-                                'Tambah Organisasi';
+                                'Tambah Angkatan';
                             document.getElementById('officialForm').setAttribute('action',
                                 '{{ route('official.store') }}');
                             document.getElementById('submitButton').textContent = 'Simpan';

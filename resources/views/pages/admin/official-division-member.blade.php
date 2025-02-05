@@ -27,10 +27,10 @@
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="d-none d-xl-table-cell" style="width : 150px !important">Gambar</th>
-                                <th class="d-none d-xl-table-cell">Nama</th>
-                                <th class="d-none d-xl-table-cell">Email</th>
-                                <th class="d-none d-xl-table-cell">Posisi</th>
+                                <th class="" style="width : 150px !important">Gambar</th>
+                                <th class="">Nama</th>
+                                <th class="">Email</th>
+                                <th class="">Posisi</th>
                                 <th class="" style="width : 150px !important">Aksi</th>
                             </tr>
                         </thead>
@@ -38,29 +38,33 @@
                             @foreach ($members as $member)
                                 <tr>
                                     <td class="text-center">
-                                        <img src="{{ $member->image }}" class="img-thumbnail" style="width: 300px"
+                                        <img src="{{ $member->image }}" class="img-thumbnail" style="width: 250px"
                                             alt="{{ $member->name }}">
                                     </td>
-                                    <td class="d-none d-xl-table-cell">{{ $member->name }}</td>
-                                    <td class="d-none d-xl-table-cell">{{ $member->email }}</td>
-                                    <td class="d-none d-xl-table-cell">{{ $member->position }}</td>
+                                    <td class="">{{ $member->name }}</td>
+                                    <td class="">{{ $member->email }}</td>
+                                    <td class="">{{ $member->position }}</td>
                                     <td>
                                         <div class="d-flex justify-content-evenly">
 
                                             {{-- Edit Button --}}
-                                            <button type="button" class="btn btn-warning text-dark"
-                                                data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                data-action="{{ route('official.division.member.update', ['member' => $member->id]) }}"
-                                                data-member="{{ json_encode($member) }}">
-                                                <i class="align-middle" data-feather="edit"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Ubah anggota">
+                                                <button type="button" class="btn btn-warning text-dark"
+                                                    data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                    data-action="{{ route('official.division.member.update', ['member' => $member->id]) }}"
+                                                    data-member="{{ json_encode($member) }}">
+                                                    <i class="align-middle" data-feather="edit"></i>
+                                                </button>
+                                            </div>
 
                                             <!-- Delete Button -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteFormModal"
-                                                data-action="{{ route('official.division.member.destroy', ['member' => $member->id]) }}">
-                                                <i class="align-middle" data-feather="trash"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Hapus anggota">
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteFormModal"
+                                                    data-action="{{ route('official.division.member.destroy', ['member' => $member->id]) }}">
+                                                    <i class="align-middle" data-feather="trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -230,7 +234,7 @@
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
-                            document.getElementById('formModalLabel').textContent = 'Edit Anggota';
+                            document.getElementById('formModalLabel').textContent = 'Ubah Anggota';
                             document.getElementById('officialDivisionMemberForm').setAttribute('action',
                                 actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';

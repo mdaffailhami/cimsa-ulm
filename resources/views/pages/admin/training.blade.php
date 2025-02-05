@@ -24,7 +24,7 @@
                                 <th class="">Nama</th>
                                 <th class="">Deskripsi</th>
                                 <th class="">Gambar</th>
-                                <th class="d-none d-xl-table-cell">Aksi</th>
+                                <th class="" style="width:150px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,22 +36,26 @@
                                         <img src="{{ $training->image }}" class="img-thumbnail" style="width: 300px"
                                             alt="{{ $training->name }}">
                                     </td>
-                                    <td class="d-none d-xl-table-cell">
+                                    <td class="">
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Edit Button --}}
-                                            <button type="button" class="btn btn-warning text-dark"
-                                                data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                data-action="{{ route('training.update', ['training' => $training->id]) }}"
-                                                data-training="{{ json_encode($training) }}">
-                                                <i class="align-middle" data-feather="edit"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Ubah pelatihan">
+                                                <button type="button" class="btn btn-warning text-dark"
+                                                    data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                    data-action="{{ route('training.update', ['training' => $training->id]) }}"
+                                                    data-training="{{ json_encode($training) }}">
+                                                    <i class="align-middle" data-feather="edit"></i>
+                                                </button>
+                                            </div>
 
                                             <!-- Delete Button -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteFormModal"
-                                                data-action="{{ route('training.destroy', ['training' => $training->id]) }}">
-                                                <i class="align-middle" data-feather="trash"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Hapus pelatihan">
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteFormModal"
+                                                    data-action="{{ route('training.destroy', ['training' => $training->id]) }}">
+                                                    <i class="align-middle" data-feather="trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>

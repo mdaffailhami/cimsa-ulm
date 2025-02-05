@@ -39,24 +39,29 @@
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Division Button --}}
                                             <a class="btn btn-info"
-                                                href="{{ route('official.division.member.index', ['year' => $official->year, 'id' => $division->id]) }}">
+                                                href="{{ route('official.division.member.index', ['year' => $official->year, 'id' => $division->id]) }}"
+                                                data-bs-toggle="tooltip" title="Anggota divisi">
                                                 <i class="align-middle" data-feather="users"></i>
                                             </a>
 
                                             {{-- Edit Button --}}
-                                            <button type="button" class="btn btn-warning text-dark"
-                                                data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                data-action="{{ route('official.division.update', ['division' => $division->id]) }}"
-                                                data-division="{{ json_encode($division) }}">
-                                                <i class="align-middle" data-feather="edit"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Ubah divisi">
+                                                <button type="button" class="btn btn-warning text-dark"
+                                                    data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                    data-action="{{ route('official.division.update', ['division' => $division->id]) }}"
+                                                    data-division="{{ json_encode($division) }}">
+                                                    <i class="align-middle" data-feather="edit"></i>
+                                                </button>
+                                            </div>
 
                                             <!-- Delete Button -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteFormModal"
-                                                data-action="{{ route('official.division.destroy', ['division' => $division->id]) }}">
-                                                <i class="align-middle" data-feather="trash"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Hapus divisi">
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteFormModal"
+                                                    data-action="{{ route('official.division.destroy', ['division' => $division->id]) }}">
+                                                    <i class="align-middle" data-feather="trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -117,7 +122,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="deleteFormModalLabel">Hapus Angkatan Divisi</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <p>Apakah Anda yakin ingin menghapus Angkatan Divisi ini?</p>
@@ -170,7 +176,7 @@
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
-                            document.getElementById('formModalLabel').textContent = 'Edit Divisi';
+                            document.getElementById('formModalLabel').textContent = 'Ubah Divisi';
                             document.getElementById('officialDivisionForm').setAttribute('action',
                                 actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';

@@ -21,7 +21,7 @@
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="d-none d-xl-table-cell" style="width : 120px !important">Logo</th>
+                                <th class="d-none d-xl-table-cell" style="width : 150px !important">Logo</th>
                                 <th class="d-none d-xl-table-cell">Nama</th>
                                 <th class="d-none d-xl-table-cell">Deskripsi</th>
                                 <th class="" style="width : 150px !important">Aksi</th>
@@ -31,7 +31,7 @@
                             @foreach ($committees as $committe)
                                 <tr>
                                     <td class="">
-                                        <img src="{{ $committe->logo }}" class="img-thumbnail" style="width: 100px"
+                                        <img src="{{ $committe->logo }}" class="img-thumbnail" style="width: 150px"
                                             alt="{{ $committe->name }}">
                                     </td>
                                     <td class="d-none d-xl-table-cell">{{ $committe->name }}</td>
@@ -39,17 +39,21 @@
                                     <td>
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Edit Button --}}
-                                            <a class="btn btn-warning text-dark"
-                                                href="{{ route('committe.edit', ['committe' => $committe->name]) }}">
-                                                <i class="align-middle" data-feather="edit"></i>
-                                            </a>
+                                            <div data-bs-toggle="tooltip" title="Ubah komite">
+                                                <a class="btn btn-warning text-dark"
+                                                    href="{{ route('committe.edit', ['committe' => $committe->name]) }}">
+                                                    <i class="align-middle" data-feather="edit"></i>
+                                                </a>
+                                            </div>
 
                                             <!-- Delete Button -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteFormModal"
-                                                data-action="{{ route('committe.destroy', ['committe' => $committe->uuid]) }}">
-                                                <i class="align-middle" data-feather="trash"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Hapus komite">
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteFormModal"
+                                                    data-action="{{ route('committe.destroy', ['committe' => $committe->uuid]) }}">
+                                                    <i class="align-middle" data-feather="trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -147,17 +151,7 @@
     </div>
 
     @section('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                    return new bootstrap.Tooltip(tooltipTriggerEl);
-                });
 
-            });
-        </script>
-
-        {{-- Modal --}}
         <script>
             const fillForm = (committe) => {
                 // Pre-fill the form fields if editing a committe
@@ -171,6 +165,14 @@
             }
 
             document.addEventListener('DOMContentLoaded', function() {
+                // Initialize Tooltip
+                let tooltipTriggerList = [].slice.call(document.querySelectorAll(
+                    '[data-bs-toggle="tooltip"]'));
+                let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                });
+
+                // Initialize Modal
                 let formModal = new bootstrap.Modal(document.getElementById('formModal'));
                 let deleteFormModal = new bootstrap.Modal(document.getElementById('deleteFormModal'));
 
@@ -187,7 +189,7 @@
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
-                            document.getElementById('formModalLabel').textContent = 'Edit committe';
+                            document.getElementById('formModalLabel').textContent = 'Ubah komite';
                             document.getElementById('committeForm').setAttribute('action', actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';
                             document.getElementById('method').value = 'PUT';

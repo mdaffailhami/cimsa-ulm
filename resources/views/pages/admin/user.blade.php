@@ -26,7 +26,7 @@
                                 <th class="">Nomor HP</th>
                                 <th class="">Password</th>
                                 <th class="">Role</th>
-                                <th class="">Aksi</th>
+                                <th class="" style="width: 150px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,21 +42,25 @@
                                     <td class="">
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Edit Button --}}
-                                            <button type="button"
-                                                class="btn btn-warning text-dark {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }}"
-                                                data-bs-toggle="modal" data-bs-target="#userModal" data-mode="edit"
-                                                data-action="{{ route('user.update', ['user' => $user->uuid]) }}"
-                                                data-user="{{ json_encode($user) }}">
-                                                <i class="align-middle" data-feather="edit"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Ubah user">
+                                                <button type="button"
+                                                    class="btn btn-warning text-dark {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }}"
+                                                    data-bs-toggle="modal" data-bs-target="#userModal" data-mode="edit"
+                                                    data-action="{{ route('user.update', ['user' => $user->uuid]) }}"
+                                                    data-user="{{ json_encode($user) }}">
+                                                    <i class="align-middle" data-feather="edit"></i>
+                                                </button>
+                                            </div>
 
                                             <!-- Delete Button -->
-                                            <button type="button"
-                                                class="btn btn-danger {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }} "
-                                                data-bs-toggle="modal" data-bs-target="#deleteUserModal"
-                                                data-action="{{ route('user.destroy', ['user' => $user->uuid]) }}">
-                                                <i class="align-middle" data-feather="trash"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title='Hapus User'>
+                                                <button type="button"
+                                                    class="btn btn-danger {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }} "
+                                                    data-bs-toggle="modal" data-bs-target="#deleteUserModal"
+                                                    data-action="{{ route('user.destroy', ['user' => $user->uuid]) }}">
+                                                    <i class="align-middle" data-feather="trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -178,14 +182,6 @@
     </div>
 
     @section('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                    return new bootstrap.Tooltip(tooltipTriggerEl);
-                });
-            });
-        </script>
 
         {{-- Modal --}}
         <script>
@@ -212,6 +208,12 @@
             }
 
             document.addEventListener('DOMContentLoaded', function() {
+
+                const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(
+                    tooltipTriggerEl))
+
+                // Initiate Modal
                 let userModal = new bootstrap.Modal(document.getElementById('userModal'));
                 let deleteUserModal = new bootstrap.Modal(document.getElementById('deleteUserModal'));
 
@@ -224,7 +226,7 @@
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
-                            document.getElementById('userModalLabel').textContent = 'Edit User';
+                            document.getElementById('userModalLabel').textContent = 'Ubah User';
                             document.getElementById('userForm').setAttribute('action', actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';
                             document.getElementById('method').value = 'PUT';

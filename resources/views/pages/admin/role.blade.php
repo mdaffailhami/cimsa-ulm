@@ -21,32 +21,36 @@
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="d-none d-xl-table-cell">Nama</th>
-                                <th class="">Aksi</th>
+                                <th class="">Nama</th>
+                                <th class="" style="width: 150px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($roles as $role)
                                 <tr>
-                                    <td class="d-none d-xl-table-cell">{{ $role->name }}</td>
+                                    <td class="">{{ $role->name }}</td>
                                     <td class="">
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Edit Button --}}
-                                            <button type="button"
-                                                class="btn btn-warning text-dark {{ $role->name === 'super-administrator' ? 'disabled' : '' }}"
-                                                data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                data-action="{{ route('role.update', ['role' => $role->id]) }}"
-                                                data-role="{{ json_encode($role) }}">
-                                                <i class="align-middle" data-feather="edit"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title='Ubah role'>
+                                                <button type="button"
+                                                    class="btn btn-warning text-dark {{ $role->name === 'super-administrator' ? 'disabled' : '' }}"
+                                                    data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                    data-action="{{ route('role.update', ['role' => $role->id]) }}"
+                                                    data-role="{{ json_encode($role) }}">
+                                                    <i class="align-middle" data-feather="edit"></i>
+                                                </button>
+                                            </div>
 
                                             <!-- Delete Button -->
-                                            <button type="button"
-                                                class="btn btn-danger {{ $role->name === 'super-administrator' ? 'disabled' : '' }} "
-                                                data-bs-toggle="modal" data-bs-target="#deleteFormModal"
-                                                data-action="{{ route('role.destroy', ['role' => $role->id]) }}">
-                                                <i class="align-middle" data-feather="trash"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title='Hapus role'>
+                                                <button type="button"
+                                                    class="btn btn-danger {{ $role->name === 'super-administrator' ? 'disabled' : '' }} "
+                                                    data-bs-toggle="modal" data-bs-target="#deleteFormModal"
+                                                    data-action="{{ route('role.destroy', ['role' => $role->id]) }}">
+                                                    <i class="align-middle" data-feather="trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -190,7 +194,7 @@
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
-                            document.getElementById('formModalLabel').textContent = 'Edit role';
+                            document.getElementById('formModalLabel').textContent = 'Ubah Role';
                             document.getElementById('roleForm').setAttribute('action', actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';
                             document.getElementById('method').value = 'PUT';
