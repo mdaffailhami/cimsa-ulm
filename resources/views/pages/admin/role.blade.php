@@ -1,25 +1,19 @@
 <x-layout.master>
-    @section('title', 'Manajemen Divisi Angkatan')
+    @section('title', 'Manajemen Role')
 
-    <div class="d-flex align-items-center mb-3" style="gap: 8px">
-        <a href="{{ route('official.index') }}" class="text-dark">
-            <i class="align-middle" data-feather="arrow-left"></i>
-        </a>
-        <h1 class="h3 m-0"><strong>Manajemen Divisi Angkatan {{ $official->year }}</h1>
-    </div>
+    <h1 class="h3 mb-3"><strong>Manajemen Role</h1>
 
     <div class="row">
         <div class="col-24 col-lg-24 col-xxl-24 d-flex">
             <div class="card flex-fill">
                 <div class="card-header d-flex align-items-center justify-content-between">
 
-
-                    <h5 class="card-title mb-0">Daftar Divisi Angkatan {{ $official->year }}</h5>
+                    <h5 class="card-title mb-0">Daftar Role</h5>
 
                     {{-- Add Button --}}
                     <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
                         data-bs-target="#formModal" data-mode="create">
-                        Tambah Divisi<i class="ms-2 align-middle" data-feather="plus"></i>
+                        Tambah Role<i class="ms-2 align-middle" data-feather="plus"></i>
                     </button>
                 </div>
 
@@ -27,36 +21,36 @@
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="d-none d-xl-table-cell">Nama</th>
-                                <th class="" style="width : 200px !important">Aksi</th>
+                                <th class="">Nama</th>
+                                <th class="" style="width: 150px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($divisions as $division)
+                            @foreach ($roles as $role)
                                 <tr>
-                                    <td class="d-none d-xl-table-cell">{{ $division->name }}</td>
-                                    <td>
+                                    <td class="">{{ $role->name }}</td>
+                                    <td class="">
                                         <div class="d-flex justify-content-evenly">
-                                            {{-- Division Button --}}
-                                            <a class="btn btn-info"
-                                                href="{{ route('official.division.member.index', ['year' => $official->year, 'id' => $division->id]) }}">
-                                                <i class="align-middle" data-feather="users"></i>
-                                            </a>
-
                                             {{-- Edit Button --}}
-                                            <button type="button" class="btn btn-warning text-dark"
-                                                data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                data-action="{{ route('official.division.update', ['division' => $division->id]) }}"
-                                                data-division="{{ json_encode($division) }}">
-                                                <i class="align-middle" data-feather="edit"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title='Ubah role'>
+                                                <button type="button"
+                                                    class="btn btn-warning text-dark {{ $role->name === 'super-administrator' ? 'disabled' : '' }}"
+                                                    data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                    data-action="{{ route('role.update', ['role' => $role->id]) }}"
+                                                    data-role="{{ json_encode($role) }}">
+                                                    <i class="align-middle" data-feather="edit"></i>
+                                                </button>
+                                            </div>
 
                                             <!-- Delete Button -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteFormModal"
-                                                data-action="{{ route('official.division.destroy', ['division' => $division->id]) }}">
-                                                <i class="align-middle" data-feather="trash"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title='Hapus role'>
+                                                <button type="button"
+                                                    class="btn btn-danger {{ $role->name === 'super-administrator' ? 'disabled' : '' }} "
+                                                    data-bs-toggle="modal" data-bs-target="#deleteFormModal"
+                                                    data-action="{{ route('role.destroy', ['role' => $role->id]) }}">
+                                                    <i class="align-middle" data-feather="trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -66,30 +60,29 @@
 
                     {{-- Pagination --}}
                     <div class="mt-3">
-                        {{ $divisions->links('vendor.pagination.bootstrap-5') }}
+                        {{ $roles->links('vendor.pagination.bootstrap-5') }}
                     </div>
 
                 </div>
             </div>
         </div>
 
-        <!-- Divisi Add/Edit Form Modal -->
+        <!-- role Add/Edit Form Modal -->
         <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="formModalLabel">Tambah Divisi</h5>
+                        <h5 class="modal-title" id="formModalLabel">Tambah Role</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- Add Divisi Form -->
-                        <form id="officialDivisionForm" action="{{ route('official.division.store') }}" method="POST">
+                        <!-- Add role Form -->
+                        <form id="roleForm" action="{{ route('role.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="_method" id="method" value="POST">
-                            <input type="hidden" name="official_id" id="method" value="{{ $official->uuid }}">
 
                             <div class="mb-3">
-                                <label for="name" class="form-label">Nama Divisi</label>
+                                <label for="name" class="form-label">Nama Role</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
                                     id="name" name="name" placeholder="Masukkan nama..."
                                     value="{{ old('name') }}" required>
@@ -98,6 +91,16 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label for="permissions" class="form-label">Hak Akses</label>
+                                <select id="permissions" name="permissions[]" class="form-control" multiple>
+                                    @foreach ($permissions as $permission)
+                                        <option value="{{ $permission->name }}">{{ $permission->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="modal-footer">
@@ -116,19 +119,19 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteFormModalLabel">Hapus Angkatan Divisi</h5>
+                        <h5 class="modal-title" id="deleteFormModalLabel">Hapus role</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Apakah Anda yakin ingin menghapus Angkatan Divisi ini?</p>
+                        <p>Apakah Anda yakin ingin menghapus role ini?</p>
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                        <form id="deleteOfficialDivisionForm" method="POST" style="display: inline;">
+                        <form id="deleteroleForm" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Hapus</button>
+                            <button type="submit" class="btn btn-danger">Hapus role</button>
                         </form>
                     </div>
                 </div>
@@ -138,26 +141,46 @@
     </div>
 
     @section('scripts')
-        {{-- Modal --}}
         <script>
-            const fillForm = (official) => {
-                // Pre-fill the form fields if editing a official
-                document.getElementById('name').value = official.name;
-            }
-
-            const resetForm = () => {
-                // Pre-fill the form fields if editing a official
-                document.getElementById('name').value = '';
-            }
-
             document.addEventListener('DOMContentLoaded', function() {
-                // Initialize Tooltip
+                choices = new Choices('#permissions', {
+                    removeItemButton: true,
+                    placeholderValue: 'Pilih Hak Akses',
+                    searchPlaceholderValue: 'Cari Hak Akses'
+                });
+
                 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
                 let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
                     return new bootstrap.Tooltip(tooltipTriggerEl);
                 });
 
-                // Initialize Modal
+            });
+        </script>
+
+        {{-- Modal --}}
+        <script>
+            const fillForm = (role) => {
+                // Pre-fill the form fields if editing a role
+                document.getElementById('name').value = role.name;
+            }
+
+            const resetForm = () => {
+                // Pre-fill the form fields if editing a role
+                document.getElementById('name').value = '';
+            }
+
+            const getOptions = () => {
+                const permissions = @json($permissions);
+
+                return permissions.map((permission) => {
+                    return {
+                        value: permission.name,
+                        label: permission.name,
+                    }
+                })
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
                 let formModal = new bootstrap.Modal(document.getElementById('formModal'));
                 let deleteFormModal = new bootstrap.Modal(document.getElementById('deleteFormModal'));
 
@@ -165,28 +188,38 @@
                 document.querySelectorAll('[data-bs-target="#formModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
                         let actionUrl = button.getAttribute('data-action');
-                        let division = JSON.parse(button.getAttribute('data-division'));
+                        let role = JSON.parse(button.getAttribute('data-role'));
                         let mode = button.getAttribute('data-mode');
+                        let options = getOptions();
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
-                            document.getElementById('formModalLabel').textContent = 'Edit Divisi';
-                            document.getElementById('officialDivisionForm').setAttribute('action',
-                                actionUrl);
+                            document.getElementById('formModalLabel').textContent = 'Ubah Role';
+                            document.getElementById('roleForm').setAttribute('action', actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';
                             document.getElementById('method').value = 'PUT';
 
-                            fillForm(division);
+                            fillForm(role);
+
+                            // Get the permissions of the role
+                            const role_permissions = role.permissions.map(permission => permission
+                                .name);
+
+                            choices.clearStore(); // Clear internal Choices.js data
+                            choices.setValue(role_permissions); // Clear selected values
                         } else {
-                            // Set to Add division if no action URL is provided
-                            document.getElementById('formModalLabel').textContent =
-                                'Tambah Divisi';
-                            document.getElementById('officialDivisionForm').setAttribute('action',
-                                '{{ route('official.division.store') }}'
-                            );
+                            // Set to Add role if no action URL is provided
+                            document.getElementById('formModalLabel').textContent = 'Tambah role';
+                            document.getElementById('roleForm').setAttribute('action',
+                                '{{ route('role.store') }}');
                             document.getElementById('submitButton').textContent = 'Simpan';
                             document.getElementById('method').value = 'POST';
+
+                            choices.clearStore(); // Clear internal Choices.js data
+                            choices.setValue([]); // Clear selected values
                         }
+
+                        choices.setChoices(options);
 
                     });
                 });
@@ -195,8 +228,7 @@
                 document.querySelectorAll('[data-bs-target="#deleteFormModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
                         let actionUrl = button.getAttribute('data-action');
-                        document.getElementById('deleteOfficialDivisionForm').setAttribute('action',
-                            actionUrl);
+                        document.getElementById('deleteroleForm').setAttribute('action', actionUrl);
                     });
                 });
             });
@@ -232,7 +264,7 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
-                        title: 'Validasi Error',
+                        title: 'Validation Error!',
                         html: `
                 <ul>
                     @foreach ($errors->all() as $error)

@@ -339,7 +339,7 @@
                 const removeBtn = document.createElement('button');
                 removeBtn.type = 'button';
                 removeBtn.className = 'btn btn-danger';
-                removeBtn.innerHTML = 'Remove';
+                removeBtn.innerHTML = 'Hapus';
 
                 // Remove focus input on button click
                 removeBtn.addEventListener('click', () => {
@@ -404,7 +404,7 @@
                 const removeBtn = document.createElement('button');
                 removeBtn.type = 'button';
                 removeBtn.className = 'btn btn-danger mt-2';
-                removeBtn.innerHTML = 'Remove Activity';
+                removeBtn.innerHTML = 'Hapus Aktivitas';
                 removeBtn.addEventListener('click', () => {
                     // Ensure at least one activity input remains
                     if (activitiesContainer.children.length > 1) {
@@ -532,7 +532,7 @@
                 const removeBtn = document.createElement('button');
                 removeBtn.type = 'button';
                 removeBtn.className = 'btn btn-danger mt-2';
-                removeBtn.innerHTML = 'Remove Testimony';
+                removeBtn.innerHTML = 'Hapus Testimoni';
                 removeBtn.addEventListener('click', () => {
                     if (testimoniesContainer.children.length > 1) {
                         testimonyWrapper.remove();

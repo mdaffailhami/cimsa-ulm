@@ -36,7 +36,7 @@ class CommitteController extends Controller
     public function index()
     {
         $committees = Committe::latest()->paginate(5);
-        return view('admin.pages.committe', compact('committees'));
+        return view('pages.admin.committe', compact('committees'));
     }
 
     /**
@@ -109,7 +109,7 @@ class CommitteController extends Controller
     {
         $committe = Committe::with(['activities', 'focuses', 'testimonies', 'contact', 'galleries'])->where('name', $id)->first();
 
-        return view('admin.pages.committe-detail', compact('committe'));
+        return view('pages.admin.committe-detail', compact('committe'));
     }
 
     /**

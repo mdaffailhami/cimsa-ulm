@@ -92,9 +92,6 @@
             const contentContainer = document.getElementById('container');
             loadingContainer.classList.add('d-none');
             contentContainer.classList.remove('d-none');
-
-            console.log("DOM Loaded");
-
         })
     </script>
 

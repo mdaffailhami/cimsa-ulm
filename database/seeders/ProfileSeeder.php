@@ -60,6 +60,7 @@ class ProfileSeeder extends Seeder
         try {
             foreach ($profiles as $profile) {
                 $profile_model = new CimsaProfile();
+
                 $profile_model->column = Str::slug($profile['label']);
                 $profile_model->label = $profile['label'];
                 $profile_model->type = $profile['type'];
@@ -69,6 +70,8 @@ class ProfileSeeder extends Seeder
                     $profile_model->text_content = $profile['content'];
                 } else if ($profile['type'] === 'long-text') {
                     $profile_model->long_text_content = $profile['content'];
+                } elseif ($profile['type'] === 'multiple-value') {
+                    $payload['multiple_value_content'] = $profile['value'];
                 }
 
                 $profile_model->save();

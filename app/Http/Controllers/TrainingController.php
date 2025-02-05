@@ -26,7 +26,7 @@ class TrainingController extends Controller
     public function index()
     {
         $trainings = Training::oldest()->paginate(5);
-        return view('admin.pages.training', compact('trainings'));
+        return view('pages.admin.training', compact('trainings'));
     }
 
     /**

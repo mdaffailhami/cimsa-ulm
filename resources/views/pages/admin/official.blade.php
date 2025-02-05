@@ -1,19 +1,19 @@
 <x-layout.master>
-    @section('title', 'Manajemen Role')
+    @section('title', 'Manajemen Angkatan')
 
-    <h1 class="h3 mb-3"><strong>Manajemen Role</h1>
+    <h1 class="h3 mb-3"><strong>Manajemen Angkatan</h1>
 
     <div class="row">
         <div class="col-24 col-lg-24 col-xxl-24 d-flex">
             <div class="card flex-fill">
                 <div class="card-header d-flex align-items-center justify-content-between">
 
-                    <h5 class="card-title mb-0">Daftar Role</h5>
+                    <h5 class="card-title mb-0">Daftar Angkatan</h5>
 
                     {{-- Add Button --}}
                     <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
                         data-bs-target="#formModal" data-mode="create">
-                        Tambah Role<i class="ms-2 align-middle" data-feather="plus"></i>
+                        Tambah Angkatan<i class="ms-2 align-middle" data-feather="plus"></i>
                     </button>
                 </div>
 
@@ -21,32 +21,46 @@
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="d-none d-xl-table-cell">Nama</th>
-                                <th class="">Aksi</th>
+                                <th class="" style="width : 120px !important">Tahun</th>
+                                <th class="">Poster</th>
+                                <th class="" style="width : 200px !important">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($roles as $role)
+                            @foreach ($officials as $official)
                                 <tr>
-                                    <td class="d-none d-xl-table-cell">{{ $role->name }}</td>
-                                    <td class="">
+                                    <td class="">{{ $official->year }}</td>
+                                    <td class="text-center">
+                                        <img src="{{ $official->poster }}" class="img-thumbnail" style="width: 300px"
+                                            alt="{{ $official->name }}">
+                                    </td>
+                                    <td>
                                         <div class="d-flex justify-content-evenly">
+                                            {{-- Division Button --}}
+                                            <a class="btn btn-info"
+                                                href="{{ route('official.division.index', ['year' => $official->year]) }}"
+                                                data-bs-toggle="tooltip" title="Divisi angkatan">
+                                                <i class="align-middle" data-feather="users"></i>
+                                            </a>
+
                                             {{-- Edit Button --}}
-                                            <button type="button"
-                                                class="btn btn-warning text-dark {{ $role->name === 'super-administrator' ? 'disabled' : '' }}"
-                                                data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                data-action="{{ route('role.update', ['role' => $role->id]) }}"
-                                                data-role="{{ json_encode($role) }}">
-                                                <i class="align-middle" data-feather="edit"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Ubah angkatan">
+                                                <button type="button" class="btn btn-warning text-dark"
+                                                    data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                    data-action="{{ route('official.update', ['official' => $official->uuid]) }}"
+                                                    data-official="{{ json_encode($official) }}">
+                                                    <i class="align-middle" data-feather="edit"></i>
+                                                </button>
+                                            </div>
 
                                             <!-- Delete Button -->
-                                            <button type="button"
-                                                class="btn btn-danger {{ $role->name === 'super-administrator' ? 'disabled' : '' }} "
-                                                data-bs-toggle="modal" data-bs-target="#deleteFormModal"
-                                                data-action="{{ route('role.destroy', ['role' => $role->id]) }}">
-                                                <i class="align-middle" data-feather="trash"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Hapus angkatan">
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteFormModal"
+                                                    data-action="{{ route('official.destroy', ['official' => $official->uuid]) }}">
+                                                    <i class="align-middle" data-feather="trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -56,47 +70,37 @@
 
                     {{-- Pagination --}}
                     <div class="mt-3">
-                        {{ $roles->links('vendor.pagination.bootstrap-5') }}
+                        {{ $officials->links('vendor.pagination.bootstrap-5') }}
                     </div>
 
                 </div>
             </div>
         </div>
 
-        <!-- role Add/Edit Form Modal -->
+        <!-- Angkatan Add/Edit Form Modal -->
         <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="formModalLabel">Tambah Role</h5>
+                        <h5 class="modal-title" id="formModalLabel">Tambah Angkatan</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- Add role Form -->
-                        <form id="roleForm" action="{{ route('role.store') }}" method="POST">
+                        <!-- Add Angkatan Form -->
+                        <form id="officialForm" action="{{ route('official.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="_method" id="method" value="POST">
 
                             <div class="mb-3">
-                                <label for="name" class="form-label">Nama Role</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                    id="name" name="name" placeholder="Masukkan nama..."
-                                    value="{{ old('name') }}" required>
-                                @error('name')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <label for="poster" class="form-label">Tahun Angkatan</label>
+                                <select id="year" name="year" class="form-select">
+                                    <option selected disabled>Pilih Tahun</option>
+                                </select>
                             </div>
 
-
                             <div class="mb-3">
-                                <label for="permissions" class="form-label">Hak Akses</label>
-                                <select id="permissions" name="permissions[]" class="form-control" multiple>
-                                    @foreach ($permissions as $permission)
-                                        <option value="{{ $permission->name }}">{{ $permission->name }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="poster" class="form-label">Poster</label>
+                                <input type="file" class="filepond" id="poster" name="poster" accept="image/*">
                             </div>
 
                             <div class="modal-footer">
@@ -115,19 +119,20 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteFormModalLabel">Hapus role</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title" id="deleteFormModalLabel">Hapus Angkatan Angkatan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Apakah Anda yakin ingin menghapus role ini?</p>
+                        <p>Apakah Anda yakin ingin menghapus Angkatan Angkatan ini?</p>
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                        <form id="deleteroleForm" method="POST" style="display: inline;">
+                        <form id="deleteOfficialForm" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Hapus role</button>
+                            <button type="submit" class="btn btn-danger">Hapus</button>
                         </form>
                     </div>
                 </div>
@@ -137,85 +142,78 @@
     </div>
 
     @section('scripts')
+        {{-- Modal --}}
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                choices = new Choices('#permissions', {
-                    removeItemButton: true,
-                    placeholderValue: 'Pilih Hak Akses',
-                    searchPlaceholderValue: 'Cari Hak Akses'
-                });
+            const fillForm = (official, filePond) => {
+                // Pre-fill the form fields if editing a official
+                document.getElementById('year').value = official.year;
 
+                // Clear previous files in FilePond
+                filePond.removeFiles();
+
+                let file_path = official.poster.split('image/')[1];
+
+                // Add the existing file using the image URL
+                filePond.setOptions({
+                    files: [{
+                        source: file_path,
+                        options: {
+                            type: 'local',
+                        }
+                    }, ]
+                })
+
+            }
+
+            const resetForm = () => {
+                // Pre-fill the form fields if editing a official
+                document.getElementById('year').value = '';
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                // Initialize Tooltip
                 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
                 let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
                     return new bootstrap.Tooltip(tooltipTriggerEl);
                 });
 
-            });
-        </script>
-
-        {{-- Modal --}}
-        <script>
-            const fillForm = (role) => {
-                // Pre-fill the form fields if editing a role
-                document.getElementById('name').value = role.name;
-            }
-
-            const resetForm = () => {
-                // Pre-fill the form fields if editing a role
-                document.getElementById('name').value = '';
-            }
-
-            const getOptions = () => {
-                const permissions = @json($permissions);
-
-                return permissions.map((permission) => {
-                    return {
-                        value: permission.name,
-                        label: permission.name,
-                    }
-                })
-            }
-
-            document.addEventListener('DOMContentLoaded', function() {
+                // Initialize Modal
                 let formModal = new bootstrap.Modal(document.getElementById('formModal'));
                 let deleteFormModal = new bootstrap.Modal(document.getElementById('deleteFormModal'));
+
+                // Initialize FilePond on the input field
+                const imageInput = document.querySelector('#poster');
+                const pond = initializeImagePond(imageInput);
+
+                // Initialize Year Option
+                const yearSelect = document.getElementById("year");
+
+                getYear(yearSelect);
 
                 // Handle the modal trigger for add and edit action
                 document.querySelectorAll('[data-bs-target="#formModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
                         let actionUrl = button.getAttribute('data-action');
-                        let role = JSON.parse(button.getAttribute('data-role'));
+                        let official = JSON.parse(button.getAttribute('data-official'));
                         let mode = button.getAttribute('data-mode');
-                        let options = getOptions();
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
-                            document.getElementById('formModalLabel').textContent = 'Edit role';
-                            document.getElementById('roleForm').setAttribute('action', actionUrl);
+                            document.getElementById('formModalLabel').textContent = 'Ubah Angkatan';
+                            document.getElementById('officialForm').setAttribute('action', actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';
                             document.getElementById('method').value = 'PUT';
 
-                            fillForm(role);
-
-                            // Get the permissions of the role
-                            const role_permissions = role.permissions.map(permission => permission
-                                .name);
-
-                            choices.clearStore(); // Clear internal Choices.js data
-                            choices.setValue(role_permissions); // Clear selected values
+                            fillForm(official, pond);
                         } else {
-                            // Set to Add role if no action URL is provided
-                            document.getElementById('formModalLabel').textContent = 'Tambah role';
-                            document.getElementById('roleForm').setAttribute('action',
-                                '{{ route('role.store') }}');
+                            // Set to Add official if no action URL is provided
+                            document.getElementById('formModalLabel').textContent =
+                                'Tambah Angkatan';
+                            document.getElementById('officialForm').setAttribute('action',
+                                '{{ route('official.store') }}');
                             document.getElementById('submitButton').textContent = 'Simpan';
                             document.getElementById('method').value = 'POST';
-
-                            choices.clearStore(); // Clear internal Choices.js data
-                            choices.setValue([]); // Clear selected values
                         }
-
-                        choices.setChoices(options);
 
                     });
                 });
@@ -224,7 +222,7 @@
                 document.querySelectorAll('[data-bs-target="#deleteFormModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
                         let actionUrl = button.getAttribute('data-action');
-                        document.getElementById('deleteroleForm').setAttribute('action', actionUrl);
+                        document.getElementById('deleteOfficialForm').setAttribute('action', actionUrl);
                     });
                 });
             });
@@ -260,7 +258,7 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
-                        title: 'Validation Error!',
+                        title: 'Validasi Error',
                         html: `
                 <ul>
                     @foreach ($errors->all() as $error)

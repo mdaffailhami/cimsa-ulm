@@ -1,19 +1,19 @@
 <x-layout.master>
-    @section('title', 'Manajemen Angkatan')
+    @section('title', 'Manajemen Halaman')
 
-    <h1 class="h3 mb-3"><strong>Manajemen Angkatan</h1>
+    <h1 class="h3 mb-3"><strong>Manajemen Halaman</h1>
 
     <div class="row">
         <div class="col-24 col-lg-24 col-xxl-24 d-flex">
             <div class="card flex-fill">
                 <div class="card-header d-flex align-items-center justify-content-between">
 
-                    <h5 class="card-title mb-0">Daftar Angkatan</h5>
+                    <h5 class="card-title mb-0">Daftar Halaman</h5>
 
                     {{-- Add Button --}}
                     <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
                         data-bs-target="#formModal" data-mode="create">
-                        Tambah Angkatan<i class="ms-2 align-middle" data-feather="plus"></i>
+                        Tambah Halaman<i class="ms-2 align-middle" data-feather="plus"></i>
                     </button>
                 </div>
 
@@ -21,41 +21,45 @@
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="d-none d-xl-table-cell" style="width : 120px !important">Tahun</th>
-                                <th class="d-none d-xl-table-cell">Poster</th>
-                                <th class="" style="width : 150px !important">Aksi</th>
+                                <th class="">Nama</th>
+                                <th class="">URL</th>
+                                <th class="" style="width: 200px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($officials as $official)
+                            @foreach ($pages as $page)
                                 <tr>
-                                    <td class="d-none d-xl-table-cell">{{ $official->year }}</td>
-                                    <td class="text-center">
-                                        <img src="{{ $official->poster }}" class="img-thumbnail" style="width: 300px"
-                                            alt="{{ $official->name }}">
-                                    </td>
-                                    <td>
+                                    <td class="">{{ $page->name }}</td>
+                                    <td class=""><a href="{{ $page->url }}"
+                                            target="_blank">{{ $page->url }}</a></td>
+                                    <td class="">
                                         <div class="d-flex justify-content-evenly">
-                                            {{-- Division Button --}}
+                                            {{-- Preview Button --}}
                                             <a class="btn btn-info"
-                                                href="{{ route('official.division.index', ['year' => $official->year]) }}">
-                                                <i class="align-middle" data-feather="users"></i>
+                                                href="{{ route('page.edit', ['page' => $page->uri]) }}"
+                                                data-bs-toggle="tooltip" title="Konten halaman">
+                                                <i class="align-middle" data-feather="eye"></i>
                                             </a>
 
+
                                             {{-- Edit Button --}}
-                                            <button type="button" class="btn btn-warning text-dark"
-                                                data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                data-action="{{ route('official.update', ['official' => $official->uuid]) }}"
-                                                data-official="{{ json_encode($official) }}">
-                                                <i class="align-middle" data-feather="edit"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Ubah halaman">
+                                                <button type="button" class="btn btn-warning text-dark"
+                                                    data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                    data-action="{{ route('page.update', ['page' => $page->uuid]) }}"
+                                                    data-page="{{ json_encode($page) }}">
+                                                    <i class="align-middle" data-feather="edit"></i>
+                                                </button>
+                                            </div>
 
                                             <!-- Delete Button -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteFormModal"
-                                                data-action="{{ route('official.destroy', ['official' => $official->uuid]) }}">
-                                                <i class="align-middle" data-feather="trash"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Hapus halaman">
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteFormModal"
+                                                    data-action="{{ route('page.destroy', ['page' => $page->uuid]) }}">
+                                                    <i class="align-middle" data-feather="trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -65,37 +69,38 @@
 
                     {{-- Pagination --}}
                     <div class="mt-3">
-                        {{ $officials->links('vendor.pagination.bootstrap-5') }}
+                        {{ $pages->links('vendor.pagination.bootstrap-5') }}
                     </div>
 
                 </div>
             </div>
         </div>
 
-        <!-- Organisasi Add/Edit Form Modal -->
+        <!-- Halaman Add/Edit Form Modal -->
         <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="formModalLabel">Tambah Organisasi</h5>
+                        <h5 class="modal-title" id="formModalLabel">Tambah Halaman</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- Add Organisasi Form -->
-                        <form id="officialForm" action="{{ route('official.store') }}" method="POST">
+                        <!-- Add Halaman Form -->
+                        <form id="pageForm" action="{{ route('page.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="_method" id="method" value="POST">
+                            <input type="hidden" name="form_category" id="form-category" value="profile">
 
                             <div class="mb-3">
-                                <label for="poster" class="form-label">Tahun Angkatan Organisasi</label>
-                                <select id="year" name="year" class="form-select">
-                                    <option selected disabled>Pilih Tahun</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="poster" class="form-label">Poster Angkatan Organisasi</label>
-                                <input type="file" class="filepond" id="poster" name="poster" accept="image/*">
+                                <label for="name" class="form-label">Nama Halaman</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                    id="name" name="name" placeholder="Masukkan nama..."
+                                    value="{{ old('name') }}" required>
+                                @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
                             <div class="modal-footer">
@@ -114,17 +119,17 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteFormModalLabel">Hapus Angkatan Organisasi</h5>
+                        <h5 class="modal-title" id="deleteFormModalLabel">Hapus Halaman</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Apakah Anda yakin ingin menghapus Angkatan Organisasi ini?</p>
+                        <p>Apakah Anda yakin ingin menghapus Halaman ini?</p>
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                        <form id="deleteOfficialForm" method="POST" style="display: inline;">
+                        <form id="deletePageForm" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>
@@ -137,32 +142,16 @@
     </div>
 
     @section('scripts')
-        {{-- Modal --}}
         <script>
-            const fillForm = (official, filePond) => {
-                // Pre-fill the form fields if editing a official
-                document.getElementById('year').value = official.year;
-
-                // Clear previous files in FilePond
-                filePond.removeFiles();
-
-                let file_path = official.poster.split('image/')[1];
-
-                // Add the existing file using the image URL
-                filePond.setOptions({
-                    files: [{
-                        source: file_path,
-                        options: {
-                            type: 'local',
-                        }
-                    }, ]
-                })
+            const fillForm = (page) => {
+                // Pre-fill the form fields if editing a page
+                document.getElementById('name').value = page.name;
 
             }
 
             const resetForm = () => {
-                // Pre-fill the form fields if editing a official
-                document.getElementById('year').value = '';
+                // Pre-fill the form fields if editing a page
+                document.getElementById('name').value = '';
             }
 
             document.addEventListener('DOMContentLoaded', function() {
@@ -176,36 +165,26 @@
                 let formModal = new bootstrap.Modal(document.getElementById('formModal'));
                 let deleteFormModal = new bootstrap.Modal(document.getElementById('deleteFormModal'));
 
-                // Initialize FilePond on the input field
-                const imageInput = document.querySelector('#poster');
-                const pond = initializeImagePond(imageInput);
-
-                // Initialize Year Option
-                const yearSelect = document.getElementById("year");
-
-                getYear(yearSelect);
-
                 // Handle the modal trigger for add and edit action
                 document.querySelectorAll('[data-bs-target="#formModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
                         let actionUrl = button.getAttribute('data-action');
-                        let official = JSON.parse(button.getAttribute('data-official'));
+                        let page = JSON.parse(button.getAttribute('data-page'));
                         let mode = button.getAttribute('data-mode');
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
-                            document.getElementById('formModalLabel').textContent = 'Edit official';
-                            document.getElementById('officialForm').setAttribute('action', actionUrl);
+                            document.getElementById('formModalLabel').textContent = 'Ubah Halaman';
+                            document.getElementById('pageForm').setAttribute('action', actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';
                             document.getElementById('method').value = 'PUT';
 
-                            fillForm(official, pond);
+                            fillForm(page);
                         } else {
-                            // Set to Add official if no action URL is provided
-                            document.getElementById('formModalLabel').textContent =
-                                'Tambah Organisasi';
-                            document.getElementById('officialForm').setAttribute('action',
-                                '{{ route('official.store') }}');
+                            // Set to Add page if no action URL is provided
+                            document.getElementById('formModalLabel').textContent = 'Tambah Halaman';
+                            document.getElementById('pageForm').setAttribute('action',
+                                '{{ route('page.store') }}');
                             document.getElementById('submitButton').textContent = 'Simpan';
                             document.getElementById('method').value = 'POST';
                         }
@@ -217,7 +196,7 @@
                 document.querySelectorAll('[data-bs-target="#deleteFormModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
                         let actionUrl = button.getAttribute('data-action');
-                        document.getElementById('deleteOfficialForm').setAttribute('action', actionUrl);
+                        document.getElementById('deletePageForm').setAttribute('action', actionUrl);
                     });
                 });
             });

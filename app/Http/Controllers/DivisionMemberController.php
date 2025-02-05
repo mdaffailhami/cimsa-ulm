@@ -20,7 +20,7 @@ class DivisionMemberController extends Controller
         $division = $official->divisions()->findOrFail($id);
         $members = $division->members()->latest()->paginate(5);
 
-        return view('admin.pages.official-division-member', compact('official', 'division', 'members'));
+        return view('pages.admin.official-division-member', compact('official', 'division', 'members'));
     }
 
     /**

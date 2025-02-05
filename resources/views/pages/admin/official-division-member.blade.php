@@ -1,19 +1,25 @@
 <x-layout.master>
-    @section('title', 'Manajemen Komite')
+    @section('title', 'Manajemen Anggota Divisi')
 
-    <h1 class="h3 mb-3"><strong>Manajemen Komite</h1>
+    <div class="d-flex align-items-center mb-3" style="gap: 8px">
+        <a href="{{ route('official.division.index', ['year' => $official->year]) }}" class="text-dark">
+            <i class="align-middle" data-feather="arrow-left"></i>
+        </a>
+        <h1 class="h3 m-0"><strong>Manajemen Anggota Divisi {{ $division->name }}</h1>
+    </div>
 
     <div class="row">
         <div class="col-24 col-lg-24 col-xxl-24 d-flex">
             <div class="card flex-fill">
                 <div class="card-header d-flex align-items-center justify-content-between">
 
-                    <h5 class="card-title mb-0">Daftar Komite</h5>
+
+                    <h5 class="card-title mb-0">Daftar Anggota Divisi {{ $division->name }}</h5>
 
                     {{-- Add Button --}}
                     <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
                         data-bs-target="#formModal" data-mode="create">
-                        Tambah Komite<i class="ms-2 align-middle" data-feather="plus"></i>
+                        Tambah Divisi<i class="ms-2 align-middle" data-feather="plus"></i>
                     </button>
                 </div>
 
@@ -21,35 +27,44 @@
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="d-none d-xl-table-cell" style="width : 120px !important">Logo</th>
-                                <th class="d-none d-xl-table-cell">Nama</th>
-                                <th class="d-none d-xl-table-cell">Deskripsi</th>
+                                <th class="" style="width : 150px !important">Gambar</th>
+                                <th class="">Nama</th>
+                                <th class="">Email</th>
+                                <th class="">Posisi</th>
                                 <th class="" style="width : 150px !important">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($committees as $committe)
+                            @foreach ($members as $member)
                                 <tr>
-                                    <td class="">
-                                        <img src="{{ $committe->logo }}" class="img-thumbnail" style="width: 100px"
-                                            alt="{{ $committe->name }}">
+                                    <td class="text-center">
+                                        <img src="{{ $member->image }}" class="img-thumbnail" style="width: 250px"
+                                            alt="{{ $member->name }}">
                                     </td>
-                                    <td class="d-none d-xl-table-cell">{{ $committe->name }}</td>
-                                    <td class="d-none d-xl-table-cell">{{ $committe->description }}</td>
+                                    <td class="">{{ $member->name }}</td>
+                                    <td class="">{{ $member->email }}</td>
+                                    <td class="">{{ $member->position }}</td>
                                     <td>
                                         <div class="d-flex justify-content-evenly">
+
                                             {{-- Edit Button --}}
-                                            <a class="btn btn-warning text-dark"
-                                                href="{{ route('committe.edit', ['committe' => $committe->name]) }}">
-                                                <i class="align-middle" data-feather="edit"></i>
-                                            </a>
+                                            <div data-bs-toggle="tooltip" title="Ubah anggota">
+                                                <button type="button" class="btn btn-warning text-dark"
+                                                    data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                    data-action="{{ route('official.division.member.update', ['member' => $member->id]) }}"
+                                                    data-member="{{ json_encode($member) }}">
+                                                    <i class="align-middle" data-feather="edit"></i>
+                                                </button>
+                                            </div>
 
                                             <!-- Delete Button -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteFormModal"
-                                                data-action="{{ route('committe.destroy', ['committe' => $committe->uuid]) }}">
-                                                <i class="align-middle" data-feather="trash"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Hapus anggota">
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteFormModal"
+                                                    data-action="{{ route('official.division.member.destroy', ['member' => $member->id]) }}">
+                                                    <i class="align-middle" data-feather="trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -59,29 +74,31 @@
 
                     {{-- Pagination --}}
                     <div class="mt-3">
-                        {{ $committees->links('vendor.pagination.bootstrap-5') }}
+                        {{ $members->links('vendor.pagination.bootstrap-5') }}
                     </div>
 
                 </div>
             </div>
         </div>
 
-        <!-- Komite Add/Edit Form Modal -->
+        <!-- Member Add/Edit Form Modal -->
         <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="formModalLabel">Tambah Komite</h5>
+                        <h5 class="modal-title" id="formModalLabel">Tambah Anggota</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- Add Komite Form -->
-                        <form id="committeForm" action="{{ route('committe.store') }}" method="POST">
+                        <!-- Add Divisi Form -->
+                        <form id="officialDivisionMemberForm" action="{{ route('official.division.member.store') }}"
+                            method="POST">
                             @csrf
                             <input type="hidden" name="_method" id="method" value="POST">
+                            <input type="hidden" name="division_id" id="method" value="{{ $division->id }}">
 
                             <div class="mb-3">
-                                <label for="name" class="form-label">Nama Komite</label>
+                                <label for="name" class="form-label">Nama Anggota</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
                                     id="name" name="name" placeholder="Masukkan nama..."
                                     value="{{ old('name') }}" required>
@@ -93,10 +110,11 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="description" class="form-label">Deskripsi Singkat</label>
-                                <textarea class="form-control @error('description') is-invalid @enderror" placeholder="Masukkan deskripsi..."
-                                    id="description" name="description" value="{{ old('description') }}" required style="height: 100px"></textarea>
-                                @error('description')
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                    id="email" name="email" placeholder="Masukkan email..."
+                                    value="{{ old('email') }}" required>
+                                @error('email')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -104,12 +122,26 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="logo" class="form-label">Logo Komite</label>
-                                <input type="file" class="filepond" id="logo" name="logo" accept="image/*">
+                                <label for="position" class="form-label">Posisi</label>
+                                <input type="text" class="form-control @error('position') is-invalid @enderror"
+                                    id="position" name="position" placeholder="Masukkan posisi..."
+                                    value="{{ old('position') }}" required>
+                                @error('position')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Gambar</label>
+                                <input type="file" class="filepond" id="image" name="image"
+                                    accept="image/*">
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Close</button>
                                 <button id="submitButton" type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>
@@ -124,17 +156,17 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteFormModalLabel">Hapus Komite</h5>
+                        <h5 class="modal-title" id="deleteFormModalLabel">Hapus Anggota Divisi</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Apakah Anda yakin ingin menghapus Komite ini?</p>
+                        <p>Apakah Anda yakin ingin menghapus anggota divisi ini?</p>
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                        <form id="deleteCommitteForm" method="POST" style="display: inline;">
+                        <form id="deleteOfficialDivisionMemberForm" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>
@@ -147,57 +179,75 @@
     </div>
 
     @section('scripts')
+        {{-- Modal --}}
         <script>
+            const fillForm = (member, filePond) => {
+                // Pre-fill the form fields if editing a member
+                document.getElementById('name').value = member.name;
+                document.getElementById('email').value = member.email;
+                document.getElementById('position').value = member.position;
+
+                // Clear previous files in FilePond
+                filePond.removeFiles();
+
+                let file_path = member.image.split('image/')[1];
+
+                // Add the existing file using the image URL
+                filePond.setOptions({
+                    files: [{
+                        source: file_path,
+                        options: {
+                            type: 'local',
+                        }
+                    }, ]
+                })
+            }
+
+            const resetForm = () => {
+                // Pre-fill the form fields if editing a member
+                document.getElementById('name').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('position').value = '';
+            }
+
             document.addEventListener('DOMContentLoaded', function() {
+                // Initialize Tooltip
                 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
                 let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
                     return new bootstrap.Tooltip(tooltipTriggerEl);
                 });
 
-            });
-        </script>
-
-        {{-- Modal --}}
-        <script>
-            const fillForm = (committe) => {
-                // Pre-fill the form fields if editing a committe
-                document.getElementById('name').value = committe.name;
-
-            }
-
-            const resetForm = () => {
-                // Pre-fill the form fields if editing a committe
-                document.getElementById('name').value = '';
-            }
-
-            document.addEventListener('DOMContentLoaded', function() {
+                // Initialize Modal
                 let formModal = new bootstrap.Modal(document.getElementById('formModal'));
                 let deleteFormModal = new bootstrap.Modal(document.getElementById('deleteFormModal'));
 
                 // Initialize FilePond on the input field
-                const imageInput = document.querySelector('#logo');
+                const imageInput = document.querySelector('#image');
                 const pond = initializeImagePond(imageInput);
 
                 // Handle the modal trigger for add and edit action
                 document.querySelectorAll('[data-bs-target="#formModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
                         let actionUrl = button.getAttribute('data-action');
-                        let committe = JSON.parse(button.getAttribute('data-committe'));
+                        let member = JSON.parse(button.getAttribute('data-member'));
                         let mode = button.getAttribute('data-mode');
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
-                            document.getElementById('formModalLabel').textContent = 'Edit committe';
-                            document.getElementById('committeForm').setAttribute('action', actionUrl);
+                            document.getElementById('formModalLabel').textContent = 'Ubah Anggota';
+                            document.getElementById('officialDivisionMemberForm').setAttribute('action',
+                                actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';
                             document.getElementById('method').value = 'PUT';
 
-                            fillForm(committe);
+                            fillForm(member, pond);
                         } else {
-                            // Set to Add committe if no action URL is provided
-                            document.getElementById('formModalLabel').textContent = 'Tambah Komite';
-                            document.getElementById('committeForm').setAttribute('action',
-                                '{{ route('committe.store') }}');
+                            // Set to Add member if no action URL is provided
+                            document.getElementById('formModalLabel').textContent =
+                                'Tambah Anggota';
+                            document.getElementById('officialDivisionMemberForm').setAttribute('action',
+                                '{{ route('official.division.member.store') }}'
+                            );
                             document.getElementById('submitButton').textContent = 'Simpan';
                             document.getElementById('method').value = 'POST';
                         }
@@ -209,7 +259,9 @@
                 document.querySelectorAll('[data-bs-target="#deleteFormModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
                         let actionUrl = button.getAttribute('data-action');
-                        document.getElementById('deleteCommitteForm').setAttribute('action', actionUrl);
+                        document.getElementById('deleteOfficialDivisionMemberForm').setAttribute(
+                            'action',
+                            actionUrl);
                     });
                 });
             });

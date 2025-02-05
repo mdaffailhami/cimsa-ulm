@@ -16,7 +16,7 @@ class CategoryController extends Controller
     {
         $categories = Category::oldest()->paginate(5);
 
-        return view('admin.pages.category', compact('categories'));
+        return view('pages.admin.category', compact('categories'));
     }
 
     /**

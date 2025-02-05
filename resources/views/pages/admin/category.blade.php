@@ -21,30 +21,34 @@
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="d-none d-xl-table-cell">Nama</th>
-                                <th class="">Aksi</th>
+                                <th class="">Nama</th>
+                                <th class="" style="width : 150px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($categories as $category)
                                 <tr>
-                                    <td class="d-none d-xl-table-cell">{{ $category->name }}</td>
+                                    <td class="">{{ $category->name }}</td>
                                     <td class="">
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Edit Button --}}
-                                            <button type="button" class="btn btn-warning text-dark"
-                                                data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                data-action="{{ route('category.update', ['category' => $category->id]) }}"
-                                                data-category="{{ json_encode($category) }}">
-                                                <i class="align-middle" data-feather="edit"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Ubah kategori">
+                                                <button type="button" class="btn btn-warning text-dark"
+                                                    data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                    data-action="{{ route('category.update', ['category' => $category->id]) }}"
+                                                    data-category="{{ json_encode($category) }}">
+                                                    <i class="align-middle" data-feather="edit"></i>
+                                                </button>
+                                            </div>
 
                                             <!-- Delete Button -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteFormModal"
-                                                data-action="{{ route('category.destroy', ['category' => $category->id]) }}">
-                                                <i class="align-middle" data-feather="trash"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" title="Hapus kategori">
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteFormModal"
+                                                    data-action="{{ route('category.destroy', ['category' => $category->id]) }}">
+                                                    <i class="align-middle" data-feather="trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -125,17 +129,7 @@
     </div>
 
     @section('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                    return new bootstrap.Tooltip(tooltipTriggerEl);
-                });
 
-            });
-        </script>
-
-        {{-- Modal --}}
         <script>
             const fillForm = (category) => {
                 // Pre-fill the form fields if editing a category
@@ -148,6 +142,14 @@
             }
 
             document.addEventListener('DOMContentLoaded', function() {
+                // Initiate Tooltip
+                let tooltipTriggerList = [].slice.call(document.querySelectorAll(
+                    '[data-bs-toggle="tooltip"]'));
+                let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                });
+
+                // Initiate Modal
                 let formModal = new bootstrap.Modal(document.getElementById('formModal'));
                 let deleteFormModal = new bootstrap.Modal(document.getElementById('deleteFormModal'));
 
@@ -160,7 +162,7 @@
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
-                            document.getElementById('formModalLabel').textContent = 'Edit category';
+                            document.getElementById('formModalLabel').textContent = 'Ubah Kategori';
                             document.getElementById('categoryForm').setAttribute('action', actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';
                             document.getElementById('method').value = 'PUT';

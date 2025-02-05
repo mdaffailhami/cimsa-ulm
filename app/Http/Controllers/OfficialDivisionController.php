@@ -18,7 +18,7 @@ class OfficialDivisionController extends Controller
     {
         $official = Official::with('divisions')->where('year', $year)->first();
         $divisions = $official->divisions()->paginate(5);
-        return view('admin.pages.official-division', compact('divisions', 'official'));
+        return view('pages.admin.official-division', compact('divisions', 'official'));
     }
 
     /**

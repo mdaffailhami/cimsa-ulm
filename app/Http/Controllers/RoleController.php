@@ -17,7 +17,7 @@ class RoleController extends Controller
     {
         $roles = Role::with('permissions')->whereNot('name', 'super-administrator')->paginate(5);
         $permissions = Permission::whereNot('name', 'sudo')->get();
-        return view('admin.pages.role', compact('roles', 'permissions'));
+        return view('pages.admin.role', compact('roles', 'permissions'));
     }
 
     /**
