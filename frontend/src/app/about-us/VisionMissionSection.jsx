@@ -67,17 +67,17 @@ export default function VisionMissionSection({
             `}
           >
             <h2 style={{ color: 'red' }}>
-              <b>MISSIONs</b>
+              <b>MISSIONS</b>
             </h2>
             <br />
             <Row xs={1} sm={1} md={2} className='justify-content-center g-3'>
               {missions.map((mission, i) => (
                 <Col key={i}>
                   <h4>
-                    <b>{mission.title}</b>
+                    <b>{mission.label}</b>
                   </h4>
                   <p style={{ fontSize: '18px' }}>
-                    <HtmlParser html={mission.description} />
+                    <HtmlParser html={mission.value} />
                   </p>
                 </Col>
               ))}

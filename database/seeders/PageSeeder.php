@@ -61,7 +61,7 @@ class PageSeeder extends Seeder
                         'value' => null,
                     ],
                     [
-                        "label" => 'Statistic',
+                        "label" => 'Statistics',
                         "type" => 'multiple-value',
                         'section' => "statistics",
                         'value' => json_encode([

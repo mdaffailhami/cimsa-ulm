@@ -19,7 +19,7 @@ export default function NumberOfThingsSection({ statistics }) {
       >
         {statistics.map((statistic, i) => (
           <Col key={i}>
-            <NumberOfThing title={statistic.name} content={statistic.count} />
+            <NumberOfThing title={statistic.label} content={statistic.value} />
           </Col>
         ))}
       </Row>

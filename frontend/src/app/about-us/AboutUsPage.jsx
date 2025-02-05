@@ -76,7 +76,7 @@ export default function AboutUsPage() {
           }
           missions={JSON.parse(
             page.data.contents.find((x) => x.column === 'missions')
-              .long_text_content
+              .multiple_value_content
           )}
         />
         <hr />
