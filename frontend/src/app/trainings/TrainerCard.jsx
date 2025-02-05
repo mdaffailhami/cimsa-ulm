@@ -14,10 +14,15 @@ export default function TrainerCard({ thumbnail, title, description, url }) {
         as='a'
         href={url}
         css={css`
-          height: 500px;
+          height: 433px;
           text-decoration: none;
           border-radius: 20px;
           overflow: hidden;
+          box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.2);
+
+          &:hover h3.card-title {
+            text-decoration: underline;
+          }
 
           ${getOnHoverAnimationCss(1.05)}
         `}
@@ -37,6 +42,7 @@ export default function TrainerCard({ thumbnail, title, description, url }) {
         </Card.Header>
         <Card.Body style={{ textAlign: 'center' }}>
           <Card.Title
+            as='h3'
             style={{
               fontSize: '23px',
               overflow: 'hidden',
@@ -54,7 +60,7 @@ export default function TrainerCard({ thumbnail, title, description, url }) {
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               display: '-webkit-box',
-              WebkitLineClamp: 7,
+              WebkitLineClamp: 5,
               WebkitBoxOrient: 'vertical',
             }}
           >
