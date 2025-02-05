@@ -55,7 +55,8 @@
                 Manajemen Artikel
             </li>
 
-            <li class="sidebar-item {{ request()->routeIs('article.index') ? 'active' : '' }}">
+            <li
+                class="sidebar-item {{ request()->routeIs(['article.index', 'article.create', 'article.edit']) ? 'active' : '' }}">
                 <a class="sidebar-link" href="{{ route('article.index') }}">
                     <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Artikel</span>
                 </a>

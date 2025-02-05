@@ -65,7 +65,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('admin.pages.article-form', compact('categories'));
     }
 
     /**
@@ -141,7 +142,9 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $post = Post::with('categories')->where('slug', $id)->first();
+        $categories = Category::all();
+        return view('admin.pages.article-form', compact('post', 'categories'));
     }
 
     /**
@@ -213,7 +216,7 @@ class PostController extends Controller
     public function destroy(string $id)
     {
         try {
-            Post::find($id)->delete();
+            Post::find($id)->forceDelete();
             DB::commit();
 
 
