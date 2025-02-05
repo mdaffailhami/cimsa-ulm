@@ -1,6 +1,6 @@
 import Container from 'react-bootstrap/Container';
 import { Nav, Navbar as BootstrapNavbar, NavDropdown } from 'react-bootstrap';
-import Logo from './assets/Logo';
+import Logo from './public/logo.png';
 import { css, Global } from '@emotion/react';
 import { Link, useLocation } from 'react-router';
 import { useEffect } from 'react';

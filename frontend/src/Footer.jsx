@@ -1,5 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import Logo from './assets/Logo';
+import Logo from './public/logo.png';
 import { Global, css } from '@emotion/react';
 import { Link } from 'react-router';
 import { useContext } from 'react';

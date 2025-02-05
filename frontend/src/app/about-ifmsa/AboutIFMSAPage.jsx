@@ -8,6 +8,7 @@ import LoadingPage from '../../components/LoadingPage';
 import HtmlParser from '../../components/HtmlParser';
 import useSWR from 'swr';
 import { PageMeta } from '../../components/PageMeta';
+import IFMSALogo from '../../assets/ifmsa-logo.jpg';
 
 export default function AboutIFMSAPage() {
   const page = useSWR(`${endpoint}/api/page/about-ifmsa`, fetchJSON);
@@ -20,6 +21,7 @@ export default function AboutIFMSAPage() {
       <PageMeta
         title='About IFMSA - CIMSA ULM'
         description='International Federation of Medical Students’ Association (IFMSA) adalah organisasi non-profit, non-pemerintah dan non-partisipan yang mewakili asosiasi mahasiswa kedokteran internasional.'
+        ogImage={IFMSALogo}
       />
       <main>
         <Global
