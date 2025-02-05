@@ -95,7 +95,7 @@ export default function MainSection({
         >
           {programsDesc}
         </p>
-        <PrimaryButton to='/activities/programs' isLarge={true}>
+        <PrimaryButton to='/programs' isLarge={true}>
           Learn More
         </PrimaryButton>
       </Container>
@@ -135,7 +135,7 @@ export default function MainSection({
         >
           {trainingsDesc}
         </p>
-        <PrimaryButton to='/activities/trainings' isLarge={true}>
+        <PrimaryButton to='/trainings' isLarge={true}>
           Learn More
         </PrimaryButton>
       </Container>

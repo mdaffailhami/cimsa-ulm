@@ -9,13 +9,9 @@ import { endpoint } from '../../configs';
 import HtmlParser from '../../components/HtmlParser';
 import useSWR from 'swr';
 import LoadFailedPage from '../../components/LoadFailedPage';
+import { PageMeta } from '../../components/PageMeta';
 
 export default function BlogPage() {
-  setPageMeta(
-    'BLOG - CIMSA ULM',
-    'Content from our members, seniors, alumni, and activity reports.'
-  );
-
   const paths = getWebPaths();
   const totalPage = 28;
 
@@ -46,31 +42,37 @@ export default function BlogPage() {
 
   return (
     <>
-      <Container>
-        <PageHeader
-          title={'BLOG'}
-          description={
-            <HtmlParser
-              html={
-                page.data.contents.find((x) => x.column === 'description')
-                  .long_text_content
-              }
-            />
-          }
-        />
-        <PostsSection totalPage={totalPage} />
-      </Container>
-      <br />
-      <SocmedsSection />
-      <br />
-      <ContactCardSection
-        period={page.data.contact.generation}
-        position={page.data.contact.occupation}
-        picture={page.data.contact.image}
-        name={page.data.contact.name}
-        email={page.data.contact.email}
-        phone={page.data.contact.phone}
+      <PageMeta
+        title='Blog - CIMSA ULM'
+        description='Content from our members, seniors, alumni, and activity reports.'
       />
+      <main>
+        <Container>
+          <PageHeader
+            title={'BLOG'}
+            description={
+              <HtmlParser
+                html={
+                  page.data.contents.find((x) => x.column === 'description')
+                    .long_text_content
+                }
+              />
+            }
+          />
+          <PostsSection totalPage={totalPage} />
+        </Container>
+        <br />
+        <SocmedsSection />
+        <br />
+        <ContactCardSection
+          period={page.data.contact.generation}
+          position={page.data.contact.occupation}
+          picture={page.data.contact.image}
+          name={page.data.contact.name}
+          email={page.data.contact.email}
+          phone={page.data.contact.phone}
+        />
+      </main>
     </>
   );
 }

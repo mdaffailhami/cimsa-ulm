@@ -93,7 +93,7 @@ export default function AboutUsSection({ about, bgImage }) {
         data-aos-once='true'
         data-aos-duration='1200'
       >
-        <h1
+        <h2
           css={css`
             color: red;
             font-weight: bold;
@@ -108,7 +108,7 @@ export default function AboutUsSection({ about, bgImage }) {
           data-aos-duration='1200'
         >
           About Us
-        </h1>
+        </h2>
 
         <p
           data-aos='zoom-in-down'

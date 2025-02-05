@@ -10,13 +10,12 @@ import AboutUsPage from './app/about-us/AboutUsPage';
 import HomePage from './app/home/HomePage';
 import Footer from './Footer';
 import Navbar from './Navbar';
-import Logo from './assets/Logo';
 import { Global, css } from '@emotion/react';
 import ContactUsPage from './app/contact-us/ContactUsPage';
 import AlumniSeniorPage from './app/alumni-senior/AlumniSeniorPage';
 import ProgramsPage from './app/programs/ProgramsPage';
 import OfficialsPage from './app/officials/OfficialsPage';
-import AboutIFMSAPage from './app/about-us/ifmsa/AboutIFMSAPage';
+import AboutIFMSAPage from './app/about-ifmsa/AboutIFMSAPage';
 import TrainingsPage from './app/trainings/TrainingsPage';
 import ActivitiesPage from './app/activities/ActivitiesPage';
 import BlogPage from './app/blog/BlogPage';
@@ -24,48 +23,43 @@ import PostDetailPage from './app/blog/detail/PostDetailPage';
 import ScosPage from './app/scos/ScosPage';
 import ScoDetailPage from './app/scos/detail/ScoDetailPage';
 import { CimsaStateProvider } from './states/Cimsa';
+import { HelmetProvider } from 'react-helmet-async';
 
 createRoot(document.getElementById('app')).render(<App />);
 
 function App() {
-  document.title = 'CIMSA ULM';
-
-  // Change web favicon
-  document.head.insertAdjacentHTML(
-    'beforeend',
-    `<link rel="icon" href="${Logo}">`
-  );
-
   // Initialize AOS
   Aos.init();
 
   return (
     <StrictMode>
       <GlobalStyle />
-      <BrowserRouter>
-        <Navbar />
-        <CimsaStateProvider>
-          <Routes>
-            <Route index element={<HomePage />} />
-            <Route path='blog' element={<BlogPage />} />
-            <Route path='blog/detail/:slug' element={<PostDetailPage />} />
-            <Route path='blog/:category' element={<BlogPage />} />
-            <Route path='blog/:category/:page' element={<BlogPage />} />
-            <Route path='about-us' element={<AboutUsPage />} />
-            <Route path='about-us/ifmsa' element={<AboutIFMSAPage />} />
-            <Route path='scos' element={<ScosPage />} />
-            <Route path='scos/:name' element={<ScoDetailPage />} />
-            <Route path='activities' element={<ActivitiesPage />} />
-            <Route path='activities/programs' element={<ProgramsPage />} />
-            <Route path='activities/trainings' element={<TrainingsPage />} />
-            <Route path='officials' element={<OfficialsPage />} />
-            <Route path='alumni-senior' element={<AlumniSeniorPage />} />
-            <Route path='contact-us' element={<ContactUsPage />} />
-            <Route path='*' element={<NotFoundPage />} />
-          </Routes>
-          <Footer />
-        </CimsaStateProvider>
-      </BrowserRouter>
+      <HelmetProvider>
+        <BrowserRouter>
+          <Navbar />
+          <CimsaStateProvider>
+            <Routes>
+              <Route index element={<HomePage />} />
+              <Route path='blog' element={<BlogPage />} />
+              <Route path='blog/detail/:slug' element={<PostDetailPage />} />
+              <Route path='blog/:category' element={<BlogPage />} />
+              <Route path='blog/:category/:page' element={<BlogPage />} />
+              <Route path='about-us' element={<AboutUsPage />} />
+              <Route path='about-ifmsa' element={<AboutIFMSAPage />} />
+              <Route path='scos' element={<ScosPage />} />
+              <Route path='scos/:name' element={<ScoDetailPage />} />
+              <Route path='activities' element={<ActivitiesPage />} />
+              <Route path='programs' element={<ProgramsPage />} />
+              <Route path='trainings' element={<TrainingsPage />} />
+              <Route path='officials' element={<OfficialsPage />} />
+              <Route path='alumni-senior' element={<AlumniSeniorPage />} />
+              <Route path='contact-us' element={<ContactUsPage />} />
+              <Route path='*' element={<NotFoundPage />} />
+            </Routes>
+            <Footer />
+          </CimsaStateProvider>
+        </BrowserRouter>
+      </HelmetProvider>
     </StrictMode>
   );
 }

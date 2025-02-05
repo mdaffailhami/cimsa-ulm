@@ -17,6 +17,7 @@ export default function OurTrainersSection({ description, trainers }) {
             data-aos='fade-right'
             data-aos-duration='1200'
             data-aos-once='true'
+            class='h2 mb-4 mt-2'
           >
             <b>Get to know our trainers</b>
           </h2>

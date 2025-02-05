@@ -191,7 +191,7 @@ class PageSeeder extends Seeder
                     ],
                     [
                         "label" => 'Vision',
-                        "type" => 'text',
+                        "type" => 'long-text',
                         'section' => 'vision-mission',
                         'value' => 'CIMSA ULM sebagai organisasi mahasiswa kedokteran yang adaptif, dinamis, dan bergairah dalam melaksanakan program kerja berkelanjutan serta mewujudkan lingkungan yang profesional dan harmonis bagi para member dan officials.',
                         'image_content' => null

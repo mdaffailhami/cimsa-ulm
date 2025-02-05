@@ -25,6 +25,7 @@ export default function QuoteSection({ quote, author, image }) {
               <img
                 src={image}
                 width={600}
+                alt={`Quote by ${author}`}
                 css={css`
                   height: 300px;
                   border-radius: 10px;

@@ -1,5 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import Logo from './assets/Logo';
+import Logo from './public/logo.png';
 import { Global, css } from '@emotion/react';
 import { Link } from 'react-router';
 import { useContext } from 'react';
@@ -41,6 +41,15 @@ export default function Footer() {
             padding: 20px 0;
           }
 
+          footer#web-footer h3 {
+            color: red;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            line-height: 1.2;
+            font-size: 1.4rem;
+          }
+
           footer a {
             color: white;
             text-decoration: none;
@@ -66,7 +75,7 @@ export default function Footer() {
                 >
                   <img
                     src={Logo}
-                    alt='Logo'
+                    alt='CIMSA ULM'
                     style={{
                       height: '50px',
                       marginBottom: '10px',
@@ -85,7 +94,7 @@ export default function Footer() {
               </p>
             </Col>
             <Col md={3}>
-              <h5 style={{ color: 'red' }}>Contact Info</h5>
+              <h3 style={{ color: 'red' }}>Contact Info</h3>
               <p>
                 <Link to='/contact-us#map'>
                   <i className='fa-solid fa-location-dot' />{' '}
@@ -113,7 +122,7 @@ export default function Footer() {
               </p>
             </Col>
             <Col md={2}>
-              <h5 style={{ color: 'red' }}>Follow Us</h5>
+              <h3 style={{ color: 'red' }}>Follow Us</h3>
               <SocmedLink
                 title='Instagram'
                 iconClass='fa-brands fa-instagram'
@@ -144,7 +153,7 @@ export default function Footer() {
               />
             </Col>
             <Col md={2}>
-              <h5 style={{ color: 'red' }}>Quick Links</h5>
+              <h3 style={{ color: 'red' }}>Quick Links</h3>
               <ul style={{ paddingLeft: 0 }}>
                 <QuickLink title='Home' url='/' />
                 <QuickLink title='Blog' url='/blog' />
