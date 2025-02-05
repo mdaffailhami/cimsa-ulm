@@ -24,7 +24,6 @@ import ScosPage from './app/scos/ScosPage';
 import ScoDetailPage from './app/scos/detail/ScoDetailPage';
 import { CimsaStateProvider } from './states/Cimsa';
 import { HelmetProvider } from 'react-helmet-async';
-import { PageMeta } from './components/PageMeta';
 
 createRoot(document.getElementById('app')).render(<App />);
 
@@ -36,10 +35,6 @@ function App() {
     <StrictMode>
       <GlobalStyle />
       <HelmetProvider>
-        <PageMeta
-          title='CIMSA ULM'
-          description='CIMSA (Center for Indonesian Medical Students’ Activities) is an independent, non-profit and non-governmental organization, that centers on the Sustainable Development Goals.'
-        />
         <BrowserRouter>
           <Navbar />
           <CimsaStateProvider>
