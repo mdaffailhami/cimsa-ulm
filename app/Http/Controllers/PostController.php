@@ -57,7 +57,7 @@ class PostController extends Controller
     {
         $posts = Post::with(['author', 'categories'])->latest()->paginate(5);
         $categories = Category::all();
-        return view('admin.pages.article', compact('posts', 'categories'));
+        return view('pages.admin.article', compact('posts', 'categories'));
     }
 
     /**
@@ -66,7 +66,7 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.pages.article-form', compact('categories'));
+        return view('pages.admin.article-form', compact('categories'));
     }
 
     /**
@@ -144,7 +144,7 @@ class PostController extends Controller
     {
         $post = Post::with('categories')->where('slug', $id)->first();
         $categories = Category::all();
-        return view('admin.pages.article-form', compact('post', 'categories'));
+        return view('pages.admin.article-form', compact('post', 'categories'));
     }
 
     /**

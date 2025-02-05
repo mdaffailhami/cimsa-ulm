@@ -30,7 +30,7 @@ class CimsaProfileController extends Controller
         $profiles = CimsaProfile::with('galleries')->get();
         $social_medias = SocialMedia::get();
 
-        return view('admin.pages.cimsa-profile', compact('profiles', 'social_medias'));
+        return view('pages.admin.cimsa-profile', compact('profiles', 'social_medias'));
     }
 
     /**

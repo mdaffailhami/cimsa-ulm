@@ -69,10 +69,9 @@
                 </a>
             </li>
 
-
             {{-- Users Management Menu --}}
             <li class="sidebar-header">
-                User Management
+                Manajemen Pengguna
             </li>
 
             <li class="sidebar-item {{ request()->routeIs('user.index') ? 'active' : '' }}">

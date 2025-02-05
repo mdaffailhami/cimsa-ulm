@@ -27,7 +27,7 @@ class PageController extends Controller
     public function index()
     {
         $pages = Page::latest()->paginate(5);
-        return view('admin.pages.page', compact('pages'));
+        return view('pages.admin.page', compact('pages'));
     }
 
     /**
@@ -89,7 +89,7 @@ class PageController extends Controller
     public function edit(string $id)
     {
         $page = Page::with('contents.galleries', 'contact')->whereUri($id)->first();
-        return view('admin.pages.page-content', compact('page'));
+        return view('pages.admin.page-content', compact('page'));
     }
 
     /**

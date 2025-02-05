@@ -16,10 +16,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::oldest()->paginate(5);
+        $users = User::whereHas('roles', fn($q) => $q->whereNot('name',  'super-administrator'))->oldest()->paginate(5);
         $roles = Role::whereNot('name', 'super-administrator')->get();
 
-        return view('admin.pages.user', compact('users', 'roles'));
+        return view('pages.admin.user', compact('users', 'roles'));
     }
 
     /**
