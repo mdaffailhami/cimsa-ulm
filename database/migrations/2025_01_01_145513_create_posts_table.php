@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->uuid()->primary();
             $table->foreignUuid('author_id')->constrained('users', 'uuid')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('editor_id')->constrained('users', 'uuid')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('cover')->nullable();
             $table->string('title');
             $table->string('slug');

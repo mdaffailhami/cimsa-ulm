@@ -53,9 +53,17 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::with(['author', 'categories'])->latest()->paginate(5);
+        $posts = Post::with(['author', 'categories'])->latest();
+
+        if ($request->search) {
+            $posts = $posts->where('title', 'LIKE', "%$request->search%")
+                ->orWhereHas('author', fn($q) => $q->where('full_name', 'LIKE', "%$request->search%"))->orWhereHas('editor', fn($q) => $q->where('full_name', 'LIKE', "%$request->search%"));
+        }
+
+        $posts = $posts->paginate(5);
+
         $categories = Category::all();
         return view('pages.admin.article', compact('posts', 'categories'));
     }
@@ -98,16 +106,16 @@ class PostController extends Controller
         ]);
 
         try {
-            DB::commit();
-
             $article = new Post();
             $categories = Category::whereIn('name', $request->categories)->pluck('id')->toArray(); // Get Category id
 
             $date = Carbon::now();
             $path_name = "post/{$date->year}";
             $image_name = uploadFile($path_name, $request->cover);
+            $user = Auth::user();
 
-            $article->author_id = Auth::user()->uuid;
+            $article->author_id = $user->uuid;
+            $article->editor_id = $user->uuid;
             $article->title = $validated['title'];
             $article->slug = Str::slug($validated['title']);
             $article->highlight = $validated['highlight'];
@@ -117,6 +125,8 @@ class PostController extends Controller
             $article->save();
 
             $article->categories()->sync($categories);
+
+            DB::commit();
 
             // Redirect to the last page of articles
             return redirect()->route('article.index')
@@ -176,8 +186,6 @@ class PostController extends Controller
         ]);
 
         try {
-            DB::commit();
-
             $article = Post::find($id);
             $categories = Category::whereIn('name', $request->categories)->pluck('id')->toArray(); // Get Category id
 
@@ -189,7 +197,7 @@ class PostController extends Controller
                 $article->cover = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
             }
 
-            $article->author_id = Auth::user()->uuid;
+            $article->editor_id = Auth::user()->uuid;
             $article->title = $validated['title'];
             $article->slug = Str::slug($validated['title']);
             $article->highlight = $validated['highlight'];
@@ -198,6 +206,8 @@ class PostController extends Controller
             $article->save();
 
             $article->categories()->sync($categories);
+
+            DB::commit();
 
             // Redirect to the last page of articles
             return redirect()->route('article.index')

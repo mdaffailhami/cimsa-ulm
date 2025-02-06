@@ -32,13 +32,19 @@ class PostFactory extends Factory
         $image_name = generateImage('image', $path_name);
         $image_url = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
 
+        $user = $users->random(1)->first();
+        $post_time = $this->getRandomTimeStamp();
+
         return [
-            "author_id" => $users->random(1)->first()->uuid,
+            "author_id" => $user->uuid,
+            "editor_id" => $user->uuid,
             "cover" => $image_url,
             "title" => $title,
             "slug" => $slug,
             "highlight" => fake()->paragraph(1),
             "content" => '<p>' . implode('</p><p>', fake()->paragraphs(3)) . '</p>',
+            "created_at" => $post_time,
+            "updated_at" => $post_time
         ];
     }
 
@@ -47,5 +53,15 @@ class PostFactory extends Factory
         return $this->afterCreating(function (Post $post) use ($categories) {
             $post->categories()->attach($categories);
         });
+    }
+
+    function getRandomTimestamp()
+    {
+        $startOfYear = Carbon::now()->startOfYear(); // First day of the year (January 1st, 00:00:00)
+        $now = Carbon::now(); // Current time
+
+        $randomTimestamp = rand($startOfYear->timestamp, $now->timestamp);
+
+        return Carbon::createFromTimestamp($randomTimestamp)->toDateTimeString();
     }
 }
