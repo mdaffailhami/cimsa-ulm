@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CimsaProfileController;
 use App\Http\Controllers\CommitteController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisionMemberController;
 use App\Http\Controllers\OfficialController;
 use App\Http\Controllers\OfficialDivisionController;
@@ -25,19 +26,13 @@ Route::fallback(function () {
     return view('react-index');
 });
 
-Route::get('/test', function () {
-    return Inertia::render('Welcome');
-});
-
 Route::prefix('/admin')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/', function () {
             return redirect()->route('admin.dashboard');
         });
 
-        Route::get('/dashboard', function () {
-            return view('pages.admin.dashboard');
-        })->name('admin.dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
         Route::resource('cimsa-profile', CimsaProfileController::class);
         Route::put('cimsa-profile/update', [CimsaProfile::class, 'update'])->name('cimsa-profile.update-new');
