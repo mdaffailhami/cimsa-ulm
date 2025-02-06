@@ -17,12 +17,27 @@
                 </div>
 
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-5">
+                            <form action="{{ route('article.index') }}" method="GET" class="input-group mb-3">
+                                <input type="text" class="form-control" name="search"
+                                    placeholder="Cari judul, Penulis, Editor ..." aria-label="Search"
+                                    value="{{ request('search') }}">
+                                <button class="btn btn-primary" type="submit" data-bs-toggle="tooltip"
+                                    title="Cari artikel"> <i class="align-middle" data-feather="search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
                                 <th class="">Judul</th>
-                                <th class="">Penulis</th>
                                 <th class="">Highlight</th>
+                                <th class="">Penulis</th>
+                                <th class="">Tanggal Publikasi</th>
+                                <th class="">Editor</th>
+                                <th class="">Tanggal Perubahan</th>
                                 <th class="" style="width: 250px">Cover</th>
                                 <th class="" style="width: 150px">Aksi</th>
                             </tr>
@@ -31,8 +46,15 @@
                             @foreach ($posts as $post)
                                 <tr>
                                     <td class="">{{ $post->title }}</td>
-                                    <td class="">{{ $post->author->full_name }}</td>
                                     <td class="">{{ $post->highlight }}</td>
+                                    <td class="">{{ $post->author->full_name }}</td>
+                                    <td>
+                                        {{ $timeStamp = date('d M Y', strtotime($post->created_at)) }}
+                                    </td>
+                                    <td class="">{{ $post->editor->full_name }}</td>
+                                    <td>
+                                        {{ $timeStamp = date('d M Y', strtotime($post->updated_at)) }}
+                                    </td>
                                     <td class="">
                                         <img src="{{ $post->cover }}" class="img-thumbnail" style="width: 300px"
                                             alt="{{ $post->slug }}">
