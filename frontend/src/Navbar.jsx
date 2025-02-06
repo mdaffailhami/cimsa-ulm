@@ -1,13 +1,25 @@
 import Container from 'react-bootstrap/Container';
-import { Nav, Navbar as BootstrapNavbar, NavDropdown } from 'react-bootstrap';
+import {
+  Nav,
+  Navbar as BootstrapNavbar,
+  NavDropdown,
+  Spinner,
+  Alert,
+} from 'react-bootstrap';
 import Logo from './public/logo.png';
 import { css, Global } from '@emotion/react';
 import { Link, useLocation } from 'react-router';
 import { useEffect } from 'react';
-import { getOnHoverAnimationCss } from './utils';
+import { fetchJSON, getOnHoverAnimationCss } from './utils';
+import useSWR from 'swr';
+import { endpoint } from './configs';
 
 export default function Navbar() {
   const location = useLocation();
+  const scos = useSWR(
+    `${endpoint}/api/committe`,
+    async (url) => (await fetchJSON(url)).data
+  );
 
   useEffect(() => {
     // If the last character of the url is '/', then remove it (Prevent trailing slash)
@@ -146,34 +158,37 @@ export default function Navbar() {
                     All SCOs
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item
-                    as={Link}
-                    to='/scos/scome'
-                    active={location.pathname === '/scos/scome'}
-                  >
-                    SCOME
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    as={Link}
-                    to='/scos/scora'
-                    active={location.pathname === '/scos/scora'}
-                  >
-                    SCORA
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    as={Link}
-                    to='/scos/scorp'
-                    active={location.pathname === '/scos/scorp'}
-                  >
-                    SCORP
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    as={Link}
-                    to='/scos/scoph'
-                    active={location.pathname === '/scos/scoph'}
-                  >
-                    SCOPH
-                  </NavDropdown.Item>
+                  {(() => {
+                    if (scos.isLoading) {
+                      return (
+                        <NavDropdown.Item disabled>
+                          <Spinner animation='border' size='sm' />
+                        </NavDropdown.Item>
+                      );
+                    }
+
+                    if (scos.error) {
+                      return (
+                        <NavDropdown.Item disabled>
+                          <Alert variant='danger'>Failed to load SCOs</Alert>
+                        </NavDropdown.Item>
+                      );
+                    }
+
+                    return scos.data.map((sco, i) => (
+                      <NavDropdown.Item
+                        key={i + 1}
+                        as={Link}
+                        to={`/scos/${sco.name.toLowerCase()}`}
+                        active={
+                          location.pathname ===
+                          `/scos/${sco.name.toLowerCase()}`
+                        }
+                      >
+                        {sco.name}
+                      </NavDropdown.Item>
+                    ));
+                  })()}
                 </NavDropdown>
                 <NavDropdown
                   title='What We Do'

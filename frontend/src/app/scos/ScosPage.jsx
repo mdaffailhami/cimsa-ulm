@@ -10,7 +10,10 @@ import { PageMeta } from '../../components/PageMeta';
 
 export default function ScosPage() {
   const page = useSWR(`${endpoint}/api/page/scos`, fetchJSON);
-  const scos = useSWR(`${endpoint}/api/committe`, fetchJSON);
+  const scos = useSWR(
+    `${endpoint}/api/committe`,
+    async (url) => (await fetchJSON(url)).data
+  );
 
   if (page.isLoading || scos.isLoading) {
     return <LoadingPage />;
@@ -39,7 +42,7 @@ export default function ScosPage() {
           }
         />
         <hr style={{ color: 'red', borderWidth: '1px', opacity: '1' }} />
-        <ScosList scos={scos.data.data} />
+        <ScosList scos={scos.data} />
         <br />
       </main>
     </>
