@@ -6,7 +6,6 @@ import {
   Spinner,
   Alert,
 } from 'react-bootstrap';
-import Logo from './public/logo.png';
 import { css, Global } from '@emotion/react';
 import { Link, useLocation } from 'react-router';
 import { useEffect } from 'react';
@@ -63,7 +62,7 @@ export default function Navbar() {
               css={getOnHoverAnimationCss(1.12)}
             >
               <img
-                src={Logo}
+                src={'logo.png'}
                 alt='CIMSA ULM'
                 style={{ width: 'auto', height: '40px' }}
               />
