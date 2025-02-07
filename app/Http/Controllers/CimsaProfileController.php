@@ -105,7 +105,7 @@ class CimsaProfileController extends Controller
             DB::rollBack();
             Log::error('Error updating profile: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 

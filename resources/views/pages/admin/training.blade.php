@@ -11,10 +11,12 @@
                     <h5 class="card-title mb-0">Daftar Pelatihan</h5>
 
                     {{-- Add Button --}}
-                    <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
-                        data-bs-target="#formModal" data-mode="create">
-                        Tambah Pelatihan<i class="ms-2 align-middle" data-feather="plus"></i>
-                    </button>
+                    @canany(['sudo', 'training.*', 'training.create'])
+                        <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
+                            data-bs-target="#formModal" data-mode="create">
+                            Tambah Pelatihan<i class="ms-2 align-middle" data-feather="plus"></i>
+                        </button>
+                    @endcanany
                 </div>
 
                 <div class="card-body">
@@ -39,23 +41,27 @@
                                     <td class="">
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Edit Button --}}
-                                            <div data-bs-toggle="tooltip" title="Ubah pelatihan">
-                                                <button type="button" class="btn btn-warning text-dark"
-                                                    data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                    data-action="{{ route('training.update', ['training' => $training->id]) }}"
-                                                    data-training="{{ json_encode($training) }}">
-                                                    <i class="align-middle" data-feather="edit"></i>
-                                                </button>
-                                            </div>
+                                            @canany(['sudo', 'training.*', 'training.update'])
+                                                <div data-bs-toggle="tooltip" title="Ubah pelatihan">
+                                                    <button type="button" class="btn btn-warning text-dark"
+                                                        data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                        data-action="{{ route('training.update', ['training' => $training->id]) }}"
+                                                        data-training="{{ json_encode($training) }}">
+                                                        <i class="align-middle" data-feather="edit"></i>
+                                                    </button>
+                                                </div>
+                                            @endcanany
 
                                             <!-- Delete Button -->
-                                            <div data-bs-toggle="tooltip" title="Hapus pelatihan">
-                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteFormModal"
-                                                    data-action="{{ route('training.destroy', ['training' => $training->id]) }}">
-                                                    <i class="align-middle" data-feather="trash"></i>
-                                                </button>
-                                            </div>
+                                            @canany(['sudo', 'training.*', 'training.delete'])
+                                                <div data-bs-toggle="tooltip" title="Hapus pelatihan">
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#deleteFormModal"
+                                                        data-action="{{ route('training.destroy', ['training' => $training->id]) }}">
+                                                        <i class="align-middle" data-feather="trash"></i>
+                                                    </button>
+                                                </div>
+                                            @endcanany
                                         </div>
                                     </td>
                                 </tr>
@@ -270,7 +276,7 @@
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
                         title: 'Gagal!',
-                        text: "{{ session('error') }}"
+                        text: "{{ session('error') }}",
                         icon: 'error',
                         confirmButtonText: 'Lanjut'
                     })

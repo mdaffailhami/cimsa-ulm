@@ -60,7 +60,7 @@ class OfficialDivisionController extends Controller
             DB::rollBack();
             Log::error('Error storing official division: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -108,7 +108,7 @@ class OfficialDivisionController extends Controller
             DB::rollBack();
             Log::error('Error storing official: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -128,7 +128,7 @@ class OfficialDivisionController extends Controller
             DB::rollBack();
             Log::error('Error storing official: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 }

@@ -82,6 +82,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'article.*', 'article.create'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         DB::beginTransaction();
 
         $validated = $request->validate([
@@ -135,7 +141,7 @@ class PostController extends Controller
             DB::rollBack();
             Log::error('Error storing article: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -162,6 +168,11 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'article.*', 'article.update'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         DB::beginTransaction();
 
         $validated = $request->validate([
@@ -216,7 +227,7 @@ class PostController extends Controller
             DB::rollBack();
             Log::error('Error storing article: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -225,8 +236,13 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'article.*', 'article.delete'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         try {
-            Post::find($id)->forceDelete();
+            Post::find($id)->forceforceDelete();
             DB::commit();
 
 
@@ -237,7 +253,7 @@ class PostController extends Controller
             DB::rollBack();
             Log::error('Error storing article: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 }

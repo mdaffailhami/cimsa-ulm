@@ -150,8 +150,9 @@
                                 </div>
                             @enderror
                         </div>
-
-                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        @canany(['sudo', 'committe.*', 'committe.update'])
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        @endcanany
                     </form>
                 </div>
             </div>
@@ -179,7 +180,9 @@
 
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        @canany(['sudo', 'committe.*', 'committe.update'])
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        @endcanany
                     </form>
                 </div>
             </div>
@@ -303,8 +306,9 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                    </form>
+                        @canany(['sudo', 'committe.*', 'committe.update'])
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        @endcanany
                 </div>
             </div>
         </div>
@@ -789,7 +793,7 @@
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
                         title: 'Gagal!',
-                        text: "{{ session('error') }}"
+                        text: "{{ session('error') }}",
                         icon: 'error',
                         confirmButtonText: 'Lanjut'
                     })

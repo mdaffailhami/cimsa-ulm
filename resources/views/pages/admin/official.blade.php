@@ -11,10 +11,12 @@
                     <h5 class="card-title mb-0">Daftar Angkatan</h5>
 
                     {{-- Add Button --}}
-                    <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
-                        data-bs-target="#formModal" data-mode="create">
-                        Tambah Angkatan<i class="ms-2 align-middle" data-feather="plus"></i>
-                    </button>
+                    @canany(['sudo', 'official.*', 'official.create'])
+                        <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
+                            data-bs-target="#formModal" data-mode="create">
+                            Tambah Angkatan<i class="ms-2 align-middle" data-feather="plus"></i>
+                        </button>
+                    @endcanany
                 </div>
 
                 <div class="card-body">
@@ -36,31 +38,38 @@
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-evenly">
-                                            {{-- Division Button --}}
-                                            <a class="btn btn-info"
-                                                href="{{ route('official.division.index', ['year' => $official->year]) }}"
-                                                data-bs-toggle="tooltip" title="Divisi angkatan">
-                                                <i class="align-middle" data-feather="users"></i>
-                                            </a>
+                                            {{-- Official Division Button --}}
+                                            @canany(['sudo', 'official-division-management'])
+                                                <a class="btn btn-info"
+                                                    href="{{ route('official.division.index', ['year' => $official->year]) }}"
+                                                    data-bs-toggle="tooltip" title="Divisi angkatan">
+                                                    <i class="align-middle" data-feather="users"></i>
+                                                </a>
+                                            @endcanany
 
                                             {{-- Edit Button --}}
-                                            <div data-bs-toggle="tooltip" title="Ubah angkatan">
-                                                <button type="button" class="btn btn-warning text-dark"
-                                                    data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                    data-action="{{ route('official.update', ['official' => $official->uuid]) }}"
-                                                    data-official="{{ json_encode($official) }}">
-                                                    <i class="align-middle" data-feather="edit"></i>
-                                                </button>
-                                            </div>
+                                            @canany(['sudo', 'official.*', 'official.update'])
+                                                <div data-bs-toggle="tooltip" title="Ubah angkatan">
+                                                    <button type="button" class="btn btn-warning text-dark"
+                                                        data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                        data-action="{{ route('official.update', ['official' => $official->uuid]) }}"
+                                                        data-official="{{ json_encode($official) }}">
+                                                        <i class="align-middle" data-feather="edit"></i>
+                                                    </button>
+                                                </div>
+                                            @endcanany
 
                                             <!-- Delete Button -->
-                                            <div data-bs-toggle="tooltip" title="Hapus angkatan">
-                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteFormModal"
-                                                    data-action="{{ route('official.destroy', ['official' => $official->uuid]) }}">
-                                                    <i class="align-middle" data-feather="trash"></i>
-                                                </button>
-                                            </div>
+                                            @canany(['sudo', 'official.*', 'official.delete'])
+                                                <div data-bs-toggle="tooltip" title="Hapus angkatan">
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#deleteFormModal"
+                                                        data-action="{{ route('official.destroy', ['official' => $official->uuid]) }}">
+                                                        <i class="align-middle" data-feather="trash"></i>
+                                                    </button>
+                                                </div>
+                                            @endcanany
+
                                         </div>
                                     </td>
                                 </tr>
@@ -246,7 +255,7 @@
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
                         title: 'Gagal!',
-                        text: "{{ session('error') }}"
+                        text: "{{ session('error') }}",
                         icon: 'error',
                         confirmButtonText: 'Lanjut'
                     })

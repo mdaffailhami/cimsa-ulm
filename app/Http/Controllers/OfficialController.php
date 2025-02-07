@@ -6,6 +6,7 @@ use App\Http\Resources\Official\OfficialResource;
 use App\Models\Official;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -42,6 +43,11 @@ class OfficialController extends Controller
      */
     public function store(Request $request)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->user->hasAnyPermission(['sudo', 'official.*', 'official.update'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         DB::beginTransaction();
 
         $validated = $request->validate([
@@ -73,7 +79,7 @@ class OfficialController extends Controller
             DB::rollBack();
             Log::error('Error storing official: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -98,6 +104,11 @@ class OfficialController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->user->hasAnyPermission(['sudo', 'official.*', 'official.update'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         DB::beginTransaction();
 
         $validated = $request->validate([
@@ -133,7 +144,7 @@ class OfficialController extends Controller
             DB::rollBack();
             Log::error('Error storing official: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -142,8 +153,13 @@ class OfficialController extends Controller
      */
     public function destroy(string $id)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->user->hasAnyPermission(['sudo', 'official.*', 'official.update'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         try {
-            Official::findOrFail($id)->delete();
+            Official::findOrFail($id)->forceDelete();
             DB::commit();
 
             // Redirect to the last official of officials
@@ -153,7 +169,7 @@ class OfficialController extends Controller
             DB::rollBack();
             Log::error('Error storing official: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 }

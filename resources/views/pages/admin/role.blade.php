@@ -11,10 +11,12 @@
                     <h5 class="card-title mb-0">Daftar Role</h5>
 
                     {{-- Add Button --}}
-                    <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
-                        data-bs-target="#formModal" data-mode="create">
-                        Tambah Role<i class="ms-2 align-middle" data-feather="plus"></i>
-                    </button>
+                    @canany(['sudo', 'role.*', 'role.create'])
+                        <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
+                            data-bs-target="#formModal" data-mode="create">
+                            Tambah Role<i class="ms-2 align-middle" data-feather="plus"></i>
+                        </button>
+                    @endcanany
                 </div>
 
                 <div class="card-body">
@@ -32,25 +34,29 @@
                                     <td class="">
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Edit Button --}}
-                                            <div data-bs-toggle="tooltip" title='Ubah role'>
-                                                <button type="button"
-                                                    class="btn btn-warning text-dark {{ $role->name === 'super-administrator' ? 'disabled' : '' }}"
-                                                    data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                    data-action="{{ route('role.update', ['role' => $role->id]) }}"
-                                                    data-role="{{ json_encode($role) }}">
-                                                    <i class="align-middle" data-feather="edit"></i>
-                                                </button>
-                                            </div>
+                                            @canany(['sudo', 'role.*', 'role.update'])
+                                                <div data-bs-toggle="tooltip" title='Ubah role'>
+                                                    <button type="button"
+                                                        class="btn btn-warning text-dark {{ $role->name === 'super-administrator' ? 'disabled' : '' }}"
+                                                        data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                        data-action="{{ route('role.update', ['role' => $role->id]) }}"
+                                                        data-role="{{ json_encode($role) }}">
+                                                        <i class="align-middle" data-feather="edit"></i>
+                                                    </button>
+                                                </div>
+                                            @endcanany
 
                                             <!-- Delete Button -->
-                                            <div data-bs-toggle="tooltip" title='Hapus role'>
-                                                <button type="button"
-                                                    class="btn btn-danger {{ $role->name === 'super-administrator' ? 'disabled' : '' }} "
-                                                    data-bs-toggle="modal" data-bs-target="#deleteFormModal"
-                                                    data-action="{{ route('role.destroy', ['role' => $role->id]) }}">
-                                                    <i class="align-middle" data-feather="trash"></i>
-                                                </button>
-                                            </div>
+                                            @canany(['sudo', 'role.*', 'role.delete'])
+                                                <div data-bs-toggle="tooltip" title='Hapus role'>
+                                                    <button type="button"
+                                                        class="btn btn-danger {{ $role->name === 'super-administrator' ? 'disabled' : '' }} "
+                                                        data-bs-toggle="modal" data-bs-target="#deleteFormModal"
+                                                        data-action="{{ route('role.destroy', ['role' => $role->id]) }}">
+                                                        <i class="align-middle" data-feather="trash"></i>
+                                                    </button>
+                                                </div>
+                                            @endcanany
                                         </div>
                                     </td>
                                 </tr>
@@ -252,7 +258,7 @@
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
                         title: 'Gagal!',
-                        text: "{{ session('error') }}"
+                        text: "{{ session('error') }}",
                         icon: 'error',
                         confirmButtonText: 'Lanjut'
                     })

@@ -52,6 +52,11 @@ class CommitteController extends Controller
      */
     public function store(Request $request)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'committe.*', 'committe.create'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         DB::beginTransaction();
 
         $validated = $request->validate([
@@ -70,8 +75,6 @@ class CommitteController extends Controller
         ]);
 
         try {
-            DB::commit();
-
             $committe = new Committe();
 
             $path_name = "committe";
@@ -83,6 +86,8 @@ class CommitteController extends Controller
 
             $committe->save();
 
+            DB::commit();
+
             // Redirect to the last committe of committees
             return redirect()->route('committe.index')
                 ->with('success', 'Berhasil menambahkan komite.');
@@ -90,7 +95,7 @@ class CommitteController extends Controller
             DB::rollBack();
             Log::error('Error storing committe: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -117,6 +122,11 @@ class CommitteController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'committe.*', 'committe.update'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         // Determine which method to call based on the form_category
         switch ($request->form_category) {
             case 'profile':
@@ -130,7 +140,7 @@ class CommitteController extends Controller
 
             default:
                 // Handle unexpected form_category
-                return back()->withErrors(['error' => 'Invalid form category.']);
+                return back()->with(['error' => 'Invalid form category.']);
         }
     }
 
@@ -139,8 +149,13 @@ class CommitteController extends Controller
      */
     public function destroy(string $id)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'committe.*', 'committe.delete'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         try {
-            Committe::find($id)->delete();
+            Committe::find($id)->forceDelete();
             DB::commit();
 
 
@@ -151,7 +166,7 @@ class CommitteController extends Controller
             DB::rollBack();
             Log::error('Error storing committe: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -240,7 +255,7 @@ class CommitteController extends Controller
             DB::rollBack();
             Log::error('Error storing committe: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -288,7 +303,7 @@ class CommitteController extends Controller
             DB::rollBack();
             Log::error('Error storing committe: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -361,7 +376,7 @@ class CommitteController extends Controller
             DB::rollBack();
             Log::error('Error storing committe: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']) & exit();
+            return back()->with(['error' => 'Server Internal Error.']) & exit();
         }
     }
 }

@@ -35,6 +35,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'user.*', 'user.create'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
 
         DB::beginTransaction();
 
@@ -93,7 +97,7 @@ class UserController extends Controller
             DB::rollBack();
             Log::error('Error storing user: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -118,6 +122,10 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'user.*', 'user.update'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
 
         $validated = $request->validate([
             'username' => 'required|string|max:255|unique:users,username,' . $id . ',uuid',
@@ -171,7 +179,7 @@ class UserController extends Controller
             DB::rollBack();
             Log::error('Error storing user: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -180,6 +188,12 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
+
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'user.*', 'user.delete'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         try {
             User::find($id)->delete();
             DB::commit();
@@ -195,7 +209,7 @@ class UserController extends Controller
             DB::rollBack();
             Log::error('Error storing user: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 }

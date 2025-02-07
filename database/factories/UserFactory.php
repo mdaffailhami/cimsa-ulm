@@ -25,13 +25,14 @@ class UserFactory extends Factory
     public function definition(): array
     {
         $password = generatePassword();
+
         return [
             'username' => fake()->userName(),
             'full_name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->numerify('08##########'),
             'visible_password' => $password,
-            'password' => static::$password ??= Hash::make($password),
+            'password' => Hash::make($password),
         ];
     }
 

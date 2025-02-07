@@ -11,9 +11,11 @@
                     <h5 class="card-title mb-0">Daftar Artikel</h5>
 
                     {{-- Add Button --}}
-                    <a class="btn btn-primary d-flex align-items-center" href="{{ route('article.create') }}">
-                        Tambah Artikel <i class="align-middle" data-feather="plus"></i>
-                    </a>
+                    @canany(['sudo', 'post.*', 'post.create'])
+                        <a class="btn btn-primary d-flex align-items-center" href="{{ route('article.create') }}">
+                            Tambah Artikel <i class="align-middle" data-feather="plus"></i>
+                        </a>
+                    @endcanany
                 </div>
 
                 <div class="card-body">
@@ -62,21 +64,25 @@
                                     <td class="">
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Edit Button --}}
-                                            <div data-bs-toggle="tooltip" title="Ubah artikel">
-                                                <a class="btn btn-warning text-dark"
-                                                    href="{{ route('article.edit', ['article' => $post->slug]) }}">
-                                                    <i class="align-middle" data-feather="edit"></i>
-                                                </a>
-                                            </div>
+                                            @canany(['sudo', 'post.*', 'post.update'])
+                                                <div data-bs-toggle="tooltip" title="Ubah artikel">
+                                                    <a class="btn btn-warning text-dark"
+                                                        href="{{ route('article.edit', ['article' => $post->slug]) }}">
+                                                        <i class="align-middle" data-feather="edit"></i>
+                                                    </a>
+                                                </div>
+                                            @endcanany
 
                                             <!-- Delete Button -->
-                                            <div data-bs-toggle="tooltip" title="Hapus artikel">
-                                                <button type="button" class="btn btn-danger " data-bs-toggle="modal"
-                                                    data-bs-target="#deleteFormModal"
-                                                    data-action="{{ route('article.destroy', ['article' => $post->uuid]) }}">
-                                                    <i class="align-middle" data-feather="trash"></i>
-                                                </button>
-                                            </div>
+                                            @canany(['sudo', 'post.*', 'post.delete'])
+                                                <div data-bs-toggle="tooltip" title="Hapus artikel">
+                                                    <button type="button" class="btn btn-danger " data-bs-toggle="modal"
+                                                        data-bs-target="#deleteFormModal"
+                                                        data-action="{{ route('article.destroy', ['article' => $post->uuid]) }}">
+                                                        <i class="align-middle" data-feather="trash"></i>
+                                                    </button>
+                                                </div>
+                                            @endcanany
                                         </div>
                                     </td>
                                 </tr>
@@ -162,7 +168,7 @@
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
                         title: 'Gagal!',
-                        text: "{{ session('error') }}"
+                        text: "{{ session('error') }}",
                         icon: 'error',
                         confirmButtonText: 'Lanjut'
                     })

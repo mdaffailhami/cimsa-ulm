@@ -18,8 +18,10 @@ return new class extends Migration
          AFTER DELETE ON page_contents
          FOR EACH ROW
          BEGIN
-             DELETE FROM galleries
-             WHERE type = 'page_content' AND entity_id = OLD.uuid;
+            IF EXISTS (SELECT 1 FROM galleries WHERE type = 'page_content' AND entity_id = OLD.uuid) THEN
+                DELETE FROM galleries 
+                WHERE type = 'page_content' AND entity_id = OLD.uuid;
+            END IF;
          END;
      ");
 
@@ -29,8 +31,10 @@ return new class extends Migration
          AFTER DELETE ON committes
          FOR EACH ROW
          BEGIN
-             DELETE FROM galleries
-             WHERE type = 'committe' AND entity_id = OLD.uuid;
+            IF EXISTS (SELECT 1 FROM galleries WHERE type = 'committe' AND entity_id = OLD.uuid) THEN
+                DELETE FROM galleries
+                WHERE type = 'committe' AND entity_id = OLD.uuid;
+            END IF;
          END;
      ");
 
@@ -40,8 +44,10 @@ return new class extends Migration
         AFTER DELETE ON programs
         FOR EACH ROW
         BEGIN
-            DELETE FROM galleries
-            WHERE type = 'program' AND entity_id = OLD.uuid;
+            IF EXISTS (SELECT 1 FROM galleries WHERE type = 'program' AND entity_id = OLD.uuid) THEN
+                DELETE FROM galleries
+                WHERE type = 'program' AND entity_id = OLD.uuid;
+            END IF;
         END;
     ");
 
@@ -51,8 +57,10 @@ return new class extends Migration
         AFTER DELETE ON cimsa_profiles
         FOR EACH ROW
         BEGIN
-            DELETE FROM galleries
-            WHERE type = 'cimsa_profile' AND entity_id = OLD.uuid;
+            IF EXISTS (SELECT 1 FROM galleries WHERE type = 'cimsa_profile' AND entity_id = OLD.uuid) THEN
+                DELETE FROM galleries
+                WHERE type = 'cimsa_profile' AND entity_id = OLD.uuid;
+            END IF;
         END;
     ");
 
@@ -62,8 +70,10 @@ return new class extends Migration
         AFTER DELETE ON committes
         FOR EACH ROW
         BEGIN
-            DELETE FROM page_contacts
-            WHERE type = 'committe' AND entity_id = OLD.uuid;
+            IF EXISTS (SELECT 1 FROM page_contacts WHERE type = 'committe' AND entity_id = OLD.uuid) THEN
+                DELETE FROM page_contacts
+                WHERE type = 'committe' AND entity_id = OLD.uuid;
+            END IF;
         END;
     ");
 
@@ -73,8 +83,10 @@ return new class extends Migration
         AFTER DELETE ON pages
         FOR EACH ROW
         BEGIN
-            DELETE FROM page_contacts
-            WHERE type = 'page' AND entity_id = OLD.uuid;
+            IF EXISTS (SELECT 1 FROM page_contacts WHERE type = 'page' AND entity_id = OLD.uuid) THEN
+                DELETE FROM page_contacts
+                WHERE type = 'page' AND entity_id = OLD.uuid;
+            END IF;
         END;
     ");
     }
@@ -84,6 +96,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('delete_relation__triggers');
+        DB::statement("DROP TRIGGER IF EXISTS delete_page_content_galleries");
+        DB::statement("DROP TRIGGER IF EXISTS delete_committe_galeries");
+        DB::statement("DROP TRIGGER IF EXISTS delete_program_galeries");
+        DB::statement("DROP TRIGGER IF EXISTS delete_cimsa_profile_galleries");
+        DB::statement("DROP TRIGGER IF EXISTS delete_committe_contact");
+        DB::statement("DROP TRIGGER IF EXISTS delete_page_contact");
     }
 };
