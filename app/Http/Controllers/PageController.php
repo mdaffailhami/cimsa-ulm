@@ -7,6 +7,7 @@ use App\Models\Page;
 use App\Models\PageContact;
 use App\Models\PageContent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -43,6 +44,11 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'page.*', 'page.create'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         DB::beginTransaction();
 
         $validated = $request->validate([
@@ -71,7 +77,7 @@ class PageController extends Controller
             DB::rollBack();
             Log::error('Error storing page: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -97,6 +103,11 @@ class PageController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'page.*', 'page.update'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         switch ($request->form_category) {
             case 'profile':
                 return $this->updateProfile($request, $id);
@@ -109,7 +120,7 @@ class PageController extends Controller
 
             default:
                 // Handle unexpected form_category
-                return back()->withErrors(['error' => 'Invalid form category.']);
+                return back()->with(['error' => 'Invalid form category.']);
         }
     }
 
@@ -118,10 +129,14 @@ class PageController extends Controller
      */
     public function destroy(string $id)
     {
-        try {
-            Page::find($id)->delete();
-            DB::commit();
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'page.*', 'page.delete'])) {
+            return back()->with(['error' => 'Akses ditolak']);
+        }
 
+        try {
+            Page::find($id)->forceDelete();
+            DB::commit();
 
             // Redirect to the last page of Pages
             return redirect()->route('page.index')
@@ -130,7 +145,7 @@ class PageController extends Controller
             DB::rollBack();
             Log::error('Error storing page: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -164,7 +179,7 @@ class PageController extends Controller
             DB::rollBack();
             Log::error('Error storing page: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -200,7 +215,7 @@ class PageController extends Controller
             DB::rollBack();
             Log::error('Error storing page: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -268,7 +283,7 @@ class PageController extends Controller
             DB::rollBack();
             Log::error('Error storing contact: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']) & exit();
+            return back()->with(['error' => 'Server Internal Error.']) & exit();
         }
     }
 }

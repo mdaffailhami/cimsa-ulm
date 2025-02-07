@@ -33,6 +33,11 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'role.*', 'role.create'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         DB::beginTransaction();
 
         $validated = $request->validate([
@@ -69,7 +74,7 @@ class RoleController extends Controller
             DB::rollBack();
             Log::error('Error storing Role: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -94,6 +99,10 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'role.*', 'role.update'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
 
         DB::beginTransaction();
 
@@ -130,7 +139,7 @@ class RoleController extends Controller
             DB::rollBack();
             Log::error('Error storing Role: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 
@@ -139,6 +148,11 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'role.*', 'role.delete'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         DB::beginTransaction();
         try {
             Role::find($id)->delete();
@@ -155,7 +169,7 @@ class RoleController extends Controller
             DB::rollBack();
             Log::error('Error storing role: ' . $th->getMessage());
 
-            return back()->withErrors(['error' => 'Server Internal Error.']);
+            return back()->with(['error' => 'Server Internal Error.']);
         }
     }
 }
