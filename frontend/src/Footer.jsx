@@ -1,5 +1,4 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import Logo from './public/logo.png';
 import { Global, css } from '@emotion/react';
 import { Link } from 'react-router';
 import { useContext } from 'react';
@@ -74,7 +73,7 @@ export default function Footer() {
                   data-aos-duration='1200'
                 >
                   <img
-                    src={Logo}
+                    src={'/logo.png'}
                     alt='CIMSA ULM'
                     style={{
                       height: '50px',
