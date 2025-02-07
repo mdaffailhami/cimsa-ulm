@@ -1,16 +1,16 @@
 <x-layout.master>
     @section('title', 'Dashboard')
 
-
     <h1 class="h3 mb-3"><strong>Admin Dashboard</h1>
 
     {{-- First Row --}}
     <div class="row">
+        {{-- Recent Artikel --}}
         <div class="col-12 col-lg-8 col-xxl-9 d-flex">
             <div class="card flex-fill">
                 <div class="card-header d-flex align-items-center justify-content-between">
 
-                    <h5 class="card-title mb-0">Perubahan Artikel</h5>
+                    <h5 class="card-title mb-0">Artikel Terupdate</h5>
 
                     <a class="text-muted text-end d-block" href="{{ route('article.index') }}">
                         see more...<i class="align-middle" data-feather="arrow-right"></i>
@@ -54,6 +54,7 @@
             </div>
         </div>
 
+        {{-- Calendar --}}
         <div class="col-12 col-md-6 col-xxl-3 d-flex order-1 order-xxl-1">
             <div class="card flex-fill">
                 <div class="card-header">
@@ -61,7 +62,7 @@
                     <h5 class="card-title mb-0">Kalender</h5>
                 </div>
                 <div class="card-body d-flex">
-                    <div class="align-self-center w-100">
+                    <div class="w-100">
                         <div class="chart">
                             <div id="datetimepicker-dashboard"></div>
                         </div>
@@ -79,6 +80,8 @@
                 <div class="row">
                     <div class="col-sm-6">
                         {{-- Artikel --}}
+                        @canany(['sudo', 'post-management'])
+                        @endcanany
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -101,6 +104,8 @@
                             </div>
                         </div>
 
+                        @canany(['sudo', 'committe-management'])
+                        @endcanany
                         {{-- Komite --}}
                         <div class="card">
                             <div class="card-body">
@@ -126,50 +131,56 @@
                     </div>
 
                     <div class="col-sm-6">
+                        {{-- Pelatihan --}}
+                        @canany(['sudo', 'training-management'])
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Pelatihan</h5>
+                                        </div>
 
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h5 class="card-title">Pelatihan</h5>
-                                    </div>
-
-                                    <div class="col-auto">
-                                        <div class="stat text-primary">
-                                            <i class="align-middle" data-feather="book-open"></i>
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="align-middle" data-feather="book-open"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <h1 class="mt-1 mb-3">{{ $card_statistic['training'] }}</h1>
-                                <div class="mb-0">
-                                    <a class="text-muted text-end d-block" href="{{ route('training.index') }}">
-                                        see more...<i class="align-middle" data-feather="arrow-right"></i>
-                                    </a>
+                                    <h1 class="mt-1 mb-3">{{ $card_statistic['training'] }}</h1>
+                                    <div class="mb-0">
+                                        <a class="text-muted text-end d-block" href="{{ route('training.index') }}">
+                                            see more...<i class="align-middle" data-feather="arrow-right"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endcanany
 
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col mt-0">
-                                        <h5 class="card-title">Angkatan</h5>
-                                    </div>
 
-                                    <div class="col-auto">
-                                        <div class="stat text-primary">
-                                            <i class="align-middle" data-feather="users"></i>
+                        {{-- Angkatan --}}
+                        @canany(['sudo', 'official-management'])
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title">Angkatan</h5>
+                                        </div>
+
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="align-middle" data-feather="users"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <h1 class="mt-1 mb-3">{{ $card_statistic['official'] }}</h1>
-                                <div class="mb-0">
-                                    <a class="text-muted text-end d-block" href="{{ route('official.index') }}">
-                                        see more...<i class="align-middle" data-feather="arrow-right"></i>
-                                    </a>
+                                    <h1 class="mt-1 mb-3">{{ $card_statistic['official'] }}</h1>
+                                    <div class="mb-0">
+                                        <a class="text-muted text-end d-block" href="{{ route('official.index') }}">
+                                            see more...<i class="align-middle" data-feather="arrow-right"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endcanany
                     </div>
                 </div>
             </div>

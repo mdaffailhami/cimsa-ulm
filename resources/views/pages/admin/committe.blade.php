@@ -11,10 +11,12 @@
                     <h5 class="card-title mb-0">Daftar Komite</h5>
 
                     {{-- Add Button --}}
-                    <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
-                        data-bs-target="#formModal" data-mode="create">
-                        Tambah Komite<i class="ms-2 align-middle" data-feather="plus"></i>
-                    </button>
+                    @canany(['sudo', 'committe.*', 'committe.create'])
+                        <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
+                            data-bs-target="#formModal" data-mode="create">
+                            Tambah Komite<i class="ms-2 align-middle" data-feather="plus"></i>
+                        </button>
+                    @endcanany
                 </div>
 
                 <div class="card-body">
@@ -39,21 +41,25 @@
                                     <td>
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Edit Button --}}
-                                            <div data-bs-toggle="tooltip" title="Ubah komite">
-                                                <a class="btn btn-warning text-dark"
-                                                    href="{{ route('committe.edit', ['committe' => $committe->name]) }}">
-                                                    <i class="align-middle" data-feather="edit"></i>
-                                                </a>
-                                            </div>
+                                            @canany(['sudo', 'committe.*', 'committe.update'])
+                                                <div data-bs-toggle="tooltip" title="Ubah komite">
+                                                    <a class="btn btn-warning text-dark"
+                                                        href="{{ route('committe.edit', ['committe' => $committe->name]) }}">
+                                                        <i class="align-middle" data-feather="edit"></i>
+                                                    </a>
+                                                </div>
+                                            @endcanany
 
                                             <!-- Delete Button -->
-                                            <div data-bs-toggle="tooltip" title="Hapus komite">
-                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteFormModal"
-                                                    data-action="{{ route('committe.destroy', ['committe' => $committe->uuid]) }}">
-                                                    <i class="align-middle" data-feather="trash"></i>
-                                                </button>
-                                            </div>
+                                            @canany(['sudo', 'committe.*', 'committe.delete'])
+                                                <div data-bs-toggle="tooltip" title="Hapus komite">
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#deleteFormModal"
+                                                        data-action="{{ route('committe.destroy', ['committe' => $committe->uuid]) }}">
+                                                        <i class="align-middle" data-feather="trash"></i>
+                                                    </button>
+                                                </div>
+                                            @endcanany
                                         </div>
                                     </td>
                                 </tr>

@@ -11,9 +11,11 @@
                     <h5 class="card-title mb-0">Daftar User</h5>
 
                     {{-- Add Button --}}
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal" data-mode="create">
-                        Tambah User <i class="align-middle" data-feather="plus"></i>
-                    </button>
+                    @canany(['sudo', 'user.*', 'user.create'])
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal" data-mode="create">
+                            Tambah User <i class="align-middle" data-feather="plus"></i>
+                        </button>
+                    @endcanany
                 </div>
 
                 <div class="card-body">
@@ -42,25 +44,29 @@
                                     <td class="">
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Edit Button --}}
-                                            <div data-bs-toggle="tooltip" title="Ubah user">
-                                                <button type="button"
-                                                    class="btn btn-warning text-dark {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }}"
-                                                    data-bs-toggle="modal" data-bs-target="#userModal" data-mode="edit"
-                                                    data-action="{{ route('user.update', ['user' => $user->uuid]) }}"
-                                                    data-user="{{ json_encode($user) }}">
-                                                    <i class="align-middle" data-feather="edit"></i>
-                                                </button>
-                                            </div>
+                                            @canany(['sudo', 'user.*', 'user.edit'])
+                                                <div data-bs-toggle="tooltip" title="Ubah user">
+                                                    <button type="button"
+                                                        class="btn btn-warning text-dark {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }}"
+                                                        data-bs-toggle="modal" data-bs-target="#userModal" data-mode="edit"
+                                                        data-action="{{ route('user.update', ['user' => $user->uuid]) }}"
+                                                        data-user="{{ json_encode($user) }}">
+                                                        <i class="align-middle" data-feather="edit"></i>
+                                                    </button>
+                                                </div>
+                                            @endcanany
 
                                             <!-- Delete Button -->
-                                            <div data-bs-toggle="tooltip" title='Hapus User'>
-                                                <button type="button"
-                                                    class="btn btn-danger {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }} "
-                                                    data-bs-toggle="modal" data-bs-target="#deleteUserModal"
-                                                    data-action="{{ route('user.destroy', ['user' => $user->uuid]) }}">
-                                                    <i class="align-middle" data-feather="trash"></i>
-                                                </button>
-                                            </div>
+                                            @canany(['sudo', 'user.*', 'user.delete'])
+                                                <div data-bs-toggle="tooltip" title='Hapus User'>
+                                                    <button type="button"
+                                                        class="btn btn-danger {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }} "
+                                                        data-bs-toggle="modal" data-bs-target="#deleteUserModal"
+                                                        data-action="{{ route('user.destroy', ['user' => $user->uuid]) }}">
+                                                        <i class="align-middle" data-feather="trash"></i>
+                                                    </button>
+                                                </div>
+                                            @endcanany
                                         </div>
                                     </td>
                                 </tr>

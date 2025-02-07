@@ -17,10 +17,12 @@
                     <h5 class="card-title mb-0">Daftar Divisi Angkatan {{ $official->year }}</h5>
 
                     {{-- Add Button --}}
-                    <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
-                        data-bs-target="#formModal" data-mode="create">
-                        Tambah Divisi<i class="ms-2 align-middle" data-feather="plus"></i>
-                    </button>
+                    @canany(['sudo', 'official-division.*', 'official-division.create'])
+                        <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
+                            data-bs-target="#formModal" data-mode="create">
+                            Tambah Divisi<i class="ms-2 align-middle" data-feather="plus"></i>
+                        </button>
+                    @endcanany
                 </div>
 
                 <div class="card-body">
@@ -38,30 +40,36 @@
                                     <td>
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Division Button --}}
-                                            <a class="btn btn-info"
-                                                href="{{ route('official.division.member.index', ['year' => $official->year, 'id' => $division->id]) }}"
-                                                data-bs-toggle="tooltip" title="Anggota divisi">
-                                                <i class="align-middle" data-feather="users"></i>
-                                            </a>
+                                            @canany(['sudo', 'official-division-member-management'])
+                                                <a class="btn btn-info"
+                                                    href="{{ route('official.division.member.index', ['year' => $official->year, 'id' => $division->id]) }}"
+                                                    data-bs-toggle="tooltip" title="Anggota divisi">
+                                                    <i class="align-middle" data-feather="users"></i>
+                                                </a>
+                                            @endcanany
 
                                             {{-- Edit Button --}}
-                                            <div data-bs-toggle="tooltip" title="Ubah divisi">
-                                                <button type="button" class="btn btn-warning text-dark"
-                                                    data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                    data-action="{{ route('official.division.update', ['division' => $division->id]) }}"
-                                                    data-division="{{ json_encode($division) }}">
-                                                    <i class="align-middle" data-feather="edit"></i>
-                                                </button>
-                                            </div>
+                                            @canany(['sudo', 'official-division.*', 'official-division.update'])
+                                                <div data-bs-toggle="tooltip" title="Ubah divisi">
+                                                    <button type="button" class="btn btn-warning text-dark"
+                                                        data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                        data-action="{{ route('official.division.update', ['division' => $division->id]) }}"
+                                                        data-division="{{ json_encode($division) }}">
+                                                        <i class="align-middle" data-feather="edit"></i>
+                                                    </button>
+                                                </div>
+                                            @endcanany
 
                                             <!-- Delete Button -->
-                                            <div data-bs-toggle="tooltip" title="Hapus divisi">
-                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteFormModal"
-                                                    data-action="{{ route('official.division.destroy', ['division' => $division->id]) }}">
-                                                    <i class="align-middle" data-feather="trash"></i>
-                                                </button>
-                                            </div>
+                                            @canany(['sudo', 'official-division.*', 'official-division.delete'])
+                                                <div data-bs-toggle="tooltip" title="Hapus divisi">
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#deleteFormModal"
+                                                        data-action="{{ route('official.division.destroy', ['division' => $division->id]) }}">
+                                                        <i class="align-middle" data-feather="trash"></i>
+                                                    </button>
+                                                </div>
+                                            @endcanany
                                         </div>
                                     </td>
                                 </tr>
