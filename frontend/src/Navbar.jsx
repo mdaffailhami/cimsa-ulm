@@ -62,7 +62,7 @@ export default function Navbar() {
               css={getOnHoverAnimationCss(1.12)}
             >
               <img
-                src={'logo.png'}
+                src={'/logo.png'}
                 alt='CIMSA ULM'
                 style={{ width: 'auto', height: '40px' }}
               />
@@ -108,16 +108,16 @@ export default function Navbar() {
                     location.pathname === '/about-us' ||
                     location.pathname === '/about-ifmsa'
                   }
-                  onMouseEnter={(e) => {
-                    if (!e.target.classList.contains('show')) {
-                      e.target.click();
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (e.target.classList.contains('show')) {
-                      e.target.click();
-                    }
-                  }}
+                  // onMouseEnter={(e) => {
+                  //   if (!e.target.classList.contains('show')) {
+                  //     e.target.click();
+                  //   }
+                  // }}
+                  // onMouseLeave={(e) => {
+                  //   if (e.target.classList.contains('show')) {
+                  //     e.target.click();
+                  //   }
+                  // }}
                 >
                   <NavDropdown.Item
                     as={Link}
@@ -138,16 +138,16 @@ export default function Navbar() {
                 <NavDropdown
                   title='The SCOs'
                   active={location.pathname.startsWith('/scos')}
-                  onMouseEnter={(e) => {
-                    if (!e.target.classList.contains('show')) {
-                      e.target.click();
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (e.target.classList.contains('show')) {
-                      e.target.click();
-                    }
-                  }}
+                  // onMouseEnter={(e) => {
+                  //   if (!e.target.classList.contains('show')) {
+                  //     e.target.click();
+                  //   }
+                  // }}
+                  // onMouseLeave={(e) => {
+                  //   if (e.target.classList.contains('show')) {
+                  //     e.target.click();
+                  //   }
+                  // }}
                 >
                   <NavDropdown.Item
                     as={Link}
@@ -196,16 +196,16 @@ export default function Navbar() {
                     location.pathname === '/programs' ||
                     location.pathname === '/trainings'
                   }
-                  onMouseEnter={(e) => {
-                    if (!e.target.classList.contains('show')) {
-                      e.target.click();
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (e.target.classList.contains('show')) {
-                      e.target.click();
-                    }
-                  }}
+                  // onMouseEnter={(e) => {
+                  //   if (!e.target.classList.contains('show')) {
+                  //     e.target.click();
+                  //   }
+                  // }}
+                  // onMouseLeave={(e) => {
+                  //   if (e.target.classList.contains('show')) {
+                  //     e.target.click();
+                  //   }
+                  // }}
                 >
                   <NavDropdown.Item
                     as={Link}

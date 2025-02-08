@@ -44,8 +44,16 @@ function SocmedButton({ iconClass, url }) {
   );
 }
 export default function SocmedsSection() {
-  const { socmeds } = useContext(CimsaStateContext);
+  const cimsa = useContext(CimsaStateContext);
 
+  const socmeds = {
+    facebook: cimsa.socmeds.find((x) => x.platform == 'facebook'),
+    instagram: cimsa.socmeds.find((x) => x.platform == 'instagram'),
+    x: cimsa.socmeds.find((x) => x.platform == 'twitter'),
+    threads: cimsa.socmeds.find((x) => x.platform == 'thread'),
+    youtube: cimsa.socmeds.find((x) => x.platform == 'youtube'),
+    tiktok: cimsa.socmeds.find((x) => x.platform == 'tiktok'),
+  };
   return (
     <>
       <h1
@@ -82,22 +90,42 @@ export default function SocmedsSection() {
           } else {
             return (
               <Row className='justify-content-center' style={{ gap: '5px' }}>
-                <SocmedButton
-                  iconClass='fa-brands fa-instagram'
-                  url={socmeds.find((item) => item.platform == 'instagram').url}
-                />
-                <SocmedButton
-                  iconClass='fa-brands fa-youtube'
-                  url={socmeds.find((item) => item.platform == 'youtube').url}
-                />
-                <SocmedButton
-                  iconClass='fa-brands fa-facebook'
-                  url={socmeds.find((item) => item.platform == 'facebook').url}
-                />
-                <SocmedButton
-                  iconClass='fa-brands fa-x-twitter'
-                  url={socmeds.find((item) => item.platform == 'twitter').url}
-                />
+                {socmeds.facebook && (
+                  <SocmedButton
+                    iconClass='fa-brands fa-facebook'
+                    url={socmeds.facebook.url}
+                  />
+                )}
+                {socmeds.instagram && (
+                  <SocmedButton
+                    iconClass='fa-brands fa-instagram'
+                    url={socmeds.instagram.url}
+                  />
+                )}
+                {socmeds.x && (
+                  <SocmedButton
+                    iconClass='fa-brands fa-x-twitter'
+                    url={socmeds.x.url}
+                  />
+                )}
+                {socmeds.threads && (
+                  <SocmedButton
+                    iconClass='fa-brands fa-threads'
+                    url={socmeds.x.url}
+                  />
+                )}
+                {socmeds.youtube && (
+                  <SocmedButton
+                    iconClass='fa-brands fa-youtube'
+                    url={socmeds.youtube.url}
+                  />
+                )}
+                {socmeds.tiktok && (
+                  <SocmedButton
+                    iconClass='fa-brands fa-tiktok'
+                    url={socmeds.youtube.url}
+                  />
+                )}
               </Row>
             );
           }

@@ -83,11 +83,9 @@ function GlobalStyle() {
         }
 
         body {
-          overflow-x: hidden;
           font-family: Arial, sans-serif;
           background-color: #fff;
           color: #000;
-          padding-top: 66px;
         }
 
         a {
@@ -111,9 +109,11 @@ function GlobalStyle() {
           background-color: red;
         }
 
-        #root {
+        #app {
           /* Padding for fixed top navbar */
-          padding-top: 56px;
+          padding-top: 66px;
+
+          overflow-x: hidden;
         }
       `}
     />
