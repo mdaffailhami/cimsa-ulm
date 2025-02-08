@@ -6,7 +6,7 @@ import HtmlParser from '../../components/HtmlParser';
 import { fetchJSON } from '../../utils';
 import ScosList from './ScosList';
 import useSWR from 'swr';
-import { PageMeta } from '../../components/PageMeta';
+import PageMeta from '../../components/PageMeta';
 
 export default function ScosPage() {
   const page = useSWR(`${endpoint}/api/page/scos`, fetchJSON);

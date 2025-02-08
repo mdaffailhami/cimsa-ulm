@@ -8,7 +8,7 @@ import { endpoint } from '../../configs';
 import { fetchJSON } from '../../utils';
 import HtmlParser from '../../components/HtmlParser';
 import useSWR from 'swr';
-import { PageMeta } from '../../components/PageMeta';
+import PageMeta from '../../components/PageMeta';
 
 export default function AlumniSeniorPage() {
   const page = useSWR(`${endpoint}/api/page/alumni-senior`, fetchJSON);

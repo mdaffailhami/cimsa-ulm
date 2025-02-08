@@ -15,7 +15,7 @@ import PrimaryButton from '../../../components/PrimaryButton';
 import UpcomingActivitiesSection from './UpcomingActivitiesSection';
 import ContactCardSection from '../../../components/ContactCardSection';
 import useSWR from 'swr';
-import { PageMeta } from '../../../components/PageMeta';
+import PageMeta from '../../../components/PageMeta';
 
 export default function ScoDetailPage() {
   const { name } = useParams();

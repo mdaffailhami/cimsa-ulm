@@ -9,7 +9,7 @@ import HtmlParser from '../../../components/HtmlParser';
 import BlogSection from '../../../components/BlogSection';
 import useSWR from 'swr';
 import LoadFailedPage from '../../../components/LoadFailedPage';
-import { PageMeta } from '../../../components/PageMeta';
+import PageMeta from '../../../components/PageMeta';
 
 export default function PostDetailPage() {
   const { slug } = useParams();

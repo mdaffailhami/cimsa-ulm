@@ -7,7 +7,7 @@ import LoadingPage from '../../components/LoadingPage';
 import { endpoint } from '../../configs';
 import HtmlParser from '../../components/HtmlParser';
 import useSWR from 'swr';
-import { PageMeta } from '../../components/PageMeta';
+import PageMeta from '../../components/PageMeta';
 
 export default function AboutUsPage() {
   const page = useSWR(`${endpoint}/api/page/about-us`, fetchJSON);

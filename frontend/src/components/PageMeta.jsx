@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-export function PageMeta({
+export default function PageMeta({
   title,
   description,
   ogImage = `${window.location.origin}/logo.png`,

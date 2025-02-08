@@ -5,7 +5,7 @@ import MainSection from './MainSection';
 import NationalMeetingsSection from './NationalMeetingsSection';
 import HtmlParser from '../../components/HtmlParser';
 import useSWR from 'swr';
-import { PageMeta } from '../../components/PageMeta';
+import PageMeta from '../../components/PageMeta';
 
 export default function ActivitiesPage() {
   const page = useSWR(`${endpoint}/api/page/activities`, fetchJSON);

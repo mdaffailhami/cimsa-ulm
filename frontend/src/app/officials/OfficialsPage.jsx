@@ -5,7 +5,7 @@ import { endpoint } from '../../configs';
 import LoadingPage from '../../components/LoadingPage';
 import HtmlParser from '../../components/HtmlParser';
 import useSWR from 'swr';
-import { PageMeta } from '../../components/PageMeta';
+import PageMeta from '../../components/PageMeta';
 
 export default function OfficialsPage() {
   const page = useSWR(`${endpoint}/api/page/officials`, fetchJSON);

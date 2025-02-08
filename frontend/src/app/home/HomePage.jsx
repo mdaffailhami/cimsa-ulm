@@ -10,7 +10,7 @@ import { endpoint } from '../../configs';
 import HtmlParser from '../../components/HtmlParser';
 import useSWR from 'swr';
 import LoadFailedPage from '../../components/LoadFailedPage';
-import { PageMeta } from '../../components/PageMeta';
+import PageMeta from '../../components/PageMeta';
 
 export default function HomePage() {
   const page = useSWR(`${endpoint}/api/page/landing`, fetchJSON);

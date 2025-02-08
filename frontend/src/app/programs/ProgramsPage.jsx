@@ -11,7 +11,7 @@ import LoadFailedPage from '../../components/LoadFailedPage';
 import { endpoint } from '../../configs';
 import HtmlParser from '../../components/HtmlParser';
 import useSWR from 'swr';
-import { PageMeta } from '../../components/PageMeta';
+import PageMeta from '../../components/PageMeta';
 
 export default function ProgramsPage() {
   const location = useLocation();
