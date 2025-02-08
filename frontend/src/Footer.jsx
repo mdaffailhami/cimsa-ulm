@@ -30,6 +30,17 @@ function QuickLink({ title, url }) {
 export default function Footer() {
   const cimsa = useContext(CimsaStateContext);
 
+  const socmeds = {
+    facebook: cimsa.socmeds.find((x) => x.platform == 'facebook'),
+    instagram: cimsa.socmeds.find((x) => x.platform == 'instagram'),
+    x: cimsa.socmeds.find((x) => x.platform == 'twitter'),
+    threads: cimsa.socmeds.find((x) => x.platform == 'thread'),
+    youtube: cimsa.socmeds.find((x) => x.platform == 'youtube'),
+    tiktok: cimsa.socmeds.find((x) => x.platform == 'tiktok'),
+  };
+
+  console.log(socmeds);
+
   return (
     <>
       <Global
@@ -94,7 +105,7 @@ export default function Footer() {
             </Col>
             <Col md={3}>
               <h3 style={{ color: 'red' }}>Contact Info</h3>
-              <p>
+              <div style={{ marginBottom: '9px' }}>
                 <Link to='/contact-us#map'>
                   <i className='fa-solid fa-location-dot' />{' '}
                   {
@@ -102,15 +113,15 @@ export default function Footer() {
                       .text_content
                   }
                 </Link>
-              </p>
-              <p>
+              </div>
+              <div style={{ marginBottom: '9px' }}>
                 <i className='fa-solid fa-phone' />{' '}
                 {
                   cimsa.profile.find((item) => item.column == 'nomor-telepon')
                     .text_content
                 }
-              </p>
-              <p>
+              </div>
+              <div>
                 <Link to='/contact-us'>
                   <i className='fa-solid fa-envelope' />{' '}
                   {
@@ -118,38 +129,52 @@ export default function Footer() {
                       .text_content
                   }
                 </Link>
-              </p>
+              </div>
             </Col>
             <Col md={2}>
               <h3 style={{ color: 'red' }}>Follow Us</h3>
-              <SocmedLink
-                title='Instagram'
-                iconClass='fa-brands fa-instagram'
-                url={
-                  cimsa.socmeds.find((item) => item.platform == 'instagram').url
-                }
-              />
-              <SocmedLink
-                title='YouTube'
-                iconClass='fa-brands fa-youtube'
-                url={
-                  cimsa.socmeds.find((item) => item.platform == 'youtube').url
-                }
-              />
-              <SocmedLink
-                title='Facebook'
-                iconClass='fa-brands fa-facebook'
-                url={
-                  cimsa.socmeds.find((item) => item.platform == 'facebook').url
-                }
-              />
-              <SocmedLink
-                title='X'
-                iconClass='fa-brands fa-x-twitter'
-                url={
-                  cimsa.socmeds.find((item) => item.platform == 'twitter').url
-                }
-              />
+              {socmeds.facebook && (
+                <SocmedLink
+                  title='Facebook'
+                  iconClass='fa-brands fa-facebook'
+                  url={socmeds.facebook.url}
+                />
+              )}
+              {socmeds.instagram && (
+                <SocmedLink
+                  title='Instagram'
+                  iconClass='fa-brands fa-instagram'
+                  url={socmeds.instagram.url}
+                />
+              )}
+              {socmeds.x && (
+                <SocmedLink
+                  title='X'
+                  iconClass='fa-brands fa-x-twitter'
+                  url={socmeds.x.url}
+                />
+              )}
+              {socmeds.threads && (
+                <SocmedLink
+                  title='Threads'
+                  iconClass='fa-brands fa-threads'
+                  url={socmeds.threads.url}
+                />
+              )}
+              {socmeds.youtube && (
+                <SocmedLink
+                  title='YouTube'
+                  iconClass='fa-brands fa-youtube'
+                  url={socmeds.youtube.url}
+                />
+              )}
+              {socmeds.tiktok && (
+                <SocmedLink
+                  title='TikTok'
+                  iconClass='fa-brands fa-tiktok'
+                  url={socmeds.tiktok.url}
+                />
+              )}
             </Col>
             <Col md={2}>
               <h3 style={{ color: 'red' }}>Quick Links</h3>
