@@ -41,40 +41,50 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($committees as $committe)
+                            @if ($committees->isEmpty())
                                 <tr>
-                                    <td class="">
-                                        <img src="{{ $committe->logo }}" class="img-thumbnail" style="width: 150px"
-                                            alt="{{ $committe->name }}">
-                                    </td>
-                                    <td class="">{{ $committe->name }}</td>
-                                    <td class="">{{ $committe->description }}</td>
-                                    <td>
-                                        <div class="d-flex justify-content-evenly">
-                                            {{-- Edit Button --}}
-                                            @canany(['sudo', 'committe.*', 'committe.update'])
-                                                <div data-bs-toggle="tooltip" title="Ubah komite">
-                                                    <a class="btn btn-warning text-dark"
-                                                        href="{{ route('committe.edit', ['committe' => $committe->name]) }}">
-                                                        <i class="align-middle" data-feather="edit"></i>
-                                                    </a>
-                                                </div>
-                                            @endcanany
-
-                                            <!-- Delete Button -->
-                                            @canany(['sudo', 'committe.*', 'committe.delete'])
-                                                <div data-bs-toggle="tooltip" title="Hapus komite">
-                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                        data-bs-target="#deleteFormModal"
-                                                        data-action="{{ route('committe.destroy', ['committe' => $committe->uuid]) }}">
-                                                        <i class="align-middle" data-feather="trash"></i>
-                                                    </button>
-                                                </div>
-                                            @endcanany
-                                        </div>
+                                    <td colspan="4" class="text-center text-muted py-4">
+                                        <i data-feather="clipboard" class="mb-2" style="width: 24px; height:24px"></i>
+                                        <br>
+                                        <span>Tidak ada komite yang tersedia.</span>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @else
+                                @foreach ($committees as $committe)
+                                    <tr>
+                                        <td class="">
+                                            <img src="{{ $committe->logo }}" class="img-thumbnail" style="width: 150px"
+                                                alt="{{ $committe->name }}">
+                                        </td>
+                                        <td class="">{{ $committe->name }}</td>
+                                        <td class="">{{ $committe->description }}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-evenly">
+                                                {{-- Edit Button --}}
+                                                @canany(['sudo', 'committe.*', 'committe.update'])
+                                                    <div data-bs-toggle="tooltip" title="Ubah komite">
+                                                        <a class="btn btn-warning text-dark"
+                                                            href="{{ route('committe.edit', ['committe' => $committe->name]) }}">
+                                                            <i class="align-middle" data-feather="edit"></i>
+                                                        </a>
+                                                    </div>
+                                                @endcanany
+
+                                                <!-- Delete Button -->
+                                                @canany(['sudo', 'committe.*', 'committe.delete'])
+                                                    <div data-bs-toggle="tooltip" title="Hapus komite">
+                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteFormModal"
+                                                            data-action="{{ route('committe.destroy', ['committe' => $committe->uuid]) }}">
+                                                            <i class="align-middle" data-feather="trash"></i>
+                                                        </button>
+                                                    </div>
+                                                @endcanany
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
 

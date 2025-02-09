@@ -41,42 +41,53 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($trainings as $training)
+                            @if ($trainings->isEmpty())
                                 <tr>
-                                    <td class="">{{ $training->name }}</td>
-                                    <td class="">{{ $training->description }}</td>
-                                    <td class="">
-                                        <img src="{{ $training->image }}" class="img-thumbnail" style="width: 300px"
-                                            alt="{{ $training->name }}">
-                                    </td>
-                                    <td class="">
-                                        <div class="d-flex justify-content-evenly">
-                                            {{-- Edit Button --}}
-                                            @canany(['sudo', 'training.*', 'training.update'])
-                                                <div data-bs-toggle="tooltip" title="Ubah pelatihan">
-                                                    <button type="button" class="btn btn-warning text-dark"
-                                                        data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                        data-action="{{ route('training.update', ['training' => $training->id]) }}"
-                                                        data-training="{{ json_encode($training) }}">
-                                                        <i class="align-middle" data-feather="edit"></i>
-                                                    </button>
-                                                </div>
-                                            @endcanany
-
-                                            <!-- Delete Button -->
-                                            @canany(['sudo', 'training.*', 'training.delete'])
-                                                <div data-bs-toggle="tooltip" title="Hapus pelatihan">
-                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                        data-bs-target="#deleteFormModal"
-                                                        data-action="{{ route('training.destroy', ['training' => $training->id]) }}">
-                                                        <i class="align-middle" data-feather="trash"></i>
-                                                    </button>
-                                                </div>
-                                            @endcanany
-                                        </div>
+                                    <td colspan="4" class="text-center text-muted py-4">
+                                        <i data-feather="book-open" class="mb-2" style="width: 24px; height:24px"></i>
+                                        <br>
+                                        <span>Tidak ada pelatihan yang tersedia.</span>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @else
+                                @foreach ($trainings as $training)
+                                    <tr>
+                                        <td class="">{{ $training->name }}</td>
+                                        <td class="">{{ $training->description }}</td>
+                                        <td class="">
+                                            <img src="{{ $training->image }}" class="img-thumbnail" style="width: 300px"
+                                                alt="{{ $training->name }}">
+                                        </td>
+                                        <td class="">
+                                            <div class="d-flex justify-content-evenly">
+                                                {{-- Edit Button --}}
+                                                @canany(['sudo', 'training.*', 'training.update'])
+                                                    <div data-bs-toggle="tooltip" title="Ubah pelatihan">
+                                                        <button type="button" class="btn btn-warning text-dark"
+                                                            data-bs-toggle="modal" data-bs-target="#formModal"
+                                                            data-mode="edit"
+                                                            data-action="{{ route('training.update', ['training' => $training->id]) }}"
+                                                            data-training="{{ json_encode($training) }}">
+                                                            <i class="align-middle" data-feather="edit"></i>
+                                                        </button>
+                                                    </div>
+                                                @endcanany
+
+                                                <!-- Delete Button -->
+                                                @canany(['sudo', 'training.*', 'training.delete'])
+                                                    <div data-bs-toggle="tooltip" title="Hapus pelatihan">
+                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteFormModal"
+                                                            data-action="{{ route('training.destroy', ['training' => $training->id]) }}">
+                                                            <i class="align-middle" data-feather="trash"></i>
+                                                        </button>
+                                                    </div>
+                                                @endcanany
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
 

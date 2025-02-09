@@ -45,48 +45,59 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($posts as $post)
+                            @if ($posts->isEmpty())
                                 <tr>
-                                    <td class="">{{ $post->title }}</td>
-                                    <td class="">{{ $post->highlight }}</td>
-                                    <td class="">{{ $post->author->full_name }}</td>
-                                    <td>
-                                        {{ $timeStamp = date('d M Y', strtotime($post->created_at)) }}
-                                    </td>
-                                    <td class="">{{ $post->editor->full_name }}</td>
-                                    <td>
-                                        {{ $timeStamp = date('d M Y', strtotime($post->updated_at)) }}
-                                    </td>
-                                    <td class="">
-                                        <img src="{{ $post->cover }}" class="img-thumbnail" style="width: 300px"
-                                            alt="{{ $post->slug }}">
-                                    </td>
-                                    <td class="">
-                                        <div class="d-flex justify-content-evenly">
-                                            {{-- Edit Button --}}
-                                            @canany(['sudo', 'post.*', 'post.update'])
-                                                <div data-bs-toggle="tooltip" title="Ubah artikel">
-                                                    <a class="btn btn-warning text-dark"
-                                                        href="{{ route('article.edit', ['article' => $post->slug]) }}">
-                                                        <i class="align-middle" data-feather="edit"></i>
-                                                    </a>
-                                                </div>
-                                            @endcanany
-
-                                            <!-- Delete Button -->
-                                            @canany(['sudo', 'post.*', 'post.delete'])
-                                                <div data-bs-toggle="tooltip" title="Hapus artikel">
-                                                    <button type="button" class="btn btn-danger " data-bs-toggle="modal"
-                                                        data-bs-target="#deleteFormModal"
-                                                        data-action="{{ route('article.destroy', ['article' => $post->uuid]) }}">
-                                                        <i class="align-middle" data-feather="trash"></i>
-                                                    </button>
-                                                </div>
-                                            @endcanany
-                                        </div>
+                                    <td colspan="8" class="text-center text-muted py-4">
+                                        <i data-feather="file-text" class="mb-2" style="width: 24px; height:24px"></i>
+                                        <br>
+                                        <span>Tidak ada artikel yang tersedia.</span>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @else
+                                @foreach ($posts as $post)
+                                    <tr>
+                                        <td class="">{{ $post->title }}</td>
+                                        <td class="">{{ $post->highlight }}</td>
+                                        <td class="">{{ $post->author->full_name }}</td>
+                                        <td>
+                                            {{ $timeStamp = date('d M Y', strtotime($post->created_at)) }}
+                                        </td>
+                                        <td class="">{{ $post->editor->full_name }}</td>
+                                        <td>
+                                            {{ $timeStamp = date('d M Y', strtotime($post->updated_at)) }}
+                                        </td>
+                                        <td class="">
+                                            <img src="{{ $post->cover }}" class="img-thumbnail" style="width: 300px"
+                                                alt="{{ $post->slug }}">
+                                        </td>
+                                        <td class="">
+                                            <div class="d-flex justify-content-evenly">
+                                                {{-- Edit Button --}}
+                                                @canany(['sudo', 'post.*', 'post.update'])
+                                                    <div data-bs-toggle="tooltip" title="Ubah artikel">
+                                                        <a class="btn btn-warning text-dark"
+                                                            href="{{ route('article.edit', ['article' => $post->slug]) }}">
+                                                            <i class="align-middle" data-feather="edit"></i>
+                                                        </a>
+                                                    </div>
+                                                @endcanany
+
+                                                <!-- Delete Button -->
+                                                @canany(['sudo', 'post.*', 'post.delete'])
+                                                    <div data-bs-toggle="tooltip" title="Hapus artikel">
+                                                        <button type="button" class="btn btn-danger "
+                                                            data-bs-toggle="modal" data-bs-target="#deleteFormModal"
+                                                            data-action="{{ route('article.destroy', ['article' => $post->uuid]) }}">
+                                                            <i class="align-middle" data-feather="trash"></i>
+                                                        </button>
+                                                    </div>
+                                                @endcanany
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+
                         </tbody>
                     </table>
 

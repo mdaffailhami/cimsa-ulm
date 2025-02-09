@@ -39,37 +39,49 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $category)
+                            @if ($categories->isEmpty())
                                 <tr>
-                                    <td class="">{{ $category->name }}</td>
-                                    <td class="">
-                                        <div class="d-flex justify-content-evenly">
-                                            {{-- Edit Button --}}
-                                            @canany(['sudo', 'category.*', 'category.update'])
-                                                <div data-bs-toggle="tooltip" title="Ubah kategori">
-                                                    <button type="button" class="btn btn-warning text-dark"
-                                                        data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                        data-action="{{ route('category.update', ['category' => $category->id]) }}"
-                                                        data-category="{{ json_encode($category) }}">
-                                                        <i class="align-middle" data-feather="edit"></i>
-                                                    </button>
-                                                </div>
-                                            @endcanany
-
-                                            <!-- Delete Button -->
-                                            @canany(['sudo', 'category.*', 'category.delete'])
-                                                <div data-bs-toggle="tooltip" title="Hapus kategori">
-                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                        data-bs-target="#deleteFormModal"
-                                                        data-action="{{ route('category.destroy', ['category' => $category->id]) }}">
-                                                        <i class="align-middle" data-feather="trash"></i>
-                                                    </button>
-                                                </div>
-                                            @endcanany
-                                        </div>
+                                    <td colspan="2" class="text-center text-muted py-4">
+                                        <i data-feather="layers" class="mb-2" style="width: 24px; height:24px"></i>
+                                        <br>
+                                        <span>Tidak ada kategori yang tersedia.</span>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @else
+                                @foreach ($categories as $category)
+                                    <tr>
+                                        <td class="">{{ $category->name }}</td>
+                                        <td class="">
+                                            <div class="d-flex justify-content-evenly">
+                                                {{-- Edit Button --}}
+                                                @canany(['sudo', 'category.*', 'category.update'])
+                                                    <div data-bs-toggle="tooltip" title="Ubah kategori">
+                                                        <button type="button" class="btn btn-warning text-dark"
+                                                            data-bs-toggle="modal" data-bs-target="#formModal"
+                                                            data-mode="edit"
+                                                            data-action="{{ route('category.update', ['category' => $category->id]) }}"
+                                                            data-category="{{ json_encode($category) }}">
+                                                            <i class="align-middle" data-feather="edit"></i>
+                                                        </button>
+                                                    </div>
+                                                @endcanany
+
+                                                <!-- Delete Button -->
+                                                @canany(['sudo', 'category.*', 'category.delete'])
+                                                    <div data-bs-toggle="tooltip" title="Hapus kategori">
+                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteFormModal"
+                                                            data-action="{{ route('category.destroy', ['category' => $category->id]) }}">
+                                                            <i class="align-middle" data-feather="trash"></i>
+                                                        </button>
+                                                    </div>
+                                                @endcanany
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+
                         </tbody>
                     </table>
 

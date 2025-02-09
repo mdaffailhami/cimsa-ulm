@@ -29,51 +29,63 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($officials as $official)
+                            @if ($officials->isEmpty())
                                 <tr>
-                                    <td class="">{{ $official->year }}</td>
-                                    <td class="text-center">
-                                        <img src="{{ $official->poster }}" class="img-thumbnail" style="width: 300px"
-                                            alt="{{ $official->name }}">
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-evenly">
-                                            {{-- Official Division Button --}}
-                                            @canany(['sudo', 'official-division-management'])
-                                                <a class="btn btn-info"
-                                                    href="{{ route('official.division.index', ['year' => $official->year]) }}"
-                                                    data-bs-toggle="tooltip" title="Divisi angkatan">
-                                                    <i class="align-middle" data-feather="users"></i>
-                                                </a>
-                                            @endcanany
-
-                                            {{-- Edit Button --}}
-                                            @canany(['sudo', 'official.*', 'official.update'])
-                                                <div data-bs-toggle="tooltip" title="Ubah angkatan">
-                                                    <button type="button" class="btn btn-warning text-dark"
-                                                        data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                        data-action="{{ route('official.update', ['official' => $official->uuid]) }}"
-                                                        data-official="{{ json_encode($official) }}">
-                                                        <i class="align-middle" data-feather="edit"></i>
-                                                    </button>
-                                                </div>
-                                            @endcanany
-
-                                            <!-- Delete Button -->
-                                            @canany(['sudo', 'official.*', 'official.delete'])
-                                                <div data-bs-toggle="tooltip" title="Hapus angkatan">
-                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                        data-bs-target="#deleteFormModal"
-                                                        data-action="{{ route('official.destroy', ['official' => $official->uuid]) }}">
-                                                        <i class="align-middle" data-feather="trash"></i>
-                                                    </button>
-                                                </div>
-                                            @endcanany
-
-                                        </div>
+                                    <td colspan="4" class="text-center text-muted py-4">
+                                        <i data-feather="users" class="mb-2" style="width: 24px; height:24px"></i>
+                                        <br>
+                                        <span>Tidak ada angkatan yang tersedia.</span>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @else
+                                @foreach ($officials as $official)
+                                    <tr>
+                                        <td class="">{{ $official->year }}</td>
+                                        <td class="text-center">
+                                            <img src="{{ $official->poster }}" class="img-thumbnail"
+                                                style="width: 300px" alt="{{ $official->name }}">
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-evenly">
+                                                {{-- Official Division Button --}}
+                                                @canany(['sudo', 'official-division-management'])
+                                                    <a class="btn btn-info"
+                                                        href="{{ route('official.division.index', ['year' => $official->year]) }}"
+                                                        data-bs-toggle="tooltip" title="Divisi angkatan">
+                                                        <i class="align-middle" data-feather="users"></i>
+                                                    </a>
+                                                @endcanany
+
+                                                {{-- Edit Button --}}
+                                                @canany(['sudo', 'official.*', 'official.update'])
+                                                    <div data-bs-toggle="tooltip" title="Ubah angkatan">
+                                                        <button type="button" class="btn btn-warning text-dark"
+                                                            data-bs-toggle="modal" data-bs-target="#formModal"
+                                                            data-mode="edit"
+                                                            data-action="{{ route('official.update', ['official' => $official->uuid]) }}"
+                                                            data-official="{{ json_encode($official) }}">
+                                                            <i class="align-middle" data-feather="edit"></i>
+                                                        </button>
+                                                    </div>
+                                                @endcanany
+
+                                                <!-- Delete Button -->
+                                                @canany(['sudo', 'official.*', 'official.delete'])
+                                                    <div data-bs-toggle="tooltip" title="Hapus angkatan">
+                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteFormModal"
+                                                            data-action="{{ route('official.destroy', ['official' => $official->uuid]) }}">
+                                                            <i class="align-middle" data-feather="trash"></i>
+                                                        </button>
+                                                    </div>
+                                                @endcanany
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+
                         </tbody>
                     </table>
 

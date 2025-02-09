@@ -28,26 +28,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($articles as $article)
+                            @if ($articles->isEmpty())
                                 <tr>
-                                    <td>{{ $article->title }}</td>
-                                    <td class="">{{ $article->author->full_name }}</td>
-                                    <td>{{ $article->editor->full_name }}</td>
-                                    <td>
-                                        {{ $timeStamp = date('d M Y', strtotime($article->updated_at)) }}
+                                    <td colspan="4" class="text-center text-muted py-4">
+                                        <i data-feather="file-text" class="mb-2" style="width: 24px; height:24px"></i>
+                                        <br>
+                                        <span>Tidak ada artikel yang tersedia.</span>
                                     </td>
-                                    {{-- <td>
-                                    <div class="d-flex justify-content-evenly">
-                                        <div data-bs-toggle="tooltip" title="Ubah artikel">
-                                            <a class="btn btn-warning text-dark"
-                                                href="{{ route('article.edit', ['article' => $article->slug]) }}">
-                                                <i class="align-middle" data-feather="edit"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td> --}}
                                 </tr>
-                            @endforeach
+                            @else
+                                @foreach ($articles as $article)
+                                    <tr>
+                                        <td>{{ $article->title }}</td>
+                                        <td>{{ $article->author->full_name }}</td>
+                                        <td>{{ $article->editor->full_name }}</td>
+                                        <td>{{ date('d M Y', strtotime($article->updated_at)) }}</td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

@@ -17,7 +17,7 @@
 
     <title>Sign In</title>
 
-    <link href="{{ asset('/admin-dist/css/app.css') }}" rel="stylesheet">
+    <link href="/admin-dist/css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
@@ -102,7 +102,7 @@
         </div>
     </main>
 
-    <script src="{{ asset('/admin-dist/js/app.js') }}"></script>
+    <script src="/admin-dist/js/app.js"></script>
 
 </body>
 

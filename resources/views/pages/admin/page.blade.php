@@ -40,49 +40,61 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($pages as $page)
+                            @if ($pages->isEmpty())
                                 <tr>
-                                    <td class="">{{ $page->name }}</td>
-                                    <td class=""><a href="{{ $page->url }}"
-                                            target="_blank">{{ $page->url }}</a></td>
-                                    <td class="">
-                                        <div class="d-flex justify-content-evenly">
-                                            {{-- Preview Button --}}
-                                            @canany(['sudo', 'page-content-management'])
-                                                <a class="btn btn-info"
-                                                    href="{{ route('page.edit', ['page' => $page->uri]) }}"
-                                                    data-bs-toggle="tooltip" title="Konten halaman">
-                                                    <i class="align-middle" data-feather="eye"></i>
-                                                </a>
-                                            @endcanany
-
-
-                                            {{-- Edit Button --}}
-                                            @canany(['sudo', 'page.*', 'page.update'])
-                                                <div data-bs-toggle="tooltip" title="Ubah halaman">
-                                                    <button type="button" class="btn btn-warning text-dark"
-                                                        data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                        data-action="{{ route('page.update', ['page' => $page->uuid]) }}"
-                                                        data-page="{{ json_encode($page) }}">
-                                                        <i class="align-middle" data-feather="edit"></i>
-                                                    </button>
-                                                </div>
-                                            @endcanany
-
-                                            <!-- Delete Button -->
-                                            @canany(['sudo', 'page.*', 'page.delete'])
-                                                <div data-bs-toggle="tooltip" title="Hapus halaman">
-                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                        data-bs-target="#deleteFormModal"
-                                                        data-action="{{ route('page.destroy', ['page' => $page->uuid]) }}">
-                                                        <i class="align-middle" data-feather="trash"></i>
-                                                    </button>
-                                                </div>
-                                            @endcanany
-                                        </div>
+                                    <td colspan="4" class="text-center text-muted py-4">
+                                        <i data-feather="layout" class="mb-2" style="width: 24px; height:24px"></i>
+                                        <br>
+                                        <span>Tidak ada halaman yang tersedia.</span>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @else
+                                @foreach ($pages as $page)
+                                    <tr>
+                                        <td class="">{{ $page->name }}</td>
+                                        <td class=""><a href="{{ $page->url }}"
+                                                target="_blank">{{ $page->url }}</a></td>
+                                        <td class="">
+                                            <div class="d-flex justify-content-evenly">
+                                                {{-- Preview Button --}}
+                                                @canany(['sudo', 'page-content-management'])
+                                                    <a class="btn btn-info"
+                                                        href="{{ route('page.edit', ['page' => $page->uri]) }}"
+                                                        data-bs-toggle="tooltip" title="Konten halaman">
+                                                        <i class="align-middle" data-feather="eye"></i>
+                                                    </a>
+                                                @endcanany
+
+
+                                                {{-- Edit Button --}}
+                                                @canany(['sudo', 'page.*', 'page.update'])
+                                                    <div data-bs-toggle="tooltip" title="Ubah halaman">
+                                                        <button type="button" class="btn btn-warning text-dark"
+                                                            data-bs-toggle="modal" data-bs-target="#formModal"
+                                                            data-mode="edit"
+                                                            data-action="{{ route('page.update', ['page' => $page->uuid]) }}"
+                                                            data-page="{{ json_encode($page) }}">
+                                                            <i class="align-middle" data-feather="edit"></i>
+                                                        </button>
+                                                    </div>
+                                                @endcanany
+
+                                                <!-- Delete Button -->
+                                                @canany(['sudo', 'page.*', 'page.delete'])
+                                                    <div data-bs-toggle="tooltip" title="Hapus halaman">
+                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteFormModal"
+                                                            data-action="{{ route('page.destroy', ['page' => $page->uuid]) }}">
+                                                            <i class="align-middle" data-feather="trash"></i>
+                                                        </button>
+                                                    </div>
+                                                @endcanany
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+
                         </tbody>
                     </table>
 

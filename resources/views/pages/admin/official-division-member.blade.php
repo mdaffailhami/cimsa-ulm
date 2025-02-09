@@ -51,47 +51,58 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($members as $member)
+                            @if ($members->isEmpty())
                                 <tr>
-                                    <td class="text-center">
-                                        <img src="{{ $member->image }}" class="img-thumbnail" style="width: 250px"
-                                            alt="{{ $member->name }}">
-                                    </td>
-                                    <td class="">{{ $member->name }}</td>
-                                    <td class="">{{ $member->email }}</td>
-                                    <td class="">{{ $member->position }}</td>
-                                    <td>
-                                        <div class="d-flex justify-content-evenly">
-
-                                            {{-- Edit Button --}}
-                                            @canany(['sudo', 'official-division-member.*',
-                                                'official-division-member.update'])
-                                                <div data-bs-toggle="tooltip" title="Ubah anggota">
-                                                    <button type="button" class="btn btn-warning text-dark"
-                                                        data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                        data-action="{{ route('official.division.member.update', ['member' => $member->id]) }}"
-                                                        data-member="{{ json_encode($member) }}">
-                                                        <i class="align-middle" data-feather="edit"></i>
-                                                    </button>
-                                                </div>
-                                            @endcanany
-
-                                            <!-- Delete Button -->
-                                            @canany(['sudo', 'official-division-member.*',
-                                                'official-division-member.delete'])
-                                                <div data-bs-toggle="tooltip" title="Hapus anggota">
-                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                        data-bs-target="#deleteFormModal"
-                                                        data-action="{{ route('official.division.member.destroy', ['member' => $member->id]) }}">
-                                                        <i class="align-middle" data-feather="trash"></i>
-                                                    </button>
-                                                </div>
-                                            @endcanany
-
-                                        </div>
+                                    <td colspan="4" class="text-center text-muted py-4">
+                                        <i data-feather="users" class="mb-2" style="width: 24px; height:24px"></i>
+                                        <br>
+                                        <span>Tidak ada divisi yang tersedia.</span>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @else
+                                @foreach ($members as $member)
+                                    <tr>
+                                        <td class="text-center">
+                                            <img src="{{ $member->image }}" class="img-thumbnail" style="width: 250px"
+                                                alt="{{ $member->name }}">
+                                        </td>
+                                        <td class="">{{ $member->name }}</td>
+                                        <td class="">{{ $member->email }}</td>
+                                        <td class="">{{ $member->position }}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-evenly">
+
+                                                {{-- Edit Button --}}
+                                                @canany(['sudo', 'official-division-member.*',
+                                                    'official-division-member.update'])
+                                                    <div data-bs-toggle="tooltip" title="Ubah anggota">
+                                                        <button type="button" class="btn btn-warning text-dark"
+                                                            data-bs-toggle="modal" data-bs-target="#formModal"
+                                                            data-mode="edit"
+                                                            data-action="{{ route('official.division.member.update', ['member' => $member->id]) }}"
+                                                            data-member="{{ json_encode($member) }}">
+                                                            <i class="align-middle" data-feather="edit"></i>
+                                                        </button>
+                                                    </div>
+                                                @endcanany
+
+                                                <!-- Delete Button -->
+                                                @canany(['sudo', 'official-division-member.*',
+                                                    'official-division-member.delete'])
+                                                    <div data-bs-toggle="tooltip" title="Hapus anggota">
+                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteFormModal"
+                                                            data-action="{{ route('official.division.member.destroy', ['member' => $member->id]) }}">
+                                                            <i class="align-middle" data-feather="trash"></i>
+                                                        </button>
+                                                    </div>
+                                                @endcanany
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
 

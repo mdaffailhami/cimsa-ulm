@@ -39,39 +39,50 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($roles as $role)
+                            @if ($roles->isEmpty())
                                 <tr>
-                                    <td class="">{{ $role->name }}</td>
-                                    <td class="">
-                                        <div class="d-flex justify-content-evenly">
-                                            {{-- Edit Button --}}
-                                            @canany(['sudo', 'role.*', 'role.update'])
-                                                <div data-bs-toggle="tooltip" title='Ubah role'>
-                                                    <button type="button"
-                                                        class="btn btn-warning text-dark {{ $role->name === 'super-administrator' ? 'disabled' : '' }}"
-                                                        data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                        data-action="{{ route('role.update', ['role' => $role->id]) }}"
-                                                        data-role="{{ json_encode($role) }}">
-                                                        <i class="align-middle" data-feather="edit"></i>
-                                                    </button>
-                                                </div>
-                                            @endcanany
-
-                                            <!-- Delete Button -->
-                                            @canany(['sudo', 'role.*', 'role.delete'])
-                                                <div data-bs-toggle="tooltip" title='Hapus role'>
-                                                    <button type="button"
-                                                        class="btn btn-danger {{ $role->name === 'super-administrator' ? 'disabled' : '' }} "
-                                                        data-bs-toggle="modal" data-bs-target="#deleteFormModal"
-                                                        data-action="{{ route('role.destroy', ['role' => $role->id]) }}">
-                                                        <i class="align-middle" data-feather="trash"></i>
-                                                    </button>
-                                                </div>
-                                            @endcanany
-                                        </div>
+                                    <td colspan="2" class="text-center text-muted py-4">
+                                        <i data-feather="user" class="mb-2" style="width: 24px; height:24px"></i>
+                                        <br>
+                                        <span>Tidak ada role yang tersedia.</span>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @else
+                                @foreach ($roles as $role)
+                                    <tr>
+                                        <td class="">{{ $role->name }}</td>
+                                        <td class="">
+                                            <div class="d-flex justify-content-evenly">
+                                                {{-- Edit Button --}}
+                                                @canany(['sudo', 'role.*', 'role.update'])
+                                                    <div data-bs-toggle="tooltip" title='Ubah role'>
+                                                        <button type="button"
+                                                            class="btn btn-warning text-dark {{ $role->name === 'super-administrator' ? 'disabled' : '' }}"
+                                                            data-bs-toggle="modal" data-bs-target="#formModal"
+                                                            data-mode="edit"
+                                                            data-action="{{ route('role.update', ['role' => $role->id]) }}"
+                                                            data-role="{{ json_encode($role) }}">
+                                                            <i class="align-middle" data-feather="edit"></i>
+                                                        </button>
+                                                    </div>
+                                                @endcanany
+
+                                                <!-- Delete Button -->
+                                                @canany(['sudo', 'role.*', 'role.delete'])
+                                                    <div data-bs-toggle="tooltip" title='Hapus role'>
+                                                        <button type="button"
+                                                            class="btn btn-danger {{ $role->name === 'super-administrator' ? 'disabled' : '' }} "
+                                                            data-bs-toggle="modal" data-bs-target="#deleteFormModal"
+                                                            data-action="{{ route('role.destroy', ['role' => $role->id]) }}">
+                                                            <i class="align-middle" data-feather="trash"></i>
+                                                        </button>
+                                                    </div>
+                                                @endcanany
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
 
@@ -121,7 +132,8 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Close</button>
                                 <button id="submitButton" type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>

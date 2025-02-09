@@ -45,48 +45,59 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @if ($users->isEmpty())
                                 <tr>
-                                    <td>{{ $user->username }}</td>
-                                    <td class="">{{ $user->full_name }}</td>
-                                    <td class="">{{ $user->email }}</td>
-                                    <td class="">{{ $user->phone }}</td>
-                                    <td class="">{{ $user->visible_password }}</td>
-                                    <td><span class="badge bg-primary p-2">{{ $user->role->display_name }}</span>
-                                    </td>
-                                    <td>
-                                        {{ $timeStamp = date('d M Y', strtotime($user->created_at)) }}
-                                    </td>
-                                    <td class="">
-                                        <div class="d-flex justify-content-evenly">
-                                            {{-- Edit Button --}}
-                                            @canany(['sudo', 'user.*', 'user.edit'])
-                                                <div data-bs-toggle="tooltip" title="Ubah user">
-                                                    <button type="button"
-                                                        class="btn btn-warning text-dark {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }}"
-                                                        data-bs-toggle="modal" data-bs-target="#userModal" data-mode="edit"
-                                                        data-action="{{ route('user.update', ['user' => $user->uuid]) }}"
-                                                        data-user="{{ json_encode($user) }}">
-                                                        <i class="align-middle" data-feather="edit"></i>
-                                                    </button>
-                                                </div>
-                                            @endcanany
-
-                                            <!-- Delete Button -->
-                                            @canany(['sudo', 'user.*', 'user.delete'])
-                                                <div data-bs-toggle="tooltip" title='Hapus User'>
-                                                    <button type="button"
-                                                        class="btn btn-danger {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }} "
-                                                        data-bs-toggle="modal" data-bs-target="#deleteUserModal"
-                                                        data-action="{{ route('user.destroy', ['user' => $user->uuid]) }}">
-                                                        <i class="align-middle" data-feather="trash"></i>
-                                                    </button>
-                                                </div>
-                                            @endcanany
-                                        </div>
+                                    <td colspan="8" class="text-center text-muted py-4">
+                                        <i data-feather="user" class="mb-2" style="width: 24px; height:24px"></i>
+                                        <br>
+                                        <span>Tidak ada user yang tersedia.</span>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @else
+                                @foreach ($users as $user)
+                                    <tr>
+                                        <td>{{ $user->username }}</td>
+                                        <td class="">{{ $user->full_name }}</td>
+                                        <td class="">{{ $user->email }}</td>
+                                        <td class="">{{ $user->phone }}</td>
+                                        <td class="">{{ $user->visible_password }}</td>
+                                        <td><span class="badge bg-primary p-2">{{ $user->role->display_name }}</span>
+                                        </td>
+                                        <td>
+                                            {{ $timeStamp = date('d M Y', strtotime($user->created_at)) }}
+                                        </td>
+                                        <td class="">
+                                            <div class="d-flex justify-content-evenly">
+                                                {{-- Edit Button --}}
+                                                @canany(['sudo', 'user.*', 'user.edit'])
+                                                    <div data-bs-toggle="tooltip" title="Ubah user">
+                                                        <button type="button"
+                                                            class="btn btn-warning text-dark {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }}"
+                                                            data-bs-toggle="modal" data-bs-target="#userModal"
+                                                            data-mode="edit"
+                                                            data-action="{{ route('user.update', ['user' => $user->uuid]) }}"
+                                                            data-user="{{ json_encode($user) }}">
+                                                            <i class="align-middle" data-feather="edit"></i>
+                                                        </button>
+                                                    </div>
+                                                @endcanany
+
+                                                <!-- Delete Button -->
+                                                @canany(['sudo', 'user.*', 'user.delete'])
+                                                    <div data-bs-toggle="tooltip" title='Hapus User'>
+                                                        <button type="button"
+                                                            class="btn btn-danger {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }} "
+                                                            data-bs-toggle="modal" data-bs-target="#deleteUserModal"
+                                                            data-action="{{ route('user.destroy', ['user' => $user->uuid]) }}">
+                                                            <i class="align-middle" data-feather="trash"></i>
+                                                        </button>
+                                                    </div>
+                                                @endcanany
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
 
