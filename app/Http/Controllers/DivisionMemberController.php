@@ -14,11 +14,18 @@ class DivisionMemberController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($year, $id)
+    public function index(Request $request, $year, $id)
     {
         $official = Official::where('year', $year)->first();
         $division = $official->divisions()->findOrFail($id);
-        $members = $division->members()->latest()->paginate(5);
+        $members = $division->members()->latest();
+
+        if ($request->search) {
+            $members = $members->where('name', 'LIKE', "%$request->search%")
+                ->orWhere('email', 'LIKE', "%$request->search%");
+        }
+
+        $members = $members->paginate(5);
 
         return view('pages.admin.official-division-member', compact('official', 'division', 'members'));
     }

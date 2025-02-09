@@ -23,9 +23,9 @@
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="" style="width : 120px !important">Tahun</th>
-                                <th class="">Poster</th>
-                                <th class="" style="width : 200px !important">Aksi</th>
+                                <th class="bg-primary text-white" style="width : 120px !important">Tahun</th>
+                                <th class="bg-primary text-white">Poster</th>
+                                <th class="bg-primary text-white" style="width : 200px !important">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>

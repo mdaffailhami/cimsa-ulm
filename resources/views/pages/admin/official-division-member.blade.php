@@ -26,14 +26,28 @@
                 </div>
 
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-5">
+                            <form
+                                action="{{ route('official.division.member.index', ['year' => $official->year, 'id' => $division->id]) }}"
+                                method="GET" class="input-group mb-3">
+                                <input type="text" class="form-control" name="search"
+                                    placeholder="Cari Nama, Email..." aria-label="Search"
+                                    value="{{ request('search') }}">
+                                <button class="btn btn-primary" type="submit" data-bs-toggle="tooltip" title="Cari">
+                                    <i class="align-middle" data-feather="search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="" style="width : 150px !important">Gambar</th>
-                                <th class="">Nama</th>
-                                <th class="">Email</th>
-                                <th class="">Posisi</th>
-                                <th class="" style="width : 150px !important">Aksi</th>
+                                <th class="bg-primary text-white" style="width : 150px !important">Gambar</th>
+                                <th class="bg-primary text-white">Nama</th>
+                                <th class="bg-primary text-white">Email</th>
+                                <th class="bg-primary text-white">Posisi</th>
+                                <th class="bg-primary text-white" style="width : 150px !important">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>

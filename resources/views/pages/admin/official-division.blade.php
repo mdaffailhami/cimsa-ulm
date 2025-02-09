@@ -12,8 +12,6 @@
         <div class="col-24 col-lg-24 col-xxl-24 d-flex">
             <div class="card flex-fill">
                 <div class="card-header d-flex align-items-center justify-content-between">
-
-
                     <h5 class="card-title mb-0">Daftar Divisi Angkatan {{ $official->year }}</h5>
 
                     {{-- Add Button --}}
@@ -26,17 +24,30 @@
                 </div>
 
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-5">
+                            <form action="{{ route('official.division.index', ['year' => $official->year]) }}"
+                                method="GET" class="input-group mb-3">
+                                <input type="text" class="form-control" name="search"
+                                    placeholder="Cari Nama Divisi..." aria-label="Search"
+                                    value="{{ request('search') }}">
+                                <button class="btn btn-primary" type="submit" data-bs-toggle="tooltip" title="Cari">
+                                    <i class="align-middle" data-feather="search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="d-none d-xl-table-cell">Nama</th>
-                                <th class="" style="width : 200px !important">Aksi</th>
+                                <th class="bg-primary text-white">Nama</th>
+                                <th class="bg-primary text-white" style="width : 200px !important">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($divisions as $division)
                                 <tr>
-                                    <td class="d-none d-xl-table-cell">{{ $division->name }}</td>
+                                    <td class="">{{ $division->name }}</td>
                                     <td>
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Division Button --}}
@@ -114,7 +125,8 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Close</button>
                                 <button id="submitButton" type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>
