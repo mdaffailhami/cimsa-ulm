@@ -25,9 +25,16 @@ class PageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pages = Page::latest()->paginate(5);
+        $pages = Page::latest();
+
+        if ($request->search) {
+            $pages = $pages->where('name', 'LIKE', "%$request->search%");
+        }
+
+        $pages = $pages->paginate(5);
+
         return view('pages.admin.page', compact('pages'));
     }
 

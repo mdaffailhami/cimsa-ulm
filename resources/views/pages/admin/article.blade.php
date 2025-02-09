@@ -25,8 +25,8 @@
                                 <input type="text" class="form-control" name="search"
                                     placeholder="Cari judul, Penulis, Editor ..." aria-label="Search"
                                     value="{{ request('search') }}">
-                                <button class="btn btn-primary" type="submit" data-bs-toggle="tooltip"
-                                    title="Cari artikel"> <i class="align-middle" data-feather="search"></i></button>
+                                <button class="btn btn-primary" type="submit" data-bs-toggle="tooltip" title="Cari">
+                                    <i class="align-middle" data-feather="search"></i></button>
                             </form>
                         </div>
                     </div>
@@ -34,14 +34,14 @@
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="">Judul</th>
-                                <th class="">Highlight</th>
-                                <th class="">Penulis</th>
-                                <th class="">Tanggal Publikasi</th>
-                                <th class="">Editor</th>
-                                <th class="">Tanggal Perubahan</th>
-                                <th class="" style="width: 250px">Cover</th>
-                                <th class="" style="width: 150px">Aksi</th>
+                                <th class="bg-primary text-white">Judul</th>
+                                <th class="bg-primary text-white">Highlight</th>
+                                <th class="bg-primary text-white">Penulis</th>
+                                <th class="bg-primary text-white">Tanggal Publikasi</th>
+                                <th class="bg-primary text-white">Editor</th>
+                                <th class="bg-primary text-white">Tanggal Perubahan</th>
+                                <th class="bg-primary text-white" style="width: 250px">Cover</th>
+                                <th class="bg-primary text-white" style="width: 150px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -14,9 +14,18 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::whereHas('roles', fn($q) => $q->whereNot('name',  'super-administrator'))->oldest()->paginate(5);
+        $users = User::with('roles')->whereHas('roles', fn($q) => $q->whereNot('name',  'super-administrator'))->oldest();
+
+        if ($request->search) {
+            $users = $users->where('username', 'LIKE', "%$request->search%")
+                ->orWhere('full_name', 'LIKE', "%$request->search%")
+                ->orWhere('email', 'LIKE', "%$request->search%");
+        }
+
+        $users = $users->paginate(5);
+
         $roles = Role::whereNot('name', 'super-administrator')->get();
 
         return view('pages.admin.user', compact('users', 'roles'));

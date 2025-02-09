@@ -20,11 +20,22 @@
                 </div>
 
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-5">
+                            <form action="{{ route('category.index') }}" method="GET" class="input-group mb-3">
+                                <input type="text" class="form-control" name="search" placeholder="Cari Kategori..."
+                                    aria-label="Search" value="{{ request('search') }}">
+                                <button class="btn btn-primary" type="submit" data-bs-toggle="tooltip" title="Cari">
+                                    <i class="align-middle" data-feather="search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="">Nama</th>
-                                <th class="" style="width : 150px">Aksi</th>
+                                <th class="bg-primary text-white">Nama</th>
+                                <th class="bg-primary text-white" style="width : 150px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -114,7 +125,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="deleteFormModalLabel">Hapus kategori</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <p>Apakah Anda yakin ingin menghapus kategori ini?</p>

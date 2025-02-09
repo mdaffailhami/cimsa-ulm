@@ -14,10 +14,17 @@ class OfficialDivisionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($year)
+    public function index(Request $request, $year)
     {
         $official = Official::with('divisions')->where('year', $year)->first();
-        $divisions = $official->divisions()->paginate(5);
+        $divisions = $official->divisions();
+
+        if ($request->search) {
+            $divisions = $divisions->where('name', 'LIKE', "%$request->search%");
+        }
+
+        $divisions = $divisions->paginate(5);
+
         return view('pages.admin.official-division', compact('divisions', 'official'));
     }
 

@@ -20,13 +20,24 @@
                 </div>
 
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-5">
+                            <form action="{{ route('training.index') }}" method="GET" class="input-group mb-3">
+                                <input type="text" class="form-control" name="search" placeholder="Cari Nama ..."
+                                    aria-label="Search" value="{{ request('search') }}">
+                                <button class="btn btn-primary" type="submit" data-bs-toggle="tooltip" title="Cari">
+                                    <i class="align-middle" data-feather="search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="">Nama</th>
-                                <th class="">Deskripsi</th>
-                                <th class="">Gambar</th>
-                                <th class="" style="width:150px">Aksi</th>
+                                <th class="bg-primary text-white">Nama</th>
+                                <th class="bg-primary text-white">Deskripsi</th>
+                                <th class="bg-primary text-white" style="width: 250px">Gambar</th>
+                                <th class="bg-primary text-white" style="width:150px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>

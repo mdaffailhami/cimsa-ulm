@@ -19,16 +19,29 @@
                 </div>
 
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-5">
+                            <form action="{{ route('user.index') }}" method="GET" class="input-group mb-3">
+                                <input type="text" class="form-control" name="search"
+                                    placeholder="Cari username, nama, email ..." aria-label="Search"
+                                    value="{{ request('search') }}">
+                                <button class="btn btn-primary" type="submit" data-bs-toggle="tooltip" title="Cari">
+                                    <i class="align-middle" data-feather="search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th>Username</th>
-                                <th class="">Nama Lengkap</th>
-                                <th class="">Email</th>
-                                <th class="">Nomor HP</th>
-                                <th class="">Password</th>
-                                <th class="">Role</th>
-                                <th class="" style="width: 150px">Aksi</th>
+                                <th class="bg-primary text-white">Username</th>
+                                <th class="bg-primary text-white">Nama Lengkap</th>
+                                <th class="bg-primary text-white">Email</th>
+                                <th class="bg-primary text-white">Nomor HP</th>
+                                <th class="bg-primary text-white">Password</th>
+                                <th class="bg-primary text-white">Role</th>
+                                <th class="bg-primary text-white">Dibuat</th>
+                                <th class="bg-primary text-white" style="width: 150px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,6 +53,9 @@
                                     <td class="">{{ $user->phone }}</td>
                                     <td class="">{{ $user->visible_password }}</td>
                                     <td><span class="badge bg-primary p-2">{{ $user->role->display_name }}</span>
+                                    </td>
+                                    <td>
+                                        {{ $timeStamp = date('d M Y', strtotime($user->created_at)) }}
                                     </td>
                                     <td class="">
                                         <div class="d-flex justify-content-evenly">

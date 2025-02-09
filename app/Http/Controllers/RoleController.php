@@ -13,9 +13,16 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $roles = Role::with('permissions')->whereNot('name', 'super-administrator')->paginate(5);
+        $roles = Role::with('permissions')->whereNot('name', 'super-administrator');
+
+        if ($request->search) {
+            $roles = $roles->where('name', 'LIKE', "%$request->search%");
+        }
+
+        $roles = $roles->latest()->paginate(5);
+
         $permissions = Permission::whereNot('name', 'sudo')->get();
         return view('pages.admin.role', compact('roles', 'permissions'));
     }

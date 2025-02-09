@@ -10,20 +10,33 @@
 
                     <h5 class="card-title mb-0">Daftar Halaman</h5>
 
-                    {{-- Add Button --}}
-                    <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
-                        data-bs-target="#formModal" data-mode="create">
-                        Tambah Halaman<i class="ms-2 align-middle" data-feather="plus"></i>
-                    </button>
+                    @canany(['sudo', 'page.*', 'page.create'])
+                        {{-- Add Button --}}
+                        <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
+                            data-bs-target="#formModal" data-mode="create">
+                            Tambah Halaman<i class="ms-2 align-middle" data-feather="plus"></i>
+                        </button>
+                    @endcanany
                 </div>
 
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-5">
+                            <form action="{{ route('page.index') }}" method="GET" class="input-group mb-3">
+                                <input type="text" class="form-control" name="search" placeholder="Cari Halaman ..."
+                                    aria-label="Search" value="{{ request('search') }}">
+                                <button class="btn btn-primary" type="submit" data-bs-toggle="tooltip" title="Cari">
+                                    <i class="align-middle" data-feather="search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="">Nama</th>
-                                <th class="">URL</th>
-                                <th class="" style="width: 200px">Aksi</th>
+                                <th class="bg-primary text-white">Nama</th>
+                                <th class="bg-primary text-white">URL</th>
+                                <th class="bg-primary text-white" style="width: 200px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,31 +48,37 @@
                                     <td class="">
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Preview Button --}}
-                                            <a class="btn btn-info"
-                                                href="{{ route('page.edit', ['page' => $page->uri]) }}"
-                                                data-bs-toggle="tooltip" title="Konten halaman">
-                                                <i class="align-middle" data-feather="eye"></i>
-                                            </a>
+                                            @canany(['sudo', 'page-content-management'])
+                                                <a class="btn btn-info"
+                                                    href="{{ route('page.edit', ['page' => $page->uri]) }}"
+                                                    data-bs-toggle="tooltip" title="Konten halaman">
+                                                    <i class="align-middle" data-feather="eye"></i>
+                                                </a>
+                                            @endcanany
 
 
                                             {{-- Edit Button --}}
-                                            <div data-bs-toggle="tooltip" title="Ubah halaman">
-                                                <button type="button" class="btn btn-warning text-dark"
-                                                    data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
-                                                    data-action="{{ route('page.update', ['page' => $page->uuid]) }}"
-                                                    data-page="{{ json_encode($page) }}">
-                                                    <i class="align-middle" data-feather="edit"></i>
-                                                </button>
-                                            </div>
+                                            @canany(['sudo', 'page.*', 'page.update'])
+                                                <div data-bs-toggle="tooltip" title="Ubah halaman">
+                                                    <button type="button" class="btn btn-warning text-dark"
+                                                        data-bs-toggle="modal" data-bs-target="#formModal" data-mode="edit"
+                                                        data-action="{{ route('page.update', ['page' => $page->uuid]) }}"
+                                                        data-page="{{ json_encode($page) }}">
+                                                        <i class="align-middle" data-feather="edit"></i>
+                                                    </button>
+                                                </div>
+                                            @endcanany
 
                                             <!-- Delete Button -->
-                                            <div data-bs-toggle="tooltip" title="Hapus halaman">
-                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteFormModal"
-                                                    data-action="{{ route('page.destroy', ['page' => $page->uuid]) }}">
-                                                    <i class="align-middle" data-feather="trash"></i>
-                                                </button>
-                                            </div>
+                                            @canany(['sudo', 'page.*', 'page.delete'])
+                                                <div data-bs-toggle="tooltip" title="Hapus halaman">
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#deleteFormModal"
+                                                        data-action="{{ route('page.destroy', ['page' => $page->uuid]) }}">
+                                                        <i class="align-middle" data-feather="trash"></i>
+                                                    </button>
+                                                </div>
+                                            @endcanany
                                         </div>
                                     </td>
                                 </tr>
@@ -104,7 +123,8 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Close</button>
                                 <button id="submitButton" type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>

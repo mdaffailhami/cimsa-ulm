@@ -33,9 +33,16 @@ class CommitteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $committees = Committe::latest()->paginate(5);
+        $committees = Committe::latest();
+
+        if ($request->search) {
+            $committees = $committees->where('name', 'LIKE', "%$request->search%");
+        }
+
+        $committees = $committees->paginate(5);
+
         return view('pages.admin.committe', compact('committees'));
     }
 

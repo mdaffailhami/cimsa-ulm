@@ -24,7 +24,7 @@
                                 <th class="bg-primary text-white" style="width: 200px">Penulis</th>
                                 <th class="bg-primary text-white" style="width: 200px">Editor</th>
                                 <th class="bg-primary text-white" style="width: 150px">Tanggal</th>
-                                {{-- <th class="" style="width: 50px">Aksi</th> --}}
+                                {{-- <th class="bg-primary text-white" style="width: 50px">Aksi</th> --}}
                             </tr>
                         </thead>
                         <tbody>

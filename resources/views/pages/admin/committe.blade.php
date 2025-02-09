@@ -20,13 +20,24 @@
                 </div>
 
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-5">
+                            <form action="{{ route('committe.index') }}" method="GET" class="input-group mb-3">
+                                <input type="text" class="form-control" name="search" placeholder="Cari Nama..."
+                                    aria-label="Search" value="{{ request('search') }}">
+                                <button class="btn btn-primary" type="submit" data-bs-toggle="tooltip" title="Cari">
+                                    <i class="align-middle" data-feather="search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="d-none d-xl-table-cell" style="width : 150px !important">Logo</th>
-                                <th class="d-none d-xl-table-cell">Nama</th>
-                                <th class="d-none d-xl-table-cell">Deskripsi</th>
-                                <th class="" style="width : 150px !important">Aksi</th>
+                                <th class="bg-primary text-white" style="width : 150px !important">Logo</th>
+                                <th class="bg-primary text-white">Nama</th>
+                                <th class="bg-primary text-white">Deskripsi</th>
+                                <th class="bg-primary text-white" style="width : 150px !important">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,8 +47,8 @@
                                         <img src="{{ $committe->logo }}" class="img-thumbnail" style="width: 150px"
                                             alt="{{ $committe->name }}">
                                     </td>
-                                    <td class="d-none d-xl-table-cell">{{ $committe->name }}</td>
-                                    <td class="d-none d-xl-table-cell">{{ $committe->description }}</td>
+                                    <td class="">{{ $committe->name }}</td>
+                                    <td class="">{{ $committe->description }}</td>
                                     <td>
                                         <div class="d-flex justify-content-evenly">
                                             {{-- Edit Button --}}
@@ -115,11 +126,13 @@
 
                             <div class="mb-3">
                                 <label for="logo" class="form-label">Logo Komite</label>
-                                <input type="file" class="filepond" id="logo" name="logo" accept="image/*">
+                                <input type="file" class="filepond" id="logo" name="logo"
+                                    accept="image/*">
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Close</button>
                                 <button id="submitButton" type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>

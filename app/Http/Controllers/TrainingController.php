@@ -23,9 +23,16 @@ class TrainingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $trainings = Training::oldest()->paginate(5);
+        $trainings = Training::oldest();
+
+        if ($request->search) {
+            $trainings = $trainings->where('name', 'LIKE', "%$request->search%");
+        }
+
+        $trainings = $trainings->paginate(5);
+
         return view('pages.admin.training', compact('trainings'));
     }
 
