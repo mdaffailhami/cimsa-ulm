@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
@@ -18,12 +18,10 @@ class DatabaseSeeder extends Seeder
 
         Schema::disableForeignKeyConstraints();
 
-        DB::table('galleries')->truncate();
-        DB::table('page_contacts')->truncate();
-
         $this->call([
             RolePermissionSeeder::class,
             UserSeeder::class,
+            UserTestSeeder::class,
             ProfileSeeder::class,
             OfficialSeeder::class,
             CommitteSeeder::class,
@@ -33,6 +31,8 @@ class DatabaseSeeder extends Seeder
             SocialMediaSeeder::class,
             PostSeeder::class,
         ]);
+
+
 
         Schema::enableForeignKeyConstraints();
     }

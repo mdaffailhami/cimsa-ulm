@@ -124,8 +124,6 @@ class RolePermissionSeeder extends Seeder
                     'user.*',
 
                     'page-management',
-                    'page.update',
-                    'page.delete',
 
                     'page-content-management',
                     'page-content.update',
@@ -161,12 +159,6 @@ class RolePermissionSeeder extends Seeder
             [
                 "name" => 'member',
                 'permissions' => [
-                    'profile-management',
-                    'profile.update',
-
-                    'page-content-management',
-                    'page-content.update',
-
                     'post-management',
                     'post.*',
 

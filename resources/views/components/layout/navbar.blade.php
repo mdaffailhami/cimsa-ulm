@@ -87,10 +87,6 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
 
-                    <a class="dropdown-item" href="index.html">
-                        <i class="align-middle me-1" data-feather="settings"></i>
-                        Settings & Privacy</a>
-
                     <form action="{{ route('admin.logout') }}" method="post">
                         @csrf
                         <button type="submit" class="dropdown-item">

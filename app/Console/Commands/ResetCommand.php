@@ -4,39 +4,37 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
-class UpdateCommand extends Command
+class ResetCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:update';
+    protected $signature = 'app:reset-data';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Updating the last commit';
+    protected $description = 'Reseting Data';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-
         $this->info('Cleaning storage');
         cleanStorage('app/public');
 
+        $this->info('Reseting Data');
 
-        $this->info("Regenerating database");
-        $this->call('migrate:fresh');
-        $this->call('db:seed');
+        Artisan::call('db:seed', [
+            '--class' => "CleanDataSeeder",
+        ]);
 
-        $this->info("Update finish");
+        $this->info("Reset Data Successfull");
     }
 }

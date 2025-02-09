@@ -81,6 +81,20 @@ if (! function_exists('deleteFile')) {
     }
 }
 
+if (! function_exists('cleanStorage')) {
+    function cleanStorage($path)
+    {
+        $storagePath = storage_path($path);
+
+        if (File::exists($storagePath)) {
+            $directories = File::deleteDirectories($storagePath);
+            echo "\nStorage have been cleaned\n";
+        } else {
+            echo "\nDirectory 'app/public/' does not exist.\n";
+        }
+    }
+}
+
 if (! function_exists('generateImage')) {
     function generateImage($category, $path_name)
     {
