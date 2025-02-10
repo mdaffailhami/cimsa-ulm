@@ -8,6 +8,10 @@ import { endpoint } from '../../configs';
 import HtmlParser from '../../components/HtmlParser';
 import useSWR from 'swr';
 import PageMeta from '../../components/PageMeta';
+import SDG3 from '../../assets/sdg-3.png';
+import SDG4 from '../../assets/sdg-4.png';
+import SDG5 from '../../assets/sdg-5.png';
+import SDG13 from '../../assets/sdg-13.png';
 
 export default function AboutUsPage() {
   const page = useSWR(`${endpoint}/api/page/about-us`, fetchJSON);
@@ -42,9 +46,10 @@ export default function AboutUsPage() {
               }
             />
           }
-          sdgs={page.data.contents
-            .find((x) => x.column === 'sdgs')
-            .galleries.map((x) => x.url)}
+          // sdgs={page.data.contents
+          //   .find((x) => x.column === 'sdgs')
+          //   .galleries.map((x) => x.url)}
+          sdgs={[SDG3, SDG4, SDG5, SDG13]}
         />
         <IFMSASection
           description={
