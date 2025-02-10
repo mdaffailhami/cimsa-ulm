@@ -50,7 +50,7 @@ export default function OrganizationStructureContent({ official }) {
           >
             {division.name}
           </h3>
-          <Row className='row-cols-1 row-cols-md-3 g-4 justify-content-center'>
+          <Row className='row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center'>
             {division.members.map((member, i) => (
               <Col
                 key={i + 1}
@@ -66,6 +66,11 @@ export default function OrganizationStructureContent({ official }) {
                   <img
                     src={member.image}
                     className='card-img-top'
+                    style={{
+                      objectFit: 'cover',
+                      width: '100%',
+                      height: '428px',
+                    }}
                     alt={member.name}
                   />
                   <CardBody>
