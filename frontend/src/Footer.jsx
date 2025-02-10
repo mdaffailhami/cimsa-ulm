@@ -39,8 +39,6 @@ export default function Footer() {
     tiktok: cimsa.socmeds.find((x) => x.platform == 'tiktok'),
   };
 
-  console.log(socmeds);
-
   return (
     <>
       <Global
@@ -121,7 +119,7 @@ export default function Footer() {
                     .text_content
                 }
               </div>
-              <div>
+              <div style={{ marginBottom: '9px' }}>
                 <Link to='/contact-us'>
                   <i className='fa-solid fa-envelope' />{' '}
                   {

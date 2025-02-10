@@ -4,7 +4,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import Aos from 'aos';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 import NotFoundPage from './404';
 import AboutUsPage from './app/about-us/AboutUsPage';
 import HomePage from './app/home/HomePage';
@@ -40,6 +40,7 @@ function App() {
           <CimsaStateProvider>
             <Routes>
               <Route index element={<HomePage />} />
+              <Route path='landing' element={<Navigate to='/' replace />} />
               <Route path='blog' element={<BlogPage />} />
               <Route path='blog/detail/:slug' element={<PostDetailPage />} />
               <Route path='blog/:category' element={<BlogPage />} />

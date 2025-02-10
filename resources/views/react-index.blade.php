@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="javascript-dependent" content="true" />
-    <script type="module" crossorigin src="/assets/index-C8ztSJfS.js"></script>
+    <script type="module" crossorigin src="/assets/index-6a2dE6uG.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-DOkt4nC3.css">
   </head>
   <body>

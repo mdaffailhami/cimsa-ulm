@@ -37,9 +37,6 @@ export default function ScoDetailPage() {
 
   if (sco.error || posts.error) return <LoadFailedPage />;
 
-  console.log(sco.data.data);
-  console.log(sco.data.data.description);
-
   return (
     <>
       <PageMeta
