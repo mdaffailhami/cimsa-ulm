@@ -28,14 +28,9 @@ class UpdateCommand extends Command
      */
     public function handle()
     {
-
-        $this->info('Cleaning storage');
-        cleanStorage('app/public');
-
-
-        $this->info("Regenerating database");
-        $this->call('migrate:fresh');
-        $this->call('db:seed');
+        $this->info("Updating database");
+        $this->call('migrate');
+        $this->call('optimize:clear');
 
         $this->info("Update finish");
     }

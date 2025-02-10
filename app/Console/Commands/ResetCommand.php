@@ -27,7 +27,7 @@ class ResetCommand extends Command
     public function handle()
     {
         $this->info('Cleaning storage');
-        cleanStorage('app/public');
+        cleanPublicStorage();
 
         $this->info('Reseting Data');
 

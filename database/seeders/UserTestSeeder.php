@@ -25,14 +25,14 @@ class UserTestSeeder extends Seeder
             'username' => 'admintest',
             'full_name' => 'Administrator',
             'visible_password' => 'admincimsa',
-            'password' => Hash::make('admincimsa')
+            'password' => Hash::make('admintestcimsa')
         ])->create();
 
         $test_member = User::factory()->count(1)->role('member')->state([
             'username' => 'membertest',
             'full_name' => 'Member Test',
             'visible_password' => 'membercimsa',
-            'password' => Hash::make('membercimsa')
+            'password' => Hash::make('membertestcimsa')
         ])->create();
     }
 }
