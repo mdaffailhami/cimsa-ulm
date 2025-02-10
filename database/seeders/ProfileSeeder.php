@@ -18,16 +18,16 @@ class ProfileSeeder extends Seeder
         DB::table('cimsa_profiles')->truncate();
 
         $profiles = [
-            [
-                "label" => 'Logo Organisasi',
-                'type' => 'image',
-                'content' => null
-            ],
-            [
-                "label" => 'Nama Organisasi',
-                'type' => 'text',
-                'content' => 'CIMSA'
-            ],
+            // [
+            //     "label" => 'Logo Organisasi',
+            //     'type' => 'image',
+            //     'content' => null
+            // ],
+            // [
+            //     "label" => 'Nama Organisasi',
+            //     'type' => 'text',
+            //     'content' => 'CIMSA'
+            // ],
             [
                 "label" => 'Universitas',
                 'type' => 'text',
