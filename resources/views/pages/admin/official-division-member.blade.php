@@ -20,7 +20,7 @@
                     @canany(['sudo', 'official-division-member.*', 'official-division-member.create'])
                         <button class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
                             data-bs-target="#formModal" data-mode="create">
-                            Tambah Divisi<i class="ms-2 align-middle" data-feather="plus"></i>
+                            Tambah Anggota<i class="ms-2 align-middle" data-feather="plus"></i>
                         </button>
                     @endcanany
                 </div>
