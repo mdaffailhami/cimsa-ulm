@@ -70,7 +70,7 @@ return new class extends Migration
         AFTER DELETE ON committes
         FOR EACH ROW
         BEGIN
-            IF EXISTS (SELECT 1 FROM page_contacts WHERE type = 'committe' AND entity_id = OLD.uuid) THEN
+            IF EXISTS (SELECT 1 FROM page_contacts WHERE type = 'committe' AND page_id = OLD.uuid) THEN
                 DELETE FROM page_contacts
                 WHERE type = 'committe' AND page_id = OLD.uuid;
             END IF;
@@ -83,7 +83,7 @@ return new class extends Migration
         AFTER DELETE ON pages
         FOR EACH ROW
         BEGIN
-            IF EXISTS (SELECT 1 FROM page_contacts WHERE type = 'page' AND entity_id = OLD.uuid) THEN
+            IF EXISTS (SELECT 1 FROM page_contacts WHERE type = 'page' AND page_id = OLD.uuid) THEN
                 DELETE FROM page_contacts
                 WHERE type = 'page' AND page_id = OLD.uuid;
             END IF;

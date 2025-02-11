@@ -55,8 +55,8 @@
                                                 value="{{ old('username') }}" autocomplete="off" />
 
                                             @error('credentials')
-                                                <div class="invalid-feedback">
-                                                    Your credentials is invalid
+                                                <div class="invalid-feedback d-inline-block">
+                                                    {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
@@ -67,8 +67,8 @@
                                                 class="form-control form-control-lg @error('credentials') is-invalid @enderror"
                                                 type="password" name="password" placeholder="Enter your password" />
                                             @error('credentials')
-                                                <div class="invalid-feedback">
-                                                    Your credentials is invalid
+                                                <div class="invalid-feedback d-inline-block">
+                                                    {{ $message }}
                                                 </div>
                                             @enderror
 
