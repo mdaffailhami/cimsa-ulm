@@ -172,26 +172,26 @@
             }
 
             document.addEventListener('DOMContentLoaded', function() {
-                // Initiate Tooltip
-                let tooltipTriggerList = [].slice.call(document.querySelectorAll(
-                    '[data-bs-toggle="tooltip"]'));
-                let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                    return new bootstrap.Tooltip(tooltipTriggerEl);
-                });
-
                 // Initiate Modal
                 let formModal = new bootstrap.Modal(document.getElementById('formModal'));
                 let deleteFormModal = new bootstrap.Modal(document.getElementById('deleteFormModal'));
 
                 // Handle the modal trigger for add and edit action
+                let mode = 'create';
+
                 document.querySelectorAll('[data-bs-target="#formModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
+                        // clear form If mode was edit
+                        if (mode === 'edit') resetForm();
+
                         let actionUrl = button.getAttribute('data-action');
                         let category = JSON.parse(button.getAttribute('data-category'));
-                        let mode = button.getAttribute('data-mode');
+                        mode = button.getAttribute('data-mode');
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
+                            resetValidation();
+
                             document.getElementById('formModalLabel').textContent = 'Ubah Kategori';
                             document.getElementById('categoryForm').setAttribute('action', actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';

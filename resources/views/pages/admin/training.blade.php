@@ -152,8 +152,14 @@
 
                             <div class="mb-3">
                                 <label for="image" class="form-label">Gambar Pelatihan</label>
-                                <input type="file" class="filepond" id="image" name="image"
-                                    accept="image/*">
+                                <input type="file"
+                                    class="filepond form-control @error('image') is-invalid @enderror" id="image"
+                                    name="image" accept="image/*">
+                                @error('image')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
                             <div class="modal-footer">
@@ -222,18 +228,14 @@
 
             const resetForm = (filePond) => {
                 // Pre-fill the form fields if editing a training
-                document.getElementById('name').value = '';
-                document.getElementById('description').value = '';
+                document.getElementById('name').value = "";
+                document.getElementById('url').value = "";
+                document.getElementById('description').value = "";
+
                 filePond.removeFiles();
             }
 
             document.addEventListener('DOMContentLoaded', function() {
-                // Initialize Tooltip
-                let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                    return new bootstrap.Tooltip(tooltipTriggerEl);
-                });
-
                 // Initialize Modal
                 let formModal = new bootstrap.Modal(document.getElementById('formModal'));
                 let deleteFormModal = new bootstrap.Modal(document.getElementById('deleteFormModal'));
@@ -243,15 +245,21 @@
                 const pond = initializeImagePond(imageInput);
 
                 // Handle the modal trigger for add and edit action
+                let mode = 'create'
                 document.querySelectorAll('[data-bs-target="#formModal"]').forEach(function(button) {
 
                     button.addEventListener('click', function() {
+                        // clear form If mode was edit
+                        if (mode === 'edit') resetForm(pond);
+
                         let actionUrl = button.getAttribute('data-action');
                         let training = JSON.parse(button.getAttribute('data-training'));
-                        let mode = button.getAttribute('data-mode');
+                        mode = button.getAttribute('data-mode');
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
+                            resetValidation();
+
                             document.getElementById('formModalLabel').textContent = 'Ubah Pelatihan';
                             document.getElementById('trainingForm').setAttribute('action', actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';

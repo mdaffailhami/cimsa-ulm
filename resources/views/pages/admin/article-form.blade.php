@@ -38,7 +38,7 @@
                             </div>
                             @error('title')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block text-md">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -53,7 +53,7 @@
                             </div>
                             @error('highlight')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block text-md">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -68,7 +68,7 @@
                             </div>
                             @error('content')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block text-md">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -78,23 +78,33 @@
                         <div class="row mb-3">
                             <label for="cover" class="col-sm-2 col-form-label">Sampul Artikel</label>
                             <div class="col-sm-6">
-                                <input type="file" class="filepond" id="cover" name="cover" accept="image/*">
+                                <input type="file" class="filepond form-control @error('cover') is-invalid @enderror"
+                                    id="cover" name="cover" accept="image/*">
                             </div>
                             @error('cover')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block text-md">
                                         {{ $message }}
                                     </div>
                                 </div>
                             @enderror
+
                         </div>
 
                         <div class="row mb-3">
                             <label for="categories" class="col-sm-2 col-form-label">Kategori</label>
                             <div class="col-sm-6">
-                                <select id="categories" name="categories[]" class="form-control" multiple>
+                                <select id="categories" name="categories[]"
+                                    class="form-control @error('categories') is-invalid @enderror" multiple>
                                 </select>
                             </div>
+                            @error('categories')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback d-inline-block text-md">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
@@ -153,9 +163,19 @@
                 contentEditor.setData(article.content)
             }
 
-            const resetForm = () => {
+            const resetForm = (choices, filepond, contentEditor) => {
                 // Pre-fill the form fields if editing a article
-                document.getElementById('title').value = '';
+                document.getElementById('title').value = "";
+                document.getElementById('highlight').value = "";
+                document.getElementById('content').value = "";
+
+                choices.clearStore(); // Clear internal Choices.js data
+
+                // Clear previous files in FilePond
+                filePond.removeFiles();
+
+                // Update CKEditor value
+                contentEditor.setData("")
             }
 
             document.addEventListener('DOMContentLoaded', async function() {
@@ -182,7 +202,6 @@
                 }
 
                 options = getCategoryOptions();
-                console.log(options);
 
                 choices.setChoices(options)
             });
@@ -218,7 +237,7 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
-                        title: 'Validation Error!',
+                        title: 'Validasi Gagal!',
                         html: `
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -228,13 +247,7 @@
             `,
                         icon: 'error',
                         confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            let formModal = new bootstrap.Modal(document.getElementById('formModal'));
-
-                            formModal.show();
-                        }
-                    });;
+                    }).then((result) => {});;
 
 
                 });

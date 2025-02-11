@@ -251,14 +251,21 @@
                 let deleteUserModal = new bootstrap.Modal(document.getElementById('deleteUserModal'));
 
                 // Handle the modal trigger for add and edit action
+                let mode = 'create';
+
                 document.querySelectorAll('[data-bs-target="#userModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
+                        // clear form If mode was edit
+                        if (mode === 'edit') resetForm();
+
                         let actionUrl = button.getAttribute('data-action');
                         let user = JSON.parse(button.getAttribute('data-user'));
-                        let mode = button.getAttribute('data-mode');
+                        mode = button.getAttribute('data-mode');
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
+                            resetValidation();
+
                             document.getElementById('userModalLabel').textContent = 'Ubah User';
                             document.getElementById('userForm').setAttribute('action', actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';
@@ -318,7 +325,7 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
-                        title: 'Validation Error!',
+                        title: 'Validasi Gagal!',
                         html: `
                 <ul>
                     @foreach ($errors->all() as $error)

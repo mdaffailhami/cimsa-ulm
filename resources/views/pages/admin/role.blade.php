@@ -171,23 +171,7 @@
     </div>
 
     @section('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                choices = new Choices('#permissions', {
-                    removeItemButton: true,
-                    placeholderValue: 'Pilih Hak Akses',
-                    searchPlaceholderValue: 'Cari Hak Akses'
-                });
 
-                let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                    return new bootstrap.Tooltip(tooltipTriggerEl);
-                });
-
-            });
-        </script>
-
-        {{-- Modal --}}
         <script>
             const fillForm = (role) => {
                 // Pre-fill the form fields if editing a role
@@ -211,19 +195,33 @@
             }
 
             document.addEventListener('DOMContentLoaded', function() {
+                // Initialize Modal
                 let formModal = new bootstrap.Modal(document.getElementById('formModal'));
                 let deleteFormModal = new bootstrap.Modal(document.getElementById('deleteFormModal'));
 
+                // Initialize Choice
+                choices = new Choices('#permissions', {
+                    removeItemButton: true,
+                    placeholderValue: 'Pilih Hak Akses',
+                    searchPlaceholderValue: 'Cari Hak Akses'
+                });
+
                 // Handle the modal trigger for add and edit action
+                let mode = 'create';
                 document.querySelectorAll('[data-bs-target="#formModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
+                        // Reset form if mode was edit
+                        if (mode === 'edit') resetForm();
+
                         let actionUrl = button.getAttribute('data-action');
                         let role = JSON.parse(button.getAttribute('data-role'));
-                        let mode = button.getAttribute('data-mode');
+                        mode = button.getAttribute('data-mode');
                         let options = getOptions();
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
+                            resetValidation();
+
                             document.getElementById('formModalLabel').textContent = 'Ubah Role';
                             document.getElementById('roleForm').setAttribute('action', actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';
@@ -294,7 +292,7 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
-                        title: 'Validation Error!',
+                        title: 'Validasi Gagal!',
                         html: `
                 <ul>
                     @foreach ($errors->all() as $error)

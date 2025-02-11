@@ -140,13 +140,6 @@
     @section('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', async function() {
-
-                // Initialize Tooltip
-                let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                    return new bootstrap.Tooltip(tooltipTriggerEl);
-                });
-
                 // Initialize Modal
                 let deleteFormModal = new bootstrap.Modal(document.getElementById('deleteFormModal'));
 
@@ -191,7 +184,7 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
-                        title: 'Validation Error!',
+                        title: 'Validasi Gagal!',
                         html: `
                 <ul>
                     @foreach ($errors->all() as $error)
