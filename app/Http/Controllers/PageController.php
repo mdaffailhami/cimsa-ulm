@@ -110,10 +110,6 @@ class PageController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // Reject request if user doesnt have any of required permissions
-        if (!$this->auth_user->hasAnyPermission(['sudo', 'page.*', 'page.update'])) {
-            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
-        }
 
         switch ($request->form_category) {
             case 'profile':
@@ -158,6 +154,11 @@ class PageController extends Controller
 
     private function updateProfile($request, $id)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'page.*', 'page.update'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         DB::beginTransaction();
 
         $validated = $request->validate([
@@ -192,6 +193,11 @@ class PageController extends Controller
 
     private function updateContents($request, $id)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'page-content.*', 'page-content.update'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         DB::beginTransaction();
 
         try {
@@ -228,6 +234,11 @@ class PageController extends Controller
 
     private function updateContact($request, $id)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'page-content.*', 'page-content.update'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
+        }
+
         DB::beginTransaction();
 
         $validated = $request->validate([

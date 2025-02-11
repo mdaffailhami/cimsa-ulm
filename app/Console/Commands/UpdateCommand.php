@@ -29,7 +29,8 @@ class UpdateCommand extends Command
     public function handle()
     {
         $this->info("Updating database");
-        $this->call('migrate');
+        $this->call('optimize:clear');
+        $this->call('db:seed');
         $this->call('optimize:clear');
 
         $this->info("Update finish");
