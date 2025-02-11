@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="col-24 col-lg-24 col-xxl-24 d-flex">
-            <div class="card flex-fill">
+            <div class="card flex-fill" style="overflow-x: auto;">
                 <div class="card-header d-flex align-items-center justify-content-between">
 
                     <h5 class="card-title mb-0">Daftar Halaman</h5>
