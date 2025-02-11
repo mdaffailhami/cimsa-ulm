@@ -127,7 +127,8 @@
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" class="form-control @error('username') is-invalid @enderror"
-                                    id="username" name="username" value="{{ old('username') }}" required>
+                                    id="username" name="username" value="{{ old('username') }}"
+                                    placeholder="Masukkan username..." required>
                                 @error('username')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -137,7 +138,8 @@
                             <div class="mb-3">
                                 <label for="full_name" class="form-label">Nama Lengkap</label>
                                 <input type="text" class="form-control @error('full_name') is-invalid @enderror"
-                                    id="full_name" name="full_name" value="{{ old('full_name') }}" required>
+                                    id="full_name" name="full_name" value="{{ old('full_name') }}"
+                                    placeholder="Masukkan nama lengkap..." required>
                                 @error('full_name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -147,7 +149,8 @@
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                    id="email" name="email" value="{{ old('email') }}" required>
+                                    id="email" name="email" value="{{ old('email') }}"
+                                    placeholder="Masukkan email..." required>
                                 @error('email')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -157,7 +160,8 @@
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Nomor HP</label>
                                 <input type="text" class="form-control @error('phone') is-invalid @enderror"
-                                    id="phone" name="phone" value="{{ old('phone') }}" required>
+                                    id="phone" name="phone" value="{{ old('phone') }}"
+                                    placeholder="Masukkan nomor hp..." required>
                                 @error('phone')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -171,6 +175,15 @@
                                     </option>
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->name }}">{{ $role->display_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="permissions" class="form-label">Hak Akses</label>
+                                <select id="permissions" name="permissions[]" class="form-control" multiple>
+                                    @foreach ($permissions as $permission)
+                                        <option value="{{ $permission->name }}">{{ $permission->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -240,6 +253,17 @@
                 document.getElementById('role').value = '';
             }
 
+            const getPermissions = () => {
+                const permissions = @json($permissions);
+
+                return permissions.map((permission) => {
+                    return {
+                        value: permission.name,
+                        label: permission.name,
+                    }
+                })
+            }
+
             document.addEventListener('DOMContentLoaded', function() {
 
                 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -250,9 +274,15 @@
                 let userModal = new bootstrap.Modal(document.getElementById('userModal'));
                 let deleteUserModal = new bootstrap.Modal(document.getElementById('deleteUserModal'));
 
+                // Initialize Choice
+                choices = new Choices('#permissions', {
+                    removeItemButton: true,
+                    placeholderValue: 'Pilih Hak Akses',
+                    searchPlaceholderValue: 'Cari Hak Akses'
+                });
+
                 // Handle the modal trigger for add and edit action
                 let mode = 'create';
-
                 document.querySelectorAll('[data-bs-target="#userModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
                         // clear form If mode was edit
@@ -261,6 +291,7 @@
                         let actionUrl = button.getAttribute('data-action');
                         let user = JSON.parse(button.getAttribute('data-user'));
                         mode = button.getAttribute('data-mode');
+                        let options = getPermissions();
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
@@ -272,6 +303,13 @@
                             document.getElementById('method').value = 'PUT';
 
                             fillForm(user);
+
+                            // Get the permissions of the user
+                            const user_permissions = user.permissions.map(permission => permission
+                                .name);
+
+                            choices.clearStore(); // Clear internal Choices.js data
+                            choices.setValue(user_permissions); // Clear selected values
                         } else {
                             // Set to Add User if no action URL is provided
                             document.getElementById('userModalLabel').textContent = 'Tambah User';
@@ -282,6 +320,8 @@
 
                             // resetForm();
                         }
+
+                        choices.setChoices(options);
 
                     });
                 });

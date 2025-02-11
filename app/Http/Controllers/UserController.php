@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -16,7 +17,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::with('roles')->whereHas('roles', fn($q) => $q->whereNot('name',  'super-administrator'))->oldest();
+        $users = User::with('roles', 'permissions')->whereHas('roles', fn($q) => $q->whereNot('name',  'super-administrator'))->oldest();
 
         if ($request->search) {
             $users = $users->where(
@@ -30,8 +31,9 @@ class UserController extends Controller
         $users = $users->paginate(5);
 
         $roles = Role::whereNot('name', 'super-administrator')->get();
+        $permissions = Permission::whereNot('name', 'sudo')->get();
 
-        return view('pages.admin.user', compact('users', 'roles'));
+        return view('pages.admin.user', compact('users', 'roles', 'permissions'));
     }
 
     /**
@@ -95,6 +97,7 @@ class UserController extends Controller
             $user->save();
 
             $user->assignRole($validated['role']);
+            $user->syncPermissions($request->permissions);
 
             DB::commit();
 
@@ -177,6 +180,7 @@ class UserController extends Controller
             $user->save();
 
             $user->syncRoles([$validated['role']]);
+            $user->syncPermissions($request->permissions);
 
             DB::commit();
 
