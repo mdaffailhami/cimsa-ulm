@@ -92,6 +92,12 @@
             const contentContainer = document.getElementById('container');
             loadingContainer.classList.add('d-none');
             contentContainer.classList.remove('d-none');
+
+            // Initialize Tooltip
+            let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
         })
     </script>
 

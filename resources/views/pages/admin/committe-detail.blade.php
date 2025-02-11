@@ -47,7 +47,24 @@
                             </div>
                             @error('name')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="color" class="col-sm-2 col-form-label">Warna Komite</label>
+                            <div class="col-sm-6">
+                                <input type="color"
+                                    class="form-control form-control-color @error('color') is-invalid @enderror"
+                                    id="color" name="color" value="{{ $committe->color }}" title="Pilih Warna"
+                                    required>
+                            </div>
+                            @error('color')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -62,7 +79,7 @@
                             </div>
                             @error('description')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -77,7 +94,7 @@
                             </div>
                             @error('long_description')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -92,7 +109,7 @@
                             </div>
                             @error('mission')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -102,12 +119,13 @@
                         <div class="row mb-3">
                             <label for="background" class="col-sm-2 col-form-label">Latar Belakang</label>
                             <div class="col-sm-6">
-                                <input type="file" class="filepond" id="background" name="background"
-                                    accept="image/*">
+                                <input type="file"
+                                    class="filepond form-control @error('background') is-invalid @enderror"
+                                    id="background" name="background" accept="image/*">
                             </div>
                             @error('background')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -119,10 +137,18 @@
                             <div class="col-sm-6">
                                 <div id="focuses-container">
                                     <!-- Dynamic inputs will be appended here -->
+
                                 </div>
                                 <button type="button" class="btn btn-success mt-2" id="add-focus-btn">Tambah Fokus
                                     Area</button>
                             </div>
+                            @error('focuses.*.description')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback d-inline-block">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
                         </div>
 
                         <div class="row mb-3">
@@ -134,17 +160,33 @@
                                 <button type="button" class="btn btn-success mt-2" id="add-activity-btn">Tambah
                                     Aktivitas</button>
                             </div>
+                            @error('activities.*.name')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback d-inline-block">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+
+                            @error('activities.*.description')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback d-inline-block">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
                         </div>
 
                         <div class="row mb-3">
                             <label for="gallery" class="col-sm-2 col-form-label">Galeri Kegiatan</label>
                             <div class="col-sm-6">
-                                <input type="file" class="filepond" id="gallery" name="galleries[]"
-                                    accept="image/*">
+                                <input type="file"
+                                    class="filepond form-control @error('galleries.*') is-invalid @enderror"
+                                    id="gallery" name="galleries[]" accept="image/*">
                             </div>
-                            @error('gallery')
+                            @error('galleries.*')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -216,7 +258,7 @@
                             </div>
                             @error('contact_name')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -233,7 +275,7 @@
                             </div>
                             @error('contact_email')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -250,7 +292,7 @@
                             </div>
                             @error('contact_phone')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -268,7 +310,7 @@
                             </div>
                             @error('contact_occupation')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -278,13 +320,14 @@
                         <div class="row mb-3">
                             <label for="contact_year" class="col-sm-2 col-form-label">Tahun Angkatan</label>
                             <div class="col-sm-6">
-                                <select id="contact_year" name="contact_year" class="form-select">
+                                <select id="contact_year" name="contact_year"
+                                    class="form-select @error('contact_year') is-invalid @enderror">
                                     <option selected disabled>Pilih Tahun</option>
                                 </select>
                             </div>
                             @error('contact_year')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -294,12 +337,13 @@
                         <div class="row mb-3">
                             <label for="avatar" class="col-sm-2 col-form-label">Foto narahubung</label>
                             <div class="col-sm-6">
-                                <input type="file" class="filepond" id="avatar" name="avatar"
-                                    accept="image/*">
+                                <input type="file"
+                                    class="filepond form-control @error('avatar') is-invalid @enderror"
+                                    id="avatar" name="avatar" accept="image/*">
                             </div>
                             @error('avatar')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>

@@ -72,7 +72,7 @@ return new class extends Migration
         BEGIN
             IF EXISTS (SELECT 1 FROM page_contacts WHERE type = 'committe' AND entity_id = OLD.uuid) THEN
                 DELETE FROM page_contacts
-                WHERE type = 'committe' AND entity_id = OLD.uuid;
+                WHERE type = 'committe' AND page_id = OLD.uuid;
             END IF;
         END;
     ");
@@ -85,7 +85,7 @@ return new class extends Migration
         BEGIN
             IF EXISTS (SELECT 1 FROM page_contacts WHERE type = 'page' AND entity_id = OLD.uuid) THEN
                 DELETE FROM page_contacts
-                WHERE type = 'page' AND entity_id = OLD.uuid;
+                WHERE type = 'page' AND page_id = OLD.uuid;
             END IF;
         END;
     ");

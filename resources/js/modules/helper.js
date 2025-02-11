@@ -17,4 +17,19 @@ const getYear = (yearInput, current_year = null) => {
     }
 };
 
+const resetValidation = () => {
+    let invalidInputs = document.querySelectorAll('.is-invalid');
+    let invalidMessages = document.querySelectorAll('.invalid-feedback')
+
+    // Remove the 'is-invalid' class from all inputs
+    invalidInputs.forEach(input => input.classList.remove('is-invalid'));
+
+    // Remove the 'invalid-feedback' class and hide the error messages
+    invalidMessages.forEach(message => {
+        message.style.display = 'none'; // Optionally hide the message
+    });
+}
+
 window.getYear = getYear;
+window.resetValidation = resetValidation;
+

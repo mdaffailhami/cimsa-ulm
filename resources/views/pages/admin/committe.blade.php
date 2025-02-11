@@ -124,6 +124,18 @@
                             </div>
 
                             <div class="mb-3">
+                                <label for="name" class="form-label">Nama Komite</label>
+                                <input type="color"
+                                    class="form-control form-control-color @error('color') is-invalid @enderror"
+                                    id="color" name="color" title="Pilih Warna" required>
+                                @error('color')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="description" class="form-label">Deskripsi Singkat</label>
                                 <textarea class="form-control @error('description') is-invalid @enderror" placeholder="Masukkan deskripsi..."
                                     id="description" name="description" value="{{ old('description') }}" required style="height: 100px"></textarea>
@@ -136,8 +148,14 @@
 
                             <div class="mb-3">
                                 <label for="logo" class="form-label">Logo Komite</label>
-                                <input type="file" class="filepond" id="logo" name="logo"
-                                    accept="image/*">
+                                <input type="file"
+                                    class="filepond form-control @error('logo') is-invalid @enderror" id="logo"
+                                    name="logo" accept="image/*">
+                                @error('logo')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
                             <div class="modal-footer">
@@ -212,26 +230,26 @@
                 // Handle the modal trigger for add and edit action
                 document.querySelectorAll('[data-bs-target="#formModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
-                        let actionUrl = button.getAttribute('data-action');
-                        let committe = JSON.parse(button.getAttribute('data-committe'));
-                        let mode = button.getAttribute('data-mode');
+                        // let actionUrl = button.getAttribute('data-action');
+                        // let committe = JSON.parse(button.getAttribute('data-committe'));
+                        // let mode = button.getAttribute('data-mode');
 
-                        // Update modal title and action URL for editing
-                        if (mode === 'edit') {
-                            document.getElementById('formModalLabel').textContent = 'Ubah komite';
-                            document.getElementById('committeForm').setAttribute('action', actionUrl);
-                            document.getElementById('submitButton').textContent = 'Ubah';
-                            document.getElementById('method').value = 'PUT';
+                        // // Update modal title and action URL for editing
+                        // if (mode === 'edit') {
+                        //     document.getElementById('formModalLabel').textContent = 'Ubah komite';
+                        //     document.getElementById('committeForm').setAttribute('action', actionUrl);
+                        //     document.getElementById('submitButton').textContent = 'Ubah';
+                        //     document.getElementById('method').value = 'PUT';
 
-                            fillForm(committe);
-                        } else {
-                            // Set to Add committe if no action URL is provided
-                            document.getElementById('formModalLabel').textContent = 'Tambah Komite';
-                            document.getElementById('committeForm').setAttribute('action',
-                                '{{ route('committe.store') }}');
-                            document.getElementById('submitButton').textContent = 'Simpan';
-                            document.getElementById('method').value = 'POST';
-                        }
+                        //     fillForm(committe);
+                        // } else {
+                        //     // Set to Add committe if no action URL is provided
+                        //     document.getElementById('formModalLabel').textContent = 'Tambah Komite';
+                        //     document.getElementById('committeForm').setAttribute('action',
+                        //         '{{ route('committe.store') }}');
+                        //     document.getElementById('submitButton').textContent = 'Simpan';
+                        //     document.getElementById('method').value = 'POST';
+                        // }
 
                     });
                 });

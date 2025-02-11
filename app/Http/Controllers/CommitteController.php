@@ -69,9 +69,13 @@ class CommitteController extends Controller
         $validated = $request->validate([
             'logo' => 'required',
             'name' => 'required|string|max:255|unique:committes',
+            'color' => 'required|max:7',
             'description' => 'required',
         ], [
             'logo.required' => 'Logo tidak boleh kosong.',
+
+            'color.required' => 'Warna tidak boleh kosong.',
+            'color.max' => 'Warna tidak boleh melebihi 7 karakter.',
 
             'name.required' => 'Nama Komite tidak boleh kosong.',
             'name.string' => 'Nama Komite harus sebuah string.',
@@ -88,6 +92,7 @@ class CommitteController extends Controller
             $image_name = uploadFile($path_name, $request->logo);
 
             $committe->logo = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
+            $committe->color = $validated['color'];
             $committe->name = $validated['name'];
             $committe->description = $validated['description'];
 
@@ -188,17 +193,23 @@ class CommitteController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'color' => 'required|max:7',
             'description' => 'required|string',
             'long_description' => 'required|string',
             'mission' => 'required|string',
-            'focuses' => 'required',
-            'activities' => 'required',
-            'galleries' => 'required'
+            'background' => 'required',
+            'focuses.*.description' => 'required',
+            'activities.*.name' => 'required',
+            'activities.*.description' => 'required',
+            'galleries.*' => 'required'
         ], [
             'name.required' => 'Nama Halaman tidak boleh kosong.',
             'name.string' => 'Nama Halaman harus sebuah string.',
             'name.max' => 'Nama Halaman tidak boleh melebihi 255 karakter.',
             'name.unique' => 'Nama Halaman sudah digunakan.',
+
+            'color.required' => 'Warna tidak boleh kosong.',
+            'color.max' => 'Warna tidak boleh melebihi 7 karakter.',
 
             'description.required' => 'Deskripsi tidak boleh kosong.',
             'description.string' => 'Deskripsi harus berupa teks.',
@@ -209,17 +220,22 @@ class CommitteController extends Controller
             'mission.required' => 'Misi tidak boleh kosong.',
             'mission.string' => 'Misi harus berupa teks.',
 
-            'focuses.required' => 'Fokus area tidak boleh kosong.',
+            'background.required' => 'Latar belakang tidak boleh kosong.',
 
-            'activities.required' => 'Aktivitas tidak boleh kosong.',
+            'focuses.*.description.required' => 'Fokus area tidak boleh kosong.',
 
-            'galleries.required' => 'Galeri tidak boleh kosong.',
+            'activities.*.name.required' => 'Nama aktivitas tidak boleh kosong.',
+            'activities.*.description.required' => 'Deskripsi aktivitas tidak boleh kosong.',
+
+
+            'galleries.*.required' => 'Galeri tidak boleh kosong.',
         ]);
 
         try {
             $committe = Committe::findOrFail($id);
 
             $committe->name = $validated['name'];
+            $committe->color = $validated['color'];
             $committe->description = $validated['description'];
             $committe->long_description = $validated['long_description'];
             $committe->mission_statement = $validated['mission'];
@@ -327,7 +343,8 @@ class CommitteController extends Controller
             'contact_email' => 'required|email',
             'contact_phone' => 'required|string|max:13',
             'contact_occupation' => 'required|string|max:255',
-            'contact_year' => 'required|string|max:4'
+            'contact_year' => 'required|string|max:4',
+            'avatar' => 'required'
         ], [
             'name.required' => 'Nama narahubung tidak boleh kosong.',
             'name.string' => 'Nama narahubung harus sebuah string.',
@@ -347,6 +364,8 @@ class CommitteController extends Controller
             'year.required' => 'Tahun angkatan tidak boleh kosong.',
             'year.string' => 'Tahun angkatan harus sebuah string.',
             'year.max' => 'Tahun angkatan tidak boleh melebihi 4 karakter.',
+
+            'avatar.required' => 'Foto narahubung tidak boleh kosong.',
         ]);
 
         try {
