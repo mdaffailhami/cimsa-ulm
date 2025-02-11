@@ -114,14 +114,27 @@
 
                             <div class="mb-3">
                                 <label for="poster" class="form-label">Tahun Angkatan</label>
-                                <select id="year" name="year" class="form-select">
+                                <select id="year" name="year"
+                                    class="form-select  @error('year') is-invalid @enderror">
                                     <option selected disabled>Pilih Tahun</option>
                                 </select>
+                                @error('year')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
                                 <label for="poster" class="form-label">Poster</label>
-                                <input type="file" class="filepond" id="poster" name="poster" accept="image/*">
+                                <input type="file"
+                                    class="filepond form-control  @error('poster') is-invalid @enderror" id="poster"
+                                    name="poster" accept="image/*">
+                                @error('poster')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
                             <div class="modal-footer">
@@ -163,7 +176,6 @@
     </div>
 
     @section('scripts')
-        {{-- Modal --}}
         <script>
             const fillForm = (official, filePond) => {
                 // Pre-fill the form fields if editing a official
@@ -186,17 +198,14 @@
 
             }
 
-            const resetForm = () => {
+            const resetForm = (filepond) => {
                 // Pre-fill the form fields if editing a official
-                document.getElementById('year').value = '';
+                filepond.removeFiles();
             }
 
             document.addEventListener('DOMContentLoaded', function() {
                 // Initialize Tooltip
-                let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                    return new bootstrap.Tooltip(tooltipTriggerEl);
-                });
+
 
                 // Initialize Modal
                 let formModal = new bootstrap.Modal(document.getElementById('formModal'));
@@ -206,20 +215,27 @@
                 const imageInput = document.querySelector('#poster');
                 const pond = initializeImagePond(imageInput);
 
+
                 // Initialize Year Option
                 const yearSelect = document.getElementById("year");
 
                 getYear(yearSelect);
 
                 // Handle the modal trigger for add and edit action
+                let mode = 'create'
                 document.querySelectorAll('[data-bs-target="#formModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
+                        // clear form If mode was edit
+                        if (mode === 'edit') resetForm(pond);
+
                         let actionUrl = button.getAttribute('data-action');
                         let official = JSON.parse(button.getAttribute('data-official'));
-                        let mode = button.getAttribute('data-mode');
+                        mode = button.getAttribute('data-mode');
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
+                            resetValidation();
+
                             document.getElementById('formModalLabel').textContent = 'Ubah Angkatan';
                             document.getElementById('officialForm').setAttribute('action', actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';
@@ -279,7 +295,7 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
-                        title: 'Validasi Error',
+                        title: 'Validasi Gagal',
                         html: `
                 <ul>
                     @foreach ($errors->all() as $error)

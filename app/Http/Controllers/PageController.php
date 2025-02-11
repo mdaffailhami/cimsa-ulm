@@ -246,7 +246,8 @@ class PageController extends Controller
             'contact_email' => 'required|email',
             'contact_phone' => 'required|string|max:13',
             'contact_occupation' => 'required|string|max:255',
-            'contact_year' => 'required|string|max:4'
+            'contact_year' => 'required|string|max:4',
+            'avatar' => 'required',
         ], [
             'contact_name.required' => 'Nama narahubung tidak boleh kosong.',
             'contact_name.string' => 'Nama narahubung harus sebuah string.',
@@ -266,6 +267,8 @@ class PageController extends Controller
             'contact_year.required' => 'Tahun angkatan tidak boleh kosong.',
             'contact_year.string' => 'Tahun angkatan harus sebuah string.',
             'contact_year.max' => 'Tahun angkatan tidak boleh melebihi 4 karakter.',
+
+            'avatar.required' => 'Foto narahubung tidak boleh kosong.',
         ]);
 
         try {

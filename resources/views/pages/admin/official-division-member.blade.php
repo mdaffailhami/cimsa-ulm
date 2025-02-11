@@ -169,8 +169,14 @@
 
                             <div class="mb-3">
                                 <label for="image" class="form-label">Gambar</label>
-                                <input type="file" class="filepond" id="image" name="image"
-                                    accept="image/*">
+                                <input type="file"
+                                    class="filepond form-control @error('image') is-invalid @enderror" id="image"
+                                    name="image" accept="image/*">
+                                @error('image')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
                             <div class="modal-footer">
@@ -237,19 +243,18 @@
                 })
             }
 
-            const resetForm = () => {
+            const resetForm = (filePond) => {
                 // Pre-fill the form fields if editing a member
                 document.getElementById('name').value = '';
                 document.getElementById('email').value = '';
                 document.getElementById('position').value = '';
+
+                filePond.removeFiles();
             }
 
             document.addEventListener('DOMContentLoaded', function() {
                 // Initialize Tooltip
-                let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                    return new bootstrap.Tooltip(tooltipTriggerEl);
-                });
+
 
                 // Initialize Modal
                 let formModal = new bootstrap.Modal(document.getElementById('formModal'));
@@ -260,14 +265,19 @@
                 const pond = initializeImagePond(imageInput);
 
                 // Handle the modal trigger for add and edit action
+                let mode = 'create'
                 document.querySelectorAll('[data-bs-target="#formModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
+                        if (mode === 'edit') resetForm(pond);
+
                         let actionUrl = button.getAttribute('data-action');
                         let member = JSON.parse(button.getAttribute('data-member'));
-                        let mode = button.getAttribute('data-mode');
+                        mode = button.getAttribute('data-mode');
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
+                            resetValidation();
+
                             document.getElementById('formModalLabel').textContent = 'Ubah Anggota';
                             document.getElementById('officialDivisionMemberForm').setAttribute('action',
                                 actionUrl);
@@ -331,7 +341,7 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
-                        title: 'Validasi Error',
+                        title: 'Validasi Gagal',
                         html: `
                 <ul>
                     @foreach ($errors->all() as $error)

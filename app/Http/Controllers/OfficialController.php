@@ -44,20 +44,20 @@ class OfficialController extends Controller
     public function store(Request $request)
     {
         // Reject request if user doesnt have any of required permissions
-        if (!$this->user->hasAnyPermission(['sudo', 'official.*', 'official.update'])) {
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'official.*', 'official.update'])) {
             return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
         }
 
         DB::beginTransaction();
 
         $validated = $request->validate([
-            'poster' => 'required',
             'year' => 'required|unique:officials,year',
+            'poster' => 'required',
         ], [
-            'poster.required' => 'Poster tidak boleh kosong.',
-
             'year.required' => 'Tahun tidak boleh kosong.',
             'year.unique' => 'Tahun sudah digunakan.',
+
+            'poster.required' => 'Poster tidak boleh kosong.',
         ]);
 
         try {
@@ -105,7 +105,7 @@ class OfficialController extends Controller
     public function update(Request $request, string $id)
     {
         // Reject request if user doesnt have any of required permissions
-        if (!$this->user->hasAnyPermission(['sudo', 'official.*', 'official.update'])) {
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'official.*', 'official.update'])) {
             return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
         }
 
@@ -154,7 +154,7 @@ class OfficialController extends Controller
     public function destroy(string $id)
     {
         // Reject request if user doesnt have any of required permissions
-        if (!$this->user->hasAnyPermission(['sudo', 'official.*', 'official.update'])) {
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'official.*', 'official.update'])) {
             return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
         }
 

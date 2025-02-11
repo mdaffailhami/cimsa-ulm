@@ -250,7 +250,7 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
-                        title: 'Validasi Error',
+                        title: 'Validasi Gagal',
                         html: `
                 <ul>
                     @foreach ($errors->all() as $error)

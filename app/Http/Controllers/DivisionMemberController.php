@@ -46,13 +46,11 @@ class DivisionMemberController extends Controller
         DB::beginTransaction();
 
         $validated = $request->validate([
-            'image' => 'required',
             'name' => 'required|string',
             'email' => 'required|email',
             'position' => 'required|string',
+            'image' => 'required',
         ], [
-            'image.required' => 'Gambar tidak boleh kosong.',
-
             'name.required' => 'Nama anggota tidak boleh kosong.',
             'name.string' => 'Nama anggota harus sebuah string.',
 
@@ -61,6 +59,8 @@ class DivisionMemberController extends Controller
 
             'position.required' => 'Posisi tidak boleh kosong',
             'position.string' => 'Posisi harus sebuah string.',
+
+            'image.required' => 'Gambar tidak boleh kosong.',
         ]);
 
         try {
@@ -112,13 +112,11 @@ class DivisionMemberController extends Controller
         DB::beginTransaction();
 
         $validated = $request->validate([
-            'image' => 'required',
             'name' => 'required|string',
             'email' => 'required|email',
             'position' => 'required|string',
+            'image' => 'required',
         ], [
-            'image.required' => 'Gambar tidak boleh kosong.',
-
             'name.required' => 'Nama anggota tidak boleh kosong.',
             'name.string' => 'Nama anggota harus sebuah string.',
 
@@ -127,6 +125,8 @@ class DivisionMemberController extends Controller
 
             'position.required' => 'Posisi tidak boleh kosong',
             'position.string' => 'Posisi harus sebuah string.',
+
+            'image.required' => 'Gambar tidak boleh kosong.',
         ]);
 
         try {

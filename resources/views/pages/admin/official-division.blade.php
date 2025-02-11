@@ -189,24 +189,26 @@
 
             document.addEventListener('DOMContentLoaded', function() {
                 // Initialize Tooltip
-                let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                    return new bootstrap.Tooltip(tooltipTriggerEl);
-                });
+
 
                 // Initialize Modal
                 let formModal = new bootstrap.Modal(document.getElementById('formModal'));
                 let deleteFormModal = new bootstrap.Modal(document.getElementById('deleteFormModal'));
 
                 // Handle the modal trigger for add and edit action
+                let mode = "create";
                 document.querySelectorAll('[data-bs-target="#formModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
+                        if (mode === 'edit') resetForm();
+
                         let actionUrl = button.getAttribute('data-action');
                         let division = JSON.parse(button.getAttribute('data-division'));
-                        let mode = button.getAttribute('data-mode');
+                        mode = button.getAttribute('data-mode');
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
+                            resetValidation();
+
                             document.getElementById('formModalLabel').textContent = 'Ubah Divisi';
                             document.getElementById('officialDivisionForm').setAttribute('action',
                                 actionUrl);
@@ -269,7 +271,7 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
-                        title: 'Validasi Error',
+                        title: 'Validasi Gagal',
                         html: `
                 <ul>
                     @foreach ($errors->all() as $error)

@@ -59,7 +59,7 @@
                             </div>
                             @error('contact_name')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                             </div>
                             @error('contact_email')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -91,7 +91,7 @@
                             </div>
                             @error('contact_phone')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -108,7 +108,7 @@
                             </div>
                             @error('contact_occupation')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -118,13 +118,14 @@
                         <div class="row mb-3">
                             <label for="contact_year" class="col-sm-2 col-form-label">Tahun Angkatan</label>
                             <div class="col-sm-6">
-                                <select id="contact_year" name="contact_year" class="form-select">
+                                <select id="contact_year" name="contact_year"
+                                    class="form-select @error('contact_year') is-invalid @enderror">
                                     <option selected disabled>Pilih Tahun</option>
                                 </select>
                             </div>
                             @error('contact_year')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -134,12 +135,13 @@
                         <div class="row mb-3">
                             <label for="avatar" class="col-sm-2 col-form-label">Foto narahubung</label>
                             <div class="col-sm-6">
-                                <input type="file" class="filepond" id="avatar" name="avatar"
-                                    accept="image/*">
+                                <input type="file"
+                                    class="filepond form-control @error('avatar') is-invalid @enderror" id="avatar"
+                                    name="avatar" accept="image/*">
                             </div>
                             @error('avatar')
                                 <div class="col-sm-6 offset-sm-2">
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-inline-block">
                                         {{ $message }}
                                     </div>
                                 </div>
@@ -148,61 +150,6 @@
 
                         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Profil Add/Edit Form Modal -->
-        <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="formModalLabel">Tambah Data Profil</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Add Profile Form -->
-                        <form id="profileForm" action="#" method="POST">
-                            @csrf
-                            <input type="hidden" name="_method" id="method" value="POST">
-
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">Close</button>
-                                <button id="submitButton" type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!-- Delete Confirmation Modal -->
-        <div class="modal fade" id="deleteFormModal" tabindex="-1" aria-labelledby="deleteFormModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteFormModalLabel">Hapus Data Profile</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Apakah Anda yakin ingin menghapus data profil ini?</p>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                        <form id="deleteProfileForm" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Hapus data</button>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>
@@ -427,20 +374,6 @@
 
                 initializeContentForm(contents)
                 initializeContactForm(contact)
-
-                // Initialize Modal
-                let formModal = new bootstrap.Modal(document.getElementById('formModal'));
-                let deleteFormModal = new bootstrap.Modal(document.getElementById('deleteFormModal'));
-
-                // Handle the modal trigger for delete action
-                document.querySelectorAll('[data-bs-target="#deleteFormModal"]').forEach(function(button) {
-                    button.addEventListener('click', async function() {
-                        let actionUrl = button.getAttribute('data-action');
-                        document.getElementById('deleteProfileForm').setAttribute('action',
-                            actionUrl);
-                    });
-                });
-
             });
         </script>
 
@@ -474,7 +407,7 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
-                        title: 'Validation Error!',
+                        title: 'Validasi Gagal!',
                         html: `
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -485,11 +418,7 @@
                         icon: 'error',
                         confirmButtonText: 'OK'
                     }).then((result) => {
-                        if (result.isConfirmed) {
-                            let formModal = new bootstrap.Modal(document.getElementById('formModal'));
 
-                            formModal.show();
-                        }
                     });;
 
 

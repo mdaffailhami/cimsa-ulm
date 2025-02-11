@@ -188,24 +188,27 @@
 
             document.addEventListener('DOMContentLoaded', function() {
                 // Initialize Tooltip
-                let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-                    return new bootstrap.Tooltip(tooltipTriggerEl);
-                });
+
 
                 // Initialize Modal
                 let formModal = new bootstrap.Modal(document.getElementById('formModal'));
                 let deleteFormModal = new bootstrap.Modal(document.getElementById('deleteFormModal'));
 
                 // Handle the modal trigger for add and edit action
+                let mode = 'create';
                 document.querySelectorAll('[data-bs-target="#formModal"]').forEach(function(button) {
                     button.addEventListener('click', function() {
+                        if (mode === 'edit') resetForm();
+
                         let actionUrl = button.getAttribute('data-action');
                         let page = JSON.parse(button.getAttribute('data-page'));
-                        let mode = button.getAttribute('data-mode');
+                        mode = button.getAttribute('data-mode');
 
                         // Update modal title and action URL for editing
                         if (mode === 'edit') {
+                            // clear form If mode was edit
+                            resetValidation();
+
                             document.getElementById('formModalLabel').textContent = 'Ubah Halaman';
                             document.getElementById('pageForm').setAttribute('action', actionUrl);
                             document.getElementById('submitButton').textContent = 'Ubah';
@@ -264,7 +267,7 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
-                        title: 'Validasi Error',
+                        title: 'Validasi Gagal',
                         html: `
                 <ul>
                     @foreach ($errors->all() as $error)
