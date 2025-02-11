@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="col-24 col-lg-24 col-xxl-24 d-flex">
-            <div class="card flex-fill" style="overflow-x: auto;">
+            <div class="card flex-fill">
                 <div class="card-header d-flex align-items-center justify-content-between">
 
                     <h5 class="card-title mb-0">Daftar Artikel</h5>
@@ -20,7 +20,7 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-md-5">
                             <form action="{{ route('article.index') }}" method="GET" class="input-group mb-3">
                                 <input type="text" class="form-control" name="search"
                                     placeholder="Cari judul, Penulis, Editor ..." aria-label="Search"
@@ -31,75 +31,79 @@
                         </div>
                     </div>
 
-                    <table class="table table-hover table-bordered my-0">
-                        <thead>
-                            <tr>
-                                <th class="bg-primary text-white">Judul</th>
-                                <th class="bg-primary text-white">Highlight</th>
-                                <th class="bg-primary text-white">Penulis</th>
-                                <th class="bg-primary text-white">Tanggal Publikasi</th>
-                                <th class="bg-primary text-white">Editor</th>
-                                <th class="bg-primary text-white">Tanggal Perubahan</th>
-                                <th class="bg-primary text-white" style="width: 250px">Cover</th>
-                                <th class="bg-primary text-white" style="width: 150px">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($posts->isEmpty())
+                    <div style="overflow-x: auto">
+                        <table class="table table-hover table-bordered my-0">
+                            <thead>
                                 <tr>
-                                    <td colspan="8" class="text-center text-muted py-4">
-                                        <i data-feather="file-text" class="mb-2" style="width: 24px; height:24px"></i>
-                                        <br>
-                                        <span>Tidak ada artikel yang tersedia.</span>
-                                    </td>
+                                    <th class="bg-primary text-white">Judul</th>
+                                    <th class="bg-primary text-white d-none d-md-table-cell">Highlight</th>
+                                    <th class="bg-primary text-white d-none d-md-table-cell">Penulis</th>
+                                    <th class="bg-primary text-white d-none d-md-table-cell">Tanggal Publikasi</th>
+                                    <th class="bg-primary text-white">Editor</th>
+                                    <th class="bg-primary text-white">Tanggal Perubahan</th>
+                                    <th class="bg-primary text-white d-none d-md-table-cell" style="width: 250px">Cover
+                                    </th>
+                                    <th class="bg-primary text-white" style="width: 150px">Aksi</th>
                                 </tr>
-                            @else
-                                @foreach ($posts as $post)
+                            </thead>
+                            <tbody>
+                                @if ($posts->isEmpty())
                                     <tr>
-                                        <td class="">{{ $post->title }}</td>
-                                        <td class="">{{ $post->highlight }}</td>
-                                        <td class="">{{ $post->author->full_name }}</td>
-                                        <td>
-                                            {{ $timeStamp = date('d M Y', strtotime($post->created_at)) }}
-                                        </td>
-                                        <td class="">{{ $post->editor->full_name }}</td>
-                                        <td>
-                                            {{ $timeStamp = date('d M Y', strtotime($post->updated_at)) }}
-                                        </td>
-                                        <td class="">
-                                            <img src="{{ $post->cover }}" class="img-thumbnail" style="width: 300px"
-                                                alt="{{ $post->slug }}">
-                                        </td>
-                                        <td class="">
-                                            <div class="d-flex justify-content-evenly">
-                                                {{-- Edit Button --}}
-                                                @canany(['sudo', 'post.*', 'post.update'])
-                                                    <div data-bs-toggle="tooltip" title="Ubah artikel">
-                                                        <a class="btn btn-warning text-dark"
-                                                            href="{{ route('article.edit', ['article' => $post->slug]) }}">
-                                                            <i class="align-middle" data-feather="edit"></i>
-                                                        </a>
-                                                    </div>
-                                                @endcanany
-
-                                                <!-- Delete Button -->
-                                                @canany(['sudo', 'post.*', 'post.delete'])
-                                                    <div data-bs-toggle="tooltip" title="Hapus artikel">
-                                                        <button type="button" class="btn btn-danger "
-                                                            data-bs-toggle="modal" data-bs-target="#deleteFormModal"
-                                                            data-action="{{ route('article.destroy', ['article' => $post->uuid]) }}">
-                                                            <i class="align-middle" data-feather="trash"></i>
-                                                        </button>
-                                                    </div>
-                                                @endcanany
-                                            </div>
+                                        <td colspan="8" class="text-center text-muted py-4">
+                                            <i data-feather="file-text" class="mb-2"
+                                                style="width: 24px; height:24px"></i>
+                                            <br>
+                                            <span>Tidak ada artikel yang tersedia.</span>
                                         </td>
                                     </tr>
-                                @endforeach
-                            @endif
+                                @else
+                                    @foreach ($posts as $post)
+                                        <tr>
+                                            <td class="">{{ $post->title }}</td>
+                                            <td class="d-none d-md-table-cell">{{ $post->highlight }}</td>
+                                            <td class="d-none d-md-table-cell">{{ $post->author->full_name }}</td>
+                                            <td class="d-none d-md-table-cell">
+                                                {{ $timeStamp = date('d M Y', strtotime($post->created_at)) }}
+                                            </td>
+                                            <td class="">{{ $post->editor->full_name }}</td>
+                                            <td>
+                                                {{ $timeStamp = date('d M Y', strtotime($post->updated_at)) }}
+                                            </td>
+                                            <td class="d-none d-md-table-cell">
+                                                <img src="{{ $post->cover }}" class="img-thumbnail"
+                                                    style="width: 300px" alt="{{ $post->slug }}">
+                                            </td>
+                                            <td class="">
+                                                <div class="d-flex justify-content-evenly">
+                                                    {{-- Edit Button --}}
+                                                    @canany(['sudo', 'post.*', 'post.update'])
+                                                        <div data-bs-toggle="tooltip" title="Ubah artikel">
+                                                            <a class="btn btn-warning text-dark"
+                                                                href="{{ route('article.edit', ['article' => $post->slug]) }}">
+                                                                <i class="align-middle" data-feather="edit"></i>
+                                                            </a>
+                                                        </div>
+                                                    @endcanany
 
-                        </tbody>
-                    </table>
+                                                    <!-- Delete Button -->
+                                                    @canany(['sudo', 'post.*', 'post.delete'])
+                                                        <div data-bs-toggle="tooltip" title="Hapus artikel">
+                                                            <button type="button" class="btn btn-danger "
+                                                                data-bs-toggle="modal" data-bs-target="#deleteFormModal"
+                                                                data-action="{{ route('article.destroy', ['article' => $post->uuid]) }}">
+                                                                <i class="align-middle" data-feather="trash"></i>
+                                                            </button>
+                                                        </div>
+                                                    @endcanany
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+
+                            </tbody>
+                        </table>
+                    </div>
 
                     {{-- Pagination --}}
                     <div class="mt-3">

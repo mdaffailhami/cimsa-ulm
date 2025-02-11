@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="col-24 col-lg-24 col-xxl-24 d-flex">
-            <div class="card flex-fill" style="overflow-x: auto;">
+            <div class="card flex-fill">
                 <div class="card-header d-flex align-items-center justify-content-between">
 
                     <h5 class="card-title mb-0">Daftar User</h5>
@@ -20,7 +20,7 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-md-5">
                             <form action="{{ route('user.index') }}" method="GET" class="input-group mb-3">
                                 <input type="text" class="form-control" name="search"
                                     placeholder="Cari username, nama, email ..." aria-label="Search"
@@ -31,75 +31,78 @@
                         </div>
                     </div>
 
-                    <table class="table table-hover table-bordered my-0">
-                        <thead>
-                            <tr>
-                                <th class="bg-primary text-white">Username</th>
-                                <th class="bg-primary text-white">Nama Lengkap</th>
-                                <th class="bg-primary text-white">Email</th>
-                                <th class="bg-primary text-white">Nomor HP</th>
-                                <th class="bg-primary text-white">Password</th>
-                                <th class="bg-primary text-white">Role</th>
-                                <th class="bg-primary text-white">Dibuat</th>
-                                <th class="bg-primary text-white" style="width: 150px">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($users->isEmpty())
+                    <div style="overflow-x: auto">
+                        <table class="table table-hover table-bordered my-0">
+                            <thead>
                                 <tr>
-                                    <td colspan="8" class="text-center text-muted py-4">
-                                        <i data-feather="user" class="mb-2" style="width: 24px; height:24px"></i>
-                                        <br>
-                                        <span>Tidak ada user yang tersedia.</span>
-                                    </td>
+                                    <th class="bg-primary text-white">Username</th>
+                                    <th class="bg-primary text-white">Nama Lengkap</th>
+                                    <th class="bg-primary text-white">Email</th>
+                                    <th class="bg-primary text-white">Nomor HP</th>
+                                    <th class="bg-primary text-white">Password</th>
+                                    <th class="bg-primary text-white">Role</th>
+                                    <th class="bg-primary text-white d-none d-md-table-cell">Dibuat</th>
+                                    <th class="bg-primary text-white" style="width: 150px">Aksi</th>
                                 </tr>
-                            @else
-                                @foreach ($users as $user)
+                            </thead>
+                            <tbody>
+                                @if ($users->isEmpty())
                                     <tr>
-                                        <td>{{ $user->username }}</td>
-                                        <td class="">{{ $user->full_name }}</td>
-                                        <td class="">{{ $user->email }}</td>
-                                        <td class="">{{ $user->phone }}</td>
-                                        <td class="">{{ $user->visible_password }}</td>
-                                        <td><span class="badge bg-primary p-2">{{ $user->role->display_name }}</span>
-                                        </td>
-                                        <td>
-                                            {{ $timeStamp = date('d M Y', strtotime($user->created_at)) }}
-                                        </td>
-                                        <td class="">
-                                            <div class="d-flex justify-content-evenly">
-                                                {{-- Edit Button --}}
-                                                @canany(['sudo', 'user.*', 'user.edit'])
-                                                    <div data-bs-toggle="tooltip" title="Ubah user">
-                                                        <button type="button"
-                                                            class="btn btn-warning text-dark {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }}"
-                                                            data-bs-toggle="modal" data-bs-target="#userModal"
-                                                            data-mode="edit"
-                                                            data-action="{{ route('user.update', ['user' => $user->uuid]) }}"
-                                                            data-user="{{ json_encode($user) }}">
-                                                            <i class="align-middle" data-feather="edit"></i>
-                                                        </button>
-                                                    </div>
-                                                @endcanany
-
-                                                <!-- Delete Button -->
-                                                @canany(['sudo', 'user.*', 'user.delete'])
-                                                    <div data-bs-toggle="tooltip" title='Hapus User'>
-                                                        <button type="button"
-                                                            class="btn btn-danger {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }} "
-                                                            data-bs-toggle="modal" data-bs-target="#deleteUserModal"
-                                                            data-action="{{ route('user.destroy', ['user' => $user->uuid]) }}">
-                                                            <i class="align-middle" data-feather="trash"></i>
-                                                        </button>
-                                                    </div>
-                                                @endcanany
-                                            </div>
+                                        <td colspan="8" class="text-center text-muted py-4">
+                                            <i data-feather="user" class="mb-2" style="width: 24px; height:24px"></i>
+                                            <br>
+                                            <span>Tidak ada user yang tersedia.</span>
                                         </td>
                                     </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
+                                @else
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <td>{{ $user->username }}</td>
+                                            <td class="">{{ $user->full_name }}</td>
+                                            <td class="">{{ $user->email }}</td>
+                                            <td class="">{{ $user->phone }}</td>
+                                            <td class="">{{ $user->visible_password }}</td>
+                                            <td><span
+                                                    class="badge bg-primary p-2">{{ $user->role->display_name }}</span>
+                                            </td>
+                                            <td class="d-none d-md-table-cell">
+                                                {{ $timeStamp = date('d M Y', strtotime($user->created_at)) }}
+                                            </td>
+                                            <td class="">
+                                                <div class="d-flex justify-content-evenly">
+                                                    {{-- Edit Button --}}
+                                                    @canany(['sudo', 'user.*', 'user.edit'])
+                                                        <div data-bs-toggle="tooltip" title="Ubah user">
+                                                            <button type="button"
+                                                                class="btn btn-warning text-dark {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }}"
+                                                                data-bs-toggle="modal" data-bs-target="#userModal"
+                                                                data-mode="edit"
+                                                                data-action="{{ route('user.update', ['user' => $user->uuid]) }}"
+                                                                data-user="{{ json_encode($user) }}">
+                                                                <i class="align-middle" data-feather="edit"></i>
+                                                            </button>
+                                                        </div>
+                                                    @endcanany
+
+                                                    <!-- Delete Button -->
+                                                    @canany(['sudo', 'user.*', 'user.delete'])
+                                                        <div data-bs-toggle="tooltip" title='Hapus User'>
+                                                            <button type="button"
+                                                                class="btn btn-danger {{ $user->role->name === 'super-administrator' ? 'disabled' : '' }} "
+                                                                data-bs-toggle="modal" data-bs-target="#deleteUserModal"
+                                                                data-action="{{ route('user.destroy', ['user' => $user->uuid]) }}">
+                                                                <i class="align-middle" data-feather="trash"></i>
+                                                            </button>
+                                                        </div>
+                                                    @endcanany
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
 
                     {{-- Pagination --}}
                     <div class="mt-3">

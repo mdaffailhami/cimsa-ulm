@@ -21,7 +21,7 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-md-5">
                             <form action="{{ route('category.index') }}" method="GET" class="input-group mb-3">
                                 <input type="text" class="form-control" name="search" placeholder="Cari Kategori..."
                                     aria-label="Search" value="{{ request('search') }}">

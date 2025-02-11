@@ -21,7 +21,7 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-md-5">
                             <form action="{{ route('training.index') }}" method="GET" class="input-group mb-3">
                                 <input type="text" class="form-control" name="search" placeholder="Cari Nama ..."
                                     aria-label="Search" value="{{ request('search') }}">
@@ -35,8 +35,9 @@
                         <thead>
                             <tr>
                                 <th class="bg-primary text-white">Nama</th>
-                                <th class="bg-primary text-white">Deskripsi</th>
-                                <th class="bg-primary text-white" style="width: 250px">Gambar</th>
+                                <th class="bg-primary text-white d-none d-md-table-cell">Deskripsi</th>
+                                <th class="bg-primary text-white d-none d-md-table-cell" style="width: 250px">Gambar
+                                </th>
                                 <th class="bg-primary text-white" style="width:150px">Aksi</th>
                             </tr>
                         </thead>
@@ -53,8 +54,8 @@
                                 @foreach ($trainings as $training)
                                     <tr>
                                         <td class="">{{ $training->name }}</td>
-                                        <td class="">{{ $training->description }}</td>
-                                        <td class="">
+                                        <td class="d-none d-md-table-cell">{{ $training->description }}</td>
+                                        <td class="d-none d-md-table-cell">
                                             <img src="{{ $training->image }}" class="img-thumbnail" style="width: 300px"
                                                 alt="{{ $training->name }}">
                                         </td>

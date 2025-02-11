@@ -24,7 +24,7 @@
                         <thead>
                             <tr>
                                 <th class="bg-primary text-white" style="width : 120px !important">Tahun</th>
-                                <th class="bg-primary text-white">Poster</th>
+                                <th class="bg-primary text-white d-none d-md-table-cell">Poster</th>
                                 <th class="bg-primary text-white" style="width : 200px !important">Aksi</th>
                             </tr>
                         </thead>
@@ -41,7 +41,7 @@
                                 @foreach ($officials as $official)
                                     <tr>
                                         <td class="">{{ $official->year }}</td>
-                                        <td class="text-center">
+                                        <td class="text-center d-none d-md-table-cell">
                                             <img src="{{ $official->poster }}" class="img-thumbnail"
                                                 style="width: 300px" alt="{{ $official->name }}">
                                         </td>

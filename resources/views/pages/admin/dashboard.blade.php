@@ -7,7 +7,7 @@
     <div class="row">
         {{-- Recent Artikel --}}
         <div class="col-12 col-lg-8 col-xxl-9 d-flex">
-            <div class="card flex-fill" style="overflow-x: auto;">
+            <div class="card flex-fill">
                 <div class="card-header d-flex align-items-center justify-content-between">
 
                     <h5 class="card-title mb-0">Artikel Terupdate</h5>
@@ -17,37 +17,41 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    <table class="table table-hover table-bordered my-0">
-                        <thead>
-                            <tr>
-                                <th class="bg-primary text-white">Judul</th>
-                                <th class="bg-primary text-white" style="width: 200px">Penulis</th>
-                                <th class="bg-primary text-white" style="width: 200px">Editor</th>
-                                <th class="bg-primary text-white" style="width: 150px">Tanggal</th>
-                                {{-- <th class="bg-primary text-white" style="width: 50px">Aksi</th> --}}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($articles->isEmpty())
+                    <div style="overflow-x: auto;">
+                        <table class="table table-hover table-bordered my-0">
+                            <thead>
                                 <tr>
-                                    <td colspan="4" class="text-center text-muted py-4">
-                                        <i data-feather="file-text" class="mb-2" style="width: 24px; height:24px"></i>
-                                        <br>
-                                        <span>Tidak ada artikel yang tersedia.</span>
-                                    </td>
+                                    <th class="bg-primary text-white">Judul</th>
+                                    <th class="bg-primary text-white" style="width: 200px">Penulis</th>
+                                    <th class="bg-primary text-white" style="width: 200px">Editor</th>
+                                    <th class="bg-primary text-white" style="width: 150px">Tanggal</th>
+                                    {{-- <th class="bg-primary text-white" style="width: 50px">Aksi</th> --}}
                                 </tr>
-                            @else
-                                @foreach ($articles as $article)
+                            </thead>
+                            <tbody>
+                                @if ($articles->isEmpty())
                                     <tr>
-                                        <td>{{ $article->title }}</td>
-                                        <td>{{ $article->author->full_name }}</td>
-                                        <td>{{ $article->editor->full_name }}</td>
-                                        <td>{{ date('d M Y', strtotime($article->updated_at)) }}</td>
+                                        <td colspan="4" class="text-center text-muted py-4">
+                                            <i data-feather="file-text" class="mb-2"
+                                                style="width: 24px; height:24px"></i>
+                                            <br>
+                                            <span>Tidak ada artikel yang tersedia.</span>
+                                        </td>
                                     </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
+                                @else
+                                    @foreach ($articles as $article)
+                                        <tr>
+                                            <td>{{ $article->title }}</td>
+                                            <td>{{ $article->author->full_name }}</td>
+                                            <td>{{ $article->editor->full_name }}</td>
+                                            <td>{{ date('d M Y', strtotime($article->updated_at)) }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>

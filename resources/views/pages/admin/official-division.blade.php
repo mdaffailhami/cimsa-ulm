@@ -25,7 +25,7 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-md-5">
                             <form action="{{ route('official.division.index', ['year' => $official->year]) }}"
                                 method="GET" class="input-group mb-3">
                                 <input type="text" class="form-control" name="search"

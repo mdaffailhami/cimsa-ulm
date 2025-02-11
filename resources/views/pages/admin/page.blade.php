@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="col-24 col-lg-24 col-xxl-24 d-flex">
-            <div class="card flex-fill" style="overflow-x: auto;">
+            <div class="card flex-fill">
                 <div class="card-header d-flex align-items-center justify-content-between">
 
                     <h5 class="card-title mb-0">Daftar Halaman</h5>
@@ -21,7 +21,7 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-md-5">
                             <form action="{{ route('page.index') }}" method="GET" class="input-group mb-3">
                                 <input type="text" class="form-control" name="search" placeholder="Cari Halaman ..."
                                     aria-label="Search" value="{{ request('search') }}">
@@ -31,72 +31,75 @@
                         </div>
                     </div>
 
-                    <table class="table table-hover table-bordered my-0">
-                        <thead>
-                            <tr>
-                                <th class="bg-primary text-white">Nama</th>
-                                <th class="bg-primary text-white">URL</th>
-                                <th class="bg-primary text-white" style="width: 200px">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($pages->isEmpty())
+                    <div style="overflow-x: auto;">
+                        <table class="table table-hover table-bordered my-0">
+                            <thead>
                                 <tr>
-                                    <td colspan="4" class="text-center text-muted py-4">
-                                        <i data-feather="layout" class="mb-2" style="width: 24px; height:24px"></i>
-                                        <br>
-                                        <span>Tidak ada halaman yang tersedia.</span>
-                                    </td>
+                                    <th class="bg-primary text-white">Nama</th>
+                                    <th class="bg-primary text-white">URL</th>
+                                    <th class="bg-primary text-white" style="width: 200px">Aksi</th>
                                 </tr>
-                            @else
-                                @foreach ($pages as $page)
+                            </thead>
+                            <tbody>
+                                @if ($pages->isEmpty())
                                     <tr>
-                                        <td class="">{{ $page->name }}</td>
-                                        <td class=""><a href="{{ $page->url }}"
-                                                target="_blank">{{ $page->url }}</a></td>
-                                        <td class="">
-                                            <div class="d-flex justify-content-evenly">
-                                                {{-- Preview Button --}}
-                                                @canany(['sudo', 'page-content-management'])
-                                                    <a class="btn btn-info"
-                                                        href="{{ route('page.edit', ['page' => $page->uri]) }}"
-                                                        data-bs-toggle="tooltip" title="Konten halaman">
-                                                        <i class="align-middle" data-feather="eye"></i>
-                                                    </a>
-                                                @endcanany
-
-
-                                                {{-- Edit Button --}}
-                                                @canany(['sudo', 'page.*', 'page.update'])
-                                                    <div data-bs-toggle="tooltip" title="Ubah halaman">
-                                                        <button type="button" class="btn btn-warning text-dark"
-                                                            data-bs-toggle="modal" data-bs-target="#formModal"
-                                                            data-mode="edit"
-                                                            data-action="{{ route('page.update', ['page' => $page->uuid]) }}"
-                                                            data-page="{{ json_encode($page) }}">
-                                                            <i class="align-middle" data-feather="edit"></i>
-                                                        </button>
-                                                    </div>
-                                                @endcanany
-
-                                                <!-- Delete Button -->
-                                                @canany(['sudo', 'page.*', 'page.delete'])
-                                                    <div data-bs-toggle="tooltip" title="Hapus halaman">
-                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                            data-bs-target="#deleteFormModal"
-                                                            data-action="{{ route('page.destroy', ['page' => $page->uuid]) }}">
-                                                            <i class="align-middle" data-feather="trash"></i>
-                                                        </button>
-                                                    </div>
-                                                @endcanany
-                                            </div>
+                                        <td colspan="4" class="text-center text-muted py-4">
+                                            <i data-feather="layout" class="mb-2"
+                                                style="width: 24px; height:24px"></i>
+                                            <br>
+                                            <span>Tidak ada halaman yang tersedia.</span>
                                         </td>
                                     </tr>
-                                @endforeach
-                            @endif
+                                @else
+                                    @foreach ($pages as $page)
+                                        <tr>
+                                            <td class="">{{ $page->name }}</td>
+                                            <td class=""><a href="{{ $page->url }}"
+                                                    target="_blank">{{ $page->url }}</a></td>
+                                            <td class="">
+                                                <div class="d-flex justify-content-evenly">
+                                                    {{-- Preview Button --}}
+                                                    @canany(['sudo', 'page-content-management'])
+                                                        <a class="btn btn-info"
+                                                            href="{{ route('page.edit', ['page' => $page->uri]) }}"
+                                                            data-bs-toggle="tooltip" title="Konten halaman">
+                                                            <i class="align-middle" data-feather="eye"></i>
+                                                        </a>
+                                                    @endcanany
 
-                        </tbody>
-                    </table>
+
+                                                    {{-- Edit Button --}}
+                                                    @canany(['sudo', 'page.*', 'page.update'])
+                                                        <div data-bs-toggle="tooltip" title="Ubah halaman">
+                                                            <button type="button" class="btn btn-warning text-dark"
+                                                                data-bs-toggle="modal" data-bs-target="#formModal"
+                                                                data-mode="edit"
+                                                                data-action="{{ route('page.update', ['page' => $page->uuid]) }}"
+                                                                data-page="{{ json_encode($page) }}">
+                                                                <i class="align-middle" data-feather="edit"></i>
+                                                            </button>
+                                                        </div>
+                                                    @endcanany
+
+                                                    <!-- Delete Button -->
+                                                    @canany(['sudo', 'page.*', 'page.delete'])
+                                                        <div data-bs-toggle="tooltip" title="Hapus halaman">
+                                                            <button type="button" class="btn btn-danger"
+                                                                data-bs-toggle="modal" data-bs-target="#deleteFormModal"
+                                                                data-action="{{ route('page.destroy', ['page' => $page->uuid]) }}">
+                                                                <i class="align-middle" data-feather="trash"></i>
+                                                            </button>
+                                                        </div>
+                                                    @endcanany
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+
+                            </tbody>
+                        </table>
+                    </div>
 
                     {{-- Pagination --}}
                     <div class="mt-3">

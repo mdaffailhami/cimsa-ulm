@@ -10,7 +10,7 @@
 
     <div class="row">
         <div class="col-24 col-lg-24 col-xxl-24 d-flex">
-            <div class="card flex-fill" style="overflow-x: auto;">
+            <div class="card flex-fill">
                 <div class="card-header d-flex align-items-center justify-content-between">
 
 
@@ -27,7 +27,7 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-md-5">
                             <form
                                 action="{{ route('official.division.member.index', ['year' => $official->year, 'id' => $division->id]) }}"
                                 method="GET" class="input-group mb-3">
@@ -40,71 +40,74 @@
                         </div>
                     </div>
 
-                    <table class="table table-hover table-bordered my-0">
-                        <thead>
-                            <tr>
-                                <th class="bg-primary text-white" style="width : 150px !important">Gambar</th>
-                                <th class="bg-primary text-white">Nama</th>
-                                <th class="bg-primary text-white">Email</th>
-                                <th class="bg-primary text-white">Posisi</th>
-                                <th class="bg-primary text-white" style="width : 150px !important">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($members->isEmpty())
+                    <div style="overflow-x: auto;">
+                        <table class="table table-hover table-bordered my-0">
+                            <thead>
                                 <tr>
-                                    <td colspan="4" class="text-center text-muted py-4">
-                                        <i data-feather="users" class="mb-2" style="width: 24px; height:24px"></i>
-                                        <br>
-                                        <span>Tidak ada divisi yang tersedia.</span>
-                                    </td>
+                                    <th class="bg-primary text-white d-none d-md-table-cell"
+                                        style="width : 150px !important">Gambar</th>
+                                    <th class="bg-primary text-white">Nama</th>
+                                    <th class="bg-primary text-white">Email</th>
+                                    <th class="bg-primary text-white">Posisi</th>
+                                    <th class="bg-primary text-white" style="width : 150px !important">Aksi</th>
                                 </tr>
-                            @else
-                                @foreach ($members as $member)
+                            </thead>
+                            <tbody>
+                                @if ($members->isEmpty())
                                     <tr>
-                                        <td class="text-center">
-                                            <img src="{{ $member->image }}" class="img-thumbnail" style="width: 250px"
-                                                alt="{{ $member->name }}">
-                                        </td>
-                                        <td class="">{{ $member->name }}</td>
-                                        <td class="">{{ $member->email }}</td>
-                                        <td class="">{{ $member->position }}</td>
-                                        <td>
-                                            <div class="d-flex justify-content-evenly">
-
-                                                {{-- Edit Button --}}
-                                                @canany(['sudo', 'official-division-member.*',
-                                                    'official-division-member.update'])
-                                                    <div data-bs-toggle="tooltip" title="Ubah anggota">
-                                                        <button type="button" class="btn btn-warning text-dark"
-                                                            data-bs-toggle="modal" data-bs-target="#formModal"
-                                                            data-mode="edit"
-                                                            data-action="{{ route('official.division.member.update', ['member' => $member->id]) }}"
-                                                            data-member="{{ json_encode($member) }}">
-                                                            <i class="align-middle" data-feather="edit"></i>
-                                                        </button>
-                                                    </div>
-                                                @endcanany
-
-                                                <!-- Delete Button -->
-                                                @canany(['sudo', 'official-division-member.*',
-                                                    'official-division-member.delete'])
-                                                    <div data-bs-toggle="tooltip" title="Hapus anggota">
-                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                            data-bs-target="#deleteFormModal"
-                                                            data-action="{{ route('official.division.member.destroy', ['member' => $member->id]) }}">
-                                                            <i class="align-middle" data-feather="trash"></i>
-                                                        </button>
-                                                    </div>
-                                                @endcanany
-
-                                            </div>
+                                        <td colspan="4" class="text-center text-muted py-4">
+                                            <i data-feather="users" class="mb-2" style="width: 24px; height:24px"></i>
+                                            <br>
+                                            <span>Tidak ada divisi yang tersedia.</span>
                                         </td>
                                     </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
+                                @else
+                                    @foreach ($members as $member)
+                                        <tr>
+                                            <td class="text-center d-none d-md-table-cell">
+                                                <img src="{{ $member->image }}" class="img-thumbnail"
+                                                    style="width: 250px" alt="{{ $member->name }}">
+                                            </td>
+                                            <td class="">{{ $member->name }}</td>
+                                            <td class="">{{ $member->email }}</td>
+                                            <td class="">{{ $member->position }}</td>
+                                            <td>
+                                                <div class="d-flex justify-content-evenly">
+
+                                                    {{-- Edit Button --}}
+                                                    @canany(['sudo', 'official-division-member.*',
+                                                        'official-division-member.update'])
+                                                        <div data-bs-toggle="tooltip" title="Ubah anggota">
+                                                            <button type="button" class="btn btn-warning text-dark"
+                                                                data-bs-toggle="modal" data-bs-target="#formModal"
+                                                                data-mode="edit"
+                                                                data-action="{{ route('official.division.member.update', ['member' => $member->id]) }}"
+                                                                data-member="{{ json_encode($member) }}">
+                                                                <i class="align-middle" data-feather="edit"></i>
+                                                            </button>
+                                                        </div>
+                                                    @endcanany
+
+                                                    <!-- Delete Button -->
+                                                    @canany(['sudo', 'official-division-member.*',
+                                                        'official-division-member.delete'])
+                                                        <div data-bs-toggle="tooltip" title="Hapus anggota">
+                                                            <button type="button" class="btn btn-danger"
+                                                                data-bs-toggle="modal" data-bs-target="#deleteFormModal"
+                                                                data-action="{{ route('official.division.member.destroy', ['member' => $member->id]) }}">
+                                                                <i class="align-middle" data-feather="trash"></i>
+                                                            </button>
+                                                        </div>
+                                                    @endcanany
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
 
                     {{-- Pagination --}}
                     <div class="mt-3">
