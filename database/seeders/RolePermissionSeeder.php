@@ -15,7 +15,6 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('model_has_permissions')->truncate();
         DB::table('model_has_roles')->truncate();
         DB::table('role_has_permissions')->truncate();
         DB::table('permissions')->truncate();
@@ -174,6 +173,9 @@ class RolePermissionSeeder extends Seeder
                     'official-division-member-management',
                     'official-division-member.*',
 
+                    'official-management',
+                    'official.*',
+
                     'program-management',
                     'program.*',
 
@@ -184,6 +186,7 @@ class RolePermissionSeeder extends Seeder
                     'committe-detail.*',
 
                     'training-management',
+                    'training.update',
                     'training.delete',
                 ]
             ],
@@ -216,18 +219,34 @@ class RolePermissionSeeder extends Seeder
 
     protected function createRole($data)
     {
-        $role = Role::create([
-            'name' => $data['name']
-        ]);
+        $role = Role::where('name', $data)->first();
+
+        if (!$role) {
+            $role = Role::create([
+                'name' => $data['name']
+            ]);
+        } else {
+            $role = $role->update([
+                'name' => $data['name']
+            ]);
+        }
 
         return $role;
     }
 
     protected function createPermission($data)
     {
-        $permission = Permission::create([
-            'name' => $data
-        ]);
+        $permission = Permission::where('name', $data)->first();
+
+        if (!$permission) {
+            $permission = Permission::create([
+                'name' => $data
+            ]);
+        } else {
+            $permission = $permission->update([
+                'name' => $data
+            ]);
+        }
 
         return $permission;
     }

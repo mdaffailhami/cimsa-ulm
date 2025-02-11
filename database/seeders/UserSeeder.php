@@ -15,6 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('model_has_permissions')->truncate();
         DB::table('users')->truncate();
 
         $admins = User::factory()->count(4)->role('administrator')->create();
