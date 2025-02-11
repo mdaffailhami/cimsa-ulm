@@ -7,7 +7,7 @@
     <div class="row">
         {{-- Recent Artikel --}}
         <div class="col-12 col-lg-8 col-xxl-9 d-flex">
-            <div class="card flex-fill">
+            <div class="card flex-fill" style="overflow-x: auto;">
                 <div class="card-header d-flex align-items-center justify-content-between">
 
                     <h5 class="card-title mb-0">Artikel Terupdate</h5>
