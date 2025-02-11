@@ -19,9 +19,12 @@ class UserController extends Controller
         $users = User::with('roles')->whereHas('roles', fn($q) => $q->whereNot('name',  'super-administrator'))->oldest();
 
         if ($request->search) {
-            $users = $users->where('username', 'LIKE', "%$request->search%")
-                ->orWhere('full_name', 'LIKE', "%$request->search%")
-                ->orWhere('email', 'LIKE', "%$request->search%");
+            $users = $users->where(
+                fn($q) =>
+                $q->where('username', 'LIKE', "%{$request->search}%")
+                    ->orWhere('full_name', 'LIKE', "%{$request->search}%")
+                    ->orWhere('email', 'LIKE', "%{$request->search}%")
+            );
         }
 
         $users = $users->paginate(5);
