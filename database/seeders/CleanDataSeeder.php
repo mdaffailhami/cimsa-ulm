@@ -32,6 +32,11 @@ class CleanDataSeeder extends Seeder
         DB::table('categories')->truncate();
         DB::table('posts')->truncate();
 
+        $this->call([
+            PageSeeder::class,
+            ProfileSeeder::class,
+        ]);
+
         Schema::enableForeignKeyConstraints();
     }
 }
