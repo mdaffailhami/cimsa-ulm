@@ -64,15 +64,19 @@ class User extends Authenticatable
 
     public function getRoleAttribute()
     {
-        $role = $this->roles[0];
-        $display_name  = collect(explode('-', $role->name))
-            ->map(fn($word) => ucfirst($word))
-            ->join(' ');
+        if ($this->roles->isEmpty()) {
+            return null;
+        } else {
+            $role = $this->roles[0];
+            $display_name  = collect(explode('-', $role->name))
+                ->map(fn($word) => ucfirst($word))
+                ->join(' ');
 
-        return (object)[
-            "name" => $role->name,
-            "display_name" => $display_name
-        ];
+            return (object)[
+                "name" => $role->name,
+                "display_name" => $display_name
+            ];
+        }
     }
 
     public function posts()

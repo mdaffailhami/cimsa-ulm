@@ -17,7 +17,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::with('roles', 'permissions')->whereHas('roles', fn($q) => $q->whereNot('name',  'super-administrator'))->oldest();
+        $users = User::with('roles', 'permissions')
+            ->whereHas('roles', fn($q) => $q->whereNot('name',  'super-administrator'))
+            ->orWhereDoesntHave('roles')
+            ->orWhereDoesntHave('permissions')
+            ->oldest();
 
         if ($request->search) {
             $users = $users->where(
@@ -61,7 +65,6 @@ class UserController extends Controller
             'full_name' => 'required|string',
             'email' => 'required|email|unique:users',
             'phone' => 'required|string|max:13',
-            'role' => 'required',
         ], [
             'username.required' => 'Username tidak boleh kosong.',
             'username.string' => 'Username harus sebuah string.',
@@ -78,8 +81,6 @@ class UserController extends Controller
             'phone.required' => 'Nomor HP tidak boleh kosong',
             'phone.string' => 'Nomor HP harus sebuah string.',
             'phone.max' => 'Nomor HP tidak boleh melebihi 13 karakter.',
-
-            'role.required' => 'Role tidak boleh kosong',
         ]);
 
         try {
@@ -96,7 +97,10 @@ class UserController extends Controller
 
             $user->save();
 
-            $user->assignRole($validated['role']);
+            if ($request->role) {
+                $user->assignRole($request->role);
+            }
+
             $user->syncPermissions($request->permissions);
 
             DB::commit();
@@ -147,7 +151,6 @@ class UserController extends Controller
             'full_name' => 'required|string',
             'email' => 'required|email|unique:users,email,' . $id . ',uuid',
             'phone' => 'required|string|max:13|unique:users,phone,' . $id . ',uuid',
-            'role' => 'required',
         ], [
             'username.required' => 'Username tidak boleh kosong.',
             'username.string' => 'Username harus sebuah string.',
@@ -165,8 +168,6 @@ class UserController extends Controller
             'phone.string' => 'Nomor HP harus sebuah string.',
             'phone.max' => 'Nomor HP tidak boleh melebihi 13 karakter.',
             'phone.unique' => 'Nomor HP sudah digunakan',
-
-            'role.required' => 'Role tidak boleh kosong',
         ]);
 
         try {
@@ -179,7 +180,8 @@ class UserController extends Controller
 
             $user->save();
 
-            $user->syncRoles([$validated['role']]);
+            $user->syncRoles([$request->role]);
+
             $user->syncPermissions($request->permissions);
 
             DB::commit();

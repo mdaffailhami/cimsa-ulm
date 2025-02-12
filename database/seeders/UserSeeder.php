@@ -15,6 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('model_has_roles')->truncate();
         DB::table('model_has_permissions')->truncate();
         DB::table('users')->truncate();
 

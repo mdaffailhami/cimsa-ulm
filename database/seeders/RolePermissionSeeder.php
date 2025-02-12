@@ -15,10 +15,7 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('model_has_roles')->truncate();
         DB::table('role_has_permissions')->truncate();
-        DB::table('permissions')->truncate();
-        DB::table('roles')->truncate();
 
         $list_permissions = [
             'sudo',
@@ -107,6 +104,12 @@ class RolePermissionSeeder extends Seeder
             'training.create',
             'training.update',
             'training.delete',
+
+            'role-management',
+            'role.*',
+            'role.create',
+            'role.update',
+            'role.delete'
         ];
 
         $list_role = [
@@ -156,6 +159,9 @@ class RolePermissionSeeder extends Seeder
 
                     'training-management',
                     'training.*',
+
+                    'role-management',
+                    'role.*'
                 ]
             ],
             [

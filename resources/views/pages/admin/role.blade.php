@@ -57,7 +57,7 @@
                                                 @canany(['sudo', 'role.*', 'role.update'])
                                                     <div data-bs-toggle="tooltip" title='Ubah role'>
                                                         <button type="button"
-                                                            class="btn btn-warning text-dark {{ $role->name === 'super-administrator' ? 'disabled' : '' }}"
+                                                            class="btn btn-warning text-dark {{ $role->name === 'super-administrator' || $role->name === 'administrator' ? 'disabled' : '' }}"
                                                             data-bs-toggle="modal" data-bs-target="#formModal"
                                                             data-mode="edit"
                                                             data-action="{{ route('role.update', ['role' => $role->id]) }}"
@@ -71,7 +71,7 @@
                                                 @canany(['sudo', 'role.*', 'role.delete'])
                                                     <div data-bs-toggle="tooltip" title='Hapus role'>
                                                         <button type="button"
-                                                            class="btn btn-danger {{ $role->name === 'super-administrator' ? 'disabled' : '' }} "
+                                                            class="btn btn-danger {{ $role->name === 'super-administrator' || $role->name === 'administrator' ? 'disabled' : '' }} "
                                                             data-bs-toggle="modal" data-bs-target="#deleteFormModal"
                                                             data-action="{{ route('role.destroy', ['role' => $role->id]) }}">
                                                             <i class="align-middle" data-feather="trash"></i>
