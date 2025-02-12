@@ -10,7 +10,9 @@ class CommitteTestimony extends Model
         "committe_id",
         "image",
         "name",
-        "position",
+        "description",
+        "occupation",
+        'year',
         "content"
     ];
 }
