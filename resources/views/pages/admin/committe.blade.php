@@ -128,7 +128,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="name" class="form-label">Nama Komite</label>
+                                <label for="name" class="form-label">Warna Komite</label>
                                 <input type="color"
                                     class="form-control form-control-color @error('color') is-invalid @enderror"
                                     id="color" name="color" title="Pilih Warna" required>
