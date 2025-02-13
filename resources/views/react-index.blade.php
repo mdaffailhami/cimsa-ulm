@@ -4,7 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="javascript-dependent" content="true" />
-    <script type="module" crossorigin src="/assets/index-uq-8NhA6.js"></script>
+
+    <title>{{ $meta['title'] }}</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="author" content="CIMSA ULM" />
+    <meta
+      name="description"
+      content="{{ $meta['description'] }}"
+    />
+
+    <meta property="og:title" content="{{ $meta['title'] }}">
+    <meta property="og:description" content="{{ $meta['description'] }}">
+    <meta property="og:image" content="{{ $meta['image'] }}">
+    <meta property="og:type" content="{{ $meta['type'] }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+
+    <script type="module" crossorigin src="/assets/index-BjBrhfFm.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-DOkt4nC3.css">
   </head>
   <body>

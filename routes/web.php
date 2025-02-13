@@ -18,12 +18,39 @@ use App\Models\OfficialDivision;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+// This route is used to handle the post detail page.
+Route::get('/blog/detail/{slug}', function (Request $request, $slug) {
+    $response = Http::get(url("/api/post/{$slug}"));
+
+    if ($response->failed()) {
+        abort(404);
+    }
+
+    $data = $response->json("data");
+
+    return view('react-index', [
+        'meta' => [
+            'title' => $data['title'] . ' - CIMSA ULM' ?? 'Blog Post - CIMSA ULM',
+            'description' => $data['highlight'] ?? '',
+            'image' => $data['cover'] ?? url('/logo.png'),
+            'type' => 'article'
+        ]
+    ]);
+})->where('slug', '.*');
+
 // This route will catch all non-defined routes and return the react-index view.
 // This is necessary because the frontend is a SPA and the backend should not
 // return a 404 error when a route is not found. Instead, the react-index view
 // should be returned and the frontend will handle the route from there.
 Route::fallback(function () {
-    return view('react-index');
+    return view('react-index', [
+        'meta' => [
+            'title' => 'CIMSA ULM',
+            'description' => 'CIMSA (Center for Indonesian Medical Students’ Activities) is an independent, non-profit and non-governmental organization, that centers on the Sustainable Development Goals.',
+            'image' => url('/logo.png'),
+            'type' => 'organization'
+        ]
+    ]);
 });
 
 Route::prefix('/admin')->group(function () {
