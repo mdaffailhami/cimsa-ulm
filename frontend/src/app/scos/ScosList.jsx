@@ -14,7 +14,7 @@ export default function ScosList({ scos }) {
       `}
     >
       {scos.map((sco, i) => (
-        <ScoCard key={i + 1} sco={sco} />
+        <ScoCard key={i + 1} sco={sco} isComingSoon={!sco.background} />
       ))}
     </Container>
   );

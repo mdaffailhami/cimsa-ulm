@@ -24,6 +24,7 @@ import ScosPage from './app/scos/ScosPage';
 import ScoDetailPage from './app/scos/detail/ScoDetailPage';
 import { CimsaStateProvider } from './states/Cimsa';
 import { HelmetProvider } from 'react-helmet-async';
+import { ErrorBoundary } from 'react-error-boundary';
 
 createRoot(document.getElementById('app')).render(<App />);
 
@@ -48,7 +49,14 @@ function App() {
               <Route path='about-us' element={<AboutUsPage />} />
               <Route path='about-ifmsa' element={<AboutIFMSAPage />} />
               <Route path='scos' element={<ScosPage />} />
-              <Route path='scos/:name' element={<ScoDetailPage />} />
+              <Route
+                path='scos/:name'
+                element={
+                  <ErrorBoundary fallback={<Navigate to='/scos' replace />}>
+                    <ScoDetailPage />
+                  </ErrorBoundary>
+                }
+              />
               <Route path='activities' element={<ActivitiesPage />} />
               <Route path='programs' element={<ProgramsPage />} />
               <Route path='trainings' element={<TrainingsPage />} />

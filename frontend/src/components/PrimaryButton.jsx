@@ -9,11 +9,13 @@ export default function PrimaryButton({
   aos = 'zoom-in',
   color = 'red',
   isLarge = true,
+  isDisabled = false,
   children,
 }) {
   return (
     <div data-aos-duration='1200' data-aos={aos} data-aos-once='true'>
       <Button
+        disabled={isDisabled}
         as={Link}
         to={to}
         target={target}

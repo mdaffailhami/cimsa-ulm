@@ -3,7 +3,7 @@ import PrimaryButton from '../../components/PrimaryButton';
 import { css } from '@emotion/react';
 import { getOnHoverAnimationCss } from '../../utils';
 
-export default function ScoCard({ sco }) {
+export default function ScoCard({ sco, isComingSoon = false }) {
   return (
     <div data-aos='fade' data-aos-duration='1200' data-aos-once='true'>
       <div
@@ -48,11 +48,11 @@ export default function ScoCard({ sco }) {
             {sco.description} {sco.description}
           </p>
           <PrimaryButton
-            to={`/scos/${sco.name.toLowerCase()}`}
+            to={isComingSoon ? '' : `/scos/${sco.name.toLowerCase()}`}
             color={sco.color}
             isLarge={false}
           >
-            More on {sco.name}
+            {isComingSoon ? 'Coming Soon' : `More on ${sco.name}`}
           </PrimaryButton>
         </div>
       </div>

@@ -22,6 +22,7 @@
         "filepond": "^4.32.7",
         "filepond-plugin-image-preview": "^4.6.12",
         "react-dom": "^19.0.0",
+        "react-error-boundary": "^5.0.0",
         "sweetalert2": "^11.15.10"
     }
 }
