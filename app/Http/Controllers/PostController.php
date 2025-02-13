@@ -20,13 +20,16 @@ class PostController extends Controller
 
         $pagination_limit = $request->limit ? (int)$request->limit : 3;
 
+        $now = Carbon::now();
+        $posts = Post::where('created_at', '<=', $now)->latest();
+
         if ($request->category) {
-            $posts = Post::with('categories')->whereHas('categories', function ($q) use ($request) {
+            $posts = $posts->with('categories')->whereHas('categories', function ($q) use ($request) {
                 $q->where('name', $request->category);
-            })->paginate($pagination_limit);
-        } else {
-            $posts = Post::paginate($pagination_limit);
+            });
         }
+
+        $posts = $posts->paginate($pagination_limit);
 
         return response()->json([
             "data" => PostResource::collection($posts),
@@ -94,6 +97,7 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'highlight' => 'required',
             'content' => 'required',
+            'created_at' => 'required|date',
             'cover' => 'required',
             'categories' => 'required',
         ], [
@@ -105,6 +109,9 @@ class PostController extends Controller
             'highlight.required' => 'Ringkasan tidak boleh kosong',
 
             'content.required' => 'Konten tidak boleh kosong',
+
+            'created_at.required' => 'Tanggal publikasi tidak boleh kosong',
+            'created_at.date' => 'Format tanggal publikasi harus berupa tanggal',
 
             'cover.required' => 'Sampul artikel tidak boleh kosong',
 
@@ -127,6 +134,7 @@ class PostController extends Controller
             $article->highlight = $validated['highlight'];
             $article->content = $validated['content'];
             $article->cover = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
+            $article->created_at = Carbon::parse($request->created_at)->toDateTimeString();
 
             $article->save();
 
@@ -179,6 +187,7 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'highlight' => 'required',
             'content' => 'required',
+            'created_at' => 'required|date',
             'cover' => 'required',
             'categories' => 'required',
         ], [
@@ -190,6 +199,9 @@ class PostController extends Controller
             'highlight.required' => 'Ringkasan tidak boleh kosong',
 
             'content.required' => 'Konten tidak boleh kosong',
+
+            'created_at.required' => 'Tanggal publikasi tidak boleh kosong',
+            'created_at.date' => 'Format tanggal publikasi harus berupa tanggal',
 
             'cover.required' => 'Sampul artikel tidak boleh kosong',
 
@@ -213,6 +225,7 @@ class PostController extends Controller
             $article->slug = Str::slug($validated['title']);
             $article->highlight = $validated['highlight'];
             $article->content = $validated['content'];
+            $article->created_at = Carbon::parse($request->created_at)->toDateTimeString();
 
             $article->save();
 

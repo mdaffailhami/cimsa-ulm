@@ -76,6 +76,23 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="created_at" class="col-sm-2 col-form-label">Tanggal Publikasi</label>
+                            <div class="col-sm-2">
+                                <input type="date" class="form-control @error('created_at') is-invalid @enderror"
+                                    id="created_at" name="created_at" placeholder="Masukkan Judul..."
+                                    value="{{ old('created_at') ?? (isset($post) ? $post->created_at->format('Y-m-d') : '') }}"
+                                    required>
+                            </div>
+                            @error('created_at')
+                                <div class="col-sm-6 offset-sm-2">
+                                    <div class="invalid-feedback d-inline-block text-md">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="cover" class="col-sm-2 col-form-label">Sampul Artikel</label>
                             <div class="col-sm-6">
                                 <input type="file" class="filepond form-control @error('cover') is-invalid @enderror"

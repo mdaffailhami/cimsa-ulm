@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,8 +21,19 @@ class Post extends Model
         'title',
         'slug',
         'highlight',
-        'content'
+        'content',
+        'created_at',
     ];
+
+    protected $appends = [
+        "is_published"
+    ];
+
+    public function getIsPublishedAttribute()
+    {
+        $now = Carbon::now()->toDateTimeString();
+        return $now > $this->created_at;
+    }
 
     public function author()
     {

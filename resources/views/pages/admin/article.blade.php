@@ -13,7 +13,7 @@
                     {{-- Add Button --}}
                     @canany(['sudo', 'post.*', 'post.create'])
                         <a class="btn btn-primary d-flex align-items-center" href="{{ route('article.create') }}">
-                            Tambah Artikel <i class="align-middle" data-feather="plus"></i>
+                            Tambah Artikel <i class="ms-2 align-middle" data-feather="plus"></i>
                         </a>
                     @endcanany
                 </div>
@@ -43,6 +43,7 @@
                                     <th class="bg-primary text-white">Tanggal Perubahan</th>
                                     <th class="bg-primary text-white d-none d-md-table-cell" style="width: 250px">Cover
                                     </th>
+                                    <th class="bg-primary text-white">Status</th>
                                     <th class="bg-primary text-white" style="width: 150px">Aksi</th>
                                 </tr>
                             </thead>
@@ -73,6 +74,15 @@
                                                 <img src="{{ $post->cover }}" class="img-thumbnail"
                                                     style="width: 300px" alt="{{ $post->slug }}">
                                             </td>
+
+                                            <td>
+                                                @if ($post->is_published)
+                                                    <span class="badge bg-success p-2">Published</span>
+                                                @else
+                                                    <span class="badge bg-primary p-2">Scheduled</span>
+                                                @endif
+                                            </td>
+
                                             <td class="">
                                                 <div class="d-flex justify-content-evenly">
                                                     {{-- Edit Button --}}
