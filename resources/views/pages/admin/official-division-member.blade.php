@@ -55,10 +55,10 @@
                             <tbody>
                                 @if ($members->isEmpty())
                                     <tr>
-                                        <td colspan="4" class="text-center text-muted py-4">
+                                        <td colspan="5" class="text-center text-muted py-4">
                                             <i data-feather="users" class="mb-2" style="width: 24px; height:24px"></i>
                                             <br>
-                                            <span>Tidak ada divisi yang tersedia.</span>
+                                            <span>Tidak ada aggota divisi yang tersedia.</span>
                                         </td>
                                     </tr>
                                 @else
