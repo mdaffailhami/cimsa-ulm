@@ -24,7 +24,7 @@ export default function ScoCard({ sco }) {
           src={sco.logo}
           alt={sco.name}
           css={css`
-            width: 100%;
+            width: 449px;
             height: 200px;
             object-fit: cover;
           `}
