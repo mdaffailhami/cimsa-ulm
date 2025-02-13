@@ -174,19 +174,23 @@ export default function Navbar() {
                       );
                     }
 
-                    return scos.data.map((sco, i) => (
-                      <NavDropdown.Item
-                        key={i + 1}
-                        as={Link}
-                        to={`/scos/${sco.name.toLowerCase()}`}
-                        active={
-                          location.pathname ===
-                          `/scos/${sco.name.toLowerCase()}`
-                        }
-                      >
-                        {sco.name}
-                      </NavDropdown.Item>
-                    ));
+                    return scos.data.map((sco, i) => {
+                      if (!sco.background) return null;
+
+                      return (
+                        <NavDropdown.Item
+                          key={i + 1}
+                          as={Link}
+                          to={`/scos/${sco.name.toLowerCase()}`}
+                          active={
+                            location.pathname ===
+                            `/scos/${sco.name.toLowerCase()}`
+                          }
+                        >
+                          {sco.name}
+                        </NavDropdown.Item>
+                      );
+                    });
                   })()}
                 </NavDropdown>
                 <NavDropdown
