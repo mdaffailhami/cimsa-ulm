@@ -43,6 +43,26 @@ services:
     networks:
       - laravel
 
+  # phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: ${APP_NAME}_phpmyadmin
+    ports:
+      - 8081:80
+    depends_on:
+      - db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      PMA_HOST: docker_db
+      MAX_EXECUTION_TIME: 3000
+      MEMORY_LIMIT: 512M
+      UPLOAD_LIMIT: 512M
+    networks:
+      - laravel
+
+
 networks:
   laravel:
 

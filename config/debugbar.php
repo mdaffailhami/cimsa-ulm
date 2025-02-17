@@ -14,7 +14,7 @@ return [
      |
      */
 
-    'enabled' => env('APP_MODE') === 'dev' ? env('DEBUGBAR_ENABLED', true) : false, // On development turn on the debug bar
+    'enabled' => env('DEBUGBAR_ENABLED', false), //
     'hide_empty_tabs' => false, // Hide tabs until they have content
     'except' => [
         'telescope*',
