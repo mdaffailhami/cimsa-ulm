@@ -2,29 +2,34 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Aos from 'aos';
-import { StrictMode } from 'react';
+import { lazy, StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
-import NotFoundPage from './404';
-import AboutUsPage from './app/about-us/AboutUsPage';
-import HomePage from './app/home/HomePage';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import { Global, css } from '@emotion/react';
-import ContactUsPage from './app/contact-us/ContactUsPage';
-import AlumniSeniorPage from './app/alumni-senior/AlumniSeniorPage';
-import ProgramsPage from './app/programs/ProgramsPage';
-import OfficialsPage from './app/officials/OfficialsPage';
-import AboutIFMSAPage from './app/about-ifmsa/AboutIFMSAPage';
-import TrainingsPage from './app/trainings/TrainingsPage';
-import ActivitiesPage from './app/activities/ActivitiesPage';
-import BlogPage from './app/blog/BlogPage';
-import PostDetailPage from './app/blog/detail/PostDetailPage';
-import ScosPage from './app/scos/ScosPage';
-import ScoDetailPage from './app/scos/detail/ScoDetailPage';
 import { CimsaStateProvider } from './states/Cimsa';
 import { HelmetProvider } from 'react-helmet-async';
 import { ErrorBoundary } from 'react-error-boundary';
+import LoadingPage from './components/LoadingPage';
+
+// Lazy load pages for code splitting
+const NotFoundPage = lazy(() => import('./404'));
+const AboutUsPage = lazy(() => import('./app/about-us/AboutUsPage'));
+const HomePage = lazy(() => import('./app/home/HomePage'));
+const ContactUsPage = lazy(() => import('./app/contact-us/ContactUsPage'));
+const AlumniSeniorPage = lazy(() =>
+  import('./app/alumni-senior/AlumniSeniorPage')
+);
+const ProgramsPage = lazy(() => import('./app/programs/ProgramsPage'));
+const OfficialsPage = lazy(() => import('./app/officials/OfficialsPage'));
+const AboutIFMSAPage = lazy(() => import('./app/about-ifmsa/AboutIFMSAPage'));
+const TrainingsPage = lazy(() => import('./app/trainings/TrainingsPage'));
+const ActivitiesPage = lazy(() => import('./app/activities/ActivitiesPage'));
+const BlogPage = lazy(() => import('./app/blog/BlogPage'));
+const PostDetailPage = lazy(() => import('./app/blog/detail/PostDetailPage'));
+const ScosPage = lazy(() => import('./app/scos/ScosPage'));
+const ScoDetailPage = lazy(() => import('./app/scos/detail/ScoDetailPage'));
 
 createRoot(document.getElementById('app')).render(<App />);
 
@@ -39,32 +44,34 @@ function App() {
         <BrowserRouter>
           <Navbar />
           <CimsaStateProvider>
-            <Routes>
-              <Route index element={<HomePage />} />
-              <Route path='landing' element={<Navigate to='/' replace />} />
-              <Route path='blog' element={<BlogPage />} />
-              <Route path='blog/detail/:slug' element={<PostDetailPage />} />
-              <Route path='blog/:category' element={<BlogPage />} />
-              <Route path='blog/:category/:page' element={<BlogPage />} />
-              <Route path='about-us' element={<AboutUsPage />} />
-              <Route path='about-ifmsa' element={<AboutIFMSAPage />} />
-              <Route path='scos' element={<ScosPage />} />
-              <Route
-                path='scos/:name'
-                element={
-                  <ErrorBoundary fallback={<Navigate to='/scos' replace />}>
-                    <ScoDetailPage />
-                  </ErrorBoundary>
-                }
-              />
-              <Route path='activities' element={<ActivitiesPage />} />
-              <Route path='programs' element={<ProgramsPage />} />
-              <Route path='trainings' element={<TrainingsPage />} />
-              <Route path='officials' element={<OfficialsPage />} />
-              <Route path='alumni-senior' element={<AlumniSeniorPage />} />
-              <Route path='contact-us' element={<ContactUsPage />} />
-              <Route path='*' element={<NotFoundPage />} />
-            </Routes>
+            <Suspense fallback={<LoadingPage />}>
+              <Routes>
+                <Route index element={<HomePage />} />
+                <Route path='landing' element={<Navigate to='/' replace />} />
+                <Route path='blog' element={<BlogPage />} />
+                <Route path='blog/detail/:slug' element={<PostDetailPage />} />
+                <Route path='blog/:category' element={<BlogPage />} />
+                <Route path='blog/:category/:page' element={<BlogPage />} />
+                <Route path='about-us' element={<AboutUsPage />} />
+                <Route path='about-ifmsa' element={<AboutIFMSAPage />} />
+                <Route path='scos' element={<ScosPage />} />
+                <Route
+                  path='scos/:name'
+                  element={
+                    <ErrorBoundary fallback={<Navigate to='/scos' replace />}>
+                      <ScoDetailPage />
+                    </ErrorBoundary>
+                  }
+                />
+                <Route path='activities' element={<ActivitiesPage />} />
+                <Route path='programs' element={<ProgramsPage />} />
+                <Route path='trainings' element={<TrainingsPage />} />
+                <Route path='officials' element={<OfficialsPage />} />
+                <Route path='alumni-senior' element={<AlumniSeniorPage />} />
+                <Route path='contact-us' element={<ContactUsPage />} />
+                <Route path='*' element={<NotFoundPage />} />
+              </Routes>
+            </Suspense>
             <Footer />
           </CimsaStateProvider>
         </BrowserRouter>

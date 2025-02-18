@@ -19,7 +19,7 @@
     <meta property="og:type" content="{{ $meta['type'] }}">
     <meta property="og:url" content="{{ url()->current() }}">
 
-    <script type="module" crossorigin src="/assets/index-CM3fyZMd.js"></script>
+    <script type="module" crossorigin src="/assets/index-BEyJHjE1.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-DOkt4nC3.css">
   </head>
   <body>
