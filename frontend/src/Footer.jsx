@@ -58,6 +58,12 @@ export default function Footer() {
             font-size: 1.4rem;
           }
 
+          @media (max-width: 991.98px) {
+            footer#web-footer {
+              font-size: 15px;
+            }
+          }
+
           footer a {
             color: white;
             text-decoration: none;
