@@ -87,23 +87,27 @@ if (! function_exists('cleanPublicStorage')) {
         $storagePath = storage_path('app/public');
 
         if (File::exists($storagePath)) {
-            File::deleteDirectories($storagePath);
+            // File::deleteDirectories($storagePath);
 
             // Get all directories inside the storage path
-            // $directories = File::directories($storagePath);
+            $directories = File::directories($storagePath);
 
             // Define the directories you want to exclude
-            // $excludedDirs = [
-            //     storage_path('app/public\pages'),
-            //     storage_path('app/public\profile'),
-            // ];
+            $excludedDirs = [
+                storage_path('app/public\pages'),
+                storage_path('app/public\profile'),
+            ];
 
             // Delete only the directories that are not in the excluded list
-            // foreach ($directories as $directory) {
-            //     if (!in_array($directory, $excludedDirs)) {
-            //         File::deleteDirectory($directory);
-            //     }
-            // }
+            foreach ($directories as $directory) {
+                echo $directory . "\n";
+
+                if (!in_array($directory, $excludedDirs)) {
+                    File::deleteDirectory($directory);
+                } else {
+                    echo "direktori tidak dihapus";
+                }
+            }
 
             echo "\nStorage have been cleaned\n";
         } else {

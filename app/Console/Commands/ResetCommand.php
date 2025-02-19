@@ -32,7 +32,7 @@ class ResetCommand extends Command
         $this->info('Reseting Data');
 
         Artisan::call('db:seed', [
-            '--class' => "CleanDataSeeder",
+            '--class' => "ResetDataSeeder",
         ]);
 
         $this->info("Reset Data Successfull");
