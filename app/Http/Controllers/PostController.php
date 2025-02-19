@@ -87,7 +87,7 @@ class PostController extends Controller
     {
 
         // Reject request if user doesnt have any of required permissions
-        if (!$this->auth_user->hasAnyPermission(['sudo', 'article.*', 'article.create'])) {
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'post.*', 'post.create'])) {
             return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
         }
 
@@ -177,7 +177,7 @@ class PostController extends Controller
     public function update(Request $request, string $id)
     {
         // Reject request if user doesnt have any of required permissions
-        if (!$this->auth_user->hasAnyPermission(['sudo', 'article.*', 'article.update'])) {
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'post.*', 'post.update'])) {
             return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
         }
 
@@ -250,14 +250,13 @@ class PostController extends Controller
     public function destroy(string $id)
     {
         // Reject request if user doesnt have any of required permissions
-        if (!$this->auth_user->hasAnyPermission(['sudo', 'article.*', 'article.delete'])) {
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'post.*', 'post.delete'])) {
             return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
         }
 
         try {
             Post::find($id)->forceforceDelete();
             DB::commit();
-
 
             // Redirect to the last page of Posts
             return redirect()->route('article.index')
