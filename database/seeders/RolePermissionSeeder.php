@@ -109,7 +109,14 @@ class RolePermissionSeeder extends Seeder
             'role.*',
             'role.create',
             'role.update',
-            'role.delete'
+            'role.delete',
+
+
+            'permission-management',
+            'permission.*',
+            'permission.create',
+            'permission.update',
+            'permission.delete'
         ];
 
         $list_role = [
