@@ -37,11 +37,9 @@ git clone https://github.com/mdaffailhami/cimsa-ulm.git
 3. **Konfigurasi Proyek**
    1. setelah semua dependesi selesai di install, copy file `.env.example` menjadi `.env`
    2. Sesuaikan variable `APP_MODE` menjadi `prod` jika dalam tahap production dan `dev` jika dalam tahap development
-   3. Sesuaikan variable url seperti `APP_URL`, `FRONTEND_URL`, `BACKEND_URL` dengan ip ataupun domain project yang dijalankan sebagai berikut
+   3. Sesuaikan variable url seperti `APP_URL` dengan ip ataupun domain project yang dijalankan sebagai berikut
    ```
-    APP_URL=https://domain.com/
-    FRONTEND_URL =https://domain.com/
-    BACKEND_URL =https://domain.com/
+    APP_URL=https://domain.com
    ```
    4. Sesuaikan variable database seperti `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` dengan database yang sudah disediakan
    ```
@@ -60,7 +58,7 @@ git clone https://github.com/mdaffailhami/cimsa-ulm.git
 
 ## Kontak
 
-Jika Anda memiliki pertanyaan atau umpan balik, silakan hubungi kami di [example@gmail.com].
+Jika Anda memiliki pertanyaan atau umpan balik, silahkan hubungi kami di **mdaffailhami@gmail.com**.
 
 ---
 
