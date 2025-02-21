@@ -39,7 +39,10 @@ git clone https://github.com/mdaffailhami/cimsa-ulm.git
    2. Sesuaikan variable `APP_MODE` menjadi `prod` jika dalam tahap production dan `dev` jika dalam tahap development
    3. Sesuaikan variable url seperti `APP_URL` dengan ip ataupun domain project yang dijalankan sebagai berikut
    ```
-    APP_URL=https://domain.com
+      APP_URL=https://cimsa.ulm.ac.id
+      ASSET_URL="${APP_URL}"
+      FRONTEND_URL ="${APP_URL}"
+      BACKEND_URL ="${APP_URL}"
    ```
    4. Sesuaikan variable database seperti `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` dengan database yang sudah disediakan
    ```
@@ -54,6 +57,7 @@ git clone https://github.com/mdaffailhami/cimsa-ulm.git
    7. Lakukan perintah `php artisan db:seed` untuk melakukan seed data dummy ke database
    8. Jalankan perintah `php artisan key:generate` untuk generate key laravel
    9. Jalankan perintah `php artisan storage:link` untuk menghubungkan folder storage dengan folder publik
+   10. Jalankan perintah `npm run build`
    10. Jika kamu menggunakan server lokal jalankan project menggunakan perintah `php artisan serve` namun jika kamu menggunakan domain pribadi, kamu dapat menyesuaikan Konfigurasi site pada web server yang kalian gunakan
 
 ## Kontak
