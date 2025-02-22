@@ -16,6 +16,11 @@ class OfficialDivisionController extends Controller
      */
     public function index(Request $request, $year)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'official-division-management'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk halaman tersebut']);
+        }
+
         $official = Official::with('divisions')->where('year', $year)->first();
         $divisions = $official->divisions();
 

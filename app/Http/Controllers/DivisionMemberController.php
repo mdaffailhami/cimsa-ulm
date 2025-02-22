@@ -16,6 +16,11 @@ class DivisionMemberController extends Controller
      */
     public function index(Request $request, $year, $id)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'official-division-member-management'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk halaman tersebut']);
+        }
+
         $official = Official::where('year', $year)->first();
         $division = $official->divisions()->findOrFail($id);
         $members = $division->members()->latest();

@@ -35,6 +35,11 @@ class CommitteController extends Controller
      */
     public function index(Request $request)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'committe-management'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk halaman tersebut']);
+        }
+
         $committees = Committe::latest();
 
         if ($request->search) {
@@ -124,6 +129,11 @@ class CommitteController extends Controller
      */
     public function edit(string $id)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'committe-detail-management'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk halaman tersebut']);
+        }
+
         $committe = Committe::with(['activities', 'focuses', 'testimonies', 'contact', 'galleries'])->where('name', $id)->first();
 
         return view('pages.admin.committe-detail', compact('committe'));

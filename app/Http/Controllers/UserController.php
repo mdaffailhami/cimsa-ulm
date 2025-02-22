@@ -17,6 +17,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'user-management'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk halaman tersebut']);
+        }
+
         $users = User::with('roles', 'permissions')
             ->whereHas('roles', fn($q) => $q->whereNot('name',  'super-administrator'))
             ->orWhereDoesntHave('roles')

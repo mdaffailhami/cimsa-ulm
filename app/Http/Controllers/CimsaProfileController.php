@@ -27,6 +27,11 @@ class CimsaProfileController extends Controller
      */
     public function index()
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'profile-management'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk halaman tersebut']);
+        }
+
         $profiles = CimsaProfile::with('galleries')->get();
         $social_medias = SocialMedia::get();
 

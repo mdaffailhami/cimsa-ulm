@@ -27,6 +27,11 @@ class PageController extends Controller
      */
     public function index(Request $request)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'page-management'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk halaman tersebut']);
+        }
+
         $pages = Page::latest();
 
         if ($request->search) {
@@ -101,6 +106,11 @@ class PageController extends Controller
      */
     public function edit(string $id)
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'page-content-management'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk halaman tersebut']);
+        }
+
         $page = Page::with('contents.galleries', 'contact')->whereUri($id)->first();
         return view('pages.admin.page-content', compact('page'));
     }

@@ -26,6 +26,11 @@ class OfficialController extends Controller
      */
     public function index()
     {
+        // Reject request if user doesnt have any of required permissions
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'official-management'])) {
+            return back()->with(['error' => 'Anda tidak memiliki hak akses untuk halaman tersebut']);
+        }
+
         $officials = Official::orderBy('year', 'desc')->paginate(5);
         return view('pages.admin.official', compact('officials'));
     }
