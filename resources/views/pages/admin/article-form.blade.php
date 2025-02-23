@@ -89,10 +89,11 @@
 
                         <div class="row mb-3">
                             <label for="created_at" class="col-sm-2 col-form-label">Tanggal Publikasi</label>
-                            <div class="col-sm-2">
-                                <input type="date" class="form-control @error('created_at') is-invalid @enderror"
-                                    id="created_at" name="created_at" placeholder="Masukkan Judul..."
-                                    value="{{ old('created_at') ?? (isset($post) ? $post->created_at->format('Y-m-d') : '') }}"
+                            <div class="col-sm-3">
+                                <input type="datetime-local"
+                                    class="form-control @error('created_at') is-invalid @enderror" id="created_at"
+                                    name="created_at"
+                                    value="{{ old('created_at') ?? (isset($post) ? $post->created_at->format('Y-m-d\TH:i') : '') }}"
                                     required>
                             </div>
                             @error('created_at')
