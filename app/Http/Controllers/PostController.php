@@ -139,7 +139,7 @@ class PostController extends Controller
             $article->highlight = $validated['highlight'];
             $article->content = $validated['content'];
             $article->cover = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
-            $article->created_at = Carbon::parse($request->created_at)->toDateTimeString();
+            $article->created_at = Carbon::createFromFormat('Y-m-d\TH:i', $request->created_at)->toDateTimeString();
 
             $article->save();
 
@@ -230,7 +230,8 @@ class PostController extends Controller
             $article->slug = Str::slug($validated['title']);
             $article->highlight = $validated['highlight'];
             $article->content = $validated['content'];
-            $article->created_at = Carbon::parse($request->created_at)->toDateTimeString();
+            $article->created_at = Carbon::createFromFormat('Y-m-d\TH:i', $request->created_at)->toDateTimeString();
+
 
             $article->save();
 

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/image/{path}', [ImageController::class, 'show'])->where('path', '.*')->name('api.image.show');
 Route::post('/image/upload', [ImageController::class, 'upload'])->name('api.image.upload');
+Route::post('/image/upload-text-editor', [ImageController::class, 'uploadTextEditor'])->name('api.image.upload-text-editor');
 Route::post('/image/revert', [ImageController::class, 'revert'])->name('api.image.revert');
 Route::post('/image/load', [ImageController::class, 'load'])->name('api.image.load');
 

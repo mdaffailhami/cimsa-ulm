@@ -313,7 +313,7 @@
                     // Initialize CKeditor for Long Text Field Type
                     else if (content.type === 'long-text') {
                         const textInput = document.getElementById(`data[${index}][value]`)
-                        let editor = await InitializeCKEditor(textInput);
+                        let editor = await InitializeClassicEditor(textInput);
                         editor.setData(content.long_text_content || '')
                     }
 
@@ -325,7 +325,7 @@
                                 const subTextInput = document.getElementById(
                                     `data[${index}][values][${sub_index}][value]`)
 
-                                let subEditor = await InitializeCKEditor(subTextInput);
+                                let subEditor = await InitializeClassicEditor(subTextInput);
                                 subEditor.setData(sub_content.value || '')
                             }
                         });

@@ -64,7 +64,7 @@
                                             <td class="d-none d-md-table-cell">{{ $post->highlight }}</td>
                                             <td class="d-none d-md-table-cell">{{ $post->author->full_name }}</td>
                                             <td class="d-none d-md-table-cell">
-                                                {{ $timeStamp = date('d M Y', strtotime($post->created_at)) }}
+                                                {{ $timeStamp = date('d M Y H:i', strtotime($post->created_at)) }}
                                             </td>
                                             <td class="">{{ $post->editor->full_name }}</td>
                                             <td>
