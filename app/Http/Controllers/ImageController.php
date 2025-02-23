@@ -20,19 +20,59 @@ class ImageController extends Controller
         }
     }
 
+    public function uploadTextEditor(Request $request)
+    {
+
+
+        try {
+            // Validate file
+            $request->validate([
+                'upload' => 'required|image|max:1024' // Max 1MB
+            ]);
+
+            $file = $request->file('upload');
+
+            if (!$file) {
+                return response()->json(['error' => 'No valid file provided'], 400);
+            }
+
+            // Generate unique file name
+            $file_name = Carbon::now()->timestamp . "-" . $file->getClientOriginalName();
+
+            $tmp_path = storage_path("/app/public/ckeditor");
+
+            // Check if path exists
+            if (!File::exists($tmp_path)) {
+                // if path dont exist create new directory
+                File::makeDirectory($tmp_path, 0777, true, true);
+            }
+
+            // Store file into temporary path
+            $file->move($tmp_path, $file_name);
+
+            $url = config('global')["backend_url"] . "/api/image/ckeditor/" . $file_name;
+
+            return response()->json([
+                "url" => $url
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 500);
+        }
+    }
+
     public function upload(Request $request)
     {
 
         try {
             // Validate the incoming file
             $request->validate([
-                'image' => 'image|max:10240', // max 10MB,
-                'logo' => 'image|max:10240', // max 10MB,
-                'cover' => 'image|max:10240', // max 10MB,
-                'poster' => 'image|max:10240', // max 10MB,
-                'avatar' => 'image|max:10240', // max 10MB,
-                'background' => 'image|max:10240', // max 10MB,
-                'galleries.*' => 'image|max:10240', // max 10MB
+                'image' => 'image|max:1024', // max 1MB,
+                'logo' => 'image|max:1024', // max 1MB,
+                'cover' => 'image|max:1024', // max 1MB,
+                'poster' => 'image|max:1024', // max 1MB,
+                'avatar' => 'image|max:1024', // max 1MB,
+                'background' => 'image|max:1024', // max 1MB,
+                'galleries.*' => 'image|max:1024', // max 1MB
             ]);
 
             if ($request->file('testimonies')) {

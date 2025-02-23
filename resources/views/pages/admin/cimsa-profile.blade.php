@@ -311,7 +311,7 @@
                     // Initialize CKeditor for Long Text Field Type
                     else if (profile.type === 'long-text') {
                         const textInput = document.getElementById(`data[${index}][value]`)
-                        let editor = await InitializeCKEditor(textInput);
+                        let editor = await InitializeClassicEditor(textInput);
                         editor.setData(profile.long_text_content || '')
                     }
 

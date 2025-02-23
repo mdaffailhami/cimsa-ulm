@@ -63,8 +63,20 @@
                         <div class="row mb-3">
                             <label for="content" class="col-sm-2 col-form-label">Konten</label>
                             <div class="col-sm-8">
-                                <textarea class="form-control @error('content') is-invalid @enderror" placeholder="Masukkan Konten..." id="content"
-                                    name="content" style="height: 100px">{{ old('content') ?? (isset($post) ? $post->content : '') }}</textarea>
+                                {{-- <textarea class="form-control @error('content') is-invalid @enderror" placeholder="Masukkan Konten..." id="content"
+                                    name="content" style="height: 100px">{{ old('content') ?? (isset($post) ? $post->content : '') }}</textarea> --}}
+
+                                <input type="hidden" name="content" id="content">
+
+                                <div class="editor-container editor-container_document-editor" id="editor-container">
+                                    <div class="editor-container__menu-bar" id="editor-menu-bar"></div>
+                                    <div class="editor-container__toolbar" id="editor-toolbar"></div>
+                                    <div class="editor-container__editor-wrapper">
+                                        <div class="editor-container__editor">
+                                            <div id="content-editor" class="border"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             @error('content')
                                 <div class="col-sm-6 offset-sm-2">
@@ -200,7 +212,7 @@
                 const categories = @json($categories);
 
                 // Initialize Choice
-                choices = new Choices('#categories', {
+                const choices = new Choices('#categories', {
                     removeItemButton: true,
                     placeholderValue: 'Pilih Kategori',
                     searchPlaceholderValue: 'Cari Kategori'
@@ -212,7 +224,18 @@
 
                 // Initialize CKEditor
                 let contentInput = document.getElementById('content');
-                let contentEditor = await InitializeCKEditor(contentInput);
+                let contentEditor = await InitializeDecoupleEditor(document.getElementById('content-editor'));
+
+                let editorToolbar = document.querySelector('#editor-toolbar').appendChild(contentEditor.ui.view
+                    .toolbar
+                    .element);
+                // let editorMenuBar = document.querySelector('#editor-menu-bar').appendChild(contentEditor.ui.view
+                //     .menuBarView.element);
+
+                // Sync content from editor to hidden input
+                contentEditor.model.document.on("change:data", () => {
+                    contentInput.value = contentEditor.getData();
+                });
 
                 if (article) {
                     fillForm(article, choices, pond, contentEditor);
