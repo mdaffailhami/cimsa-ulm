@@ -34,7 +34,6 @@ class ResetDataSeeder extends Seeder
         DB::table('trainings')->truncate();
 
         //  Delete all posts and categories related data
-        DB::table('categories')->truncate();
         DB::table('posts')->truncate();
 
         $this->call([
