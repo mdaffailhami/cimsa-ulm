@@ -14,25 +14,24 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
 use App\Models\CimsaProfile;
-use App\Models\OfficialDivision;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 // This route is used to handle the post detail page.
 Route::get('/blog/detail/{slug}', function (Request $request, $slug) {
-    $response = Http::get(url("/api/post/{$slug}"));
 
-    if ($response->failed()) {
-        abort(404);
+    $post = Post::where('slug', $slug)->first();
+
+    // if post not found, redirect to blog page
+    if (!$post) {
+        return redirect('/blog');
     }
-
-    $data = $response->json("data");
 
     return view('react-index', [
         'meta' => [
-            'title' => $data['title'] . ' - CIMSA ULM' ?? 'Blog Post - CIMSA ULM',
-            'description' => $data['highlight'] ?? '',
-            'image' => $data['cover'] ?? url('/logo.png'),
+            'title' => $post->title . " - CIMSA ULM" ?? 'Blog Post - CIMSA ULM',
+            'description' => $post->highlight ?? '',
+            'image' => $post->cover ?? url('/logo.png'),
             'type' => 'article'
         ]
     ]);
