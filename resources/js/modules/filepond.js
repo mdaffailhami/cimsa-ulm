@@ -39,16 +39,21 @@ const initializeImagePond = (input, allowMultiple = false, maxFiles = 1) => {
                     console.error("Error reverting file:", response);
                 },
             },
-            load: {
-                url: "/api/image/",
-                method: "GET",
-                withCredentials: false,
-                onload: (response) => {
-                    return response;
-                },
-                onerror: (response) => {
-                    console.error("Error loading file:", response);
-                },
+            load: (source, load, error) => {
+                // Manually construct the correct image URL
+                const url = `/api/image/${source}`; 
+            
+                // Fetch the image
+                fetch(url)
+                    .then((response) => {
+                        if (!response.ok) throw new Error("Failed to load");
+                        return response.blob();
+                    })
+                    .then(load)
+                    .catch((err) => {
+                        console.error("Error loading file:", err);
+                        error(err);
+                    });
             },
         },
     });
