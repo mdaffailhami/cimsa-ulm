@@ -100,12 +100,17 @@ if (! function_exists('cleanPublicStorage')) {
 
             // Delete only the directories that are not in the excluded list
             foreach ($directories as $directory) {
-                echo $directory . "\n";
 
                 if (!in_array($directory, $excludedDirs)) {
-                    File::deleteDirectory($directory);
-                } else {
-                    echo "direktori tidak dihapus";
+                    echo $directory . "\n";
+
+                    $files = File::allFiles($directory);
+
+                    foreach ($files as $file) {
+                        File::delete($file->getPathname());
+                    }
+
+                    echo "direktori berhasil dibersihkan \n";
                 }
             }
 
