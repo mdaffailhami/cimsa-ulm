@@ -183,7 +183,7 @@ class CommitteController extends Controller
 
             // Redirect to the last committe of committees
             return redirect()->route('committe.index')
-                ->with('success', 'Berhasil menghapus halaman.');
+                ->with('success', 'Berhasil menghapus komite.');
         } catch (\Throwable $th) {
             DB::rollBack();
             Log::error('Error storing committe: ' . $th->getMessage());

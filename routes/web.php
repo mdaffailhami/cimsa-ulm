@@ -105,8 +105,18 @@ Route::prefix('/command')->group(function () {
         return redirect()->back()->with('success', 'Berhasil menambahkan data dummy.');
     });
 
+    Route::get('/reset', function () {
+        Artisan::call('app:reset');
+        return redirect()->back()->with('success', 'Berhasil menambahkan data dummy.');
+    });
+
     Route::get('/migrate', function () {
         Artisan::call('migrate');
+        return redirect()->back()->with('success', 'Berhasil melakukan migrasi.');
+    });
+
+    Route::get('/migrate-fresh', function () {
+        Artisan::call('migrate:fresh');
         return redirect()->back()->with('success', 'Berhasil melakukan migrasi.');
     });
 

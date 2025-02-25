@@ -261,7 +261,7 @@ class PostController extends Controller
         }
 
         try {
-            Post::find($id)->forceforceDelete();
+            Post::find($id)->forceDelete();
             DB::commit();
 
             // Redirect to the last page of Posts
