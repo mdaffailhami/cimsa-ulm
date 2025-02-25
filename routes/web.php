@@ -102,7 +102,16 @@ Route::prefix('/admin')->group(function () {
 Route::prefix('/command')->group(function () {
     Route::get('/generate-dummy', function () {
         Artisan::call('app:generate-dummy');
-
         return redirect()->back()->with('success', 'Berhasil menambahkan data dummy.');
+    });
+
+    Route::get('/migrate', function () {
+        Artisan::call('migrate');
+        return redirect()->back()->with('success', 'Berhasil melakukan migrasi.');
+    });
+
+    Route::get('/seed', function () {
+        Artisan::call('db:seed');
+        return redirect()->back()->with('success', 'Berhasil melakukan seed database.');
     });
 });
