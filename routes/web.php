@@ -15,6 +15,8 @@ use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
 use App\Models\CimsaProfile;
 use App\Models\Post;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 // This route is used to handle the post detail page.
@@ -95,3 +97,12 @@ Route::prefix('/admin')->group(function () {
         Route::post('/login', [AuthController::class, 'login'])->name('admin.login');
     });
 })->name('admin');
+
+// For Routing Command
+Route::prefix('/command')->group(function () {
+    Route::get('/generate-dummy', function () {
+        Artisan::call('app:generate-dummy');
+
+        return redirect()->back()->with('success', 'Berhasil menambahkan data dummy.');
+    });
+});
