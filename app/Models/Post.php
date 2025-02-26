@@ -31,8 +31,7 @@ class Post extends Model
 
     public function getIsPublishedAttribute()
     {
-        $now = Carbon::now()->toDateTimeString();
-        return $now > $this->created_at;
+        return Carbon::now()->greaterThan($this->created_at);
     }
 
     public function author()
