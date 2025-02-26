@@ -1,4 +1,4 @@
-import{a as t,j as n,C as o,c as i,R as h,b as d,g as c,H as s,u as m,e as g,f,F as x,L as b}from"./index-BEyJHjE1.js";import{P as S}from"./PageHeader-DMa4wwwu.js";import{I as p}from"./Image-CZAby9Cn.js";import{P as w}from"./PrimaryButton-DxR9xqOZ.js";import{I as y}from"./ifmsa-logo-Dq4YJQFH.js";import{P as I}from"./PageMeta-CdVBd3kD.js";function v({description:e,sdgs:a}){return t(o,{fluid:!0,style:{background:"red"},children:n(o,{children:[t("br",{}),n(o,{css:i`
+import{a as t,j as n,C as o,c as i,R as h,b as d,g as c,H as s,u as m,e as g,f,F as x,L as b}from"./index-DkTcay3F.js";import{P as S}from"./PageHeader-C5IMF92k.js";import{I as p}from"./Image-DU9LAInX.js";import{P as w}from"./PrimaryButton-DIU5uI2w.js";import{I as y}from"./ifmsa-logo-Dq4YJQFH.js";import{P as I}from"./PageMeta-DmPFkgKF.js";function v({description:e,sdgs:a}){return t(o,{fluid:!0,style:{background:"red"},children:n(o,{children:[t("br",{}),n(o,{css:i`
             color: white;
             text-align: center;
             @media (min-width: 992px) {

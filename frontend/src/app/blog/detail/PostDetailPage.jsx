@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css, Global } from '@emotion/react';
 import { useParams } from 'react-router';
 import { fetchJSON } from '../../../utils';
 import { Fragment, useEffect } from 'react';
@@ -10,6 +10,7 @@ import BlogSection from '../../../components/BlogSection';
 import useSWR from 'swr';
 import LoadFailedPage from '../../../components/LoadFailedPage';
 import PageMeta from '../../../components/PageMeta';
+import './style.css';
 
 export default function PostDetailPage() {
   const { slug } = useParams();
@@ -23,6 +24,23 @@ export default function PostDetailPage() {
       await post.mutate();
     })();
   }, [slug]);
+
+  // Effect to fix CKEditor left & right image alignment
+  useEffect(() => {
+    if (!post.data) return;
+
+    const targetToClear = document.querySelectorAll(
+      'figure.image-style-block-align-left, figure.image-style-block-align-right'
+    );
+
+    targetToClear.forEach((image) => {
+      const clearDiv = document.createElement('div');
+      clearDiv.style.display = 'block';
+      clearDiv.style.clear = 'both';
+
+      image.insertAdjacentElement('afterend', clearDiv);
+    });
+  }, [post.data]);
 
   if (post.isLoading || posts.isLoading) {
     return <LoadingPage />;
@@ -38,6 +56,23 @@ export default function PostDetailPage() {
         title={post.data.data.title}
         description={post.data.data.highlight}
         ogImage={post.data.data.cover}
+      />
+      <Global
+        // Styles to fix CKEditor left & right image alignment
+        styles={css`
+          figure.image {
+            display: block;
+            margin: 0 auto;
+          }
+
+          figure.image-style-block-align-left {
+            float: left;
+          }
+
+          figure.image-style-block-align-right {
+            float: right;
+          }
+        `}
       />
       <main>
         <Container
