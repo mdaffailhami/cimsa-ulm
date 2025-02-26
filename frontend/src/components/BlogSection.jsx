@@ -55,7 +55,7 @@ export default function BlogSection({
             thumbnail={post.cover}
             title={post.title}
             description={post.highlight}
-            date={post.updated_at}
+            date={post.created_at}
             url={`/blog/detail/${post.slug}`}
           />
         ))}

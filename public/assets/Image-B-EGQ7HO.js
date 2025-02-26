@@ -1,1 +1,0 @@
-import{P as a,r as i,o as n,m as u,n as f}from"./index-DCLDiFRd.js";a.string,a.bool,a.bool,a.bool,a.bool;const p=i.forwardRef(({bsPrefix:o,className:s,fluid:e=!1,rounded:r=!1,roundedCircle:l=!1,thumbnail:m=!1,...t},d)=>(o=n(o,"img"),u.jsx("img",{ref:d,...t,className:f(s,e&&`${o}-fluid`,r&&"rounded",l&&"rounded-circle",m&&`${o}-thumbnail`)})));p.displayName="Image";export{p as I};
