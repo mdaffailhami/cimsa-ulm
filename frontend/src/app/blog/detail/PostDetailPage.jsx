@@ -60,7 +60,8 @@ export default function PostDetailPage() {
       <Global
         // Styles to fix CKEditor left & right image alignment
         styles={css`
-          figure.image {
+          figure.image,
+          figure.image img {
             display: block;
             margin: 0 auto;
           }

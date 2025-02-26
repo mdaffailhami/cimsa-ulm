@@ -405,11 +405,11 @@ const decoupleEditorConfig = {
             'imageTextAlternative',
             '|',
             'imageStyle:inline',
-            'imageStyle:wrapText',
+            // 'imageStyle:wrapText',
             'imageStyle:breakText',
             '|',
             'resizeImage'
-        ]
+        ],
     },
     initialData : "Masukkan kalimat disini...",
     licenseKey: LICENSE_KEY,
