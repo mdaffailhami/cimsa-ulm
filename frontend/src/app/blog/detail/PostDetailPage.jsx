@@ -72,6 +72,11 @@ export default function PostDetailPage() {
           figure.image-style-block-align-right {
             float: right;
           }
+
+          /* Inline image */
+          p img {
+            vertical-align: bottom;
+          }
         `}
       />
       <main>

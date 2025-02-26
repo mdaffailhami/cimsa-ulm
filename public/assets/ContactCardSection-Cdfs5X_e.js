@@ -1,4 +1,4 @@
-import{j as e,a as i,c as t,g as s,R as m,b as r}from"./index-DkTcay3F.js";import{C as l}from"./Card-BlmdRcri.js";function g({period:a,position:d,picture:c,name:n,email:p,phone:x,header:o=null}){return e("div",{style:{background:"#2d2d2d"},children:[(()=>{if(o)return o})(),i("div",{"data-aos":"flip-down","data-aos-duration":"1200","data-aos-once":"true",children:i("div",{style:{display:"flex",justifyContent:"center",paddingTop:"18px",paddingBottom:"18px"},css:t`
+import{j as e,a as i,c as t,g as s,R as m,b as r}from"./index-DOx3K9Sw.js";import{C as l}from"./Card-CvZpgFWD.js";function g({period:a,position:d,picture:c,name:n,email:p,phone:x,header:o=null}){return e("div",{style:{background:"#2d2d2d"},children:[(()=>{if(o)return o})(),i("div",{"data-aos":"flip-down","data-aos-duration":"1200","data-aos-once":"true",children:i("div",{style:{display:"flex",justifyContent:"center",paddingTop:"18px",paddingBottom:"18px"},css:t`
             ${s(1.04)}
             @media (min-width: 768px) {
               ${s(1.06)}

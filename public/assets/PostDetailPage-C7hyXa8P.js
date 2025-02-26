@@ -1,4 +1,4 @@
-import{E as f,u as g,e as m,f as u,r as d,a,j as r,c as n,G as h,C as p,I as i,H as y,F as x,L as b,l as k}from"./index-DkTcay3F.js";import{B as v}from"./BlogSection-CBOd7n1Y.js";import{P as E}from"./PageMeta-DmPFkgKF.js";import{I as w}from"./Image-DU9LAInX.js";import"./PrimaryButton-DIU5uI2w.js";import"./Card-BlmdRcri.js";function T(){const{slug:c}=f(),t=g(`${m}/api/post/${c}`,u),l=g(`${m}/api/post?page=1&limit=6`,u);return d.useEffect(()=>{(async()=>await t.mutate())()},[c]),d.useEffect(()=>{if(!t.data)return;document.querySelectorAll("figure.image-style-block-align-left, figure.image-style-block-align-right").forEach(o=>{const s=document.createElement("div");s.style.display="block",s.style.clear="both",o.insertAdjacentElement("afterend",s)})},[t.data]),t.isLoading||l.isLoading?a(b,{}):t.error||l.error?a(k,{}):r(x,{children:[a(E,{title:t.data.data.title,description:t.data.data.highlight,ogImage:t.data.data.cover}),a(h,{styles:n`
+import{E as f,u as g,e as m,f as u,r as d,a,j as r,c as n,G as p,C as h,I as i,H as y,F as b,L as x,l as k}from"./index-DOx3K9Sw.js";import{B as v}from"./BlogSection-Ctw4qlzC.js";import{P as E}from"./PageMeta-gyFUgdqE.js";import{I as w}from"./Image-BVDg7mpA.js";import"./PrimaryButton-BYnwR4q9.js";import"./Card-CvZpgFWD.js";function S(){const{slug:c}=f(),t=g(`${m}/api/post/${c}`,u),l=g(`${m}/api/post?page=1&limit=6`,u);return d.useEffect(()=>{(async()=>await t.mutate())()},[c]),d.useEffect(()=>{if(!t.data)return;document.querySelectorAll("figure.image-style-block-align-left, figure.image-style-block-align-right").forEach(o=>{const s=document.createElement("div");s.style.display="block",s.style.clear="both",o.insertAdjacentElement("afterend",s)})},[t.data]),t.isLoading||l.isLoading?a(x,{}):t.error||l.error?a(k,{}):r(b,{children:[a(E,{title:t.data.data.title,description:t.data.data.highlight,ogImage:t.data.data.cover}),a(p,{styles:n`
           figure.image {
             display: block;
             margin: 0 auto;
@@ -11,7 +11,12 @@ import{E as f,u as g,e as m,f as u,r as d,a,j as r,c as n,G as h,C as p,I as i,H
           figure.image-style-block-align-right {
             float: right;
           }
-        `}),a("main",{children:r(p,{as:"article",css:n`
+
+          /* Inline image */
+          p img {
+            vertical-align: bottom;
+          }
+        `}),a("main",{children:r(h,{as:"article",css:n`
             margin-top: 18px;
           `,children:[r("header",{children:[r("div",{"data-aos":"fade-left","data-aos-duration":"1200","data-aos-once":"true",css:n`
                 display: flex;
@@ -24,4 +29,4 @@ import{E as f,u as g,e as m,f as u,r as d,a,j as r,c as n,G as h,C as p,I as i,H
                 display: block;
                 margin: 10px auto;
                 z-index: -1;
-              `})]}),a("hr",{}),a("main",{"data-aos":"fade","data-aos-duration":"1200","data-aos-once":"true",children:a(y,{html:t.data.data.content})}),a("hr",{}),a(v,{posts:l.data.data,header:a("h1",{className:"text-center",style:{marginBottom:"18px"},children:"CHECK OUT OUR OTHER POSTS!"})}),a("br",{})]})})]})}export{T as default};
+              `})]}),a("hr",{}),a("main",{"data-aos":"fade","data-aos-duration":"1200","data-aos-once":"true",children:a(y,{html:t.data.data.content})}),a("hr",{}),a(v,{posts:l.data.data,header:a("h1",{className:"text-center",style:{marginBottom:"18px"},children:"CHECK OUT OUR OTHER POSTS!"})}),a("br",{})]})})]})}export{S as default};
