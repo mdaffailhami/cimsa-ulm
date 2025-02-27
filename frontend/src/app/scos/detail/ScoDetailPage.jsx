@@ -22,9 +22,7 @@ export default function ScoDetailPage() {
 
   const sco = useSWR(`${endpoint}/api/committe/${name}`, fetchJSON);
   const posts = useSWR(
-    `${endpoint}/api/post?page=1&limit=3${
-      process.env.NODE_ENV === 'production' ? `&category=${name}` : ''
-    }`,
+    `${endpoint}/api/post?page=1&limit=3&category=${name}`,
     fetchJSON
   );
 

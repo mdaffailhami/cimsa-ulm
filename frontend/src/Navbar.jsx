@@ -54,7 +54,7 @@ export default function Navbar() {
           }
 
           /* Resolve dropdown patah-patah ketika dihover */
-          .dropdown-menu {
+          nav .dropdown-menu {
             transform: translate(0, -8px) !important;
           }
         `}
