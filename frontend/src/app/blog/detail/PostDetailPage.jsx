@@ -10,7 +10,7 @@ import BlogSection from '../../../components/BlogSection';
 import useSWR from 'swr';
 import LoadFailedPage from '../../../components/LoadFailedPage';
 import PageMeta from '../../../components/PageMeta';
-import './style.css';
+import '../../../assets/ckeditor5.css';
 
 export default function PostDetailPage() {
   const { slug } = useParams();
@@ -24,23 +24,6 @@ export default function PostDetailPage() {
       await post.mutate();
     })();
   }, [slug]);
-
-  // Effect to fix CKEditor left & right image alignment
-  useEffect(() => {
-    if (!post.data) return;
-
-    const targetToClear = document.querySelectorAll(
-      'figure.image-style-block-align-left, figure.image-style-block-align-right'
-    );
-
-    targetToClear.forEach((image) => {
-      const clearDiv = document.createElement('div');
-      clearDiv.style.display = 'block';
-      clearDiv.style.clear = 'both';
-
-      image.insertAdjacentElement('afterend', clearDiv);
-    });
-  }, [post.data]);
 
   if (post.isLoading || posts.isLoading) {
     return <LoadingPage />;
@@ -60,21 +43,7 @@ export default function PostDetailPage() {
       <Global
         // Styles to fix CKEditor left & right image alignment
         styles={css`
-          figure.image,
-          figure.image img {
-            display: block;
-            margin: 0 auto;
-          }
-
-          figure.image-style-block-align-left {
-            float: left;
-          }
-
-          figure.image-style-block-align-right {
-            float: right;
-          }
-
-          /* Inline image */
+          /* Resolve CKEditor inline image's text alignment */
           p img {
             vertical-align: bottom;
           }

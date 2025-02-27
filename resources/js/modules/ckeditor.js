@@ -275,7 +275,7 @@ const decoupleEditorConfig = {
             'link',
             'insertImage',
             'insertImageViaUrl',
-            'mediaEmbed',
+            // 'mediaEmbed',
             'insertTable',
             '|',
             'alignment',

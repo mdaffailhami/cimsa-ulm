@@ -1,3 +1,5 @@
 export default function HtmlParser({ html }) {
-  return <span dangerouslySetInnerHTML={{ __html: html }} />;
+  return (
+    <span className='ck-content' dangerouslySetInnerHTML={{ __html: html }} />
+  );
 }
