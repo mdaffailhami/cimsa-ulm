@@ -17,7 +17,7 @@ export default function OurTrainersSection({ description, trainers }) {
             data-aos='fade-right'
             data-aos-duration='1200'
             data-aos-once='true'
-            class='h2 mb-4 mt-2'
+            className='h2 mb-4 mt-2'
           >
             <b>Get to know our trainers</b>
           </h2>
@@ -40,8 +40,9 @@ export default function OurTrainersSection({ description, trainers }) {
             justify-content: center;
           `}
         >
-          {trainers.map((trainer) => (
+          {trainers.map((trainer, i) => (
             <TrainerCard
+              key={i + 1}
               thumbnail={trainer.image}
               title={trainer.name}
               description={trainer.description}

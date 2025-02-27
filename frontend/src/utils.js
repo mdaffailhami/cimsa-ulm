@@ -74,3 +74,10 @@ export async function fetchJSON(url) {
     throw error;
   }
 }
+
+export function checkTouchDevice() {
+  return (
+    window.matchMedia('(pointer: coarse)').matches ||
+    window.matchMedia('(hover: none)').matches
+  );
+}

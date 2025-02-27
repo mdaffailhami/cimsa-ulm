@@ -1,4 +1,4 @@
-import{j as n,c as a,a as t}from"./index-BGNEuXLa.js";function s({title:o,description:d,titleColor:i="red",myCss:e=""}){return n("div",{css:a`
+import{j as n,c as a,a as t}from"./index-B3h34kAm.js";function s({title:o,description:d,titleColor:i="red",myCss:e=""}){return n("div",{css:a`
         margin-top: 100px;
         margin-bottom: 50px;
         padding: 0 20px;

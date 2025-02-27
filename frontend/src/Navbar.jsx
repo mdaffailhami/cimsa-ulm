@@ -9,7 +9,7 @@ import {
 import { css, Global } from '@emotion/react';
 import { Link, useLocation } from 'react-router';
 import { useEffect } from 'react';
-import { fetchJSON, getOnHoverAnimationCss } from './utils';
+import { checkTouchDevice, fetchJSON, getOnHoverAnimationCss } from './utils';
 import useSWR from 'swr';
 import { endpoint } from './configs';
 
@@ -115,10 +115,12 @@ export default function Navbar() {
                     location.pathname === '/about-ifmsa'
                   }
                   onMouseEnter={(e) => {
+                    if (checkTouchDevice()) return;
                     hoveredDropdown = e.target;
                     hoveredDropdown.click();
                   }}
                   onMouseLeave={(e) => {
+                    if (checkTouchDevice()) return;
                     hoveredDropdown.click();
                   }}
                 >
@@ -142,10 +144,12 @@ export default function Navbar() {
                   title='The SCOs'
                   active={location.pathname.startsWith('/scos')}
                   onMouseEnter={(e) => {
+                    if (checkTouchDevice()) return;
                     hoveredDropdown = e.target;
                     hoveredDropdown.click();
                   }}
                   onMouseLeave={(e) => {
+                    if (checkTouchDevice()) return;
                     hoveredDropdown.click();
                   }}
                 >
@@ -201,10 +205,12 @@ export default function Navbar() {
                     location.pathname === '/trainings'
                   }
                   onMouseEnter={(e) => {
+                    if (checkTouchDevice()) return;
                     hoveredDropdown = e.target;
                     hoveredDropdown.click();
                   }}
                   onMouseLeave={(e) => {
+                    if (checkTouchDevice()) return;
                     hoveredDropdown.click();
                   }}
                 >
