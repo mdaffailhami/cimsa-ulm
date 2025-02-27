@@ -19,6 +19,7 @@ export default function Navbar() {
     `${endpoint}/api/committe`,
     async (url) => (await fetchJSON(url)).data
   );
+  let hoveredDropdown = null;
 
   useEffect(() => {
     // If the last character of the url is '/', then remove it (Prevent trailing slash)
@@ -50,6 +51,11 @@ export default function Navbar() {
           .navbar-nav .dropdown-menu a.active {
             color: red;
             background-color: #f8f9fa;
+          }
+
+          /* Resolve dropdown patah-patah ketika dihover */
+          .dropdown-menu {
+            transform: translate(0, -8px) !important;
           }
         `}
       />
@@ -108,16 +114,13 @@ export default function Navbar() {
                     location.pathname === '/about-us' ||
                     location.pathname === '/about-ifmsa'
                   }
-                  // onMouseEnter={(e) => {
-                  //   if (!e.target.classList.contains('show')) {
-                  //     e.target.click();
-                  //   }
-                  // }}
-                  // onMouseLeave={(e) => {
-                  //   if (e.target.classList.contains('show')) {
-                  //     e.target.click();
-                  //   }
-                  // }}
+                  onMouseEnter={(e) => {
+                    hoveredDropdown = e.target;
+                    hoveredDropdown.click();
+                  }}
+                  onMouseLeave={(e) => {
+                    hoveredDropdown.click();
+                  }}
                 >
                   <NavDropdown.Item
                     as={Link}
@@ -138,16 +141,13 @@ export default function Navbar() {
                 <NavDropdown
                   title='The SCOs'
                   active={location.pathname.startsWith('/scos')}
-                  // onMouseEnter={(e) => {
-                  //   if (!e.target.classList.contains('show')) {
-                  //     e.target.click();
-                  //   }
-                  // }}
-                  // onMouseLeave={(e) => {
-                  //   if (e.target.classList.contains('show')) {
-                  //     e.target.click();
-                  //   }
-                  // }}
+                  onMouseEnter={(e) => {
+                    hoveredDropdown = e.target;
+                    hoveredDropdown.click();
+                  }}
+                  onMouseLeave={(e) => {
+                    hoveredDropdown.click();
+                  }}
                 >
                   <NavDropdown.Item
                     as={Link}
@@ -200,16 +200,13 @@ export default function Navbar() {
                     location.pathname === '/programs' ||
                     location.pathname === '/trainings'
                   }
-                  // onMouseEnter={(e) => {
-                  //   if (!e.target.classList.contains('show')) {
-                  //     e.target.click();
-                  //   }
-                  // }}
-                  // onMouseLeave={(e) => {
-                  //   if (e.target.classList.contains('show')) {
-                  //     e.target.click();
-                  //   }
-                  // }}
+                  onMouseEnter={(e) => {
+                    hoveredDropdown = e.target;
+                    hoveredDropdown.click();
+                  }}
+                  onMouseLeave={(e) => {
+                    hoveredDropdown.click();
+                  }}
                 >
                   <NavDropdown.Item
                     as={Link}
