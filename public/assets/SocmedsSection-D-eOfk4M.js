@@ -1,4 +1,4 @@
-import{r as i,d,j as r,a as t,c as n,L as l,R as c,C as f,F as u,g as m,b as p}from"./index-BI64zwv3.js";function e({iconClass:o,url:a}){return t(p,{xs:1,style:{width:"78px"},children:t("div",{"data-aos":"zoom-in","data-aos-duration":"1200","data-aos-once":"true",children:t("a",{href:a,target:"_blank",css:n`
+import{r as i,d,j as r,a as t,c as n,L as l,R as c,C as f,F as u,g as m,b as p}from"./index-BGNEuXLa.js";function e({iconClass:o,url:a}){return t(p,{xs:1,style:{width:"78px"},children:t("div",{"data-aos":"zoom-in","data-aos-duration":"1200","data-aos-once":"true",children:t("a",{href:a,target:"_blank",css:n`
             display: block;
             margin-bottom: 8px;
 

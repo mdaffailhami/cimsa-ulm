@@ -1,5 +1,13 @@
 import { css } from '@emotion/react';
-import { Card, CardBody, CardText, CardTitle, Col, Row } from 'react-bootstrap';
+import {
+  Card,
+  CardBody,
+  CardText,
+  CardTitle,
+  Carousel,
+  Col,
+  Row,
+} from 'react-bootstrap';
 import { getOnHoverAnimationCss } from '../../utils';
 
 export default function OrganizationStructureContent({ official }) {
@@ -23,16 +31,48 @@ export default function OrganizationStructureContent({ official }) {
       <center>
         <hr style={{ width: '40%' }} />
       </center>
-      <img
+      <Carousel
+        data-aos='fade'
+        data-aos-once='true'
+        data-aos-duration='1200'
+        variant='dark'
+        css={css`
+          overflow: hidden;
+          border-radius: 20px;
+
+          @media (min-width: 992px) {
+            border-radius: 24px;
+          }
+        `}
+      >
+        {official.posters.map((poster, i) => (
+          <Carousel.Item key={i + 1}>
+            <img
+              css={css`
+                width: 100%;
+                object-fit: contain;
+                height: 80vw;
+                border-radius: 20px;
+
+                @media (min-width: 992px) {
+                  height: 1200px;
+                  border-radius: 24px;
+                }
+              `}
+              alt={`Cimsa ULM Officials Poster ${i + 1}`}
+              src={poster.url}
+            />
+          </Carousel.Item>
+        ))}
+      </Carousel>
+      {/* <img
         data-aos='fade'
         data-aos-duration='1200'
         data-aos-once='true'
         alt='Cimsa ULM Officials'
-        // src='https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2017/11/baganbaru-1-e1620403826217-1024x806.jpg'
-        // src='https://cimsa.fk.ugm.ac.id/wp-content/uploads/sites/442/2012/10/Screen-Shot-2016-08-09-at-9.54.15-AM-e1620409716713.png'
         src={official.poster}
         style={{ width: '100%', height: 'auto' }}
-      />
+      /> */}
       {official.divisions.map((division, i) => (
         <section
           key={i + 1}
