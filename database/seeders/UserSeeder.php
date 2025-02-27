@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         DB::table('model_has_permissions')->truncate();
         DB::table('users')->truncate();
 
-        $admins = User::factory()->count(4)->role('administrator')->create();
-        $members = User::factory()->count(29)->role('member')->create();
+        $admins = User::factory()->count(1)->role('administrator')->create();
+        $members = User::factory()->count(5)->role('member')->create();
     }
 }

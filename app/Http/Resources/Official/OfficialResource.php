@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Official;
 
+use App\Http\Resources\GalleryResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,9 +16,10 @@ class OfficialResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "poster" => $this->poster,
+            // "poster" => $this->poster,
             "year" => $this->year,
-            "divisions" => OfficialDivisionResource::collection($this->divisions)
+            "divisions" => OfficialDivisionResource::collection($this->divisions),
+            "posters" => GalleryResource::collection($this->posters),
         ];
     }
 }

@@ -128,7 +128,7 @@ class Committe extends Model
 
         foreach ($galleries as $index => $gallery) {
             if ($gallery && str_starts_with($gallery, 'tmp/')) {
-                $path_name = "committe";
+                $path_name = "gallery/committe";
                 $image_name = $path_name . "/" . uploadFile($path_name, $gallery);
             } else {
                 $image_name = $gallery;

@@ -73,6 +73,7 @@ class ImageController extends Controller
                 'avatar' => 'image|max:1024', // max 1MB,
                 'background' => 'image|max:1024', // max 1MB,
                 'galleries.*' => 'image|max:1024', // max 1MB
+                'posters.*' => 'image|max:1024', // max 1MB
             ]);
 
             if ($request->file('testimonies')) {
@@ -90,7 +91,8 @@ class ImageController extends Controller
                     ?? $request->file('poster')
                     ?? $request->file('avatar')
                     ?? $request->file('background')
-                    ?? $request->file('galleries')[0];
+                    ?? $request->file('galleries')[0]
+                    ?? $request->file('posters')[0];
             }
 
             if (!$file) {

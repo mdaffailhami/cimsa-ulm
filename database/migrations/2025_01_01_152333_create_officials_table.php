@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('officials', function (Blueprint $table) {
             $table->uuid()->primary();
-            $table->string('poster');
+            $table->string('poster')->nullable();
             $table->year('year');
             $table->timestamps();
         });

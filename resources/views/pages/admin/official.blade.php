@@ -23,8 +23,7 @@
                     <table class="table table-hover table-bordered my-0">
                         <thead>
                             <tr>
-                                <th class="bg-primary text-white" style="width : 120px !important">Tahun</th>
-                                <th class="bg-primary text-white d-none d-md-table-cell">Poster</th>
+                                <th class="bg-primary text-white">Tahun</th>
                                 <th class="bg-primary text-white" style="width : 200px !important">Aksi</th>
                             </tr>
                         </thead>
@@ -41,10 +40,6 @@
                                 @foreach ($officials as $official)
                                     <tr>
                                         <td class="">{{ $official->year }}</td>
-                                        <td class="text-center d-none d-md-table-cell">
-                                            <img src="{{ $official->poster }}" class="img-thumbnail"
-                                                style="width: 300px" alt="{{ $official->name }}">
-                                        </td>
                                         <td>
                                             <div class="d-flex justify-content-evenly">
                                                 {{-- Official Division Button --}}
@@ -128,9 +123,9 @@
                             <div class="mb-3">
                                 <label for="poster" class="form-label">Poster</label>
                                 <input type="file"
-                                    class="filepond form-control  @error('poster') is-invalid @enderror" id="poster"
-                                    name="poster" accept="image/*">
-                                @error('poster')
+                                    class="filepond form-control  @error('posters.*') is-invalid @enderror"
+                                    id="poster" name="posters[]" accept="image/*">
+                                @error('posters.*')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -184,7 +179,25 @@
                 // Clear previous files in FilePond
                 filePond.removeFiles();
 
-                let file_path = official.poster.split('image/')[1];
+                // Pre-fill the posters with existing images
+                if (official.posters && official.posters.length > 0) {
+
+                    const posterFiles = official.posters.map(poster => {
+
+                        let image_path = poster?.url?.split('image/')[1];
+                        return {
+                            source: image_path,
+                            options: {
+                                type: 'local'
+                            }
+                        };
+                    });
+
+
+                    filePond.setOptions({
+                        files: posterFiles
+                    });
+                }
 
                 // Add the existing file using the image URL
                 filePond.setOptions({
@@ -213,7 +226,7 @@
 
                 // Initialize FilePond on the input field
                 const imageInput = document.querySelector('#poster');
-                const pond = initializeImagePond(imageInput);
+                const pond = initializeImagePond(imageInput, true, 10);
 
 
                 // Initialize Year Option

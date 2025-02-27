@@ -78,7 +78,7 @@ class OfficialSeeder extends Seeder
                 $path_name = "official";
                 $image_name = generateImage('official', $path_name);
 
-                $official_model->poster = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
+                // $official_model->poster = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
                 $official_model->year = $official['year'];
 
                 $official_model->save();
@@ -91,6 +91,11 @@ class OfficialSeeder extends Seeder
                     foreach ($positions as $position) {
                         $this->createMember($division_model, $position);
                     }
+                }
+
+                // Looping Posters
+                for ($i = 1; $i <= 2; $i++) {
+                    $this->createPosters($official_model, $i);
                 }
             }
 
@@ -114,6 +119,17 @@ class OfficialSeeder extends Seeder
             'name' => $faker->name,
             'email' => $faker->unique()->safeEmail,
             'position' => $position,
+        ]);
+    }
+    public function createPosters($official_model, $order)
+    {
+        $path_name = "gallery/official-poster";
+        $image_name = generateImage('official', $path_name);
+
+        $official_model->posters()->create([
+            "url" => config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name,
+            "order" => $order,
+            "type" => 'official-poster'
         ]);
     }
 }

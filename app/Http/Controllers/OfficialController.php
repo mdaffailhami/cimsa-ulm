@@ -31,7 +31,7 @@ class OfficialController extends Controller
             return back()->with(['error' => 'Anda tidak memiliki hak akses untuk halaman tersebut']);
         }
 
-        $officials = Official::orderBy('year', 'desc')->paginate(5);
+        $officials = Official::with('posters')->orderBy('year', 'desc')->paginate(5);
         return view('pages.admin.official', compact('officials'));
     }
 
@@ -49,7 +49,7 @@ class OfficialController extends Controller
     public function store(Request $request)
     {
         // Reject request if user doesnt have any of required permissions
-        if (!$this->auth_user->hasAnyPermission(['sudo', 'official.*', 'official.update'])) {
+        if (!$this->auth_user->hasAnyPermission(['sudo', 'official.*', 'official.store'])) {
             return back()->with(['error' => 'Anda tidak memiliki hak akses untuk melakukan aksi tersebut']);
         }
 
@@ -57,25 +57,29 @@ class OfficialController extends Controller
 
         $validated = $request->validate([
             'year' => 'required|unique:officials,year',
-            'poster' => 'required',
+            'posters.*' => 'required'
         ], [
             'year.required' => 'Tahun tidak boleh kosong.',
             'year.unique' => 'Tahun sudah digunakan.',
 
-            'poster.required' => 'Poster tidak boleh kosong.',
+            'posters.*.required' => 'Poster tidak boleh kosong.',
         ]);
 
         try {
             $official = new Official();
 
-            $path_name = "official";
-            $image_name = uploadFile($path_name, $request->poster);
+            // $path_name = "official";
+            // $image_name = uploadFile($path_name, $request->poster);
+            // $official->poster = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
 
-            $official->poster = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
             $official->year = $validated['year'];
 
             DB::commit();
             $official->save();
+
+            if ($request->posters) {
+                $official->syncPosters($request->posters);
+            }
 
             // Redirect to the last official of officials
             return redirect()->route('official.index')
@@ -117,10 +121,10 @@ class OfficialController extends Controller
         DB::beginTransaction();
 
         $validated = $request->validate([
-            'poster' => 'required',
-            'year' => 'required|unique:officials,year',
+            'year' => 'required|unique:officials,year,' . $id . ',uuid',
+            'posters.*' => 'required'
         ], [
-            'poster.required' => 'Poster tidak boleh kosong.',
+            'posters.*.required' => 'Poster tidak boleh kosong.',
 
             'year.required' => 'Tahun tidak boleh kosong.',
             'year.unique' => 'Tahun sudah digunakan.',
@@ -129,18 +133,22 @@ class OfficialController extends Controller
         try {
             $official = Official::findOrFail($id);
 
-            if ($request->poster && str_starts_with($request->poster, 'tmp/')) {
-                $date = Carbon::now();
-                $path_name = "post/{$date->year}";
-                $image_name = uploadFile($path_name, $request->cover);
+            // if ($request->poster && str_starts_with($request->poster, 'tmp/')) {
+            //     $date = Carbon::now();
+            //     $path_name = "post/{$date->year}";
+            //     $image_name = uploadFile($path_name, $request->cover);
 
-                $official->poster = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
-            }
+            //     $official->poster = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
+            // }
 
             $official->year = $validated['year'];
 
             DB::commit();
             $official->save();
+
+            if ($request->posters) {
+                $official->syncPosters($request->posters);
+            }
 
             // Redirect to the last official of officials
             return redirect()->route('official.index')
