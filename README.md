@@ -1,66 +1,69 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Dokumentasi Instalasi CMS Cimsa ULM
 
-## About Laravel
+Dokumentasi ini akan memandu Anda melalui proses instalasi project CMS Cimsa ULM pada host ataupun server.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Persyaratan Sistem
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Sebelum memulai instalasi, pastikan sistem Anda memiliki beberapa dependecies berikut:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* **PHP version >= 8.2** 
+* **Node version >= 20**
+* **Node Package Manager (NPM)**
+* **Mysql / MariaDB**
+* **Git**
 
-## Learning Laravel
+## Langkah-Langkah Instalasi
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Ikuti langkah-langkah berikut untuk menginstal proyek CMS Cimsa ULM:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. **Unduh Project :**
+   * Silahkan download project menjalankan
+```
+git clone https://github.com/mdaffailhami/cimsa-ulm.git
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. **Instal Dependensi:**
+   1. Setelah download selesai, lakukan instalasi dependesi php yang diperlukan menggunakan perintah
+   ```
+   composer install
+   ```
+   2. Setelah itu lakukan instalasi dependesi node js yang diperlukan menggunakan perintah
+   ```
+   npm install
+   ```
 
-## Laravel Sponsors
+3. **Konfigurasi Proyek**
+   1. setelah semua dependesi selesai di install, copy file `.env.example` menjadi `.env`
+   2. Sesuaikan variable `APP_MODE` menjadi `prod` jika dalam tahap production dan `dev` jika dalam tahap development
+   3. Sesuaikan variable url seperti `APP_URL` dengan ip ataupun domain project yang dijalankan sebagai berikut
+   ```
+      APP_URL=https://cimsa.ulm.ac.id
+      ASSET_URL="${APP_URL}"
+      FRONTEND_URL ="${APP_URL}"
+      BACKEND_URL ="${APP_URL}"
+   ```
+   4. Sesuaikan variable database seperti `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` dengan database yang sudah disediakan
+   ```
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=cimsa_ulm
+    DB_USERNAME=root
+    DB_PASSWORD=
+   ```
+   5. Sebelum melakukan migrasi database diharapkan untuk memberikan izin akses pada folder storage dengan melakukan perintah `chmod -R 755 storage` jika os anda berbasis linux
+   6. Lakukan perintah `php artisan migrate` untuk melakukan migrasi database
+   7. Lakukan perintah `php artisan db:seed` untuk melakukan seed data dummy ke database
+   8. Jalankan perintah `php artisan key:generate` untuk generate key laravel
+   9. Jalankan perintah `php artisan storage:link` untuk menghubungkan folder storage dengan folder publik
+   10. Jalankan perintah `npm run build`
+   10. Jika kamu menggunakan server lokal jalankan project menggunakan perintah `php artisan serve` namun jika kamu menggunakan domain pribadi, kamu dapat menyesuaikan Konfigurasi site pada web server yang kalian gunakan
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Kontak
 
-### Premium Partners
+Jika Anda memiliki pertanyaan atau umpan balik, silahkan hubungi kami di **mdaffailhami@gmail.com**.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+---
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Terima kasih telah menggunakan jasa saya!
