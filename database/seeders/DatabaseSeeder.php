@@ -23,11 +23,12 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             UserTestSeeder::class,
             ProfileSeeder::class,
+            PageSeeder::class,
+            ResetDataSeeder::class,
             OfficialSeeder::class,
             CommitteSeeder::class,
             ProgramSeeder::class,
             TrainingSeeder::class,
-            PageSeeder::class,
             SocialMediaSeeder::class,
             PostSeeder::class,
         ]);

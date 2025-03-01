@@ -16,17 +16,9 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('categories')->truncate();
-        DB::table('posts')->truncate();
-
         $categories = [
             "articles",
             "activities",
-            "lorem",
-            "ipsum",
-            "dolor",
-            "si",
-            "amet"
         ];
 
         DB::beginTransaction();
@@ -44,7 +36,7 @@ class PostSeeder extends Seeder
             }
 
             for ($i = 1; $i <= 25; $i++) {
-                $categories = Category::all()->random(rand(1, 3))->pluck('id')->toArray();
+                $categories = Category::all()->random(rand(1, 2))->pluck('id')->toArray();
 
                 $posts = Post::factory()->count(1)->categories($categories)->create();
             }

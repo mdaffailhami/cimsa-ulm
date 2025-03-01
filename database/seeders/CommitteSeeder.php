@@ -15,11 +15,6 @@ class CommitteSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('committe_activities')->truncate();
-        DB::table('committe_focuses')->truncate();
-        DB::table('committe_testimonies')->truncate();
-        DB::table('committes')->truncate();
-
         $committees = [
             [
                 "name" => "SCOME",
@@ -93,7 +88,11 @@ class CommitteSeeder extends Seeder
                 $bg_name = generateImage('image', $path_name);
 
 
-                $committe_model = new Committe();
+                $committe_model = Committe::where('name', $committe['name'])->first();
+
+                if (!$committe_model) {
+                    $committe_model = new Committe();
+                }
 
                 $committe_model->logo = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $logo_name;
                 $committe_model->background = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $logo_name;
