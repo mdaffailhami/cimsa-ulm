@@ -20,7 +20,7 @@
     <link href="/admin-dist/css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
@@ -103,6 +103,59 @@
     </main>
 
     <script src="/admin-dist/js/app.js"></script>
+
+    {{-- Alert --}}
+    @session('success')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: "Berhasil!",
+                    text: "{{ session('success') }}",
+                    icon: "success"
+                });
+            });
+        </script>
+    @endsession
+
+    @session('error')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Gagal!',
+                    text: "{{ session('error') }}",
+                    icon: 'error',
+                    confirmButtonText: 'Lanjut'
+                })
+            });
+        </script>
+    @endsession
+
+    @if ($errors->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Validasi Gagal',
+                    html: `
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    `,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        let formModal = new bootstrap.Modal(document.getElementById('formModal'));
+
+                        formModal.show();
+                    }
+                });;
+
+
+            });
+        </script>
+    @endif
 
 </body>
 
