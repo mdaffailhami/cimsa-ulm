@@ -14,8 +14,6 @@ class TrainingSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('trainings')->truncate();
-
         $trainings = [
             [
                 "name" => "CIMSA TRAINERS",
@@ -51,8 +49,12 @@ class TrainingSeeder extends Seeder
                 $path_name = "training";
                 $image_name = generateImage('image', $path_name);
 
+                $training_model = Training::where('name', $training['name'])->first();
 
-                $training_model = new Training();
+                if (!$training_model) {
+                    $training_model = new Training();
+                }
+
                 $training_model->image = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;
                 $training_model->name = $training['name'];
                 $training_model->description = $training['description'];

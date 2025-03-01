@@ -14,8 +14,6 @@ class ProgramSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('programs')->truncate();
-
         $programs = [
             [
                 "name" => "ACTIVITIES",

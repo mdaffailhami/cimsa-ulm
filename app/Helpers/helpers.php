@@ -96,6 +96,10 @@ if (! function_exists('cleanPublicStorage')) {
             $excludedDirs = [
                 storage_path('app/public\pages'),
                 storage_path('app/public\profile'),
+                storage_path('app/public\page-contact'),
+                storage_path('app/public/pages'),
+                storage_path('app/public/profile'),
+                storage_path('app/public/page-contact'),
             ];
 
             // Delete only the directories that are not in the excluded list

@@ -299,7 +299,7 @@ class PageController extends Controller
             $contact->year = $request->contact_year;
 
             if ($request->avatar && str_starts_with($request->avatar, 'tmp/')) {
-                $path_name = "avatar/page-contact";
+                $path_name = "page-contact";
                 $image_name = uploadFile($path_name, $request->avatar);
 
                 $contact->image = config('global')["backend_url"] . "/api/image/" . $path_name . "/" . $image_name;

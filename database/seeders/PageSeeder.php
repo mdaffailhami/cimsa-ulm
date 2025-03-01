@@ -556,7 +556,7 @@ class PageSeeder extends Seeder
 
     public function createPageContact($page_model, $data)
     {
-        $path_name = "avatar/page-contact";
+        $path_name = "page-contact";
         $image_name = generateImage('avatar', $path_name);
 
         $page_model->contact()->create([

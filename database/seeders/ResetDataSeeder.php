@@ -35,11 +35,7 @@ class ResetDataSeeder extends Seeder
 
         //  Delete all posts and categories related data
         DB::table('posts')->truncate();
-
-        $this->call([
-            PageSeeder::class,
-            ProfileSeeder::class,
-        ]);
+        DB::table('categories')->truncate();
 
         Schema::enableForeignKeyConstraints();
     }

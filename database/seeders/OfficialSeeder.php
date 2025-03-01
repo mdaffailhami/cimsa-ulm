@@ -15,11 +15,6 @@ class OfficialSeeder extends Seeder
      */
     public function run(): void
     {
-
-        DB::table('official_division_members')->truncate();
-        DB::table('official_divisions')->truncate();
-        DB::table('officials')->truncate();
-
         $officials = [
             [
                 'year' => '2024',
@@ -73,7 +68,11 @@ class OfficialSeeder extends Seeder
 
         try {
             foreach ($officials as $official) {
-                $official_model = new Official();
+                $official_model = Official::where('year', $official['year'])->first();
+
+                if (!$official_model) {
+                    $official_model = new Official();
+                }
 
                 $path_name = "official";
                 $image_name = generateImage('official', $path_name);
