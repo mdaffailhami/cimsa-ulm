@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CimsaProfileController;
+use App\Http\Controllers\CommandController;
 use App\Http\Controllers\CommitteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DivisionMemberController;
@@ -16,7 +17,6 @@ use App\Http\Controllers\UserController;
 use App\Models\CimsaProfile;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 // This route is used to handle the post detail page.
@@ -100,28 +100,7 @@ Route::prefix('/admin')->group(function () {
 
 // For Routing Command
 Route::prefix('/command')->group(function () {
-    Route::get('/generate-dummy', function () {
-        Artisan::call('app:generate-dummy');
-        return redirect()->back()->with('success', 'Berhasil menambahkan data dummy.');
-    });
+    Route::get('{type}', [CommandController::class, 'index']);
 
-    Route::get('/reset', function () {
-        Artisan::call('app:reset');
-        return redirect()->back()->with('success', 'Berhasil menambahkan data dummy.');
-    });
-
-    Route::get('/migrate', function () {
-        Artisan::call('migrate');
-        return redirect()->back()->with('success', 'Berhasil melakukan migrasi.');
-    });
-
-    Route::get('/migrate-fresh', function () {
-        Artisan::call('migrate:fresh');
-        return redirect()->back()->with('success', 'Berhasil melakukan migrasi.');
-    });
-
-    Route::get('/seed', function () {
-        Artisan::call('db:seed');
-        return redirect()->back()->with('success', 'Berhasil melakukan seed database.');
-    });
+    Route::post('{type}', [CommandController::class, 'action'])->name('command.action');
 });
