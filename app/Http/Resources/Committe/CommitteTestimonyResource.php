@@ -17,7 +17,8 @@ class CommitteTestimonyResource extends JsonResource
         return [
             "image" => $this->image,
             "name" => $this->name,
-            "position" => $this->position,
+            "position" => $this->occupation,
+            "batch" => $this->year,
             "description" => $this->description,
         ];
     }
