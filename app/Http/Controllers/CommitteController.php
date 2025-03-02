@@ -302,7 +302,7 @@ class CommitteController extends Controller
             'testimonies.*.name' => 'required|string|max:255',
             'testimonies.*.occupation' => 'required|string|max:255',
             'testimonies.*.year' => 'required|string|max:4',
-            'testimonies.*.description' => 'required|string|max:255',
+            'testimonies.*.description' => 'required|string',
             'testimonies.*.avatar' => 'required|string',
         ], [
             'testimonies.*.name.required' => 'Nama tidak boleh kosong.',
