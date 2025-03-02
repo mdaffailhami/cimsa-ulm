@@ -94,7 +94,9 @@ function TestimonyCard({ testimony, reverse = false, myCss = '' }) {
           data-aos-duration='1200'
           style={{ color: 'gray' }}
         >
-          {testimony.position || '-'}
+          {!testimony.position || !testimony.batch
+            ? '-'
+            : `${testimony.position} Batch ${testimony.batch}`}
         </h6>
         <p
           data-aos='fade-up'

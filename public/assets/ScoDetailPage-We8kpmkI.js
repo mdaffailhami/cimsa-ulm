@@ -1,4 +1,4 @@
-import{j as e,c as i,b as s,a,R as p,H as l,G as w,E as y,u as h,e as m,f as u,r as k,C as x,F as g,L as v,l as C}from"./index-CdoKCSUK.js";import{C as f}from"./Carousel-Bjbu7LEJ.js";import{I as $}from"./Image-Bv3cQMHz.js";import{B as S}from"./BlogSection-D0hBo0Ia.js";import{P as E}from"./PrimaryButton-aJuwTzJ4.js";import{A as c}from"./Accordion-BgT0toAS.js";import{C as I}from"./ContactCardSection-NwQS0D8g.js";import{P as j}from"./PageMeta-D59WkTr3.js";import"./ElementChildren-guNSxKSA.js";import"./Card-BrVf6z4T.js";function A({name:o,description:t,images:d}){return e(p,{as:"section","data-aos":"fade","data-aos-once":"true","data-aos-duration":"1200",xs:1,lg:2,css:i`
+import{j as e,c as i,b as s,a,R as p,H as l,G as w,E as y,u as h,e as m,f as u,r as k,C as x,F as g,L as v,l as C}from"./index-BDacah9G.js";import{C as b}from"./Carousel-DPU4Udws.js";import{I as $}from"./Image-C1IGWyv_.js";import{B as S}from"./BlogSection-J6zbLmM5.js";import{P as E}from"./PrimaryButton-BkYAsUlW.js";import{A as c}from"./Accordion-jrbE7zK-.js";import{C as I}from"./ContactCardSection-SQXea21d.js";import{P as j}from"./PageMeta-fADpcX7y.js";import"./ElementChildren-VGQ-vzbP.js";import"./Card-X6RVUTRt.js";function A({name:o,description:t,images:d}){return e(p,{as:"section","data-aos":"fade","data-aos-once":"true","data-aos-duration":"1200",xs:1,lg:2,css:i`
         display: flex;
         justify-content: center;
         padding: 2%;
@@ -10,7 +10,7 @@ import{j as e,c as i,b as s,a,R as p,H as l,G as w,E as y,u as h,e as m,f as u,r
             @media (min-width: 992px) {
               margin-top: 0;
             }
-          `,children:a("b",{children:o})}),a("hr",{style:{borderWidth:"3px",opacity:1}}),a("p",{"data-aos":"fade-up","data-aos-once":"true","data-aos-duration":"1200",style:{color:"black"},children:t})]}),a(s,{children:a(f,{"data-aos":"zoom-in","data-aos-once":"true","data-aos-duration":"1200",css:i`
+          `,children:a("b",{children:o})}),a("hr",{style:{borderWidth:"3px",opacity:1}}),a("p",{"data-aos":"fade-up","data-aos-once":"true","data-aos-duration":"1200",style:{color:"black"},children:t})]}),a(s,{children:a(b,{"data-aos":"zoom-in","data-aos-once":"true","data-aos-duration":"1200",css:i`
             overflow: hidden;
             /* width: 1000px; */
             border-radius: 20px;
@@ -19,7 +19,7 @@ import{j as e,c as i,b as s,a,R as p,H as l,G as w,E as y,u as h,e as m,f as u,r
             @media (min-width: 992px) {
               border-radius: 24px;
             }
-          `,children:d.map((r,n)=>a(f.Item,{children:a("img",{alt:`${o} image slide-${n+1}`,css:i`
+          `,children:d.map((r,n)=>a(b.Item,{children:a("img",{alt:`${o} image slide-${n+1}`,css:i`
                   width: 100%;
                   object-fit: cover;
                   height: 400px;
@@ -37,7 +37,7 @@ import{j as e,c as i,b as s,a,R as p,H as l,G as w,E as y,u as h,e as m,f as u,r
         @media (min-width: 992px) {
           gap: 0;
         }
-      `,children:[a(b,{title:"MISSION STATEMENT",children:a("p",{children:t})}),a(b,{title:"AREAS OF FOCUS",children:a("ol",{children:o.map((d,r)=>e("li",{children:[r+1,". ",d]},r))})})]})}function b({title:o,children:t}){return e(s,{children:[a("h2",{"data-aos":"zoom-in","data-aos-once":"true","data-aos-duration":"1200",className:"fw-bold text-center",children:o}),a("hr",{style:{borderWidth:"2.8px",opacity:1}}),a("div",{"data-aos":"fade-up","data-aos-once":"true","data-aos-duration":"1200",css:i`
+      `,children:[a(f,{title:"MISSION STATEMENT",children:a("p",{children:t})}),a(f,{title:"AREAS OF FOCUS",children:a("ol",{children:o.map((d,r)=>e("li",{children:[r+1,". ",d]},r))})})]})}function f({title:o,children:t}){return e(s,{children:[a("h2",{"data-aos":"zoom-in","data-aos-once":"true","data-aos-duration":"1200",className:"fw-bold text-center",children:o}),a("hr",{style:{borderWidth:"2.8px",opacity:1}}),a("div",{"data-aos":"fade-up","data-aos-once":"true","data-aos-duration":"1200",css:i`
           color: black;
           font-size: 18px;
 
@@ -52,7 +52,7 @@ import{j as e,c as i,b as s,a,R as p,H as l,G as w,E as y,u as h,e as m,f as u,r
         background: white;
         box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.4);
         border-radius: 20px;
-      `,children:[a("h2",{style:{textAlign:"center",color:"white",textShadow:`-1.5px -1.5px 0 ${t}, 1.5px -1.5px 0 ${t}, -1.5px 1.5px 0 ${t}, 1.5px 1.5px 0 ${t}`},children:a("b",{children:"TESTIMONIALS"})}),a("hr",{style:{borderWidth:"2.8px",opacity:1}}),o.map((d,r)=>a(L,{testimony:d,reverse:r%2===1,myCss:r%2===1?"":"margin-bottom: 22px;"},r))]})}function L({testimony:o,reverse:t=!1,myCss:d=""}){return e(p,{css:i`
+      `,children:[a("h2",{style:{textAlign:"center",color:"white",textShadow:`-1.5px -1.5px 0 ${t}, 1.5px -1.5px 0 ${t}, -1.5px 1.5px 0 ${t}, 1.5px 1.5px 0 ${t}`},children:a("b",{children:"TESTIMONIALS"})}),a("hr",{style:{borderWidth:"2.8px",opacity:1}}),o.map((d,r)=>a(B,{testimony:d,reverse:r%2===1,myCss:r%2===1?"":"margin-bottom: 22px;"},r))]})}function B({testimony:o,reverse:t=!1,myCss:d=""}){return e(p,{css:i`
         display: flex;
         flex-direction: ${t?"row-reverse":"row"};
         text-align: ${t?"right":"left"};
@@ -71,7 +71,7 @@ import{j as e,c as i,b as s,a,R as p,H as l,G as w,E as y,u as h,e as m,f as u,r
             @media (min-width: 992px) {
               height: 232px;
             }
-          `})}),e(s,{xs:12,sm:7,lg:9,children:[a("h3",{"data-aos":t?"fade-left":"fade-right","data-aos-once":"true","data-aos-duration":"1200",style:{marginBottom:0},children:a("b",{children:o.name||"-"})}),a("h6",{"data-aos":"zoom-in","data-aos-once":"true","data-aos-duration":"1200",style:{color:"gray"},children:o.position||"-"}),a("p",{"data-aos":"fade-up","data-aos-once":"true","data-aos-duration":"1200",style:{color:"black",textAlign:"justify"},children:a(l,{html:o.description||"-"})})]})]})}function N({name:o,color:t,activities:d}){return e("section",{"data-aos":"fade-left","data-aos-once":"true","data-aos-duration":"1200",css:i`
+          `})}),e(s,{xs:12,sm:7,lg:9,children:[a("h3",{"data-aos":t?"fade-left":"fade-right","data-aos-once":"true","data-aos-duration":"1200",style:{marginBottom:0},children:a("b",{children:o.name||"-"})}),a("h6",{"data-aos":"zoom-in","data-aos-once":"true","data-aos-duration":"1200",style:{color:"gray"},children:!o.position||!o.batch?"-":`${o.position} Batch ${o.batch}`}),a("p",{"data-aos":"fade-up","data-aos-once":"true","data-aos-duration":"1200",style:{color:"black",textAlign:"justify"},children:a(l,{html:o.description||"-"})})]})]})}function L({name:o,color:t,activities:d}){return e("section",{"data-aos":"fade-left","data-aos-once":"true","data-aos-duration":"1200",css:i`
         max-width: 962px;
         margin: 0 auto;
       `,children:[a(w,{styles:i`
@@ -142,4 +142,4 @@ import{j as e,c as i,b as s,a,R as p,H as l,G as w,E as y,u as h,e as m,f as u,r
               @media (min-width: 992px) {
                 padding: 40px 0;
               }
-            `,children:[a(A,{name:t.data.data.name,description:a(l,{html:t.data.data.long_description}),images:t.data.data.galleries.map(r=>r.url)}),a(T,{focuses:t.data.data.focuses,mission:a(l,{html:t.data.data.mission_statement})}),a(M,{testimonies:t.data.data.testimonies,color:t.data.data.color})]})]}),a("hr",{}),a("br",{}),e(x,{children:[a(S,{posts:d.data.data,header:e(g,{children:[e("h2",{className:"text-center display-6",style:{marginBottom:"18px",color:t.data.data.color,fontWeight:"bold"},children:["RECENT ",t.data.data.name," ACTIVITY"]}),a("hr",{style:{borderWidth:"3px",opacity:1,color:t.data.data.color}})]}),footer:a("div",{className:"d-flex justify-content-center",children:a(E,{color:t.data.data.color,style:{display:"block",margin:"0 auto"},to:"/blog/all/1",children:a("b",{children:"Go to CIMSA Blog"})})})}),a("br",{}),a("br",{}),a(N,{name:t.data.data.name,color:t.data.data.color,activities:t.data.data.activities})]}),a("br",{}),a("hr",{}),a(I,{period:t.data.data.contact.generation,position:t.data.data.contact.occupation,picture:t.data.data.contact.image,name:t.data.data.contact.name,email:t.data.data.contact.email,phone:t.data.data.contact.phone})]})]})}export{V as default};
+            `,children:[a(A,{name:t.data.data.name,description:a(l,{html:t.data.data.long_description}),images:t.data.data.galleries.map(r=>r.url)}),a(T,{focuses:t.data.data.focuses,mission:a(l,{html:t.data.data.mission_statement})}),a(M,{testimonies:t.data.data.testimonies,color:t.data.data.color})]})]}),a("hr",{}),a("br",{}),e(x,{children:[a(S,{posts:d.data.data,header:e(g,{children:[e("h2",{className:"text-center display-6",style:{marginBottom:"18px",color:t.data.data.color,fontWeight:"bold"},children:["RECENT ",t.data.data.name," ACTIVITY"]}),a("hr",{style:{borderWidth:"3px",opacity:1,color:t.data.data.color}})]}),footer:a("div",{className:"d-flex justify-content-center",children:a(E,{color:t.data.data.color,style:{display:"block",margin:"0 auto"},to:"/blog/all/1",children:a("b",{children:"Go to CIMSA Blog"})})})}),a("br",{}),a("br",{}),a(L,{name:t.data.data.name,color:t.data.data.color,activities:t.data.data.activities})]}),a("br",{}),a("hr",{}),a(I,{period:t.data.data.contact.generation,position:t.data.data.contact.occupation,picture:t.data.data.contact.image,name:t.data.data.contact.name,email:t.data.data.contact.email,phone:t.data.data.contact.phone})]})]})}export{V as default};
