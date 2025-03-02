@@ -77,7 +77,8 @@
                                                     {{-- Edit Button --}}
                                                     @canany(['sudo', 'user.*', 'user.edit'])
                                                         <div data-bs-toggle="tooltip" title="Ubah user">
-                                                            <button type="button" class="btn btn-warning text-dark "
+                                                            <button type="button"
+                                                                class="btn btn-warning text-dark  {{ $user->username === 'superadmin' ? 'disabled' : '' }}"
                                                                 data-bs-toggle="modal" data-bs-target="#userModal"
                                                                 data-mode="edit"
                                                                 data-action="{{ route('user.update', ['user' => $user->uuid]) }}"
@@ -90,7 +91,8 @@
                                                     <!-- Delete Button -->
                                                     @canany(['sudo', 'user.*', 'user.delete'])
                                                         <div data-bs-toggle="tooltip" title='Hapus User'>
-                                                            <button type="button" class="btn btn-danger "
+                                                            <button type="button"
+                                                                class="btn btn-danger {{ $user->username === 'superadmin' || $user->username === 'admincimsa' ? 'disabled' : '' }} "
                                                                 data-bs-toggle="modal" data-bs-target="#deleteUserModal"
                                                                 data-action="{{ route('user.destroy', ['user' => $user->uuid]) }}">
                                                                 <i class="align-middle" data-feather="trash"></i>

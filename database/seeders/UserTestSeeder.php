@@ -22,17 +22,18 @@ class UserTestSeeder extends Seeder
         ])->create();
 
         $test_admin = User::factory()->count(1)->role('administrator')->state([
-            'username' => 'admintest',
-            'full_name' => 'Administrator',
-            'visible_password' => 'admintestcimsa',
-            'password' => Hash::make('admintestcimsa')
+            'username' => 'admincimsa',
+            'full_name' => 'Administrator Cimsa',
+            'email' => 'cimsa.ulm@gmail.com',
+            'visible_password' => 'admincimsa030305',
+            'password' => Hash::make('admincimsa030305')
         ])->create();
 
-        $test_member = User::factory()->count(1)->role('member')->state([
-            'username' => 'membertest',
-            'full_name' => 'Member Test',
-            'visible_password' => 'membertestcimsa',
-            'password' => Hash::make('membertestcimsa')
-        ])->create();
+        // $test_member = User::factory()->count(1)->role('member')->state([
+        //     'username' => 'membertest',
+        //     'full_name' => 'Member Test',
+        //     'visible_password' => 'membertestcimsa',
+        //     'password' => Hash::make('membertestcimsa')
+        // ])->create();
     }
 }

@@ -23,9 +23,9 @@ class UserController extends Controller
         }
 
         $users = User::with('roles', 'permissions')
-            ->whereHas('roles', fn($q) => $q->whereNot('name',  'super-administrator'))
             ->orWhereDoesntHave('roles')
             ->orWhereDoesntHave('permissions')
+            ->whereHas('roles', fn($q) => $q->whereNot('name',  'super-administrator'))
             ->oldest();
 
         if ($request->search) {
@@ -222,7 +222,10 @@ class UserController extends Controller
             DB::commit();
 
             $perPage = 5;
-            $totalUsers = User::count();
+            $totalUsers = User::orWhereDoesntHave('roles')
+                ->orWhereDoesntHave('permissions')
+                ->whereHas('roles', fn($q) => $q->whereNot('name',  'super-administrator'))
+                ->count();
             $lastPage = ceil($totalUsers / $perPage);
 
             // Redirect to the last page of users

@@ -37,6 +37,12 @@ class ResetDataSeeder extends Seeder
         DB::table('posts')->truncate();
         DB::table('categories')->truncate();
 
+        DB::table('users')->truncate();
+
         Schema::enableForeignKeyConstraints();
+
+        $this->call([
+            UserTestSeeder::class
+        ]);
     }
 }
