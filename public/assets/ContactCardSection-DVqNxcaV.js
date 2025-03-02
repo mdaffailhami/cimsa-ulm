@@ -1,4 +1,4 @@
-import{j as e,a as i,c as t,g as s,R as m,b as r}from"./index-B3h34kAm.js";import{C as l}from"./Card-D1SI2xDz.js";function g({period:a,position:d,picture:c,name:n,email:p,phone:x,header:o=null}){return e("div",{style:{background:"#2d2d2d"},children:[(()=>{if(o)return o})(),i("div",{"data-aos":"flip-down","data-aos-duration":"1200","data-aos-once":"true",children:i("div",{style:{display:"flex",justifyContent:"center",paddingTop:"18px",paddingBottom:"18px"},css:t`
+import{j as e,a as i,c as t,g as s,R as m,b as r}from"./index-CYOINDUC.js";import{C as l}from"./Card-q-zL4AqX.js";function g({period:a,position:d,picture:c,name:n,email:p,phone:x,header:o=null}){return e("div",{style:{background:"#2d2d2d"},children:[(()=>{if(o)return o})(),i("div",{"data-aos":"flip-down","data-aos-duration":"1200","data-aos-once":"true",children:i("div",{style:{display:"flex",justifyContent:"center",paddingTop:"18px",paddingBottom:"18px"},css:t`
             ${s(1.04)}
             @media (min-width: 768px) {
               ${s(1.06)}

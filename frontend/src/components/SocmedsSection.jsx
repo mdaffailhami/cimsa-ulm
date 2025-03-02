@@ -54,6 +54,7 @@ export default function SocmedsSection() {
     youtube: cimsa.socmeds.find((x) => x.platform == 'youtube'),
     tiktok: cimsa.socmeds.find((x) => x.platform == 'tiktok'),
   };
+
   return (
     <>
       <h1
@@ -111,7 +112,7 @@ export default function SocmedsSection() {
                 {socmeds.threads && (
                   <SocmedButton
                     iconClass='fa-brands fa-threads'
-                    url={socmeds.x.url}
+                    url={socmeds.threads.url}
                   />
                 )}
                 {socmeds.youtube && (
@@ -123,7 +124,7 @@ export default function SocmedsSection() {
                 {socmeds.tiktok && (
                   <SocmedButton
                     iconClass='fa-brands fa-tiktok'
-                    url={socmeds.youtube.url}
+                    url={socmeds.tiktok.url}
                   />
                 )}
               </Row>
