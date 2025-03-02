@@ -59,10 +59,6 @@ export default function UpcomingActivitiesSection({ name, color, activities }) {
             </Accordion.Body>
           </Accordion.Item>
         ))}
-        <Accordion.Item eventKey='0'>
-          <Accordion.Header>Accordion Item #1</Accordion.Header>
-          <Accordion.Body></Accordion.Body>
-        </Accordion.Item>
       </Accordion>
     </section>
   );
