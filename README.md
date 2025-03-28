@@ -10,8 +10,7 @@ This is the official **Organizational Profile Website** for **CIMSA ULM (Univers
 
 ## 🛠️ Technologies Used
 - **React** - For building the frontend
-- **Bootstrap** - For styling
-- **Laravel** - For backend development
+- **Laravel** - For building the backend
 - **MySQL** - For database management
 - _etc.._
 
